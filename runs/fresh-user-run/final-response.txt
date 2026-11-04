@@ -1,0 +1,25 @@
+Completed all six decisions, six controls, six engineering tickets, and five conditional drafts.
+
+| Operation | c3-bhge | sai-esds |
+|---|---|---|
+| customer-controlled-inference | unresolved | needs_consent |
+| provider-support-inference | unresolved | needs_consent |
+| provider-shared-training | needs_consent | off |
+
+The strongest design keeps content inference under customer control. SAI’s existing resale grant supports a distinct End Customer route, subject to unresolved prerequisites. Provider support can use non-content telemetry and provider-owned materials. Qualifying feedback and licensed technology remain separate improvement routes.
+
+Missing subscriptions, executed orders, replacement exhibits, current rights, site elections, and service-state evidence prevent eligibility. All six proposed controls remain false.
+
+Validation verified **67 exact quotations**. Compilation passed **18 OpenFeature SDK evaluations**. Direct verification confirmed that SQLite contains the exact authored decisions and export. Another six real-export evaluations and 181 isolated synthetic tests passed. The OPA policy was generated but lacked an available runtime test.
+
+Files:
+
+- [Complete assessment JSON](model-decisions.json)
+- [Decisions and engineering tickets](DECISIONS.md)
+- [OpenFeature export](openfeature-rules.json)
+- [OPA policy](feature-policy.rego)
+- [Receiver verification](receiving-verification.json)
+- [SQLite receiver](local-results.sqlite3)
+- [Receiver readback](model-receiving-readback.json)
+
+These are hypothetical public-source assessments. No account, live feature, publication, or external recipient changed.

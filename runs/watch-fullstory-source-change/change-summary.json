@@ -1,0 +1,307 @@
+{
+  "before_bundle_sha256": "fc472fbdfa4999e379889153c9636fd6538931c8a16bdd5edbc3dbe307bce9e8",
+  "after_bundle_sha256": "75c275546ec8401d62cf450ed81fefb99f1384965892ac6a34e0b153a77e5ad8",
+  "input_changes": [
+    {
+      "id": "R1",
+      "kind": "shared_reference_source",
+      "change": "content_changed",
+      "relative_source": "fullstory/subprocessor-list.html",
+      "before_document_id": "historical-reference:fullstory:subprocessor-list.html",
+      "after_document_id": "reference:fullstory:subprocessor-list.html",
+      "before_original_sha256": "ca7f1c5a775e5acfeb6268b8befccd0cc4056f84d538eea0d1a5bdc1c00371cf",
+      "after_original_sha256": "48e2e7c255c575afcfdf2538fe4dd04b7303c311e188d66734896ff3973576b5",
+      "before_provenance": {
+        "file": "subprocessor-list.html",
+        "source_class": "captured_public_supplier_disclosure",
+        "url": "https://www.fullstory.com/legal/subprocessor-list/",
+        "original_sha256": "ca7f1c5a775e5acfeb6268b8befccd0cc4056f84d538eea0d1a5bdc1c00371cf",
+        "original_observation_time": "2026-06-14T16:59:55+00:00",
+        "original_clock_type": "archive_capture",
+        "source_role": "historical_reference",
+        "scope": "Complete observed supplier disclosure. Infer applicability from the actual contract set and feature facts. A capture clock is not a publication or engagement clock.",
+        "retrieved_at_utc": "2026-11-04T14:30:36.593377+00:00"
+      },
+      "after_provenance": {
+        "file": "subprocessor-list.html",
+        "source_class": "captured_public_supplier_disclosure",
+        "url": "https://www.fullstory.com/legal/subprocessor-list/",
+        "original_sha256": "48e2e7c255c575afcfdf2538fe4dd04b7303c311e188d66734896ff3973576b5",
+        "original_observation_time": "2026-10-31T18:44:38.077867Z",
+        "original_clock_type": "source_acquisition",
+        "source_role": "shared_reference",
+        "scope": "Complete observed supplier disclosure. Infer applicability from the actual contract set and feature facts. A capture clock is not a publication or engagement clock."
+      },
+      "complete_observed_text_diff": "--- before/fullstory/subprocessor-list.html\n\n+++ after/fullstory/subprocessor-list.html\n\n@@ -1,29 +1,35 @@\n\n Fullstory Sub-processor List\n-Product\n+Platform\n+Platform Overview\n+Capture, understand, and act on behavioral data.\n+Watch a 4-minute product tour\n+An on-demand walkthrough of Fullstory.\n Analytics\n Customer Behavior\n Product Analytics\n-Mobile App Analytics\n+Mobile Analytics\n+Guides and Surveys\n+Heatmaps\n Session Replay\n-Guides and Surveys\n-Watch a product tour ↗\n+Anywhere\n+Data Activation\n+Real-Time Personalization\n+Tech Stack Enrichment\n+StoryAI\n+Intelligence\n+StoryAI Agents\n+Ask StoryAI\n+Fullstory MCP\n Workforce\n Employee Experience\n-Workflow Efficiency\n+Workflow Intelligence\n Support Acceleration\n-Watch a product tour ↗\n-Anywhere\n-Data Ecosystem\n-Tech Stack Enrichment\n-Real-Time Personalization\n-Platform Overview\n-Each product delivers. Together, they transform.\n-Meet StoryAI\n-Our AI agents powering it all.\n Solutions\n+Solutions Catalog\n+Explore tailored resources for every industry and team\n By Industry\n Retail & Ecommerce\n Food & Beverage\n Travel & Hospitality\n Finance & Insurance\n Gaming\n@@ -31,16 +37,16 @@\n\n By Team\n Product & Engineering\n Data\n Customer Support\n IT & Internal Support\n Marketing\n-Solutions Catalog\n-Explore tailored resources for every industry and team\n Plans & Pricing\n Resources\n+Digital Benchmark Report 2026\n+See what it means for next year.\n Resources\n All Resources\n Blog\n Customer Stories\n Help Center\n Learning Courses\n@@ -49,15 +55,13 @@\n\n About Us\n News\n Events\n Privacy & Security\n Careers\n Partners\n-Experience the Benchmark Report\n-Our immersive benchmark experience built from 14B sessions.\n-Product\n+Platform\n Solutions\n Plans & Pricing\n Resources\n Log in\n Back\n Get a demo\n@@ -72,12 +76,13 @@\n\n Description of Services for Onboarding Service Providers\n Fullstory Sub-processor List\n FullstoryFree Terms of Use\n International Data Transfers FAQ\n Managed Service Provider Addendum\n Master Partner Program Agreement\n+Modern Slavery Statement\n Partner Program Addenda\n Pass-Through Terms for Customers of Resellers\n Privacy Notice for Californians\n Privacy Policy\n Reseller Addendum\n Security Addendum\n@@ -90,13 +95,13 @@\n\n Fullstory’s commitments to Customers for the Processing of Personal Data may be found in the applicable Data Processing Addendum.\n ENTITY NAME\n PURPOSE OF PROCESSING\n PROCESSED DATA\n LOCATION\n Google LLC\n-Data storage and processing, security monitoring\n+Data storage and processing, security monitoring, and AI model inference for in-product AI features\n Customer data and Customer’s end-users’ data\n United States; Germany\n Fastly, Inc. (Signal Sciences Corporation)\n Real-time threat detection and prevention; web application Firewall\n Customer data and Customer’s end-users’ data\n United States\n@@ -167,15 +172,17 @@\n\n Deep Dives\n User Community\n Compare Fullstory\n Agent Experience Index\n MCP Prompt Library\n Digital Benchmark Report\n+#Bash_\n COMPANY\n About\n Careers\n Events\n News\n Partner Program\n Privacy & Security\n+Modern Slavery Statement\n Legal Center\n Do Not Sell or Share My Personal Information|Terms|Privacy Policy|Cookie Policy|Cookie Settings© 2026 Fullstory, Inc|Atlanta ◆ London ◆ Sydney ◆ Singapore"
+    }
+  ],
+  "status_changes": [],
+  "model_revision_impacts": [
+    {
+      "id": "REV1",
+      "change_id": "R1",
+      "source_effect": "The complete current Fullstory capture adds Google LLC AI model inference for in-product AI features to storage, processing and security monitoring. The historical row lacks that express purpose. The Google data categories and United States/Germany locations remain unchanged. Both complete captures display June 2, 2026, so the printed date does not establish content stability. The historical archive observation is June 14, 2026. The current acquisition observation is October 31, 2026. Those clocks bound supplied observations, not publication, effective permission, first inference use or engagement dates. OpenAI remains optional and its generative-AI purpose is unchanged. Anthropic's service-delivery purpose is unchanged. Navigation, promotional, legal-link and footer differences create no additional data-use grant. This is a change in public supplier disclosure only. It neither grants customer-content training rights nor amends either supplied customer agreement.",
+      "engagement_state": "not_established",
+      "affected_operation_ids": [
+        "customer-controlled-inference",
+        "provider-support-inference",
+        "provider-shared-training"
+      ],
+      "customer_status_effect": "All three operations require impact review, but no actual Google data path is established for any operation. C3 customer inference and support remain unresolved. C3 raw-content shared training remains needs_consent. SAI direct internal inference and provider content support remain needs_consent. SAI raw-content shared training remains off. All six controls remain false. The customer sources and original feature facts still determine those results. The feature specifies open-weight customer/provider models in Australia, no separate model recipient and no external content transfer. A Fullstory disclosure cannot silently replace those facts with Google inference or establish a relationship with either customer set. No source-triggered customer notice, consent countdown or current-contract clearance follows from this shared reference alone.",
+      "engineering_action": "ENG7 adds source-comparison.json and executable local revision tests. Compare complete versions and structured supplier rows independently from displayed dates. Preserve hashes, observation clocks, the exact Google purpose delta and unchanged fields. Separate navigation noise from substantive purpose change. Record actual engagement as not_established. Preserve every original operation fact and the two-customer population. For a later supplier-enabled design, require its actual contract/DPA, configuration and observed payload path before a new scoped assessment. Check C3 purpose and recipient rights plus SAI content, Personal Data and exact-site restrictions. Do not infer Australian compliance from US/Germany. Keep inference and shared training distinct. Add isolated SDK tests that reject recipient and purpose mismatches. Execute normal validation, compilation and SQLite readback, then watch finalize and revision readback. Verify the stored event contains this exact impact and all seven engineering outputs while status_changes remains empty.",
+      "evidence_ids": [
+        "E2",
+        "E3",
+        "E8",
+        "E10",
+        "E11",
+        "E21",
+        "E22",
+        "E27",
+        "E28",
+        "E30",
+        "E31",
+        "E33",
+        "E34",
+        "E37",
+        "E40",
+        "E44",
+        "E45",
+        "E48",
+        "E49",
+        "E50",
+        "E68",
+        "E69",
+        "E70",
+        "E71",
+        "E72"
+      ],
+      "unknown_ids": [
+        "U13",
+        "U14"
+      ]
+    }
+  ],
+  "current_engineering_outputs": [
+    {
+      "id": "ENG1",
+      "title": "Implement customer-controlled content diagnosis with a distinct provider metadata route",
+      "body": "Evidence E1–E3, E26, E37, E39 and E61–E63 supports separate control and content responsibilities. Place retrieval, document parsing and the open-weight runtime inside the customer tenant. Attach source ACLs to chunks, retrieval and answers. Keep customer keys and runtime plaintext outside provider administrative access. At-rest encryption alone cannot prove that boundary during inference. Exclude payloads from consoles, OOB recordings, dumps, traces, support bundles and snapshots. Emit only explicitly classified infrastructure facts to the provider. The provider copilot uses its own manuals and those facts. It returns diagnostic steps that the customer administrator executes inside the content boundary. For C3, bind the actual subscription and support scope. For SAI, use the verified End Customer resale route or an effective direct-use variation. A narrower reseller-administration design needs its own evidenced resale purpose. Resolve model licences, integration terms and the elected site before deployment. This local packet contains the design and tests. It does not establish an implemented production runtime.",
+      "acceptance_criteria": "Use two synthetic documents with distinct ACLs and unique markers. The authorised user receives a source-bound answer. The other user receives no protected answer. Provider identities cannot recover markers from memory, storage, OOB, logs, caches, dumps or backups. A content marker in a telemetry field causes rejection. Network observation shows no separate model recipient. Compute and every replica resolve to the actual elected site. Missing subscription, integration, resale or commissioning evidence leaves the exact customer rule false. Obtain required prior consent before any actual platform security test.",
+      "decision_ids": [
+        "D1",
+        "D2",
+        "D4",
+        "D5"
+      ]
+    },
+    {
+      "id": "ENG2",
+      "title": "Make metadata support useful without workload reconstruction",
+      "body": "Evidence E27, E36–E40, E45, E52, E55 and E62–E63 separates hardware support from content interpretation. Define event schemas for provider-generated error codes, fault counters and capacity signals. Require producer identity, schema version, source purpose and data classification. Reject unknown producers, arbitrary log bodies, command output, memory dumps and mixed records. Reject customer snippets, prompt fields and filenames with content. Check confidentiality and Personal Data separately. Exclusion from Customer Data does not erase either duty. Return a provider-runbook reference, fault classification and a customer-executable diagnostic step. The customer retains any content-rich result. Do not treat a redacted workload as non-content without an actual content and reconstruction test. This alternative does not activate D2 or D5, which specifically require provider access to customer content.",
+      "acceptance_criteria": "A hardware ECC counter returns the matching runbook and diagnostic action. A customer-uploaded log fails the producer check. A provider event with an embedded prompt fails the content check. An altered telemetry label changes no result. A sequence of allowed signals must not reconstruct a workload secret. A Personal Data identifier fails the separate exposure check. The exact zero-retention content-support context still evaluates false for both customer pairs.",
+      "decision_ids": [
+        "D2",
+        "D5",
+        "D6"
+      ]
+    },
+    {
+      "id": "ENG3",
+      "title": "Implement contribution-specific improvement datasets without raw-content laundering",
+      "body": "Evidence E8, E10, E12, E22, E27, E37 and E43–E46 supports several distinct improvement routes. Maintain separate classes for independent provider/public materials, non-content operational analytics, qualifying feedback and customer content. For C3 technology, require BH ownership, express identification and the actual 8.4 purpose. For C3 Feedback, establish an actual qualifying contribution. Do not rely on superseded Exhibit E generalization language. For SAI feedback, preserve the actual suggestion and exclude customer Background IPR. Separate abstract bug suggestions from attached workload examples. Classify each attachment independently. Apply 15.5 only to actually incorporated Background IPR. Preserve confidential-information and Personal Data duties outside any genuine override. Record dataset lineage and the retention rules for examples, derived datasets and checkpoints. An independent synthetic corpus must not derive from protected customer examples. Keep the two exact raw-content training controls false. Reassess any changed dataset and model purpose separately.",
+      "acceptance_criteria": "A genuine abstract suggestion enters only its proven contribution class. A private trace attached to that suggestion remains outside the feedback class. A C3 technology record without ownership or express identification fails. A SAI record with customer Background IPR fails the 15.4 override test. A checkpoint without complete dataset lineage cannot enter the shared-model registry. Rewritten customer text cannot enter the independent synthetic class. Qualifying feedback is not rejected merely because the raw-content operation is off.",
+      "decision_ids": [
+        "D3",
+        "D6"
+      ]
+    },
+    {
+      "id": "ENG4",
+      "title": "Resolve contract scope with clause-specific hierarchy and actual service-state evidence",
+      "body": "Evidence E2–E4, E13, E15–E23, E24, E28–E35, E37, E42, E49, E58–E65 and E75–E77 governs the source resolution. Bind each decision to the actual licensee, actor, data, purpose, model role and current subscription or order. Apply each C3 amendment only to its expressed replacements. Keep missing restated E and F absent. The JV body outranks its exhibits under 13.18. The 8.4 contribution licence and 9.4 retention exception remain scoped. A JV termination date does not determine independent subscription rights. Within SAI, 2.4 ranks expressly identified Special Conditions, then MSA, then ordinary order terms at actual inconsistencies. Preserve its express-otherwise proviso. Section 8.2 overrides contrary agreement or order terms for Customer Data content. A generic Special Condition cannot silently defeat that proviso. Require an effective express signed variation for the selected content-access route. The JSON precedence array has no valid same-document edge. Preserve SAI's internal hierarchy here, in D5 and in U11 with E30/E37 evidence. Reconcile 2.7, 23.7 and 23.9 if a third-party design is later proposed. None overrides purpose, content, confidentiality or residency. Distinguish the signed MSA text from the blank included order. Resolve site election, commissioning, payment confirmation and actual suspension state. Do not use generic deliverable deemed acceptance to infer computing commencement.",
+      "acceptance_criteria": "The First Amendment's April 30, 2022 term yields to the Second Amendment's expressly replaced April 30, 2024 term. Neither proves current renewal or independent subscription expiry. Original Exhibit E stays superseded despite an absent replacement. An ordinary order and a generic Special Condition both fail an attempted 8.2 content override. An effective express signed variation prompts a new scoped assessment. Blank signatures, a planned start date, elapsed time, generic deemed acceptance and an Australia label without a site cannot satisfy service readiness.",
+      "decision_ids": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6"
+      ]
+    },
+    {
+      "id": "ENG5",
+      "title": "Compile the exact local rules and verify the real OpenFeature and SQLite consumers",
+      "body": "Use the supplied tools unchanged. Export one decision and one control per customer-operation pair. Preserve every original operation fact, including actor, access, model, training, retention and Australia. No supplier update rewrites those facts. Keep all six eligibility values false. Exact matching facts describe this hypothetical proposal, not proved production facts. Execute validate, compile and readback. Compare the authored bundle and compiled export directly with the SQLite row and tool readback. Exercise the real OpenFeature SDK with complete contexts, unknown customers and missing facts. Add isolated positive and negative synthetic rule tests. Do not place a synthetic eligible rule in the customer export or receiver. Generate OPA artifacts through the supplied compiler. Claim OPA execution only if an actual OPA runtime evaluates the policy.",
+      "acceptance_criteria": "Exact quotation checks pass for every evidence entry. All six complete contexts evaluate false in the real SDK. The compiler's 18 evaluations match the proposed controls. SQLite holds the exact authored bundle and exact export at the canonical bundle hash. An isolated synthetic eligible rule accepts complete typed facts. It rejects missing facts, wrong purpose, recipient changes and numeric substitutes for booleans. The customer export remains identical after synthetic tests. No live feature or customer account changes.",
+      "decision_ids": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6"
+      ]
+    },
+    {
+      "id": "ENG6",
+      "title": "Retain complete-set coverage, strong counter-readings and source limits",
+      "body": "C3 base agreement: platform, distribution, noncompetition and preferred-platform clauses establish actors and scope, not a universal data licence. Sections 8 and 9 preserve ownership, qualifying contributions, use limits, recipient designations, return and survival. The internal MSSA and downstream subscriptions remain independent sources. The first amendment changes named periods, calculations and roadmap sections. The second replaces the term and entire B-1, E and F. Revenue tables and redacted commercial conditions create no inferred data grant. The original roadmap generalization clauses are a strong counter-reading, but they are both weaker than a blanket training licence and superseded. C3 feature evolution preserves functionality constraints and a quarterly information duty if an applicable real offering changes. This hypothetical assessment triggers no launch notice. Privacy and compliance clauses retain their stated scopes. Do not infer statutory applicability, critical-use suitability or missing contractual authority from them. SAI: preserve definitions, resale scope, monitoring proviso, keys, residency, Personal Data roles, IP, feedback, confidentiality, AUP and actual service readiness. Section 15.4 is the strongest specific improvement override. Its qualifying feedback and Background IPR boundary must survive the raw-workload refusal. Section 15.5 requires actual incorporation. Open-source rights concern the component, not service purpose or customer data. The broad Foreground IPR definition does not eliminate 15.2's application-layer exclusion or establish access authority. AUP compliance investigations, compelled disclosure and audit have distinct scopes. Audit expressly excludes Customer Data. AUP changes, SLA changes and infrastructure maintenance have their own notice mechanisms. None is a generic AI launch-notice route. Backup security language creates no dedicated customer-backup service or permission for out-of-site copies. The included order supplies hardware-only support, customer-managed application/storage responsibilities, integration conditions and shared OOB risk. Security, KYC, financing, pledge, tax, termination, indemnity, insurance and dispute terms remain relevant to their subjects. They do not grant a new AI content purpose or prove payment, signatures, commissioning, current contract status or supplier engagement. Redacted financial and account fields remain redacted. The separate pledge purpose creates no feature data-access right. Fullstory is shared source context, not a third customer or an incorporated amendment. Its historical version proves only its captured disclosure. Exact quote verification proves provenance. It cannot prove legal correctness or current customer clearance.",
+      "acceptance_criteria": "Evidence spans all four customer documents and both Fullstory captures. Each material decision and cross-document precedence edge cites actual source evidence. The packet names the absent operative sources and the strongest useful alternative. It contains no fabricated supplier relationship, launch notice or current deployment claim. A reviewer can distinguish contractual permission, disclosure scope, actual engagement and actual feature data flow.",
+      "decision_ids": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6"
+      ]
+    },
+    {
+      "id": "ENG7",
+      "title": "Track the added Google inference purpose without changing feature facts or inventing engagement",
+      "body": "Evidence E68/E69 shows one material supplier-row change. Google gains 'AI model inference for in-product AI features' beside its existing purposes. Customer/end-user data and United States/Germany remain unchanged. Both captures print June 2, 2026. E70/E71 shows unchanged optional OpenAI and Anthropic rows. Create source-comparison.json from both complete texts. Preserve original hashes, text hashes, observation clocks, row values, displayed dates and all text differences. Classify navigation, promotional and footer changes separately from the Google purpose addition. Do not equate a changed disclosure with a new engagement. Use content hashes and row-level semantic comparison rather than the printed date as the revision key. The historical capture lacks an explicit Google inference purpose. That absence does not prove Google never performed inference before. Neither capture supplies the feature, model, retention, regional deployment or customer-specific agreement. Record engagement as not_established for both customer sets. Preserve all three operations' no-separate-model-provider facts. For a future actual Fullstory route, bind the engagement and configuration to its contract/DPA and observed payload path before reassessment. Check C3 permitted purpose/recipients and SAI content, Personal Data and exact-site limits. US/Germany disclosure cannot establish Australian site compliance. An inference-purpose disclosure grants no shared training right. Create no notice, consent countdown or account mutation from this reference change alone. Run watch finalize and readback after the normal tools. Compare the stored revision impact and engineering action exactly with the authored packet.",
+      "acceptance_criteria": "The before row lacks the added phrase. The after row contains it. Displayed dates and all Google fields except purpose compare equal. All seven supplier rows are compared. Optional OpenAI and Anthropic compare equal. Navigation-only changes do not produce a purpose change. The complete unified text diff matches R1. Original byte hashes and text hashes differ even though the printed date matches. Both customer sets remain not_established for actual engagement. No source-only change alters an operation fact or creates another customer. All six statuses remain unchanged. The revision SQLite event equals change-summary.json, including REV1, all engineering outputs and the current feature hash.",
+      "decision_ids": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6"
+      ]
+    }
+  ],
+  "current_conditional_drafts": [
+    {
+      "type": "information_request",
+      "customer_id": "c3-bhge",
+      "reason": "The JV identifies separate subscriptions and missing replaced exhibits. These actual sources can resolve U1–U4.",
+      "draft": "Conditional local request for the actual contract owner: Please provide the executed internal or downstream subscription, applicable order, SOW and later amendments. Include actual renewal or termination records and restated Exhibits E and F. Identify the licensee, authorised users, support scope and Sensitive Information audience. For any 8.4 route, provide ownership, express contribution identification or actual Feedback evidence and the permitted purpose. Keep unnecessary personal and financial values redacted. This request has no recipient or dispatch date until the applicable records identify them.",
+      "unknown_fields": [
+        "actual recipient",
+        "operative licensee and agreement route",
+        "applicable orders and signed changes",
+        "current rights",
+        "restated exhibits and material redactions"
+      ],
+      "evidence_ids": [
+        "E2",
+        "E3",
+        "E7",
+        "E8",
+        "E11",
+        "E13",
+        "E21",
+        "E22"
+      ]
+    },
+    {
+      "type": "consent",
+      "customer_id": "c3-bhge",
+      "reason": "Arbitrary confidential-workload shared training lacks a demonstrated purpose-specific grant. Existing 8.4 contributions require a separate scoped analysis.",
+      "draft": "Conditional grant terms for the actual rights holders and contracting parties: C3 may use only the scheduled dataset for the identified shared support model. The executed schedule must identify data rights, purpose, permitted recipients and cross-customer beneficiaries. Raw examples may remain for 30 days. Indefinite model retention requires an express term for learned confidential information, return, deletion and cessation of use. No downstream rights or Sensitive Information permissions arise by implication. Existing terms continue outside this exact scope. No grant takes effect without the required signed instrument and actual rights-holder authority.",
+      "unknown_fields": [
+        "actual parties and rights holders",
+        "dataset and exclusions",
+        "model identity and permitted use",
+        "recipients",
+        "effective date",
+        "model retention and deletion terms",
+        "required signatures"
+      ],
+      "evidence_ids": [
+        "E8",
+        "E9",
+        "E10",
+        "E11",
+        "E12",
+        "E15"
+      ]
+    },
+    {
+      "type": "information_request",
+      "customer_id": "sai-esds",
+      "reason": "The actual order, site, service state, use route and integration conditions remain unproved.",
+      "draft": "Conditional local request for the actual contract owner: Please provide the mutually executed applicable Service Order and all incorporated terms and signed changes. Identify the actual Customer, Parent and End Customer roles. Include the site election, mutual Commissioning Certificate and nonsecret confirmations that establish current service availability. Provide the customer-tool integration conditions, model licence and actual data-rights record. Identify any effective signed variation of the resale-only purpose or provider content-access restriction. Do not include credentials or full financial values.",
+      "unknown_fields": [
+        "actual recipient",
+        "executed order and incorporated terms",
+        "parties and use route",
+        "Data Centre site",
+        "service state",
+        "integration conditions",
+        "effective signed variations"
+      ],
+      "evidence_ids": [
+        "E24",
+        "E28",
+        "E29",
+        "E30",
+        "E33",
+        "E34",
+        "E35",
+        "E37",
+        "E42",
+        "E49",
+        "E58",
+        "E59",
+        "E61",
+        "E64",
+        "E76"
+      ]
+    },
+    {
+      "type": "consent",
+      "customer_id": "sai-esds",
+      "reason": "The unqualified contracting-customer internal purpose needs an effective signed scope variation. An actual End Customer resale route remains distinct.",
+      "draft": "Conditional variation terms for the actual contracting parties: The identified Customer may use the scheduled capacity for its own internal Tenant Operations Copilot questions. This varies clauses 4.3 and 4.8(a) only for the stated purpose and users. The Customer controls the model, content and keys. SAI receives no content-access, prompt-retention or training right through this variation. The applicable order must identify the permitted site and integration conditions. All other data-rights, confidentiality, usage and residency requirements continue. The variation takes effect only through the required signed written instrument.",
+      "unknown_fields": [
+        "applicable order and capacity",
+        "Customer and authorised users",
+        "effective date",
+        "elected site",
+        "integration scope",
+        "required parties and signatures"
+      ],
+      "evidence_ids": [
+        "E24",
+        "E30",
+        "E33",
+        "E34",
+        "E37",
+        "E49",
+        "E61"
+      ]
+    },
+    {
+      "type": "consent",
+      "customer_id": "sai-esds",
+      "reason": "Provider support inference requires an effective express signed variation of 8.2. A notice or generic Special Condition priority claim is insufficient.",
+      "draft": "Conditional variation terms for the actual contracting parties: For the scheduled data and support sessions only, the parties expressly vary clause 8.2's content prohibition. SAI may use the identified tenant-isolated model only to answer that same customer's support question. The variation must expressly reconcile clause 11.3 and the applicable confidentiality terms. No separate model provider receives content. SAI retains no prompts or outputs after the session and receives no training right. The schedule must identify the permitted site, recipients and actual data rights. Customer Personal Data remains excluded unless a separate effective signed role arrangement and actual authority cover it. All other terms remain effective. This proposal creates no permission before the required signatures and scope resolution.",
+      "unknown_fields": [
+        "applicable order",
+        "actual dataset and rights holders",
+        "model identity and recipients",
+        "Data Centre site",
+        "effective date",
+        "Personal Data exclusion or separate role arrangement",
+        "required parties and signatures"
+      ],
+      "evidence_ids": [
+        "E27",
+        "E28",
+        "E30",
+        "E36",
+        "E37",
+        "E39",
+        "E40",
+        "E45",
+        "E49"
+      ]
+    }
+  ],
+  "feature_facts_sha256": "1b2563b688fa5c9f6220e199a867bc629b224a0da18621b205de7745c617bdd1",
+  "event_sha256": "f7dfe7ccdd7890d3533c533d8efe7cf8a568b122b2501a622d72a20f6d126260"
+}

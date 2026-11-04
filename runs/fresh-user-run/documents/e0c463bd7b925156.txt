@@ -1,0 +1,77 @@
+EX-10.12
+14
+exhibit1012-sx1.htm
+EX-10.12
+Document
+Exhibit 10.12
+CERTAIN IDENTIFIED INFORMATION HAS BEEN EXCLUDED FROM THIS EXHIBIT BECAUSE IT IS NOT MATERIAL AND WOULD LIKELY CAUSE COMPETITIVE HARM TO THE REGISTRANT IF PUBLICLY DISCLOSED. [***] INDICATES THAT INFORMATION HAS BEEN REDACTED.
+SECOND AMENDMENT
+TO
+JOINT VENTURE AGREEMENT
+THIS SECOND AMENDMENT TO JOINT VENTURE AGREEMENT (this “Second Amendment”) is made and entered into by and between Baker Hughes Holdings LLC, f/k/a Baker Hughes, a GE company, LLC (“BH”) and C3.ai, Inc., f/k/a C3 IoT, Inc. (“C3.ai”) for the purposes of amending that certain Joint Venture Agreement between BH and C3.ai, effective June 6, 2019 (the “JV Agreement”), as previously amended by the First Amendment to Joint Venture Agreement, last dated September 26, 2019 (the “First Amendment”). BH and C3.ai may be collectively referred to herein as the “Parties.”
+With respect to the JV Agreement, BH and C3.ai hereby agree to the following:
+1.Throughout the JV Agreement the nomination “BHGE” is deleted and replaced with the nomination “BH”.
+2.Section 1.1 of the JV Agreement, entitled “Definitions,” is hereby amended to include the following additional definitions:
+1.68“Year 4” shall mean the period starting May 1, 2022 and ending on April 30, 2023.
+1.69“Year 5” shall mean the period starting May 1, 2023 and ending on April 30, 2024.
+3.Section 5.l(b) of the JV Agreement is hereby deleted and replaced with the following:
+(b)At the end of each of Year I, Year 2, Year 3, Year 4 and Year 5 during the Term, C3.ai will provide to BHGE its calculation of the C3 Revenue and the terms set forth in Exhibit B-1 shall apply.
+4.Section 12.1 of the JV Agreement, entitled “Term” is hereby deleted and replaced with the following:
+12.1Term. This Agreement shall commence on the Effective Date and unless earlier terminated as set forth below, shall remain in full force and effect until April 30, 2024 (the “Initial Term”). BH shall have the right to renew this Agreement for additional three (3) year term(s) (the “Renewal Term(s)”) a minimum of six (6) months prior to the expiration of the immediately preceding term; provided that, (A) any such renewal(s) shall include Minimum Annual
+Revenue Commitments in the first year of such renewal that are 20% higher than the Minimum Annual Revenue Commitment in the last year of the then-existing Term and the Minimum Annual Revenue Commitment of each subsequent year of the renewal term shall be 20% higher than the preceding year and (B) BH maintains or extends its C3 Offering Internal BH Subscription to cover the entirety of the Renewal Term with a minimum annual subscription of at least $28 million in each year of the Renewal Term (all Renewal Terms, together with the Initial Term, the”Term”).
+For clarity, all references in the JV Agreement to the defined terms “Initial Term,” “Referral Term,” and “Term” shall now refer to the above language.
+5.Exhibit B-1 to the JV Agreement is hereby deleted and replaced in its entirety by the Restated Exhibit B-1 attached hereto as Exhibit A.
+6.Exhibit E to the JV Agreement is hereby deleted and replaced in its entirety by the restated Exhibit E attached hereto as Exhibit B.
+7.Exhibit F to the JV Agreement is hereby deleted and replaced in its entirety by the restated Exhibit F attached hereto as Exhibit C.
+8.Except as expressly provided herein, the terms and conditions of the JV Agreement are unaltered and remain in full force and effect.
+9.This Second Amendment shall be interpreted and construed, and the legal relationships created hereby shall be construed in accordance with the laws of the State of Delaware (USA), without regard to its conflicts of law principles. The application of the United Nations Convention on Contracts for the International Sale of Goods is expressly excluded. In the event that any dispute, claim or controversy arising out of or relating to this Second Amendment or the breach, termination, enforcement, interpretation or validity thereof, including the determination of the scope or applicability of this Second Amendment to mediation or arbitration, exists after the process set forth in Section 7 of the JV Agreement has been completed, the Parties shall refer the dispute, claim or controversy to proceedings under the International Chamber of Commerce (ICC) Mediation Rules (the “Rules of Mediation”), to be conducted in San Francisco, California. If any such dispute has not been settled pursuant to the Rules of Mediation within sixty (60) days following the filing of a request for mediation, such dispute, claim or controversy shall thereafter be determined pursuant to the Rules of Arbitration of the International Chamber of Commerce (the “Rules of Arbitration”) by three arbitrators appointed in accordance with the Rules of Arbitration, which arbitration shall be held in San Francisco, California. Judgement on the award may be entered in the Federal and state courts located in San Francisco, California. This paragraph shall not preclude the Parties from seeking provisional remedies in aid of arbitration from a court of appropriate jurisdiction. Each of the Parties hereby consents to service of process by registered mail, return receipt requested, at such Party's address. All offers, promises, and conduct, whether oral or written, made in the course of the issue resolution pursuant
+to Section 7 of the JV Agreement by the Parties or their agents are confidential, privileged and inadmissible for any purpose, including impeachment, in arbitration or other proceeding, provided that evidence that is otherwise admissible or discoverable shall not be rendered inadmissible or non-discoverable as a result of its use in the negotiation.
+In Witness Whereof, each of the Parties hereto has duly executed this Second Amendment to the JV Agreement as of the last date set forth below.
+C3.ai, Inc. (f/k/a C3 IoT, Inc.) LLC)
+Baker Hughes, Holdings LLC (f/k/a Baker Hughes, a GE company, LLC
+/s/ Marc Levine
+/s/ Uwem Ukpong
+Signature
+Signature
+Marc Levine
+Uwem Ukpong
+Name
+Name
+CFO
+EVP
+Title
+Title
+6-1-2020
+06-01-2020
+Date
+Date
+EXHIBIT A
+RESTATED EXHIBIT B-1
+EXHIBIT B-1
+MINIMUM ANNUAL REVENUE COMMITMENT
+1.Minimum Annual Revenue Commitment.
+Annual Period
+(as defined in the Agreement)
+Minimum Annual Revenue Commitment Amount
+1.
+Year 1
+Forty-Six Million, Seven Hundred Thousand US Dollars (US$46.7 Million)
+2.
+Year 2
+Fifty-Three Million, Three Hundred Thousand US Dollars (US$53.3 Million)
+3.
+Year 3
+Seventy-Five Million US Dollars (US$75 Million)
+4.
+Year 4
+One Hundred Twenty-Five Million US Dollars (US$125 Million)
+5.
+Year 5
+One Hundred Fifty Million US Dollars (US$150 Million)
+6.
+TOTAL
+Four Hundred Fifty Million US Dollars (US$450 Million)
+2.Shortfall. Subject to Section 4 of this Exhibit B-1. if the C3 Revenue is less than the corresponding Minimum Annual Revenue Commitment for such year (“Shortfall”), BH shall pay C3.ai a cash payment in the amount equal to the difference between the applicable Minimum Annual Revenue Commitment and the actual C3 Revenue (“Shortfall Cash Payment”). For example, if during Year 2, the actual C3 Revenue is US$50 million, the Shortfall Cash Payment will equal US$3.3 million.
+3.Overage. [***]
+4.Conditions. [***]
+[***]

@@ -1,0 +1,44 @@
+name: Completed run
+description: Tell us what the kit helped you decide or build.
+title: 'Completed run: '
+labels: [completed-run]
+body:
+  - type: markdown
+    attributes:
+      value: 'Share the useful result and the steps reached. Keep contracts, credentials and private model transcripts on your computer.'
+  - type: dropdown
+    id: route
+    attributes:
+      label: Entry route
+      options: [Codex CLI, Current-agent CLI, MCP, Claude skill]
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Kit version, Python version and operating system
+    validations:
+      required: true
+  - type: dropdown
+    id: input
+    attributes:
+      label: Input
+      options: [Included public sample, My authorized contract set]
+    validations:
+      required: true
+  - type: checkboxes
+    id: steps
+    attributes:
+      label: Steps reached
+      options:
+        - label: The model produced a decision and useful engineering work.
+        - label: The general verifier completed successfully.
+        - label: I used an output in my own work.
+        - label: I completed another useful job after an actual input change.
+  - type: textarea
+    id: result
+    attributes:
+      label: What useful decision or work did this produce?
+      description: Describe the result, the time to first value and your next actual task or event.
+    validations:
+      required: true

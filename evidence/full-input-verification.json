@@ -1,0 +1,102 @@
+{
+  "all_complete": true,
+  "documents": [
+    {
+      "run": "fresh-user-run",
+      "source_id": "c3-bhge:01-joint-venture-2019-06-06.html",
+      "original_sha256": "8a1c05aea3590b8eb54e48305fa9ad8b0966c8b4b3ff5dd46e9fc87e204fd78d",
+      "text_sha256": "14912943ecc70129f90867b8101c32e3d4bfa76b2d5d48f25acc48d1a6069f6d",
+      "complete_text_in_model_input": true,
+      "current_reader_text_exact": true
+    },
+    {
+      "run": "fresh-user-run",
+      "source_id": "c3-bhge:02-first-amendment-2019-09-26.html",
+      "original_sha256": "405b436c3a84520107b968a9cdd55e43d9f91150a5edfcd1965d57ad88bfd4b3",
+      "text_sha256": "97fd286c6bc07a072b2d5077d45ab2b66ceb06b3c5ed86729899b1ef5ba944ac",
+      "complete_text_in_model_input": true,
+      "current_reader_text_exact": true
+    },
+    {
+      "run": "fresh-user-run",
+      "source_id": "c3-bhge:03-second-amendment-2020-06-01.html",
+      "original_sha256": "6ccb2402df54680f6a2615d10027a16e1c27eefe5b5f8c22114a8893163ee5c0",
+      "text_sha256": "ef971814cb17d5babfda48c849ce8baa67ee58f2c71dd228ed8df6b706f2616f",
+      "complete_text_in_model_input": true,
+      "current_reader_text_exact": true
+    },
+    {
+      "run": "fresh-user-run",
+      "source_id": "sai-esds:01-master-services-2026-03-31.html",
+      "original_sha256": "92427fdaa11f8171b52be4c735c4e092b94505cda32d9650cc9503210b378a92",
+      "text_sha256": "14e0812594629e89a0b808e74c3a9b5a37bb831e44c473f93a5840f2ae6c5e81",
+      "complete_text_in_model_input": true,
+      "current_reader_text_exact": true
+    },
+    {
+      "run": "kyma-public-sample",
+      "source_id": "c3-bhge:01-joint-venture-2019-06-06.html",
+      "original_sha256": "8a1c05aea3590b8eb54e48305fa9ad8b0966c8b4b3ff5dd46e9fc87e204fd78d",
+      "text_sha256": "14912943ecc70129f90867b8101c32e3d4bfa76b2d5d48f25acc48d1a6069f6d",
+      "complete_text_in_model_input": true,
+      "current_reader_text_exact": true
+    },
+    {
+      "run": "kyma-public-sample",
+      "source_id": "c3-bhge:02-first-amendment-2019-09-26.html",
+      "original_sha256": "405b436c3a84520107b968a9cdd55e43d9f91150a5edfcd1965d57ad88bfd4b3",
+      "text_sha256": "97fd286c6bc07a072b2d5077d45ab2b66ceb06b3c5ed86729899b1ef5ba944ac",
+      "complete_text_in_model_input": true,
+      "current_reader_text_exact": true
+    },
+    {
+      "run": "kyma-public-sample",
+      "source_id": "c3-bhge:03-second-amendment-2020-06-01.html",
+      "original_sha256": "6ccb2402df54680f6a2615d10027a16e1c27eefe5b5f8c22114a8893163ee5c0",
+      "text_sha256": "ef971814cb17d5babfda48c849ce8baa67ee58f2c71dd228ed8df6b706f2616f",
+      "complete_text_in_model_input": true,
+      "current_reader_text_exact": true
+    },
+    {
+      "run": "kyma-public-sample",
+      "source_id": "sai-esds:01-master-services-2026-03-31.html",
+      "original_sha256": "92427fdaa11f8171b52be4c735c4e092b94505cda32d9650cc9503210b378a92",
+      "text_sha256": "14e0812594629e89a0b808e74c3a9b5a37bb831e44c473f93a5840f2ae6c5e81",
+      "complete_text_in_model_input": true,
+      "current_reader_text_exact": true
+    },
+    {
+      "run": "native-public-sample",
+      "source_id": "c3-bhge:01-joint-venture-2019-06-06.html",
+      "original_sha256": "8a1c05aea3590b8eb54e48305fa9ad8b0966c8b4b3ff5dd46e9fc87e204fd78d",
+      "text_sha256": "14912943ecc70129f90867b8101c32e3d4bfa76b2d5d48f25acc48d1a6069f6d",
+      "complete_text_in_model_input": true,
+      "current_reader_text_exact": true
+    },
+    {
+      "run": "native-public-sample",
+      "source_id": "c3-bhge:02-first-amendment-2019-09-26.html",
+      "original_sha256": "405b436c3a84520107b968a9cdd55e43d9f91150a5edfcd1965d57ad88bfd4b3",
+      "text_sha256": "97fd286c6bc07a072b2d5077d45ab2b66ceb06b3c5ed86729899b1ef5ba944ac",
+      "complete_text_in_model_input": true,
+      "current_reader_text_exact": true
+    },
+    {
+      "run": "native-public-sample",
+      "source_id": "c3-bhge:03-second-amendment-2020-06-01.html",
+      "original_sha256": "6ccb2402df54680f6a2615d10027a16e1c27eefe5b5f8c22114a8893163ee5c0",
+      "text_sha256": "ef971814cb17d5babfda48c849ce8baa67ee58f2c71dd228ed8df6b706f2616f",
+      "complete_text_in_model_input": true,
+      "current_reader_text_exact": true
+    },
+    {
+      "run": "native-public-sample",
+      "source_id": "sai-esds:01-master-services-2026-03-31.html",
+      "original_sha256": "92427fdaa11f8171b52be4c735c4e092b94505cda32d9650cc9503210b378a92",
+      "text_sha256": "14e0812594629e89a0b808e74c3a9b5a37bb831e44c473f93a5840f2ae6c5e81",
+      "complete_text_in_model_input": true,
+      "current_reader_text_exact": true
+    }
+  ],
+  "scope": "Exact original and complete acquired text in every retained actual model task input. Current HTML reader output remains exact after the PDF form extension."
+}

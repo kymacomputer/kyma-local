@@ -1,0 +1,28 @@
+Completed. The Fullstory disclosure adds Google AI inference despite the unchanged printed date. It establishes no supplier engagement or feature data flow.
+
+| Operation | C3–BH | SAI–ESDS |
+|---|---|---|
+| Customer-controlled inference | Unresolved | Needs consent |
+| Provider content-support inference | Unresolved | Needs consent |
+| Provider shared training | Needs consent | Off |
+
+The strongest design keeps content-rich inference with the authorised customer. Provider support uses non-content telemetry and provider manuals. SAI’s verified End Customer resale route remains available for separate assessment.
+
+Missing subscriptions, restated exhibits, executed applicable orders and current service facts prevent clearance. All six proposed controls remain false.
+
+Validation, compilation and both readbacks passed:
+
+- 77 exact source quotations verified.
+- 18 actual OpenFeature evaluations and 28 isolated synthetic evaluations passed.
+- SQLite contains the exact decision bundle, export and revision event.
+- The revision records zero status changes.
+- OPA policy generated. OPA runtime evaluation did not run because no executable was available.
+
+Outputs:
+
+- [Complete assessment](model-decisions.json) and [readable decisions](DECISIONS.md)
+- [OpenFeature export](openfeature-rules.json) and [OPA policy](feature-policy.rego)
+- [Source comparison](source-comparison.json) and [revision report](CHANGES.md)
+- [Verified receiver result](receiving-verification.json) and [SQLite receiver](local-results.sqlite3)
+
+This remained a local proposed assessment. No account, live feature or external recipient changed.

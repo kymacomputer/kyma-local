@@ -1,0 +1,188 @@
+Fullstory Sub-processor List
+Platform
+Platform Overview
+Capture, understand, and act on behavioral data.
+Watch a 4-minute product tour
+An on-demand walkthrough of Fullstory.
+Analytics
+Customer Behavior
+Product Analytics
+Mobile Analytics
+Guides and Surveys
+Heatmaps
+Session Replay
+Anywhere
+Data Activation
+Real-Time Personalization
+Tech Stack Enrichment
+StoryAI
+Intelligence
+StoryAI Agents
+Ask StoryAI
+Fullstory MCP
+Workforce
+Employee Experience
+Workflow Intelligence
+Support Acceleration
+Solutions
+Solutions Catalog
+Explore tailored resources for every industry and team
+By Industry
+Retail & Ecommerce
+Food & Beverage
+Travel & Hospitality
+Finance & Insurance
+Gaming
+SaaS
+By Team
+Product & Engineering
+Data
+Customer Support
+IT & Internal Support
+Marketing
+Plans & Pricing
+Resources
+Digital Benchmark Report 2026
+See what it means for next year.
+Resources
+All Resources
+Blog
+Customer Stories
+Help Center
+Learning Courses
+Dev Resources
+Company
+About Us
+News
+Events
+Privacy & Security
+Careers
+Partners
+Platform
+Solutions
+Plans & Pricing
+Resources
+Log in
+Back
+Get a demo
+Log in
+Get a Demo
+Legal Home
+Acceptable Use
+Cookie Policy
+Customer DPA
+Customer Terms and Conditions
+Delivery Services Provider Addendum
+Description of Services for Onboarding Service Providers
+Fullstory Sub-processor List
+FullstoryFree Terms of Use
+International Data Transfers FAQ
+Managed Service Provider Addendum
+Master Partner Program Agreement
+Modern Slavery Statement
+Partner Program Addenda
+Pass-Through Terms for Customers of Resellers
+Privacy Notice for Californians
+Privacy Policy
+Reseller Addendum
+Security Addendum
+Security and Compliance Documentation
+Subtext Terms of Service
+Technology Partner Addendum
+Fullstory Sub-processor List
+Last Updated: June 2, 2026
+Fullstory may use Sub-processors to Process Personal Data and assist Fullstory in its provision of the Fullstory SaaS Services. This page provides relevant information about each Sub-processor. Terms used on this page but not defined have the meaning set forth in the Fullstory Master Services Agreement.
+Fullstory’s commitments to Customers for the Processing of Personal Data may be found in the applicable Data Processing Addendum.
+ENTITY NAME
+PURPOSE OF PROCESSING
+PROCESSED DATA
+LOCATION
+Google LLC
+Data storage and processing, security monitoring, and AI model inference for in-product AI features
+Customer data and Customer’s end-users’ data
+United States; Germany
+Fastly, Inc. (Signal Sciences Corporation)
+Real-time threat detection and prevention; web application Firewall
+Customer data and Customer’s end-users’ data
+United States
+Salesforce
+Customer relationship management solution platform
+Customer data
+United States
+Zendesk
+Customer service platform that supports customer interactions e.g. via email
+Customer data and Customer’s end-users’ data, as is provided by the individual that reached out to Fullstory, such as name, email address, phone number
+United States
+Marketo
+Cloud-based Email and Marketing Services tool
+Customer data
+United States
+OpenAI (optional)
+Support various Generative AI features within Fullstory
+Customer data and Customer’s end-users’ data
+Anthropic
+Support delivery of the SaaS Services to Customer
+Customer data and Customer’s end-users’ data
+United States
+Follow us
+PLATFORM
+Overview
+Analytics
+Workforce
+Anywhere
+StoryAI
+Fullstory MCP
+Guides and Surveys
+Developer API
+Integrations
+Plans & Pricing
+Get a Demo
+Watch a Tour
+FEATURES
+Fullcapture
+Session Replay
+Mobile Analytics
+Product Analytics
+Sentiment Signals
+Heatmaps
+Funnels & Conversions
+Journey Maps
+User Segments
+Dashboards
+Private by Default
+Rage Click
+SOLUTIONS
+Retail & Ecommerce
+Food & Beverage
+Travel & Hospitality
+Financial Services
+Gaming
+SaaS
+Product & Engineering
+Data & Analytics
+Customer Support
+IT & Internal Support
+Marketing & Demand
+RESOURCES
+All Resources
+Blog
+Customer Stories
+Help Center
+Learn
+Deep Dives
+User Community
+Compare Fullstory
+Agent Experience Index
+MCP Prompt Library
+Digital Benchmark Report
+#Bash_
+COMPANY
+About
+Careers
+Events
+News
+Partner Program
+Privacy & Security
+Modern Slavery Statement
+Legal Center
+Do Not Sell or Share My Personal Information|Terms|Privacy Policy|Cookie Policy|Cookie Settings© 2026 Fullstory, Inc|Atlanta ◆ London ◆ Sydney ◆ Singapore

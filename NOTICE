@@ -1,0 +1,10 @@
+Kyma Local
+Copyright 2026 Kyma Computer
+
+The Apache License applies to the Kyma Local software and authored documentation.
+Public sample documents retain their original authorship, terms, and source scope.
+Their original URLs and capture records appear in sample/source-acquisition.json
+and the corresponding _sources.json files. Inclusion supplies research material.
+It does not assert ownership of those documents or permission for a live feature.
+
+OpenFeature SDK, pypdf, and the optional MCP Python SDK retain their own licenses.

@@ -1,0 +1,27 @@
+name: Bug report
+description: Report an exact failed step.
+title: 'Bug: '
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: 'Use the included public sample for a reproduction when possible. Keep contracts, credentials and private model transcripts on your computer.'
+  - type: input
+    id: environment
+    attributes:
+      label: Kit version, Python version and operating system
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command or MCP tool and arguments
+      description: Replace private paths and values with sample equivalents.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected result, actual result and exact error
+    validations:
+      required: true

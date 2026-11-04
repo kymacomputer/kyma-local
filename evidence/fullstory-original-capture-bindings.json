@@ -1,0 +1,23 @@
+{
+  "source_pair_record_sha256": "c1d3bd507fdf59260a5b0684f2fd76eaf3958f82a1eb58b03465add171328d9a",
+  "originals": [
+    {
+      "role": "before",
+      "file": "files/2026-11-04-kyma-local-kit/sample/references-before/fullstory/subprocessor-list.html",
+      "bytes": 859999,
+      "sha256": "ca7f1c5a775e5acfeb6268b8befccd0cc4056f84d538eea0d1a5bdc1c00371cf",
+      "original_observation_time": "2026-06-14T16:59:55+00:00",
+      "original_clock_type": "archive_capture"
+    },
+    {
+      "role": "after",
+      "file": "files/2026-11-04-kyma-local-kit/sample/references-after/fullstory/subprocessor-list.html",
+      "bytes": 252157,
+      "sha256": "48e2e7c255c575afcfdf2538fe4dd04b7303c311e188d66734896ff3973576b5",
+      "original_observation_time": "2026-10-31T18:44:38.077867Z",
+      "original_clock_type": "source_acquisition"
+    }
+  ],
+  "full_originals_verified": true,
+  "semantic_answer_annex_supplied_to_model": false
+}

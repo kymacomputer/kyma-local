@@ -1,0 +1,41 @@
+{
+  "bundle_sha256": "61f71af38755424882ef94d74436bb897dd4c969372b20046b18d28235cd57f5",
+  "sqlite_rows": 2,
+  "current_bundle_rows": 1,
+  "receiver_bundle_exact": true,
+  "receiver_export_exact": true,
+  "tool_readback_matches_sqlite": true,
+  "exact_customer_operation_pairs": 6,
+  "verified_quotes": 61,
+  "source_checks": [
+    {
+      "document_id": "c3-bhge:01-joint-venture-2019-06-06.html",
+      "original_and_text_hash_match": true
+    },
+    {
+      "document_id": "c3-bhge:02-first-amendment-2019-09-26.html",
+      "original_and_text_hash_match": true
+    },
+    {
+      "document_id": "c3-bhge:03-second-amendment-2020-06-01.html",
+      "original_and_text_hash_match": true
+    },
+    {
+      "document_id": "sai-esds:01-master-services-2026-03-31.html",
+      "original_and_text_hash_match": true
+    }
+  ],
+  "native_sdk_evaluations": 18,
+  "supplemental_sdk_evaluations": 108,
+  "all_evaluations_false_without_errors": true,
+  "proposed_eligible_count": 0,
+  "outside_use": false,
+  "customer_accounts_changed": false,
+  "limits": [
+    "Exact quotation verifies provenance, not contract interpretation.",
+    "No customer-specific applicability, missing contract, site or commencement fact is inferred.",
+    "All controls are false. These checks do not test an enabled deployment or type-strict equality in future eligible rules.",
+    "The OPA files match the export. No OPA runtime evaluation was performed.",
+    "No actual model, customer infrastructure, data deletion or external feature service was exercised."
+  ]
+}

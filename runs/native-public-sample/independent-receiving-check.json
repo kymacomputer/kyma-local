@@ -1,0 +1,90 @@
+{
+  "bundle_sha256": "6cc210da62f7431b92bb93025ceed3f00c0e21a43be3d01bf311e32e2f12eb3b",
+  "decision_pairs_exactly_once": true,
+  "control_pairs_exactly_once": true,
+  "source_quotes_verified": 56,
+  "source_integrity": [
+    {
+      "document_id": "c3-bhge:01-joint-venture-2019-06-06.html",
+      "text_sha256": "14912943ecc70129f90867b8101c32e3d4bfa76b2d5d48f25acc48d1a6069f6d",
+      "unchanged": true
+    },
+    {
+      "document_id": "c3-bhge:02-first-amendment-2019-09-26.html",
+      "text_sha256": "97fd286c6bc07a072b2d5077d45ab2b66ceb06b3c5ed86729899b1ef5ba944ac",
+      "unchanged": true
+    },
+    {
+      "document_id": "c3-bhge:03-second-amendment-2020-06-01.html",
+      "text_sha256": "ef971814cb17d5babfda48c849ce8baa67ee58f2c71dd228ed8df6b706f2616f",
+      "unchanged": true
+    },
+    {
+      "document_id": "sai-esds:01-master-services-2026-03-31.html",
+      "text_sha256": "14e0812594629e89a0b808e74c3a9b5a37bb831e44c473f93a5840f2ae6c5e81",
+      "unchanged": true
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D1",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "status": "unresolved"
+    },
+    {
+      "id": "D2",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "status": "unresolved"
+    },
+    {
+      "id": "D3",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "status": "off"
+    },
+    {
+      "id": "D4",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "status": "off"
+    },
+    {
+      "id": "D5",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "status": "off"
+    },
+    {
+      "id": "D6",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "status": "off"
+    }
+  ],
+  "receiver": {
+    "path": "/Users/idamo/kai/workspace/files/2026-11-04-kyma-local-kit/runs/native-public-sample/local-results.sqlite3",
+    "table": "results",
+    "total_rows": 2,
+    "selected_rows": 1,
+    "bundle_exact": true,
+    "export_exact": true,
+    "tool_readback_exact": true,
+    "selection": "The final canonical bundle hash selects the exact final receiver row. Earlier local revisions remain separate."
+  },
+  "openfeature": {
+    "compile_evaluations": 18,
+    "additional_actual_sdk_evaluations": 120,
+    "all_returned_false": true,
+    "proposed_eligible": 0,
+    "scope_limit": "The all-false export verifies denial and exact delivery. It proves no positive contract clearance or live deployment. Unknown flags use the false caller default."
+  },
+  "opa": {
+    "artifact": "feature-policy.rego",
+    "runtime_executed": false,
+    "reason": "No opa executable is installed in PATH."
+  },
+  "outside_use": false,
+  "customer_accounts_changed": false
+}

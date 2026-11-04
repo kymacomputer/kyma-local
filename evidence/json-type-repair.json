@@ -1,0 +1,20 @@
+{
+  "checks": [
+    {
+      "runtime": "generation",
+      "module_sha256": "692f35928933eb51dc88e767495e2c284fdd1be269c1e20536c611f56b82afd3",
+      "legitimate_false_matches": true,
+      "numeric_zero_matches_false": true
+    },
+    {
+      "runtime": "current",
+      "module_sha256": "fc3e34a8e6aaa98985850a7b88f5a9e3884002ed957a951aabe501a6a8566b28",
+      "legitimate_false_matches": true,
+      "numeric_zero_matches_false": false
+    }
+  ],
+  "source": "Explicit effect-free runtime fixture. No model result or permission is modified.",
+  "finding": "Python bool/number equality accepted a numeric zero for a required false value. Typed JSON matching repairs that exact boundary.",
+  "original_model_context_results_unchanged": true,
+  "original_generation_code_preserved": true
+}

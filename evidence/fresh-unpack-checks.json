@@ -1,0 +1,65 @@
+{
+  "root": "/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-local-fresh-unpack-20261104-mwyp4opi",
+  "checks": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "scripts/bootstrap.py"
+      ],
+      "exit_code": 0,
+      "stdout": "Processing ./.\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Getting requirements to build wheel: started\n  Getting requirements to build wheel: finished with status 'done'\n  Preparing metadata (pyproject.toml): started\n  Preparing metadata (pyproject.toml): finished with status 'done'\nCollecting openfeature-sdk==0.10.0 (from kyma-local==0.1.0)\n  Using cached openfeature_sdk-0.10.0-py3-none-any.whl.metadata (23 kB)\nCollecting pypdf==6.21.4 (from kyma-local==0.1.0)\n  Using cached pypdf-6.21.4-py3-none-any.whl.metadata (7.6 kB)\nUsing cached openfeature_sdk-0.10.0-py3-none-any.whl (38 kB)\nUsing cached pypdf-6.21.4-py3-none-any.whl (410 kB)\nBuilding wheels for collected packages: kyma-local\n  Building wheel for kyma-local (pyproject.toml): started\n  Building wheel for kyma-local (pyproject.toml): finished with status 'done'\n  Created wheel for kyma-local: filename=kyma_local-0.1.0-py3-none-any.whl size=16012 sha256=b61349314cbfd6c0b5bac873d267f32a76a36657009e5229a6aa836f0bc4c0e6\n  Stored in directory: /Users/idamo/Library/Caches/pip/wheels/bb/8c/60/5216e64adcf6e5b294734d6538ea5e4a431bd57ae7a4b77219\nSuccessfully built kyma-local\nInstalling collected packages: pypdf, openfeature-sdk, kyma-local\n\nSuccessfully installed kyma-local-0.1.0 openfeature-sdk-0.10.0 pypdf-6.21.4\n{\n  \"environment\": \"/private/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-local-fresh-unpack-20261104-mwyp4opi/kyma-local/.venv\",\n  \"python\": [\n    3,\n    13,\n    12\n  ],\n  \"next_command\": \"/private/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-local-fresh-unpack-20261104-mwyp4opi/kyma-local/.venv/bin/kyma-local doctor\",\n  \"credential_files_read_or_copied\": false\n}\n",
+      "stderr": "\n[notice] A new release of pip is available: 26.0 -> 26.3\n[notice] To update, run: /private/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-local-fresh-unpack-20261104-mwyp4opi/kyma-local/.venv/bin/python -m pip install --upgrade pip\n"
+    },
+    {
+      "command": [
+        "/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-local-fresh-unpack-20261104-mwyp4opi/kyma-local/.venv/bin/kyma-local",
+        "doctor"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"authentication\": \"existing_ChatGPT_subscription\",\n  \"codex_executable\": \"/Users/idamo/.nvm/versions/node/v22.22.0/bin/codex\",\n  \"codex_version\": \"codex-cli 0.162.1\",\n  \"python\": \"/private/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-local-fresh-unpack-20261104-mwyp4opi/kyma-local/.venv/bin/python\",\n  \"openfeature_sdk\": \"0.10.0\",\n  \"pypdf\": \"6.21.4\",\n  \"credential_files_read_or_copied_by_kit\": false,\n  \"data_flow\": \"Codex sends source contents to the user-selected ChatGPT provider under the existing account. No source content is sent to Kyma.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-local-fresh-unpack-20261104-mwyp4opi/kyma-local/.venv/bin/python",
+        "scripts/check_distribution.py",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"checks\": [\n    {\n      \"case\": \"exact_package_manifest\",\n      \"files\": 88,\n      \"passed\": true\n    },\n    {\n      \"case\": \"docx_table_footnote_and_revision_boundary\",\n      \"passed\": true,\n      \"parts\": [\n        \"word/document.xml\",\n        \"word/footnotes.xml\"\n      ],\n      \"warnings\": [\n        \"word/document.xml contains tracked revisions. Their acceptance state needs source review.\"\n      ]\n    },\n    {\n      \"case\": \"pdf_original_pages_and_image_only_limit\",\n      \"passed\": true,\n      \"pages\": 3,\n      \"warnings\": [\n        \"Page 3 has no extractable text. OCR or the original text source is required.\"\n      ]\n    }\n  ],\n  \"all_passed\": true,\n  \"scope\": \"Fresh package bytes, original PDF page identity, DOCX material parts and explicit extraction limits. No semantic accuracy or outside use is inferred.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-local-fresh-unpack-20261104-mwyp4opi/kyma-local/.venv/bin/kyma-local",
+        "verify",
+        "runs/kyma-public-sample"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"bundle_sha256\": \"61f71af38755424882ef94d74436bb897dd4c969372b20046b18d28235cd57f5\",\n  \"source_quotes_verified\": 61,\n  \"model_decisions\": 6,\n  \"model_engineering_outputs\": 8,\n  \"openfeature_actual_evaluations\": 18,\n  \"durable_result_exact\": true,\n  \"artifacts\": [\n    \"DECISIONS.md\",\n    \"openfeature-rules.json\",\n    \"feature-policy.rego\",\n    \"opa-data.json\",\n    \"validated-source-evidence.json\",\n    \"openfeature-consumer.json\",\n    \"local-results.sqlite3\"\n  ],\n  \"outside_use\": false,\n  \"customer_accounts_changed\": false,\n  \"actual_model_turn_completed\": true,\n  \"model_thread\": \"01a1a6ed-fd1b-7223-ab77-2cdf7b5f6a4e\",\n  \"mode\": \"kyma\",\n  \"actual_model_tool_commands\": 39,\n  \"fresh_openfeature_receiver_exact\": true,\n  \"durable_receiving_state_exact\": true,\n  \"credential_copy\": false,\n  \"scope\": \"Actual source interpretation and tool use, with local proposed exports. No actual customer deployment or outside use is inferred.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-local-fresh-unpack-20261104-mwyp4opi/kyma-local/.venv/bin/kyma-local",
+        "verify",
+        "runs/native-public-sample"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"bundle_sha256\": \"6cc210da62f7431b92bb93025ceed3f00c0e21a43be3d01bf311e32e2f12eb3b\",\n  \"source_quotes_verified\": 56,\n  \"model_decisions\": 6,\n  \"model_engineering_outputs\": 7,\n  \"openfeature_actual_evaluations\": 18,\n  \"durable_result_exact\": true,\n  \"artifacts\": [\n    \"DECISIONS.md\",\n    \"openfeature-rules.json\",\n    \"feature-policy.rego\",\n    \"opa-data.json\",\n    \"validated-source-evidence.json\",\n    \"openfeature-consumer.json\",\n    \"local-results.sqlite3\"\n  ],\n  \"outside_use\": false,\n  \"customer_accounts_changed\": false,\n  \"actual_model_turn_completed\": true,\n  \"model_thread\": \"01a1a6f1-927f-71f3-a963-629dba448eb1\",\n  \"mode\": \"native\",\n  \"actual_model_tool_commands\": 35,\n  \"fresh_openfeature_receiver_exact\": true,\n  \"durable_receiving_state_exact\": true,\n  \"credential_copy\": false,\n  \"scope\": \"Actual source interpretation and tool use, with local proposed exports. No actual customer deployment or outside use is inferred.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-local-fresh-unpack-20261104-mwyp4opi/kyma-local/.venv/bin/python",
+        "examples/openfeature_consumer.py",
+        "runs/kyma-public-sample"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"sdk\": \"openfeature-sdk==0.10.0\",\n  \"domain\": \"my-feature-contracts\",\n  \"actual_imported_provider_evaluations\": [\n    {\n      \"customer_id\": \"c3-bhge\",\n      \"operation_id\": \"customer-controlled-inference\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"unknown-customer\",\n      \"operation_id\": \"customer-controlled-inference\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"c3-bhge\",\n      \"operation_id\": \"customer-controlled-inference\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"c3-bhge\",\n      \"operation_id\": \"provider-support-inference\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"unknown-customer\",\n      \"operation_id\": \"provider-support-inference\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"c3-bhge\",\n      \"operation_id\": \"provider-support-inference\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"c3-bhge\",\n      \"operation_id\": \"provider-shared-training\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"unknown-customer\",\n      \"operation_id\": \"provider-shared-training\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"c3-bhge\",\n      \"operation_id\": \"provider-shared-training\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"sai-esds\",\n      \"operation_id\": \"customer-controlled-inference\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"unknown-customer\",\n      \"operation_id\": \"customer-controlled-inference\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"sai-esds\",\n      \"operation_id\": \"customer-controlled-inference\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"sai-esds\",\n      \"operation_id\": \"provider-support-inference\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"unknown-customer\",\n      \"operation_id\": \"provider-support-inference\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"sai-esds\",\n      \"operation_id\": \"provider-support-inference\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"sai-esds\",\n      \"operation_id\": \"provider-shared-training\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"unknown-customer\",\n      \"operation_id\": \"provider-shared-training\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    },\n    {\n      \"customer_id\": \"sai-esds\",\n      \"operation_id\": \"provider-shared-training\",\n      \"value\": false,\n      \"reason\": \"TARGETING_MATCH\"\n    }\n  ],\n  \"actual_customer_deployment\": false\n}\n",
+      "stderr": ""
+    }
+  ],
+  "all_passed": true,
+  "outside_use": false
+}

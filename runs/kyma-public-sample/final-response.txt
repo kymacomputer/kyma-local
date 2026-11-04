@@ -1,0 +1,22 @@
+Completed all six proposed decisions.
+
+| Customer | Customer inference | Provider support inference | Shared training |
+|---|---|---|---|
+| C3/BHGE | Unresolved | Unresolved | Needs consent |
+| SAI/ESDS | Needs purpose extension | Off | Off |
+
+The strongest design uses customer-side content inference, provider-side runbooks and content-free telemetry, plus a separate qualifying Feedback corpus.
+
+C3 lacks applicable subscription/support instruments, renewal evidence and restated Exhibit E. SAI lacks proved order execution, commencement, site election and own-internal-use rights. These remain hypothetical sample assessments.
+
+Validation verified **61 quotations**. Compilation and readback passed. The current SQLite bundle and export match exactly. All **126 actual SDK evaluations** returned false without errors. All six proposed controls remain disabled.
+
+Outputs include eight engineering deliverables and four conditional drafts:
+
+- [Complete decisions](model-decisions.json)
+- [Decision and engineering report](DECISIONS.md)
+- [OpenFeature export](openfeature-rules.json)
+- [OPA policy](feature-policy.rego)
+- [Receiver comparison](receiving-comparison.json)
+
+No customer account or live feature changed.

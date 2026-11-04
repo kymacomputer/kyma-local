@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kyma-local"
+version = "0.4.0"
+description = "Source-bound feature decisions from complete local contract sets using your existing Codex subscription."
+requires-python = ">=3.10"
+dependencies = ["openfeature-sdk==0.10.0", "pypdf==6.21.4"]
+
+[project.optional-dependencies]
+mcp = ["mcp==2.3.0"]
+
+[project.scripts]
+kyma-local = "kyma_local.main:main"
+kyma-local-agent = "kyma_local.agent_workflow:main"
+kyma-local-mcp = "kyma_local.mcp_server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

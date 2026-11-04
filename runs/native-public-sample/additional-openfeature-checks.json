@@ -1,0 +1,2540 @@
+[
+  {
+    "context": {
+      "case": "matched_scenario",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_all_facts",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {}
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "unknown_customer",
+      "customer_id": "unknown-customer",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "unknown_operation",
+      "customer_id": "c3-bhge",
+      "operation_id": "unknown-operation",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.unknown-operation",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "ERROR",
+    "error_code": "FLAG_NOT_FOUND"
+  },
+  {
+    "context": {
+      "case": "missing_actor_role",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_actor_role",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "different-literal",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_provider_content_access",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_provider_content_access",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_external_content_transfer",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_external_content_transfer",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": true,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_provider_training",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_provider_training",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_processing_region",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_processing_region",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "different-literal",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_purpose",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_purpose",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "different-literal",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_model",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_model",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "different-literal",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_feature_id",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content."
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_feature_id",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "different-literal"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "matched_scenario",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_all_facts",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {}
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "unknown_customer",
+      "customer_id": "unknown-customer",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "unknown_operation",
+      "customer_id": "c3-bhge",
+      "operation_id": "unknown-operation",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.unknown-operation",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "ERROR",
+    "error_code": "FLAG_NOT_FOUND"
+  },
+  {
+    "context": {
+      "case": "missing_actor_role",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_actor_role",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "different-literal",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_provider_content_access",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_provider_content_access",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_external_content_transfer",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_external_content_transfer",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": true,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_provider_training",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_provider_training",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_processing_region",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_processing_region",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "different-literal",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_purpose",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_purpose",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "different-literal",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_model",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_model",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "different-literal",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_feature_id",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content."
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_feature_id",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "different-literal"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "matched_scenario",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_all_facts",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {}
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "unknown_customer",
+      "customer_id": "unknown-customer",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "unknown_operation",
+      "customer_id": "c3-bhge",
+      "operation_id": "unknown-operation",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.unknown-operation",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "ERROR",
+    "error_code": "FLAG_NOT_FOUND"
+  },
+  {
+    "context": {
+      "case": "missing_actor_role",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_actor_role",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "different-literal",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_provider_content_access",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_provider_content_access",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_external_content_transfer",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_external_content_transfer",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": true,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_provider_training",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_provider_training",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_processing_region",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_processing_region",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "different-literal",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_purpose",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_purpose",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "different-literal",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_model",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_model",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "different-literal",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_feature_id",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content."
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_feature_id",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "different-literal"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "matched_scenario",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_all_facts",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {}
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "unknown_customer",
+      "customer_id": "unknown-customer",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "unknown_operation",
+      "customer_id": "sai-esds",
+      "operation_id": "unknown-operation",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.unknown-operation",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "ERROR",
+    "error_code": "FLAG_NOT_FOUND"
+  },
+  {
+    "context": {
+      "case": "missing_actor_role",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_actor_role",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "different-literal",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_provider_content_access",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_provider_content_access",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_external_content_transfer",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_external_content_transfer",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": true,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_provider_training",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_provider_training",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_processing_region",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_processing_region",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "different-literal",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_purpose",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_purpose",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "different-literal",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_model",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_model",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "different-literal",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_feature_id",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content."
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_feature_id",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "feature_id": "different-literal"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "matched_scenario",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_all_facts",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {}
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "unknown_customer",
+      "customer_id": "unknown-customer",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "unknown_operation",
+      "customer_id": "sai-esds",
+      "operation_id": "unknown-operation",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.unknown-operation",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "ERROR",
+    "error_code": "FLAG_NOT_FOUND"
+  },
+  {
+    "context": {
+      "case": "missing_actor_role",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_actor_role",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "different-literal",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_provider_content_access",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_provider_content_access",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_external_content_transfer",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_external_content_transfer",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": true,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_provider_training",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_provider_training",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_processing_region",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_processing_region",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "different-literal",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_purpose",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_purpose",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "different-literal",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_model",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_model",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "different-literal",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_feature_id",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content."
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_feature_id",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "feature_id": "different-literal"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-support-inference",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "matched_scenario",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_all_facts",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {}
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "unknown_customer",
+      "customer_id": "unknown-customer",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "unknown_operation",
+      "customer_id": "sai-esds",
+      "operation_id": "unknown-operation",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.unknown-operation",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "ERROR",
+    "error_code": "FLAG_NOT_FOUND"
+  },
+  {
+    "context": {
+      "case": "missing_actor_role",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_actor_role",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "different-literal",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_provider_content_access",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_provider_content_access",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_external_content_transfer",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_external_content_transfer",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": true,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_provider_training",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_provider_training",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_processing_region",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_processing_region",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "different-literal",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_purpose",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_purpose",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "different-literal",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_model",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_model",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "different-literal",
+        "feature_id": "tenant-operations-copilot"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "missing_feature_id",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content."
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  },
+  {
+    "context": {
+      "case": "different_feature_id",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "feature_id": "different-literal"
+      }
+    },
+    "flag_key": "tenant-operations-copilot.provider-shared-training",
+    "value": false,
+    "expected_model_control": false,
+    "reason": "TARGETING_MATCH",
+    "error_code": null
+  }
+]

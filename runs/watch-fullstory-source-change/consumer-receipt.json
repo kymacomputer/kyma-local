@@ -1,0 +1,19 @@
+{
+  "bundle_sha256": "75c275546ec8401d62cf450ed81fefb99f1384965892ac6a34e0b153a77e5ad8",
+  "source_quotes_verified": 77,
+  "model_decisions": 6,
+  "model_engineering_outputs": 7,
+  "openfeature_actual_evaluations": 18,
+  "durable_result_exact": true,
+  "artifacts": [
+    "DECISIONS.md",
+    "openfeature-rules.json",
+    "feature-policy.rego",
+    "opa-data.json",
+    "validated-source-evidence.json",
+    "openfeature-consumer.json",
+    "local-results.sqlite3"
+  ],
+  "outside_use": false,
+  "customer_accounts_changed": false
+}

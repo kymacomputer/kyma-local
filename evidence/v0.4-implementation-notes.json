@@ -1,0 +1,38 @@
+{
+  "schema": "kyma-v04-implementation-notes/v1",
+  "prior_frozen_commit": "c3b955d1a284ed282bd7f92eb1bf1e19db885705",
+  "changed_mechanism": "Stable source snapshots trigger model-selected revision work. Typed downstream deltas and local user reports separate repeat value from source churn and process activity.",
+  "exact_observed_failures": [
+    {
+      "source": "Independent-host README general verify",
+      "failure": "FileNotFoundError: model-receiving-readback.json",
+      "repair": "Dispatch agent-job.json through the actual current-agent receiver. Preserve original completed-Codex verification.",
+      "consumer": "A narrow patch from exact v0.3 returns the unchanged six-decision,20-quote independent assessment through actual CLI exit0."
+    },
+    {
+      "source": "First live foreground observer test",
+      "failure": "AssertionError: live observer state deadline",
+      "inferred_mechanism": "The prepared response emitted the complete prior assessment into an undrained output pipe before another poll.",
+      "repair": "Emit compact status and job paths. Preserve complete context through the job command.",
+      "consumer": "The same real foreground source-edit and receiver-promotion test passes, then SIGINT exits0."
+    }
+  ],
+  "verification_scope": {
+    "watch_controls": 19,
+    "mcp_controls": 12,
+    "new_model_invocations": 0,
+    "natural_24_hour_observation": false,
+    "outside_users": 0,
+    "remote_https_control": "Mocked HTTPS responses only. No live vendor-fetch claim."
+  },
+  "consumer_sources": [
+    "evidence/v0.4-watch-consumer.json",
+    "evidence/v0.4-mcp-consumer.json"
+  ],
+  "remaining_consumers": [
+    "Independent-host narrow verifier repair",
+    "Public release and actual outside first value",
+    "Actual next natural event and distinct useful job at least24hours later"
+  ],
+  "measurement_boundary": "Manual one-shot checks, current-agent assisted jobs and explicit failed-job retries remain prompted work."
+}

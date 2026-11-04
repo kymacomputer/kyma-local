@@ -1,0 +1,15 @@
+{
+  "actual_fresh_unpack_analyze_completed": true,
+  "fresh_model_thread": "01a1a708-f084-7bf1-a6ac-436d4d34b624",
+  "actual_model_elapsed_seconds": 827.933905,
+  "adopted_sample_target_seconds": 600,
+  "under_ten_minute_target_met": false,
+  "fresh_install_reuses_existing_login_without_credential_copy": true,
+  "original_and_current_HTML_sources_exact": true,
+  "source_input_joins": 12,
+  "initial_native_comparison": "equal-input-comparison.json",
+  "independent_outside_install_completed": false,
+  "outside_use": false,
+  "root_acceptance": "pending",
+  "next_existing_owner": "Root under 63/67"
+}

@@ -1,0 +1,9 @@
+{
+  "customer_contracts": 4,
+  "current_shared_references": 1,
+  "historical_shared_references": 1,
+  "complete_source_input_bytes": 318918,
+  "complete_original_feature_facts_exact": true,
+  "full_source_input_joins": 6,
+  "analyst_claim_absent": true
+}

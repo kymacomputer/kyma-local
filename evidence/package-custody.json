@@ -1,0 +1,538 @@
+{
+  "created_at_utc": "2026-11-04T20:33:26.716122+00:00",
+  "source_selection": "tracked_git_source",
+  "untracked_local_files_included": false,
+  "omitted_private_files": [
+    "events.private.jsonl",
+    "stderr.private.txt"
+  ],
+  "private_model_reasoning_included": false,
+  "credentials_included": false,
+  "unrelated_owner_instruction_or_memory_outputs": {
+    "runs/fresh-user-run/observable-transcript.jsonl": [
+      {
+        "item_id": "item_3",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_3",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 111474,
+        "sha256": "238f474b7292b50f4db532d76a485517bb6169a8aa37f36528ace9ab0c42e2b0"
+      },
+      {
+        "item_id": "item_4",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_4",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 328658,
+        "sha256": "d45cf4d4e4a397ae3302b4e6ad94d489b5528fe04ac6ed797fe1e09c529e1016"
+      },
+      {
+        "item_id": "item_5",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_5",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 21596,
+        "sha256": "d7a79d48c0dc727f9ceb57b8271b3219a0f50cf91fb1c9b1d8ae1cb24f557f1f"
+      },
+      {
+        "item_id": "item_7",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_8",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_8",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 24469,
+        "sha256": "889a232651c9679c24808dcc5ad9a5e7b89ccd2b7d87679570792cf9e4b96212"
+      },
+      {
+        "item_id": "item_7",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 24431,
+        "sha256": "ab5c6127eb38c232dee33a377fadf5a1fd98b51a7dcef429b050557e8cbbef2d"
+      },
+      {
+        "item_id": "item_9",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_9",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 15614,
+        "sha256": "2ccf71f9fba85f63724069b20acd0fadf448a3b75a73b5956ac34505ebec9049"
+      },
+      {
+        "item_id": "item_11",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_11",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 15757,
+        "sha256": "56ddf03d2b3e51b133e7bc91dfc8ebfbbeeee958ee382591ddd2a7d0764364e8"
+      },
+      {
+        "item_id": "item_12",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_12",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 23502,
+        "sha256": "e6efc19387276a293b11220537d31f01bc1b8bd464b038be1fc5d0e60e12bc9f"
+      },
+      {
+        "item_id": "item_13",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_13",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 36468,
+        "sha256": "b8cabffa83c25053e106959d1593b45cc4d78c69f0813440d159133f3e32f5f2"
+      },
+      {
+        "item_id": "item_15",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_15",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 59115,
+        "sha256": "21f0de3bcc42b331f5e007cde3d106a59ff3d23ede412604f1177afb867ea328"
+      },
+      {
+        "item_id": "item_18",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_18",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 20877,
+        "sha256": "a1ecd622147105fa2525713776671d190d702bb2cfa9698e9ccd8f489d3c953f"
+      }
+    ],
+    "runs/kyma-public-sample/observable-transcript.jsonl": [
+      {
+        "item_id": "item_3",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_3",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 75006,
+        "sha256": "d1ce634b7615ecf9d46112dc911f3615d99b4c1f490c0dd04a4fbd04b8513cd7"
+      },
+      {
+        "item_id": "item_4",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_4",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 27859,
+        "sha256": "6c7902b91068111def169b4ee9b471474e13a8435320560f6ad94d0aeb3be9e9"
+      },
+      {
+        "item_id": "item_5",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_5",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 888,
+        "sha256": "ba39f4f57859f4dc8a7636e663a5e74c5698b532e4a32a9a92efc7d6715485de"
+      },
+      {
+        "item_id": "item_7",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_7",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 24038,
+        "sha256": "735146469eaaa9d4a5d45bc97ec1444d7c039dfc88b291113e121993188de6a8"
+      },
+      {
+        "item_id": "item_8",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_8",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 23109,
+        "sha256": "ed0a2938d89aebdac37d00257381af18dee47aba34497b1c9e4624bfa4d1a0f0"
+      },
+      {
+        "item_id": "item_10",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_10",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 11009,
+        "sha256": "c2fd62e8e10bca85f3ee1da33ac5610c063a98461609cbe543868a20b4dd42a5"
+      },
+      {
+        "item_id": "item_11",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_11",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 60899,
+        "sha256": "49b42189c6c5d1f3043ae619091484664bcbfb1719da59ddfcd8ca260a7661e4"
+      },
+      {
+        "item_id": "item_13",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_13",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 24431,
+        "sha256": "ab5c6127eb38c232dee33a377fadf5a1fd98b51a7dcef429b050557e8cbbef2d"
+      },
+      {
+        "item_id": "item_15",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_15",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 693617,
+        "sha256": "a1b94dd8336daf9511b7ac76b74bdbdf726b3018b7a2d034641a439d4bfaa1f3"
+      },
+      {
+        "item_id": "item_16",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_16",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 53249,
+        "sha256": "916004b51e84da507e04ef7e9162177dffdff18b4773bbe33d57ba57bdaf274b"
+      },
+      {
+        "item_id": "item_17",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_17",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 13538,
+        "sha256": "c5bdb867caf5a2d6ff90d99a2cdd16530938d7464773fddbd4668686be4c38db"
+      },
+      {
+        "item_id": "item_20",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_20",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 21510,
+        "sha256": "393d0d811c9f78a3425d10bd39df78b92898282644718e212e54a882ba17fb8f"
+      },
+      {
+        "item_id": "item_21",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_21",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 16665,
+        "sha256": "83a11e349da55d7efb3af1b05651b72bc99669c9a4f5af3b65b72ef9b10954b8"
+      },
+      {
+        "item_id": "item_22",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_22",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 19643,
+        "sha256": "16a8c14a4034ce2b761f3f9bd9cdf300dcfeeed52447b4311cbb1037a93c7952"
+      },
+      {
+        "item_id": "item_28",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_28",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 15169,
+        "sha256": "e96442545e68befc7f411494cd142ddc0c8dae48873891cb0c06ee98ed4d66cb"
+      }
+    ],
+    "runs/native-public-sample/observable-transcript.jsonl": [
+      {
+        "item_id": "item_3",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_3",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 75006,
+        "sha256": "d1ce634b7615ecf9d46112dc911f3615d99b4c1f490c0dd04a4fbd04b8513cd7"
+      },
+      {
+        "item_id": "item_4",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_5",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_4",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 15574,
+        "sha256": "a7d2019dbf66c143ca3a28652e5de0c84118eaa197f2b251bacab7992653c29e"
+      },
+      {
+        "item_id": "item_5",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 20405,
+        "sha256": "06fba92cec83d982177aa782607bb07be598f5ff8b035f0c12af5308e0547ff9"
+      },
+      {
+        "item_id": "item_6",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_6",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 89717,
+        "sha256": "238d90c94f305c40f3cba5c83103408f7dbc861252dee1235829e2acee668512"
+      },
+      {
+        "item_id": "item_8",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_8",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 15574,
+        "sha256": "a7d2019dbf66c143ca3a28652e5de0c84118eaa197f2b251bacab7992653c29e"
+      },
+      {
+        "item_id": "item_11",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_11",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 53249,
+        "sha256": "916004b51e84da507e04ef7e9162177dffdff18b4773bbe33d57ba57bdaf274b"
+      },
+      {
+        "item_id": "item_18",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_18",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 28843,
+        "sha256": "49e9868a6ab39e6ad53c5ec91a1b3422490a59edb76d4ba69436744912b4a681"
+      },
+      {
+        "item_id": "item_19",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_19",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 24431,
+        "sha256": "ab5c6127eb38c232dee33a377fadf5a1fd98b51a7dcef429b050557e8cbbef2d"
+      },
+      {
+        "item_id": "item_20",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_20",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 10506,
+        "sha256": "1f176865e1e12dfed095ec8d44d294d185db0bd7b46446d45ae8b56f6fa08fdf"
+      }
+    ],
+    "runs/watch-fullstory-source-change/observable-transcript.jsonl": [
+      {
+        "item_id": "item_3",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_3",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 75006,
+        "sha256": "d1ce634b7615ecf9d46112dc911f3615d99b4c1f490c0dd04a4fbd04b8513cd7"
+      },
+      {
+        "item_id": "item_4",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_4",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 18758,
+        "sha256": "58fdcbc179247982a2c412de52840d0c0165d3ff255ab34e80333a0715a5a3d2"
+      },
+      {
+        "item_id": "item_7",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_8",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_7",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 36468,
+        "sha256": "b8cabffa83c25053e106959d1593b45cc4d78c69f0813440d159133f3e32f5f2"
+      },
+      {
+        "item_id": "item_8",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 15694,
+        "sha256": "9a05e7009ed3e93a6a4f0d3a4ac4fbd528e33c695dc4b0fb08c40a6e1a6026d5"
+      },
+      {
+        "item_id": "item_11",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_11",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 9604,
+        "sha256": "33802467cd3bbce47739eee26d358651547ff236bb21ff29bf1520b981e1fefb"
+      },
+      {
+        "item_id": "item_13",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_13",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 947,
+        "sha256": "96c9ddd09a3520efc5a33c67dcdfcd83868b0952e509c3920a0364b9f071df0a"
+      },
+      {
+        "item_id": "item_14",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_15",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "item_id": "item_14",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 9953,
+        "sha256": "b76708f5544aede053e187de80a8c131d6fe5b38ec106fb599ded1be4e5d1527"
+      },
+      {
+        "item_id": "item_15",
+        "reason": "Existing owner instructions or unrelated private memory. No source-decision tool output is removed.",
+        "bytes": 24431,
+        "sha256": "ab5c6127eb38c232dee33a377fadf5a1fd98b51a7dcef429b050557e8cbbef2d"
+      }
+    ]
+  },
+  "scope": "Complete public task input, model-authored results and actual task-tool outputs remain. Private instruction read outputs retain hashes and exact command metadata only. Full private event originals remain with the owner."
+}

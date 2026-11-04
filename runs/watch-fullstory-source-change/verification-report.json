@@ -1,0 +1,1495 @@
+{
+  "passed": true,
+  "bundle_sha256": "75c275546ec8401d62cf450ed81fefb99f1384965892ac6a34e0b153a77e5ad8",
+  "checks": [
+    {
+      "check": "source_hash:c3-bhge:01-joint-venture-2019-06-06.html",
+      "passed": true
+    },
+    {
+      "check": "source_hash:c3-bhge:02-first-amendment-2019-09-26.html",
+      "passed": true
+    },
+    {
+      "check": "source_hash:c3-bhge:03-second-amendment-2020-06-01.html",
+      "passed": true
+    },
+    {
+      "check": "source_hash:sai-esds:01-master-services-2026-03-31.html",
+      "passed": true
+    },
+    {
+      "check": "source_hash:reference:fullstory:subprocessor-list.html",
+      "passed": true
+    },
+    {
+      "check": "source_hash:historical-reference:fullstory:subprocessor-list.html",
+      "passed": true
+    },
+    {
+      "check": "exact_population",
+      "passed": true
+    },
+    {
+      "check": "only_actual_customers",
+      "passed": true
+    },
+    {
+      "check": "unchanged_statuses",
+      "passed": true
+    },
+    {
+      "check": "disabled:D1",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D1:actor_role",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D1:provider_content_access",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D1:external_content_transfer",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D1:provider_training",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D1:processing_region",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D1:actor",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D1:purpose",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D1:data_access",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D1:model",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D1:training",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D1:retention",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D1:regions",
+      "passed": true
+    },
+    {
+      "check": "preserved_data:D1",
+      "passed": true
+    },
+    {
+      "check": "disabled:D2",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D2:actor_role",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D2:provider_content_access",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D2:external_content_transfer",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D2:provider_training",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D2:processing_region",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D2:actor",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D2:purpose",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D2:data_access",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D2:model",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D2:training",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D2:retention",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D2:regions",
+      "passed": true
+    },
+    {
+      "check": "preserved_data:D2",
+      "passed": true
+    },
+    {
+      "check": "disabled:D3",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D3:actor_role",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D3:provider_content_access",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D3:external_content_transfer",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D3:provider_training",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D3:processing_region",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D3:actor",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D3:purpose",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D3:data_access",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D3:model",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D3:training",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D3:retention",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D3:regions",
+      "passed": true
+    },
+    {
+      "check": "preserved_data:D3",
+      "passed": true
+    },
+    {
+      "check": "disabled:D4",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D4:actor_role",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D4:provider_content_access",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D4:external_content_transfer",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D4:provider_training",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D4:processing_region",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D4:actor",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D4:purpose",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D4:data_access",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D4:model",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D4:training",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D4:retention",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D4:regions",
+      "passed": true
+    },
+    {
+      "check": "preserved_data:D4",
+      "passed": true
+    },
+    {
+      "check": "disabled:D5",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D5:actor_role",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D5:provider_content_access",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D5:external_content_transfer",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D5:provider_training",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D5:processing_region",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D5:actor",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D5:purpose",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D5:data_access",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D5:model",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D5:training",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D5:retention",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D5:regions",
+      "passed": true
+    },
+    {
+      "check": "preserved_data:D5",
+      "passed": true
+    },
+    {
+      "check": "disabled:D6",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D6:actor_role",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D6:provider_content_access",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D6:external_content_transfer",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D6:provider_training",
+      "passed": true
+    },
+    {
+      "check": "literal_fact:D6:processing_region",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D6:actor",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D6:purpose",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D6:data_access",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D6:model",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D6:training",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D6:retention",
+      "passed": true
+    },
+    {
+      "check": "preserved_feature:D6:regions",
+      "passed": true
+    },
+    {
+      "check": "preserved_data:D6",
+      "passed": true
+    },
+    {
+      "check": "export_matches_authored_controls",
+      "passed": true
+    },
+    {
+      "check": "export_hash_matches",
+      "passed": true
+    },
+    {
+      "check": "one_actual_result",
+      "passed": true
+    },
+    {
+      "check": "sqlite_exact_bundle",
+      "passed": true
+    },
+    {
+      "check": "sqlite_exact_export",
+      "passed": true
+    },
+    {
+      "check": "sqlite_exact_key",
+      "passed": true
+    },
+    {
+      "check": "tool_receiver_exact",
+      "passed": true
+    },
+    {
+      "check": "stdout_receiver_exact",
+      "passed": true
+    },
+    {
+      "check": "actual_sdk_used",
+      "passed": true
+    },
+    {
+      "check": "18_actual_evaluations",
+      "passed": true
+    },
+    {
+      "check": "all_actual_values_false",
+      "passed": true
+    },
+    {
+      "check": "complete_diff_equals_input_change",
+      "passed": true
+    },
+    {
+      "check": "printed_date_unchanged",
+      "passed": true
+    },
+    {
+      "check": "original_hash_changed",
+      "passed": true
+    },
+    {
+      "check": "text_hash_changed",
+      "passed": true
+    },
+    {
+      "check": "seven_rows_each",
+      "passed": true
+    },
+    {
+      "check": "only_google_purpose_changed",
+      "passed": true
+    },
+    {
+      "check": "all_other_supplier_rows_unchanged",
+      "passed": true
+    },
+    {
+      "check": "purpose_addition_not_training",
+      "passed": true
+    },
+    {
+      "check": "location_and_data_unchanged",
+      "passed": true
+    },
+    {
+      "check": "openai_location_absent_not_inferred",
+      "passed": true
+    },
+    {
+      "check": "navigation_noise_does_not_change_supplier_table",
+      "passed": true
+    },
+    {
+      "check": "no_customer_engagement_inferred",
+      "passed": true
+    },
+    {
+      "check": "revision_effect_not_permission",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:complete_positive",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:missing_actor_role",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:missing_provider_content_access",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:missing_external_content_transfer",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:missing_provider_training",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:missing_processing_region",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:missing_actor",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:missing_purpose",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:missing_data_access",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:missing_model",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:missing_training",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:missing_retention",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:missing_regions",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:missing_data_categories",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:different_actor",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:different_purpose",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:provider_access",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:external_google_content_recipient",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:training",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:region",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:boolean_as_zero",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:boolean_as_string",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:boolean_as_null",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:different_retention",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:region_list_as_string",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:extra_region",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:different_dataset",
+      "passed": true
+    },
+    {
+      "check": "isolated_sdk:wrong_customer",
+      "passed": true
+    },
+    {
+      "check": "no_test_mutation:source-manifest.json",
+      "passed": true
+    },
+    {
+      "check": "no_test_mutation:feature.json",
+      "passed": true
+    },
+    {
+      "check": "no_test_mutation:input-diff.json",
+      "passed": true
+    },
+    {
+      "check": "no_test_mutation:revision-context.json",
+      "passed": true
+    },
+    {
+      "check": "no_test_mutation:model-decisions.json",
+      "passed": true
+    },
+    {
+      "check": "no_test_mutation:openfeature-rules.json",
+      "passed": true
+    },
+    {
+      "check": "no_test_mutation:local-results.sqlite3",
+      "passed": true
+    }
+  ],
+  "check_count": 152,
+  "actual_customer_sdk_evaluations": 18,
+  "isolated_synthetic_sdk_evaluations": 28,
+  "synthetic_sdk_results": [
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": true,
+      "expected_model_control": true,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": true,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Google inference through Fullstory",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "United States",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": 0,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": "false",
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": null,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Raw examples retained for 30 days.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": "Australia",
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia",
+            "Germany"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "synthetic-regression-only",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Other customer content"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "unknown-customer",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+          "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+          "training": "No provider training or cross-customer improvement.",
+          "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+          "regions": [
+            "Australia"
+          ],
+          "data_categories": [
+            "Customer-controlled operational workloads",
+            "Customer technical documents and confidential information",
+            "Customer workload content and support logs"
+          ]
+        }
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    }
+  ],
+  "synthetic_rules_saved_to_receiver": false,
+  "limits": "Tests verify source identity, declared impact, typed SDK matching and exact local receipt. They do not prove legal interpretation, live isolation or actual engagement."
+}

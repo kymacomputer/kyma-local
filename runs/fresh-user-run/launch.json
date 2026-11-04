@@ -1,0 +1,67 @@
+{
+  "mode": "kyma",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "ultra",
+  "authentication": {
+    "authentication": "existing_ChatGPT_subscription",
+    "codex_executable": "/Users/idamo/.nvm/versions/node/v22.22.0/bin/codex",
+    "codex_version": "codex-cli 0.162.1",
+    "python": "/private/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-local-fresh-unpack-20261104-mwyp4opi/kyma-local/.venv/bin/python",
+    "openfeature_sdk": "0.10.0",
+    "pypdf": "6.21.4",
+    "credential_files_read_or_copied_by_kit": false,
+    "data_flow": "Codex sends source contents to the user-selected ChatGPT provider under the existing account. No source content is sent to Kyma."
+  },
+  "command": [
+    "/Users/idamo/.nvm/versions/node/v22.22.0/bin/codex",
+    "exec",
+    "--ephemeral",
+    "--ignore-user-config",
+    "--ignore-rules",
+    "--skip-git-repo-check",
+    "-C",
+    "/private/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-local-fresh-unpack-20261104-mwyp4opi/kyma-local/runs/fresh-user-run",
+    "--sandbox",
+    "danger-full-access",
+    "-c",
+    "forced_login_method=\"chatgpt\"",
+    "-c",
+    "model_reasoning_effort=\"ultra\"",
+    "-m",
+    "gpt-6.1-sol",
+    "--json",
+    "-o",
+    "/private/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-local-fresh-unpack-20261104-mwyp4opi/kyma-local/runs/fresh-user-run/final-response.txt",
+    "-"
+  ],
+  "source_manifest_sha256": "668c383c6e97fdeb7f4daaf2d209433670920075109a262d676ae98b386b0d9a",
+  "model_input_sha256": "fd860ee5557c429cdc30447fe09abc9f2d6bf8aa8ab8e46f34039663d17d7c56",
+  "kit_code_sha256_before": {
+    "documents.py": "1d8a1dcf5effd7904978a682e5fbef6065f3d40fa15aa1649614f9db8193c877",
+    "__init__.py": "8bad893a6516172db512d956de151e8022e37610770f861ba3c0b6213dab2cf7",
+    "main.py": "8a5b47709d9c702d172cc3ee020b703871af34339e2486080783df9781133599",
+    "tool.py": "fc3e34a8e6aaa98985850a7b88f5a9e3884002ed957a951aabe501a6a8566b28",
+    "__main__.py": "bc143cdb7df8917d3a2260db1653c582205188b2229f0364df3f0a86cea177be"
+  },
+  "started_at_utc": "2026-11-04T14:49:03.068492+00:00",
+  "status": "completed",
+  "credential_copy": false,
+  "kyma_source_upload": false,
+  "returncode": 0,
+  "thread_id": "01a1a708-f084-7bf1-a6ac-436d4d34b624",
+  "usage": {
+    "input_tokens": 2353106,
+    "cached_input_tokens": 2208896,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 29176,
+    "reasoning_output_tokens": 7082
+  },
+  "completed_at_utc": "2026-11-04T15:02:51.002397+00:00",
+  "kit_code_sha256_after": {
+    "documents.py": "1d8a1dcf5effd7904978a682e5fbef6065f3d40fa15aa1649614f9db8193c877",
+    "__init__.py": "8bad893a6516172db512d956de151e8022e37610770f861ba3c0b6213dab2cf7",
+    "main.py": "8a5b47709d9c702d172cc3ee020b703871af34339e2486080783df9781133599",
+    "tool.py": "fc3e34a8e6aaa98985850a7b88f5a9e3884002ed957a951aabe501a6a8566b28",
+    "__main__.py": "bc143cdb7df8917d3a2260db1653c582205188b2229f0364df3f0a86cea177be"
+  }
+}

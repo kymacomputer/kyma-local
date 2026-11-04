@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+/runs/*
+/my-contracts/
+/my-feature.json
+/assessment*.json
+.env
+.env.*

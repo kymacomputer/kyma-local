@@ -1,0 +1,77 @@
+{
+  "model": "gpt-6.1-sol",
+  "effort": "ultra",
+  "complete_original_inputs_identical": true,
+  "feature_facts_identical": true,
+  "tool_capabilities_identical": true,
+  "independent_model_threads": [
+    "01a1a6ed-fd1b-7223-ab77-2cdf7b5f6a4e",
+    "01a1a6f1-927f-71f3-a963-629dba448eb1"
+  ],
+  "rows": [
+    {
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "kyma_status": "unresolved",
+      "native_status": "unresolved",
+      "status_agrees": true,
+      "kyma_rationale": "Preserve customer-controlled inference as the strongest candidate architecture. Its no-access design avoids a new C3 use of content, but it cannot create missing subscription rights. The JV expressly routes internal use to a separate MSSA. Obtain that instrument and assess this same design without a generic new consent requirement. A downstream customer needs its own contract. Public filing access, platform capability and the renewal right without evidence of exercise cannot establish current launch authority.",
+      "native_rationale": "The supplied JV contemplates AI applications and identifies a separate BH internal subscription. It does not supply that subscription or an executed downstream MSSA. Therefore neither permission nor prohibition for this exact current deployment can be established. The strongest design is customer-controlled inference without C3 content access.\n\nThe amended initial JV term ends April 30, 2024, but expiry does not itself extinguish surviving customer subscription rights. A renewal right or public filing cannot prove a current term. D1 remains unavailable in this export until the exact governing instruments resolve these prerequisites."
+    },
+    {
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "kyma_status": "needs_consent",
+      "native_status": "off",
+      "status_agrees": false,
+      "kyma_rationale": "There is no demonstrated license for ordinary customer content to train this shared model. Ownership reservations and the required-performance confidentiality purpose prevent an inference from broad JV objectives to blanket reuse. Section 8.4 supplies a valuable separate route for proven technology and Feedback. It can support a curated improvement corpus within its purposes without a fresh generic consent gate. The original Exhibit E generalization clauses cannot repair the raw-content gap because the Second Amendment replaced that exhibit in full. Use rights-cleared synthetic examples and qualifying contributions until the broader input license exists.",
+      "native_rationale": "The exact mixed-content shared-training proposal lacks a supported grant and exceeds established confidential-use authority. It is off under the supplied record. Section 8.4 is a substantial useful alternative, not a blanket waiver: its broad license attaches to specified BH technology and Feedback.\n\nIt does not automatically attach to every workload, log or downstream customer document. A qualifying corpus may support C3-offering development or commercialization within section 8.4. Object-level proof and the stated purpose remain necessary. Missing Exhibit E limits a development-specific assessment, not every commercialization route.\n\nAn accrued perpetual section 8.4 license can survive JV expiry. A missing renewal or current subscription does not alone defeat that accrued grant. Public, synthetic or separately licensed inputs provide another useful route.\n\nThirty-day example deletion does not cure an unauthorized initial use. Indefinite weights require analysis if they retain protected information. A signed, specifically scoped license or waiver could change the result, but no such instrument is assumed."
+    },
+    {
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "kyma_status": "unresolved",
+      "native_status": "unresolved",
+      "status_agrees": true,
+      "kyma_rationale": "Same-customer support can serve the Section 9.2 performance purpose, so this set does not justify a universal AI inference ban or automatic consent demand. The missing actual support agreement and restated development scope prevent a current permission conclusion. Meanwhile build a copilot from C3-authored support material, or execute diagnostics within the customer boundary. Any returned diagnostic content needs its own valid classification and purpose. Removing training and retention does not itself establish the right to read customer content.",
+      "native_rationale": "Section 9.2 is a purpose limitation, not a blanket prohibition on every provider AI inference. Authorized same-customer support may fit its performance route. The JV alone does not establish the required support scope, customer data license or permitted recipients. Zero retention and no external transfer do not create those rights.\n\nUse a provider-documentation and permitted noncontent diagnostic copilot while support content authority remains unresolved. Alternatively use D1’s customer-controlled route after its subscription prerequisites resolve. Neither alternative silently enables D2."
+    },
+    {
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "kyma_status": "needs_consent",
+      "native_status": "off",
+      "status_agrees": false,
+      "kyma_rationale": "The no-provider-access design fits the bare-metal technical allocation and avoids Section 8.2 content interpretation by SAI. It still conflicts with the separate reseller-only purpose restriction. The Cloud Infrastructure ML definition, AUP and AI disclaimers confirm AI capability, not unrestricted own-internal use. The strongest useful route is this architecture under a real End Customer resale deployment, or a narrow purpose extension for the contracting Customer. Neither route is established now. Australia in the proposal does not prove the selected site, and the populated unsigned order is not an executed prerequisite.",
+      "native_rationale": "The exact actor-purpose pair conflicts with reseller-only use. Exclusive machine-learning infrastructure and application control do not expand the contracting Customer’s purpose. The strongest supported alternative places the copilot with a genuine End Customer for that End Customer’s internal business use. This is an actor-and-workflow change, not a relabeling of SPOCHUB or ESDS as its own End Customer.\n\nA signed amendment could instead authorize internal use, but ordinary consent or a notice does not supply that amendment. The alternative also needs the actual executed order, commissioning evidence, incorporated End Customer terms, input rights and permitted-site confirmation. It receives no enablement through D4. Current customer authorization remains unknown."
+    },
+    {
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "kyma_status": "off",
+      "native_status": "off",
+      "status_agrees": true,
+      "kyma_rationale": "The exact raw-content operation is off. The Section 8.2 improvement grant preserves quantitative usage analysis but expressly excludes content access. Sections 15.2-15.3 allocate resulting IP rather than supplying the missing input license. Section 15.4 is stronger counterevidence: genuinely supplied Feedback has an express any-purpose override. Preserve that useful route instead of applying a universal training ban. The proposal does not establish that its workloads and logs are Feedback. A separate curated Feedback/telemetry/synthetic-data model can improve support without granting itself the proposed raw-content access. A 30-day example purge cannot eliminate indefinite model retention.",
+      "native_rationale": "The content-access prohibition defeats this exact proposal before training begins. Confidential information also has a contractual-performance purpose limit. Sections 15.2–15.5 grant substantial ownership and Feedback rights, but ownership is not blanket input authorization.\n\nGenuine submitted suggestions, questions and bug reports can qualify under section 15.4 and support a useful separate improvement corpus. Its notwithstanding wording creates a real tension with section 8.2 for mixed Feedback that contains workload content. Use unambiguous noncontent Feedback and preserve that mixed-submission question rather than silently choosing the broader grant.\n\nThe Customer Data exclusion for provider-generated logs does not exempt every support log or erase confidentiality and privacy limits. A thirty-day backup or raw-example period does not authorize indefinite protected information in weights. No de-identification is assumed."
+    },
+    {
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "kyma_status": "off",
+      "native_status": "off",
+      "status_agrees": true,
+      "kyma_rationale": "Section 8.2 forbids access, reconstruction, decipherment and interpretation of Customer Data Content despite other MSA terms or any Service Order. The support obligation in Section 7 and confidentiality performance purpose do not erase that narrower prohibition. A broad personnel disclosure permission or a single written disclosure consent is not a new processing license. A provider-knowledge and native-telemetry copilot remains useful, with customer-side diagnostics as the content-aware component. This alternative changes the input boundary and must not silently enable the exact content-reading operation.",
+      "native_rationale": "Section 8.2 expressly bars the proposed content read despite anything in the agreement or any Service Order. Tenant isolation, no training, Australian hosting and zero retention do not cure the prohibited access. Section 17.2(d) permits a particular disclosure with consent. It does not independently amend section 8.2 or create a Customer Personal Data processor role.\n\nBuild a provider-documentation copilot with hardware-fault metrics and permit local customer-side diagnosis without provider content transfer. A customer-generated bundle is useful only if its actual fields avoid restricted content and have their own permitted disclosure purpose. The no-content alternative remains distinct from this off operation."
+    }
+  ],
+  "status_disagreements": 2,
+  "kyma_source_quotes": 61,
+  "native_source_quotes": 56,
+  "kyma_precedence_edges": 3,
+  "native_precedence_edges": 6,
+  "kyma_engineering_outputs": 8,
+  "native_engineering_outputs": 7,
+  "accuracy_grade": null,
+  "lawyer_grade": null,
+  "scope": "Two actual model source-to-decision runs with equal complete inputs and tools. Agreement is not proof of legal correctness. No wrong-clearance rate or superiority follows without an independent reference."
+}

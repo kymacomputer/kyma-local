@@ -1,0 +1,65 @@
+EX-10.11
+13
+exhibit1011-sx1.htm
+EX-10.11
+Document
+Exhibit 10.11
+CERTAIN IDENTIFIED INFORMATION HAS BEEN EXCLUDED FROM THIS EXHIBIT BECAUSE IT IS NOT MATERIAL AND WOULD LIKELY CAUSE COMPETITIVE HARM TO THE REGISTRANT IF PUBLICLY DISCLOSED. [***] INDICATES THAT INFORMATION HAS BEEN REDACTED.
+FIRST AMENDMENT
+TO
+JOINT VENTURE AGREEMENT
+THIS FIRST AMENDMENT (this “Amendment) to the Joint Venture Agreement between Baker Hughes, a GE company, LLC (“BHGE”), and C3.ai, Inc., f/k/a C3 IoT, Inc. (“C3.ai”), effective June 6, 2019 (the “JV Agreement”), is made and entered into by and between BHGE and C3.ai for the purposes of amending certain provisions of the JV Agreement. BHGE and C3.ai may be collectively referred to herein as the “Parties.”
+With respect to the JV Agreement, BHGE and C3.ai hereby agree to the following:
+1.Article 1 of the JV Agreement, entitled “Certain Definitions,” is hereby amended to include the following additional definitions:“Year 1” shall mean the period starting with the Effective Date and ending on April 30, 2020.
+1.65“Year 2” shall mean the period starting May 1, 2020 and ending on April 30, 2021.
+1.66“Year 3” shall mean the period starting May 1, 2021 and ending on April 30, 2022.
+For clarity, all references in the JV Agreement to the defined terms “Year 1,” “Year 2,” and “Year 3” shall now refer to the above language.
+2.Section 5.l(b) of the JV Agreement is hereby deleted and replaced with the following:
+(b)At the end of each of Year 1, Year 2, and Year 3 during the Term, C3.ai will provide to BHGE its calculation of the C3 Revenue and the terms set forth in Exhibit B-1 shall apply.
+3.Section 12.1 of the JV Agreement, entitled “Term” is hereby deleted and replaced with the following:
+12.1Term. This Agreement shall commence on the Effective Date and unless earlier terminated as set forth below, shall remain in full force and effect until April 30, 2022 (the “Initial Term”). The Parties shall negotiate in good faith the renewal(s) of this Agreement for additional three (3) year term(s) a minimum of six (6) months prior to the expiration of the immediately preceding term; provided that, for the avoidance of doubt, any such renewal(s) may or may not include minimum payment obligations (subject to the mutual agreement of the Parties
+during such negotiations) (each renewal term, if any mutually agreed, shall be referred to as the “Renewal Term,” and together with the Initial Term, the “Term”).
+For clarity, all references in the JV Agreement to the defined terms “Initial Term,” “Referral Term,” and “Term” shall now refer to the above language.
+4.Section I of Exhibit B-1 to the JV Agreement is hereby deleted and replaced with the following:
+1.Minimum Annual Revenue Commitment.
+Annual Period (as defined in the Agreement)
+Minimum Annual Revenue Commitment Amount
+1.
+Year 1
+Fifty Million US Dollars (US$50 Million)
+2.
+Year 2
+One Hundred Million US Dollars (US$100 Million)
+3.
+Year 3
+One Hundred Seventy Million US Dollars (US$170 Million)
+4.
+TOTAL
+Three Hundred Twenty Million US Dollars (US$320 Million)
+5.Sections 1.3 and 1.4 of Exhibit E to the JV Agreement are hereby deleted and replaced with the following language:
+1.3In addition, by April 30, 2021, C3.ai will deliver up to [***] new features to be agreed no later than February 28, 2020, as part of a joint roadmap planning session. Each new feature shall be comparable in scope to a feature agreed prior to April 30, 2020.
+1.4By April 30, 2022, C3.ai will deliver up to [***] new features to be agreed no later than February 28, 2021, as part of a joint roadmap planning session. Each new feature shall be comparable in scope to a feature agreed prior to April 30, 2020.
+6.Except as expressly provided herein, the terms and conditions of the JV Agreement are unaltered and remain in full force and effect
+7.This Amendment shall be interpreted and construed, and the legal relationships created hereby shall be construed in accordance with the laws of the State of Delaware (USA), without regard to its conflicts of law principles. The application of the United Nations Convention on Contracts for the International Sale of Goods is expressly excluded. In the event that any dispute, claim or controversy arising out of or relating to this Amendment or the breach, termination, enforcement, interpretation or validity thereof, including the determination of the scope or applicability of this Amendment to mediation or arbitration, exists after the process set forth in Section 7
+of the JV Agreement has been completed, the Parties shall refer the dispute, claim or controversy to proceedings under the International Chamber of Commerce (ICC) Mediation Rules (the “Rules of Mediation”), to be conducted in San Francisco, California. If any such dispute has not been settled pursuant to the Rules of Mediation within sixty (60) days following the filing of a request for mediation, such dispute, claim or controversy shall thereafter be determined pursuant to the Rules of Arbitration of the International Chamber of Commerce (the “Rules of Arbitration”) by three arbitrators appointed in accordance with the Rules of Arbitration, which arbitration shall be held in San Francisco, California. Judgment on the award may be entered in the Federal and state courts located in San Francisco, California. This paragraph shall not preclude the Parties from seeking provisional remedies in aid of arbitration from a court of appropriate jurisdiction. Each of the Parties hereby consents to service of process by registered mail, return receipt requested, at such Party's address. All offers, promises, and conduct, whether oral or written, made in the course of the issue resolution pursuant to Section 7 of the JV Agreement by the Parties or their agents are confidential, privileged and inadmissible for any purpose, including impeachment, in arbitration or other proceeding, provided that evidence that is otherwise admissible or discoverable shall not be rendered inadmissible or non-discoverable as a result of its use in the negotiation.
+[SIGNATURE PAGE FOLLOWS]
+In Witness Whereof, each of the Parties hereto has duly executed this First Amendment to the JV Agreement as of the last date set forth below.
+C3.ai, Inc. (f/k/a C3 IoT, Inc.)
+Baker Hughes, a GE company, LLC
+/s/ Thomas M. Siebel
+/s/ Daniel Brennan
+Signature
+Signature
+Thomas M. Siebel
+Daniel Brennan
+Name
+Name
+Chief Executive Officer
+Vice President - Operations
+Title
+Title
+Sept. 25, 2019
+09-26-2019
+Date
+Date
+SIGNATURE PAGE TO FIRST AMENDMENT TO JV AGREEMENT

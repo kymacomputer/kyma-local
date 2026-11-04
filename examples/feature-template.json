@@ -1,0 +1,24 @@
+{
+  "id": "my-feature",
+  "name": "My named AI feature",
+  "input_status": "Replace this template with the actual proposed feature and its known facts. Keep proposals and unverified facts explicit.",
+  "as_of": "2026-11-04",
+  "operations": [
+    {
+      "id": "customer-support-inference",
+      "actor": "State the exact customer, provider or other actor and its role.",
+      "data": "State the actual data classes and their producer, owner and custody.",
+      "purpose": "State the actual task and who receives its benefit.",
+      "model": "State the actual model operator, provider, model and inference or training role.",
+      "proposed_facts": {
+        "actor_role": "unknown",
+        "purpose": "unknown",
+        "provider_content_access": "unknown",
+        "external_content_transfer": "unknown",
+        "provider_training": "unknown",
+        "processing_region": "unknown",
+        "retention": "unknown"
+      }
+    }
+  ]
+}

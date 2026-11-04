@@ -1,0 +1,181 @@
+{
+  "change_id": "R1",
+  "comparison_scope": "Complete supplied extracted texts and all seven supplier rows. Original-byte identity uses the supplied acquisition hashes.",
+  "before": {
+    "document_id": "historical-reference:fullstory:subprocessor-list.html",
+    "original_sha256": "ca7f1c5a775e5acfeb6268b8befccd0cc4056f84d538eea0d1a5bdc1c00371cf",
+    "text_sha256": "ba85c76aae6c9333e3eac60214161d56e77dcbd1bc300f1dea55544d6516bc0c",
+    "provenance": {
+      "file": "subprocessor-list.html",
+      "source_class": "captured_public_supplier_disclosure",
+      "url": "https://www.fullstory.com/legal/subprocessor-list/",
+      "original_sha256": "ca7f1c5a775e5acfeb6268b8befccd0cc4056f84d538eea0d1a5bdc1c00371cf",
+      "original_observation_time": "2026-06-14T16:59:55+00:00",
+      "original_clock_type": "archive_capture",
+      "source_role": "historical_reference",
+      "scope": "Complete observed supplier disclosure. Infer applicability from the actual contract set and feature facts. A capture clock is not a publication or engagement clock.",
+      "retrieved_at_utc": "2026-11-04T14:30:36.593377+00:00"
+    },
+    "rows": {
+      "Google LLC": {
+        "entity": "Google LLC",
+        "purpose": "Data storage and processing, security monitoring",
+        "processed_data": "Customer data and Customer’s end-users’ data",
+        "location": "United States; Germany",
+        "exact_row_text": "Google LLC\nData storage and processing, security monitoring\nCustomer data and Customer’s end-users’ data\nUnited States; Germany"
+      },
+      "Fastly, Inc. (Signal Sciences Corporation)": {
+        "entity": "Fastly, Inc. (Signal Sciences Corporation)",
+        "purpose": "Real-time threat detection and prevention; web application Firewall",
+        "processed_data": "Customer data and Customer’s end-users’ data",
+        "location": "United States",
+        "exact_row_text": "Fastly, Inc. (Signal Sciences Corporation)\nReal-time threat detection and prevention; web application Firewall\nCustomer data and Customer’s end-users’ data\nUnited States"
+      },
+      "Salesforce": {
+        "entity": "Salesforce",
+        "purpose": "Customer relationship management solution platform",
+        "processed_data": "Customer data",
+        "location": "United States",
+        "exact_row_text": "Salesforce\nCustomer relationship management solution platform\nCustomer data\nUnited States"
+      },
+      "Zendesk": {
+        "entity": "Zendesk",
+        "purpose": "Customer service platform that supports customer interactions e.g. via email",
+        "processed_data": "Customer data and Customer’s end-users’ data, as is provided by the individual that reached out to Fullstory, such as name, email address, phone number",
+        "location": "United States",
+        "exact_row_text": "Zendesk\nCustomer service platform that supports customer interactions e.g. via email\nCustomer data and Customer’s end-users’ data, as is provided by the individual that reached out to Fullstory, such as name, email address, phone number\nUnited States"
+      },
+      "Marketo": {
+        "entity": "Marketo",
+        "purpose": "Cloud-based Email and Marketing Services tool",
+        "processed_data": "Customer data",
+        "location": "United States",
+        "exact_row_text": "Marketo\nCloud-based Email and Marketing Services tool\nCustomer data\nUnited States"
+      },
+      "OpenAI (optional)": {
+        "entity": "OpenAI (optional)",
+        "purpose": "Support various Generative AI features within Fullstory",
+        "processed_data": "Customer data and Customer’s end-users’ data",
+        "location": null,
+        "exact_row_text": "OpenAI (optional)\nSupport various Generative AI features within Fullstory\nCustomer data and Customer’s end-users’ data"
+      },
+      "Anthropic": {
+        "entity": "Anthropic",
+        "purpose": "Support delivery of the SaaS Services to Customer",
+        "processed_data": "Customer data and Customer’s end-users’ data",
+        "location": "United States",
+        "exact_row_text": "Anthropic\nSupport delivery of the SaaS Services to Customer\nCustomer data and Customer’s end-users’ data\nUnited States"
+      }
+    }
+  },
+  "after": {
+    "document_id": "reference:fullstory:subprocessor-list.html",
+    "original_sha256": "48e2e7c255c575afcfdf2538fe4dd04b7303c311e188d66734896ff3973576b5",
+    "text_sha256": "74ee8462379637ace88f07dc47532012c0b8d36077194f14a3e2e2431598b995",
+    "provenance": {
+      "file": "subprocessor-list.html",
+      "source_class": "captured_public_supplier_disclosure",
+      "url": "https://www.fullstory.com/legal/subprocessor-list/",
+      "original_sha256": "48e2e7c255c575afcfdf2538fe4dd04b7303c311e188d66734896ff3973576b5",
+      "original_observation_time": "2026-10-31T18:44:38.077867Z",
+      "original_clock_type": "source_acquisition",
+      "source_role": "shared_reference",
+      "scope": "Complete observed supplier disclosure. Infer applicability from the actual contract set and feature facts. A capture clock is not a publication or engagement clock."
+    },
+    "rows": {
+      "Google LLC": {
+        "entity": "Google LLC",
+        "purpose": "Data storage and processing, security monitoring, and AI model inference for in-product AI features",
+        "processed_data": "Customer data and Customer’s end-users’ data",
+        "location": "United States; Germany",
+        "exact_row_text": "Google LLC\nData storage and processing, security monitoring, and AI model inference for in-product AI features\nCustomer data and Customer’s end-users’ data\nUnited States; Germany"
+      },
+      "Fastly, Inc. (Signal Sciences Corporation)": {
+        "entity": "Fastly, Inc. (Signal Sciences Corporation)",
+        "purpose": "Real-time threat detection and prevention; web application Firewall",
+        "processed_data": "Customer data and Customer’s end-users’ data",
+        "location": "United States",
+        "exact_row_text": "Fastly, Inc. (Signal Sciences Corporation)\nReal-time threat detection and prevention; web application Firewall\nCustomer data and Customer’s end-users’ data\nUnited States"
+      },
+      "Salesforce": {
+        "entity": "Salesforce",
+        "purpose": "Customer relationship management solution platform",
+        "processed_data": "Customer data",
+        "location": "United States",
+        "exact_row_text": "Salesforce\nCustomer relationship management solution platform\nCustomer data\nUnited States"
+      },
+      "Zendesk": {
+        "entity": "Zendesk",
+        "purpose": "Customer service platform that supports customer interactions e.g. via email",
+        "processed_data": "Customer data and Customer’s end-users’ data, as is provided by the individual that reached out to Fullstory, such as name, email address, phone number",
+        "location": "United States",
+        "exact_row_text": "Zendesk\nCustomer service platform that supports customer interactions e.g. via email\nCustomer data and Customer’s end-users’ data, as is provided by the individual that reached out to Fullstory, such as name, email address, phone number\nUnited States"
+      },
+      "Marketo": {
+        "entity": "Marketo",
+        "purpose": "Cloud-based Email and Marketing Services tool",
+        "processed_data": "Customer data",
+        "location": "United States",
+        "exact_row_text": "Marketo\nCloud-based Email and Marketing Services tool\nCustomer data\nUnited States"
+      },
+      "OpenAI (optional)": {
+        "entity": "OpenAI (optional)",
+        "purpose": "Support various Generative AI features within Fullstory",
+        "processed_data": "Customer data and Customer’s end-users’ data",
+        "location": null,
+        "exact_row_text": "OpenAI (optional)\nSupport various Generative AI features within Fullstory\nCustomer data and Customer’s end-users’ data"
+      },
+      "Anthropic": {
+        "entity": "Anthropic",
+        "purpose": "Support delivery of the SaaS Services to Customer",
+        "processed_data": "Customer data and Customer’s end-users’ data",
+        "location": "United States",
+        "exact_row_text": "Anthropic\nSupport delivery of the SaaS Services to Customer\nCustomer data and Customer’s end-users’ data\nUnited States"
+      }
+    }
+  },
+  "before_displayed_date": "Last Updated: June 2, 2026",
+  "after_displayed_date": "Last Updated: June 2, 2026",
+  "supplier_row_changes": [
+    {
+      "entity": "Google LLC",
+      "changed_fields": [
+        "purpose"
+      ],
+      "before": {
+        "entity": "Google LLC",
+        "purpose": "Data storage and processing, security monitoring",
+        "processed_data": "Customer data and Customer’s end-users’ data",
+        "location": "United States; Germany",
+        "exact_row_text": "Google LLC\nData storage and processing, security monitoring\nCustomer data and Customer’s end-users’ data\nUnited States; Germany"
+      },
+      "after": {
+        "entity": "Google LLC",
+        "purpose": "Data storage and processing, security monitoring, and AI model inference for in-product AI features",
+        "processed_data": "Customer data and Customer’s end-users’ data",
+        "location": "United States; Germany",
+        "exact_row_text": "Google LLC\nData storage and processing, security monitoring, and AI model inference for in-product AI features\nCustomer data and Customer’s end-users’ data\nUnited States; Germany"
+      }
+    }
+  ],
+  "unchanged_supplier_rows": [
+    "Fastly, Inc. (Signal Sciences Corporation)",
+    "Salesforce",
+    "Zendesk",
+    "Marketo",
+    "OpenAI (optional)",
+    "Anthropic"
+  ],
+  "complete_observed_text_diff": "--- before/fullstory/subprocessor-list.html\n\n+++ after/fullstory/subprocessor-list.html\n\n@@ -1,29 +1,35 @@\n\n Fullstory Sub-processor List\n-Product\n+Platform\n+Platform Overview\n+Capture, understand, and act on behavioral data.\n+Watch a 4-minute product tour\n+An on-demand walkthrough of Fullstory.\n Analytics\n Customer Behavior\n Product Analytics\n-Mobile App Analytics\n+Mobile Analytics\n+Guides and Surveys\n+Heatmaps\n Session Replay\n-Guides and Surveys\n-Watch a product tour ↗\n+Anywhere\n+Data Activation\n+Real-Time Personalization\n+Tech Stack Enrichment\n+StoryAI\n+Intelligence\n+StoryAI Agents\n+Ask StoryAI\n+Fullstory MCP\n Workforce\n Employee Experience\n-Workflow Efficiency\n+Workflow Intelligence\n Support Acceleration\n-Watch a product tour ↗\n-Anywhere\n-Data Ecosystem\n-Tech Stack Enrichment\n-Real-Time Personalization\n-Platform Overview\n-Each product delivers. Together, they transform.\n-Meet StoryAI\n-Our AI agents powering it all.\n Solutions\n+Solutions Catalog\n+Explore tailored resources for every industry and team\n By Industry\n Retail & Ecommerce\n Food & Beverage\n Travel & Hospitality\n Finance & Insurance\n Gaming\n@@ -31,16 +37,16 @@\n\n By Team\n Product & Engineering\n Data\n Customer Support\n IT & Internal Support\n Marketing\n-Solutions Catalog\n-Explore tailored resources for every industry and team\n Plans & Pricing\n Resources\n+Digital Benchmark Report 2026\n+See what it means for next year.\n Resources\n All Resources\n Blog\n Customer Stories\n Help Center\n Learning Courses\n@@ -49,15 +55,13 @@\n\n About Us\n News\n Events\n Privacy & Security\n Careers\n Partners\n-Experience the Benchmark Report\n-Our immersive benchmark experience built from 14B sessions.\n-Product\n+Platform\n Solutions\n Plans & Pricing\n Resources\n Log in\n Back\n Get a demo\n@@ -72,12 +76,13 @@\n\n Description of Services for Onboarding Service Providers\n Fullstory Sub-processor List\n FullstoryFree Terms of Use\n International Data Transfers FAQ\n Managed Service Provider Addendum\n Master Partner Program Agreement\n+Modern Slavery Statement\n Partner Program Addenda\n Pass-Through Terms for Customers of Resellers\n Privacy Notice for Californians\n Privacy Policy\n Reseller Addendum\n Security Addendum\n@@ -90,13 +95,13 @@\n\n Fullstory’s commitments to Customers for the Processing of Personal Data may be found in the applicable Data Processing Addendum.\n ENTITY NAME\n PURPOSE OF PROCESSING\n PROCESSED DATA\n LOCATION\n Google LLC\n-Data storage and processing, security monitoring\n+Data storage and processing, security monitoring, and AI model inference for in-product AI features\n Customer data and Customer’s end-users’ data\n United States; Germany\n Fastly, Inc. (Signal Sciences Corporation)\n Real-time threat detection and prevention; web application Firewall\n Customer data and Customer’s end-users’ data\n United States\n@@ -167,15 +172,17 @@\n\n Deep Dives\n User Community\n Compare Fullstory\n Agent Experience Index\n MCP Prompt Library\n Digital Benchmark Report\n+#Bash_\n COMPANY\n About\n Careers\n Events\n News\n Partner Program\n Privacy & Security\n+Modern Slavery Statement\n Legal Center\n Do Not Sell or Share My Personal Information|Terms|Privacy Policy|Cookie Policy|Cookie Settings© 2026 Fullstory, Inc|Atlanta ◆ London ◆ Sydney ◆ Singapore",
+  "other_changes": "Navigation, product labels, promotional text, Modern Slavery Statement links and a footer marker differ. None independently changes the listed supplier data scope.",
+  "engagement_by_customer": {
+    "c3-bhge": "not_established",
+    "sai-esds": "not_established"
+  },
+  "current_feature_facts_sha256": "1b2563b688fa5c9f6220e199a867bc629b224a0da18621b205de7745c617bdd1",
+  "feature_facts_changed_by_assessment": false,
+  "direct_feature_data_flow_established": false,
+  "temporal_limit": "Observation clocks do not establish publication, contract amendment, engagement or first-use dates.",
+  "engineering_output_id": "ENG7",
+  "revision_impact_id": "REV1"
+}

@@ -1,0 +1,26 @@
+{
+  "actual_form_units": [
+    {
+      "page": 2,
+      "part": "pdf-form-field-value",
+      "field_name": "Selected site",
+      "field_type": "/Tx",
+      "text": "Sydney"
+    },
+    {
+      "page": 2,
+      "part": "pdf-form-field-default",
+      "field_name": "Selected site",
+      "field_type": "/Tx",
+      "text": "Adelaide"
+    }
+  ],
+  "signature_validity_inferred": false,
+  "warnings": [
+    "Page 1 has no extractable text. OCR or the original text source is required.",
+    "Page 2 has no extractable text. OCR or the original text source is required.",
+    "Signature field Signature is present. This extractor does not validate its cryptographic signature or legal effect."
+  ],
+  "all_passed": true,
+  "scope": "A synthetic PDF tests stored value versus default, exact field name, actual page and the signature-validation boundary."
+}

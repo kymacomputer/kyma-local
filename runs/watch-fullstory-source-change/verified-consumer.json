@@ -1,0 +1,27 @@
+{
+  "bundle_sha256": "75c275546ec8401d62cf450ed81fefb99f1384965892ac6a34e0b153a77e5ad8",
+  "source_quotes_verified": 77,
+  "model_decisions": 6,
+  "model_engineering_outputs": 7,
+  "openfeature_actual_evaluations": 18,
+  "durable_result_exact": true,
+  "artifacts": [
+    "DECISIONS.md",
+    "openfeature-rules.json",
+    "feature-policy.rego",
+    "opa-data.json",
+    "validated-source-evidence.json",
+    "openfeature-consumer.json",
+    "local-results.sqlite3"
+  ],
+  "outside_use": false,
+  "customer_accounts_changed": false,
+  "actual_model_turn_completed": true,
+  "model_thread": "01a1a725-dadc-72b3-9cc0-0d61f6b6facb",
+  "mode": "kyma",
+  "actual_model_tool_commands": 27,
+  "fresh_openfeature_receiver_exact": true,
+  "durable_receiving_state_exact": true,
+  "credential_copy": false,
+  "scope": "Actual source interpretation and tool use, with local proposed exports. No actual customer deployment or outside use is inferred."
+}

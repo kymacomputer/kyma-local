@@ -1,0 +1,25 @@
+name: Source and local receivers
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  local-consumers:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install '.[mcp]'
+      - run: python -m pip check
+      - run: python -m compileall -q src scripts
+      - run: python scripts/check_release.py
+      - run: python scripts/check_distribution.py .
+      - run: kyma-local verify runs/fresh-user-run
+      - run: python scripts/check_agent_tools.py --kit . --out "$RUNNER_TEMP/mcp.json"
+      - run: python scripts/check_watch.py --kit . --out "$RUNNER_TEMP/watch.json"

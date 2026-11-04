@@ -1,0 +1,2186 @@
+{
+  "actual_sdk_evaluation": true,
+  "sdk": "openfeature-sdk==0.10.0",
+  "bundle_sha256": "61f71af38755424882ef94d74436bb897dd4c969372b20046b18d28235cd57f5",
+  "scope": "Disabled-state negative checks only. These do not test a future enabled rule or prove legal interpretation.",
+  "evaluations": [
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "exact_proposal"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "unknown-customer",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "unknown_customer"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {},
+        "probe": "empty_facts"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "missing:actor_role"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "different-literal",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "wrong:actor_role"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "missing:provider_content_access"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "wrong:provider_content_access"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "missing:external_content_transfer"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": true,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "wrong:external_content_transfer"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "missing:provider_training"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "wrong:provider_training"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "missing:processing_region"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "different-literal",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "wrong:processing_region"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "model_role": "customer_selected"
+        },
+        "probe": "missing:purpose"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "different-literal",
+          "model_role": "customer_selected"
+        },
+        "probe": "wrong:purpose"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use."
+        },
+        "probe": "missing:model_role"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "different-literal"
+        },
+        "probe": "wrong:model_role"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "actor_access_confusion"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "exact_proposal"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "unknown-customer",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "unknown_customer"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {},
+        "probe": "empty_facts"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:actor_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "different-literal",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:actor_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:provider_content_access"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:provider_content_access"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:external_content_transfer"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": true,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:external_content_transfer"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:provider_training"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:provider_training"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:processing_region"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "different-literal",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:processing_region"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:purpose"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "different-literal",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:purpose"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer."
+        },
+        "probe": "missing:model_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "different-literal"
+        },
+        "probe": "wrong:model_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "actor_access_confusion"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "exact_proposal"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "unknown-customer",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "unknown_customer"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {},
+        "probe": "empty_facts"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:actor_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "different-literal",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:actor_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:provider_content_access"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:provider_content_access"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:external_content_transfer"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": true,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:external_content_transfer"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:provider_training"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:provider_training"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:processing_region"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "different-literal",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:processing_region"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:purpose"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "different-literal",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:purpose"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base."
+        },
+        "probe": "missing:model_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "different-literal"
+        },
+        "probe": "wrong:model_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "c3-bhge",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "actor_access_confusion"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "exact_proposal"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "unknown-customer",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "unknown_customer"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {},
+        "probe": "empty_facts"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "missing:actor_role"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "different-literal",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "wrong:actor_role"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "missing:provider_content_access"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "wrong:provider_content_access"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "missing:external_content_transfer"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": true,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "wrong:external_content_transfer"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "missing:provider_training"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "wrong:provider_training"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "missing:processing_region"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "different-literal",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "wrong:processing_region"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "model_role": "customer_selected"
+        },
+        "probe": "missing:purpose"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "different-literal",
+          "model_role": "customer_selected"
+        },
+        "probe": "wrong:purpose"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use."
+        },
+        "probe": "missing:model_role"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "different-literal"
+        },
+        "probe": "wrong:model_role"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "customer-controlled-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Answer that customer's own operational questions for its internal use.",
+          "model_role": "customer_selected"
+        },
+        "probe": "actor_access_confusion"
+      },
+      "flag_key": "tenant-operations-copilot.customer-controlled-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "exact_proposal"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "unknown-customer",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "unknown_customer"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {},
+        "probe": "empty_facts"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:actor_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "different-literal",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:actor_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:provider_content_access"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:provider_content_access"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:external_content_transfer"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": true,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:external_content_transfer"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:provider_training"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:provider_training"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:processing_region"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "different-literal",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:processing_region"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:purpose"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "different-literal",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:purpose"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer."
+        },
+        "probe": "missing:model_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "different-literal"
+        },
+        "probe": "wrong:model_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-support-inference",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "actor_access_confusion"
+      },
+      "flag_key": "tenant-operations-copilot.provider-support-inference",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "exact_proposal"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "unknown-customer",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "unknown_customer"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {},
+        "probe": "empty_facts"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:actor_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "different-literal",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:actor_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:provider_content_access"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:provider_content_access"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:external_content_transfer"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": true,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:external_content_transfer"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:provider_training"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": false,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:provider_training"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:processing_region"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "different-literal",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:processing_region"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "missing:purpose"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "different-literal",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "wrong:purpose"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base."
+        },
+        "probe": "missing:model_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "service_provider",
+          "provider_content_access": true,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "different-literal"
+        },
+        "probe": "wrong:model_role"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    },
+    {
+      "context": {
+        "customer_id": "sai-esds",
+        "operation_id": "provider-shared-training",
+        "facts": {
+          "actor_role": "customer",
+          "provider_content_access": false,
+          "external_content_transfer": false,
+          "provider_training": true,
+          "processing_region": "Australia",
+          "purpose": "Improve the provider's shared support model for use across its customer base.",
+          "model_role": "service_provider_operated"
+        },
+        "probe": "actor_access_confusion"
+      },
+      "flag_key": "tenant-operations-copilot.provider-shared-training",
+      "value": false,
+      "expected_model_control": false,
+      "reason": "TARGETING_MATCH",
+      "error_code": null
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "checks": [
+    {
+      "case": "invented_quote",
+      "passed": true,
+      "exact_error": "quote_not_in_source:E1",
+      "zero_receiving_effect": true
+    },
+    {
+      "case": "wrong_operation_identity",
+      "passed": true,
+      "exact_error": "decision_target_mismatch",
+      "zero_receiving_effect": true
+    },
+    {
+      "case": "omitted_customer_operation",
+      "passed": true,
+      "exact_error": "incomplete_customer_operation_population",
+      "zero_receiving_effect": true
+    },
+    {
+      "case": "duplicate_customer_operation_pair",
+      "passed": true,
+      "exact_error": "duplicate_customer_operation_pair",
+      "zero_receiving_effect": true
+    },
+    {
+      "case": "duplicate_control",
+      "passed": true,
+      "exact_error": "duplicate_control",
+      "zero_receiving_effect": true
+    },
+    {
+      "case": "invented_pdf_page",
+      "passed": true,
+      "exact_error": "page_reference_mismatch",
+      "zero_receiving_effect": true
+    },
+    {
+      "case": "changed_source_after_model_read",
+      "passed": true,
+      "exact_error": "source_hash_changed",
+      "zero_receiving_effect": true
+    },
+    {
+      "case": "same_model_output_replay",
+      "passed": true,
+      "durable_results": 1
+    },
+    {
+      "case": "json_boolean_numeric_distinction_and_positive_control",
+      "passed": true,
+      "evaluations": [
+        {
+          "context": {
+            "customer_id": "fixture-only",
+            "operation_id": "own-inference",
+            "facts": {
+              "training": false,
+              "nested": {
+                "enabled": false
+              },
+              "count": 7.0
+            }
+          },
+          "flag_key": "runtime-boundary-fixture.own-inference",
+          "value": true,
+          "expected_model_control": true,
+          "reason": "TARGETING_MATCH",
+          "error_code": null
+        },
+        {
+          "context": {
+            "customer_id": "fixture-only",
+            "operation_id": "own-inference",
+            "facts": {
+              "training": 0,
+              "nested": {
+                "enabled": false
+              },
+              "count": 7
+            }
+          },
+          "flag_key": "runtime-boundary-fixture.own-inference",
+          "value": false,
+          "expected_model_control": false,
+          "reason": "TARGETING_MATCH",
+          "error_code": null
+        },
+        {
+          "context": {
+            "customer_id": "fixture-only",
+            "operation_id": "own-inference",
+            "facts": {
+              "training": false,
+              "nested": {
+                "enabled": 0
+              },
+              "count": 7
+            }
+          },
+          "flag_key": "runtime-boundary-fixture.own-inference",
+          "value": false,
+          "expected_model_control": false,
+          "reason": "TARGETING_MATCH",
+          "error_code": null
+        },
+        {
+          "context": {
+            "customer_id": "unknown",
+            "operation_id": "own-inference",
+            "facts": {
+              "training": false,
+              "nested": {
+                "enabled": false
+              },
+              "count": 7
+            }
+          },
+          "flag_key": "runtime-boundary-fixture.own-inference",
+          "value": false,
+          "expected_model_control": false,
+          "reason": "TARGETING_MATCH",
+          "error_code": null
+        },
+        {
+          "context": {
+            "customer_id": "fixture-only",
+            "operation_id": "own-inference",
+            "facts": {
+              "nested": {
+                "enabled": false
+              },
+              "count": 7
+            }
+          },
+          "flag_key": "runtime-boundary-fixture.own-inference",
+          "value": false,
+          "expected_model_control": false,
+          "reason": "TARGETING_MATCH",
+          "error_code": null
+        }
+      ],
+      "source": "Explicit runtime fixture. No contract permission or actual customer is inferred."
+    }
+  ],
+  "all_passed": true,
+  "scope": "No additional model call. Exact source, target, population, page and replay checks on an actual model-authored result."
+}

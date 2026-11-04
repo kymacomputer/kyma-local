@@ -1,0 +1,55 @@
+{
+  "id": "tenant-operations-copilot",
+  "name": "Tenant Operations Copilot",
+  "assessment_date": "2026-11-04",
+  "scope": "Hypothetical proposed feature for public contract analysis. This is not a claim that any named party has deployed, requested or authorized it.",
+  "user_goal": "Choose the strongest useful design supported by the provided contract sets. Produce per-operation decisions, exact evidence, scoped precedence, unknowns, implementable gates and engineering work. Distinguish the customer running its own AI from the service provider using customer content for its own AI.",
+  "data": ["Customer-controlled operational workloads", "Customer technical documents and confidential information", "Customer workload content and support logs"],
+  "operations": [
+    {
+      "id": "customer-controlled-inference",
+      "actor": "The contracting customer operates its own single-tenant model on the contracted platform or compute infrastructure.",
+      "purpose": "Answer that customer's own operational questions for its internal use.",
+      "data_access": "Only the customer's authorized users can read workload content. The service provider cannot read or interpret content and holds no customer decryption key.",
+      "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+      "regions": ["Australia"],
+      "training": "No provider training or cross-customer improvement.",
+      "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement.",
+      "proposed_facts": {"actor_role": "customer", "provider_content_access": false, "external_content_transfer": false, "provider_training": false, "processing_region": "Australia"}
+    },
+    {
+      "id": "provider-support-inference",
+      "actor": "The contracting service provider operates a tenant-isolated support copilot.",
+      "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+      "data_access": "The service provider and its support model can read and interpret customer content. No other customer receives it.",
+      "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+      "regions": ["Australia"],
+      "training": "Inference only. No model training or cross-customer improvement.",
+      "retention": "No retained prompts or output beyond the response session.",
+      "proposed_facts": {"actor_role": "service_provider", "provider_content_access": true, "external_content_transfer": false, "provider_training": false, "processing_region": "Australia"}
+    },
+    {
+      "id": "provider-shared-training",
+      "actor": "The contracting service provider trains its own model.",
+      "purpose": "Improve the provider's shared support model for use across its customer base.",
+      "data_access": "The service provider reads customer workload content, support logs and confidential technical information.",
+      "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+      "regions": ["Australia"],
+      "training": "Training on content from this customer. The shared model serves other customers.",
+      "retention": "Raw training examples retained for 30 days. Trained model retained indefinitely. No de-identification or consent is assumed.",
+      "proposed_facts": {"actor_role": "service_provider", "provider_content_access": true, "external_content_transfer": false, "provider_training": true, "processing_region": "Australia"}
+    }
+  ],
+  "case_contexts": {
+    "c3-bhge": {
+      "provider_role": "C3.ai under the provided joint-venture documents",
+      "customer_role": "BHGE or the applicable downstream customer, as the documents require",
+      "limits": "Do not invent the separately referenced internal subscription MSSA, executed downstream MSSAs, orders, missing exhibits, redactions, renewals or later amendments. Assess the supplied public snapshot and identify what prevents a current decision."
+    },
+    "sai-esds": {
+      "provider_role": "SAI AU NO.2 PTY LTD",
+      "customer_role": "SPOCHUB SOLUTIONS PRIVATE LIMITED and ESDS Cloud FZ-LLC, subject to the exact MSA definitions and allocations",
+      "limits": "Do not invent an executed Service Order, commissioning state, special conditions, permitted-territory election, end-customer permission or facts hidden by redaction. The proposal is not evidence that prerequisites are satisfied."
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "schema": "kyma-openfeature-rules/v1",
+  "feature_id": "tenant-operations-copilot",
+  "operations": [
+    "customer-controlled-inference",
+    "provider-support-inference",
+    "provider-shared-training"
+  ],
+  "rules": [
+    {
+      "decision_id": "D1",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "proposed_eligible": false,
+      "required_facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "training": "No provider training or cross-customer improvement.",
+        "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement."
+      },
+      "reason": "D1 has status unresolved and unresolved source prerequisites. Eligibility is false. The literal facts describe the proposed operation only. They assert no signed order, consent, current contract, site election or actual deployment. Resolve the decision’s named unknowns and author a revised source-bound decision before any eligibility change."
+    },
+    {
+      "decision_id": "D2",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "proposed_eligible": false,
+      "required_facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "training": "Inference only. No model training or cross-customer improvement.",
+        "retention": "No retained prompts or output beyond the response session."
+      },
+      "reason": "D2 has status unresolved and unresolved source prerequisites. Eligibility is false. The literal facts describe the proposed operation only. They assert no signed order, consent, current contract, site election or actual deployment. Resolve the decision’s named unknowns and author a revised source-bound decision before any eligibility change."
+    },
+    {
+      "decision_id": "D3",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "proposed_eligible": false,
+      "required_facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "training": "Training on content from this customer. The shared model serves other customers.",
+        "retention": "Raw training examples retained for 30 days. Trained model retained indefinitely. No de-identification or consent is assumed."
+      },
+      "reason": "D3 has status needs_consent and unresolved source prerequisites. Eligibility is false. The literal facts describe the proposed operation only. They assert no signed order, consent, current contract, site election or actual deployment. Resolve the decision’s named unknowns and author a revised source-bound decision before any eligibility change."
+    },
+    {
+      "decision_id": "D4",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "proposed_eligible": false,
+      "required_facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model": "Customer-selected, open-weight model in a customer-controlled tenant. No separate model provider receives content.",
+        "training": "No provider training or cross-customer improvement.",
+        "retention": "Inference prompts are not retained by the service provider. Customer-controlled workload storage remains subject to the actual agreement."
+      },
+      "reason": "D4 has status needs_consent and unresolved source prerequisites. Eligibility is false. The literal facts describe the proposed operation only. They assert no signed order, consent, current contract, site election or actual deployment. Resolve the decision’s named unknowns and author a revised source-bound decision before any eligibility change."
+    },
+    {
+      "decision_id": "D5",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "proposed_eligible": false,
+      "required_facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model": "Service-provider-operated open-weight model. No separate external model provider receives content.",
+        "training": "Inference only. No model training or cross-customer improvement.",
+        "retention": "No retained prompts or output beyond the response session."
+      },
+      "reason": "D5 has status needs_consent and unresolved source prerequisites. Eligibility is false. The literal facts describe the proposed operation only. They assert no signed order, consent, current contract, site election or actual deployment. Resolve the decision’s named unknowns and author a revised source-bound decision before any eligibility change."
+    },
+    {
+      "decision_id": "D6",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "proposed_eligible": false,
+      "required_facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model": "Service-provider-owned shared model, trained and hosted in Australia. No separate external model provider receives content.",
+        "training": "Training on content from this customer. The shared model serves other customers.",
+        "retention": "Raw training examples retained for 30 days. Trained model retained indefinitely. No de-identification or consent is assumed."
+      },
+      "reason": "D6 has status off and unresolved source prerequisites. Eligibility is false. The literal facts describe the proposed operation only. They assert no signed order, consent, current contract, site election or actual deployment. Resolve the decision’s named unknowns and author a revised source-bound decision before any eligibility change."
+    }
+  ],
+  "bundle_sha256": "fc472fbdfa4999e379889153c9636fd6538931c8a16bdd5edbc3dbe307bce9e8",
+  "default": false,
+  "scope": "Proposed model-derived contract assessment. Local evaluation does not prove actual deployment authority or customer clearance."
+}

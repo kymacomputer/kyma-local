@@ -1,0 +1,12 @@
+[
+  {
+    "file": "subprocessor-list.html",
+    "source_class": "captured_public_supplier_disclosure",
+    "url": "https://www.fullstory.com/legal/subprocessor-list/",
+    "original_sha256": "48e2e7c255c575afcfdf2538fe4dd04b7303c311e188d66734896ff3973576b5",
+    "original_observation_time": "2026-10-31T18:44:38.077867Z",
+    "original_clock_type": "source_acquisition",
+    "source_role": "shared_reference",
+    "scope": "Complete observed supplier disclosure. Infer applicability from the actual contract set and feature facts. A capture clock is not a publication or engagement clock."
+  }
+]

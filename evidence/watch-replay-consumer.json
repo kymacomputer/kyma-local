@@ -1,0 +1,65 @@
+{
+  "created_at_utc": "2026-11-04T15:39:20.911434+00:00",
+  "checks": [
+    {
+      "check": "actual_receiver",
+      "passed": true,
+      "result": {
+        "bundle_sha256": "75c275546ec8401d62cf450ed81fefb99f1384965892ac6a34e0b153a77e5ad8",
+        "source_quotes_verified": 77,
+        "model_decisions": 6,
+        "model_engineering_outputs": 7,
+        "openfeature_actual_evaluations": 18,
+        "durable_result_exact": true,
+        "artifacts": [
+          "DECISIONS.md",
+          "openfeature-rules.json",
+          "feature-policy.rego",
+          "opa-data.json",
+          "validated-source-evidence.json",
+          "openfeature-consumer.json",
+          "local-results.sqlite3"
+        ],
+        "outside_use": false,
+        "customer_accounts_changed": false,
+        "actual_model_turn_completed": true,
+        "model_thread": "01a1a725-dadc-72b3-9cc0-0d61f6b6facb",
+        "mode": "kyma",
+        "actual_model_tool_commands": 27,
+        "fresh_openfeature_receiver_exact": true,
+        "durable_receiving_state_exact": true,
+        "credential_copy": false,
+        "scope": "Actual source interpretation and tool use, with local proposed exports. No actual customer deployment or outside use is inferred."
+      }
+    },
+    {
+      "check": "model_authored_checks",
+      "passed": true,
+      "result": {
+        "passed": true,
+        "bundle_sha256": "75c275546ec8401d62cf450ed81fefb99f1384965892ac6a34e0b153a77e5ad8",
+        "check_count": 152,
+        "actual_customer_sdk_evaluations": 18,
+        "isolated_synthetic_sdk_evaluations": 28
+      }
+    },
+    {
+      "check": "native_opa",
+      "passed": true,
+      "result": {
+        "contexts": 18,
+        "all_equal": true
+      }
+    },
+    {
+      "check": "revision_replay",
+      "passed": true,
+      "event_sha256": "f7dfe7ccdd7890d3533c533d8efe7cf8a568b122b2501a622d72a20f6d126260",
+      "exact_replays": 2,
+      "stored_event_count": 1,
+      "model_readback_exact": true
+    }
+  ],
+  "independent_review_sha256": "2206c388b3d88736ed8c84c624cbeb325e49dee9fd188fd277cc2c1f700af1c9",
+  "all_passed": true
+}

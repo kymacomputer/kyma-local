@@ -1,0 +1,110 @@
+{
+  "schema": "kyma-openfeature-rules/v1",
+  "feature_id": "tenant-operations-copilot",
+  "operations": [
+    "customer-controlled-inference",
+    "provider-support-inference",
+    "provider-shared-training"
+  ],
+  "rules": [
+    {
+      "decision_id": "D1",
+      "customer_id": "c3-bhge",
+      "operation_id": "customer-controlled-inference",
+      "proposed_eligible": false,
+      "required_facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model_role": "customer_selected"
+      },
+      "reason": "The exact proposed customer-custody facts do not establish missing internal or downstream subscription rights. U1/U2/U4 prevent eligibility."
+    },
+    {
+      "decision_id": "D2",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-support-inference",
+      "proposed_eligible": false,
+      "required_facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model_role": "service_provider_operated"
+      },
+      "reason": "The exact same-customer support facts do not prove the actual permitted performance purpose or recipient scope. U1-U4 prevent eligibility."
+    },
+    {
+      "decision_id": "D3",
+      "customer_id": "c3-bhge",
+      "operation_id": "provider-shared-training",
+      "proposed_eligible": false,
+      "required_facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model_role": "service_provider_operated"
+      },
+      "reason": "The exact shared-training facts lack the raw-content license. A qualifying Section 8.4 corpus is a distinct reassessed route."
+    },
+    {
+      "decision_id": "D4",
+      "customer_id": "sai-esds",
+      "operation_id": "customer-controlled-inference",
+      "proposed_eligible": false,
+      "required_facts": {
+        "actor_role": "customer",
+        "provider_content_access": false,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Answer that customer's own operational questions for its internal use.",
+        "model_role": "customer_selected"
+      },
+      "reason": "The proposed own-internal purpose conflicts with reseller-only rights. Do not assert an unknown signed exception, order, commissioning or site election."
+    },
+    {
+      "decision_id": "D5",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-support-inference",
+      "proposed_eligible": false,
+      "required_facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": false,
+        "processing_region": "Australia",
+        "purpose": "Read customer workload content and confidential technical documents to answer support questions for that same customer.",
+        "model_role": "service_provider_operated"
+      },
+      "reason": "The exact inference design reads Customer Data Content and violates Section 8.2. No-training and Australia facts do not cure that restriction."
+    },
+    {
+      "decision_id": "D6",
+      "customer_id": "sai-esds",
+      "operation_id": "provider-shared-training",
+      "proposed_eligible": false,
+      "required_facts": {
+        "actor_role": "service_provider",
+        "provider_content_access": true,
+        "external_content_transfer": false,
+        "provider_training": true,
+        "processing_region": "Australia",
+        "purpose": "Improve the provider's shared support model for use across its customer base.",
+        "model_role": "service_provider_operated"
+      },
+      "reason": "The exact raw-content shared-training design exceeds the permitted access. Narrow Feedback or native telemetry routes do not silently change this operation."
+    }
+  ],
+  "bundle_sha256": "61f71af38755424882ef94d74436bb897dd4c969372b20046b18d28235cd57f5",
+  "default": false,
+  "scope": "Proposed model-derived contract assessment. Local evaluation does not prove actual deployment authority or customer clearance."
+}

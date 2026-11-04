@@ -1,0 +1,16 @@
+[
+  {
+    "customer_id": "sai-esds",
+    "file": "01-master-services-2026-03-31.html",
+    "url": "https://www.sec.gov/Archives/edgar/data/2068385/000149315226023769/ex10-17.htm",
+    "final_url": "https://www.sec.gov/Archives/edgar/data/2068385/000149315226023769/ex10-17.htm",
+    "title": "Master Services Agreement with schedules",
+    "displayed_effective_date": "2026-03-31",
+    "observed_at_utc": "2026-11-04T14:10:48.440211+00:00",
+    "http_status": 200,
+    "bytes": 1245907,
+    "sha256": "92427fdaa11f8171b52be4c735c4e092b94505cda32d9650cc9503210b378a92",
+    "source_class": "public_filing_negotiated_contract",
+    "limits": "Complete original filed exhibit bytes. Public redactions and referenced missing documents remain material limitations. Not proof of a current customer contract."
+  }
+]

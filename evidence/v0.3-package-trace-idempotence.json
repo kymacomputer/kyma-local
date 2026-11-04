@@ -1,0 +1,8 @@
+{
+  "schema": "kyma-package-trace-idempotence/v1",
+  "fictional_fixture": true,
+  "original_redaction_hash_preserved": true,
+  "second_pass_bytes_exact": true,
+  "public_task_output_exact": true,
+  "all_passed": true
+}

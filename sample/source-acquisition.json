@@ -1,0 +1,58 @@
+[
+  {
+    "customer_id": "c3-bhge",
+    "file": "01-joint-venture-2019-06-06.html",
+    "url": "https://www.sec.gov/Archives/edgar/data/1577526/000162828020016443/exhibit1010-sx1.htm",
+    "final_url": "https://www.sec.gov/Archives/edgar/data/1577526/000162828020016443/exhibit1010-sx1.htm",
+    "title": "Joint Venture Agreement",
+    "displayed_effective_date": "2019-06-06",
+    "observed_at_utc": "2026-11-04T14:10:46.887816+00:00",
+    "http_status": 200,
+    "bytes": 279268,
+    "sha256": "8a1c05aea3590b8eb54e48305fa9ad8b0966c8b4b3ff5dd46e9fc87e204fd78d",
+    "source_class": "public_filing_negotiated_contract",
+    "limits": "Complete original filed exhibit bytes. Public redactions and referenced missing documents remain material limitations. Not proof of a current customer contract."
+  },
+  {
+    "customer_id": "c3-bhge",
+    "file": "02-first-amendment-2019-09-26.html",
+    "url": "https://www.sec.gov/Archives/edgar/data/1577526/000162828020016443/exhibit1011-sx1.htm",
+    "final_url": "https://www.sec.gov/Archives/edgar/data/1577526/000162828020016443/exhibit1011-sx1.htm",
+    "title": "First Amendment to Joint Venture Agreement",
+    "displayed_effective_date": "2019-09-26",
+    "observed_at_utc": "2026-11-04T14:10:47.407676+00:00",
+    "http_status": 200,
+    "bytes": 37196,
+    "sha256": "405b436c3a84520107b968a9cdd55e43d9f91150a5edfcd1965d57ad88bfd4b3",
+    "source_class": "public_filing_negotiated_contract",
+    "limits": "Complete original filed exhibit bytes. Public redactions and referenced missing documents remain material limitations. Not proof of a current customer contract."
+  },
+  {
+    "customer_id": "c3-bhge",
+    "file": "03-second-amendment-2020-06-01.html",
+    "url": "https://www.sec.gov/Archives/edgar/data/1577526/000162828020016443/exhibit1012-sx1.htm",
+    "final_url": "https://www.sec.gov/Archives/edgar/data/1577526/000162828020016443/exhibit1012-sx1.htm",
+    "title": "Second Amendment to Joint Venture Agreement",
+    "displayed_effective_date": "2020-06-01",
+    "observed_at_utc": "2026-11-04T14:10:47.929306+00:00",
+    "http_status": 200,
+    "bytes": 39837,
+    "sha256": "6ccb2402df54680f6a2615d10027a16e1c27eefe5b5f8c22114a8893163ee5c0",
+    "source_class": "public_filing_negotiated_contract",
+    "limits": "Complete original filed exhibit bytes. Public redactions and referenced missing documents remain material limitations. Not proof of a current customer contract."
+  },
+  {
+    "customer_id": "sai-esds",
+    "file": "01-master-services-2026-03-31.html",
+    "url": "https://www.sec.gov/Archives/edgar/data/2068385/000149315226023769/ex10-17.htm",
+    "final_url": "https://www.sec.gov/Archives/edgar/data/2068385/000149315226023769/ex10-17.htm",
+    "title": "Master Services Agreement with schedules",
+    "displayed_effective_date": "2026-03-31",
+    "observed_at_utc": "2026-11-04T14:10:48.440211+00:00",
+    "http_status": 200,
+    "bytes": 1245907,
+    "sha256": "92427fdaa11f8171b52be4c735c4e092b94505cda32d9650cc9503210b378a92",
+    "source_class": "public_filing_negotiated_contract",
+    "limits": "Complete original filed exhibit bytes. Public redactions and referenced missing documents remain material limitations. Not proof of a current customer contract."
+  }
+]

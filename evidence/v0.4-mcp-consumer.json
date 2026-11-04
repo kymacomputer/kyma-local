@@ -1,0 +1,96 @@
+{
+  "schema": "kyma-mcp-actual-consumer/v1",
+  "at": "2026-11-04T18:39:57.474173+00:00",
+  "kit": "/Users/idamo/code/kyma-local-x1-20261104",
+  "work": "/var/folders/vs/0j60j9rx7f1dtmd21nll0d6r0000gn/T/kyma-mcp-consumer-jfs0z88p/work",
+  "checks": [
+    {
+      "case": "actual_stdio_tool_discovery",
+      "passed": true,
+      "tools": [
+        "prepare_contract_job",
+        "prepare_revision_job",
+        "read_contract_result",
+        "read_contract_source",
+        "submit_contract_assessment"
+      ]
+    },
+    {
+      "case": "complete_four_public_sources_over_stdio",
+      "passed": true,
+      "sources": [
+        {
+          "id": "c3-bhge:01-joint-venture-2019-06-06.html",
+          "bytes": 74042,
+          "sha256": "14912943ecc70129f90867b8101c32e3d4bfa76b2d5d48f25acc48d1a6069f6d"
+        },
+        {
+          "id": "c3-bhge:02-first-amendment-2019-09-26.html",
+          "bytes": 6620,
+          "sha256": "97fd286c6bc07a072b2d5077d45ab2b66ceb06b3c5ed86729899b1ef5ba944ac"
+        },
+        {
+          "id": "c3-bhge:03-second-amendment-2020-06-01.html",
+          "bytes": 7340,
+          "sha256": "ef971814cb17d5babfda48c849ce8baa67ee58f2c71dd228ed8df6b706f2616f"
+        },
+        {
+          "id": "sai-esds:01-master-services-2026-03-31.html",
+          "bytes": 222516,
+          "sha256": "14e0812594629e89a0b808e74c3a9b5a37bb831e44c473f93a5840f2ae6c5e81"
+        }
+      ]
+    },
+    {
+      "case": "occupied_output_preserves_existing_source_job",
+      "passed": true
+    },
+    {
+      "case": "fabricated_quote_rejected_before_receiver",
+      "passed": true
+    },
+    {
+      "case": "missing_customer_operation_rejected",
+      "passed": true
+    },
+    {
+      "case": "retained_actual_ai_bundle_compiles_and_reads_exactly",
+      "passed": true,
+      "bundle_sha256": "fc472fbdfa4999e379889153c9636fd6538931c8a16bdd5edbc3dbe307bce9e8",
+      "decisions": 6,
+      "sdk_evaluations": 18,
+      "new_model_invocation": false
+    },
+    {
+      "case": "concurrent_exact_replay_has_one_receiver_row",
+      "passed": true
+    },
+    {
+      "case": "accepted_assessment_is_preserved_on_conflict",
+      "passed": true
+    },
+    {
+      "case": "actual_stdio_current_agent_revision_schema_commit_and_readback",
+      "passed": true,
+      "new_model_invocation": false,
+      "scope": "Explicit feature metadata fixture with retained actual AI work."
+    },
+    {
+      "case": "changed_feature_facts_rejected",
+      "passed": true
+    },
+    {
+      "case": "same_output_preparation_has_one_atomic_winner",
+      "passed": true
+    },
+    {
+      "case": "legacy_stdio_discovery_and_exact_result_readback",
+      "passed": true
+    }
+  ],
+  "all_passed": true,
+  "elapsed_seconds": 2.035045208001975,
+  "new_model_invocation": false,
+  "independent_host_install": false,
+  "scope": "Actual modern and legacy stdio, complete source transport, retained public model result, local SDK and SQLite. No new model interpretation or outside use is claimed."
+}

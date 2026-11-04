@@ -1,0 +1,8 @@
+{
+  "status": "unchanged",
+  "actual_model_invocation": false,
+  "before_bundle_sha256": "75c275546ec8401d62cf450ed81fefb99f1384965892ac6a34e0b153a77e5ad8",
+  "input_changes": [],
+  "previous_receiving_state_verified": true,
+  "output": "/Users/idamo/kai/workspace/files/2026-11-04-kyma-local-kit/runs/watch-repeat-unchanged"
+}

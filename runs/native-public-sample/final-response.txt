@@ -1,0 +1,22 @@
+Completed all six decisions:
+
+| Customer | Customer inference | Provider support | Shared training |
+|---|---|---|---|
+| c3-bhge | unresolved | unresolved | off |
+| sai-esds | off | off | off |
+
+The strongest useful design combines properly licensed customer or End Customer inference, content-free provider diagnostics, and separate licensed technology or Feedback improvement routes.
+
+Missing subscriptions, restated exhibits, executed orders, commissioning evidence and redactions prevent actual customer clearance.
+
+Outputs:
+
+- [Complete decisions and seven engineering outputs](./model-decisions.json)
+- [Readable report](./DECISIONS.md)
+- [OpenFeature export](./openfeature-rules.json)
+- [OPA policy](./feature-policy.rego)
+- [Receiver verification](./independent-receiving-check.json)
+
+Validation, compilation and readback passed. All 56 quotations matched the sources. SQLite contains the exact final decisions and export. All 138 actual OpenFeature evaluations returned false, consistent with the disabled controls.
+
+The OPA policy was generated, but no OPA executable was available for runtime verification. No accounts changed or sources were sent to Kyma.

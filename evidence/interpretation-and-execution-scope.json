@@ -1,0 +1,47 @@
+{
+  "source_population": {
+    "original_public_SEC_exhibits": 4,
+    "complete_acquired_text_bytes": 310518,
+    "contract_sets": 2,
+    "C3_amendments": 2,
+    "customer_specific_applicability_verified": false,
+    "remaining_limits": ["Public redactions", "Missing referenced MSSA and restated exhibits", "Unproved execution, commissioning, site and current contract states"]
+  },
+  "model_execution": {
+    "actual_ChatGPT_authenticated_Codex": true,
+    "developer_model_API": false,
+    "manual_decision_annex_or_expected_status_supplied": false,
+    "native_same_complete_sources_and_tools": true,
+    "native_same_model_and_effort": true,
+    "source_quotes_prove": "Exact provenance against the retained extracted source",
+    "source_quotes_do_not_prove": "Semantic correctness, factual applicability or legal clearance",
+    "accuracy_grade": null,
+    "lawyer_grade": null,
+    "superiority_established": false,
+    "task_input_context_limit": "The complete task input is retained. Codex may also load platform and existing user instructions, which the task input does not purport to reproduce."
+  },
+  "runtime": {
+    "actual_OpenFeature_SDK": "0.10.0",
+    "actual_OPA_contexts_per_initial_route": 18,
+    "actual_SDK_positive_control": "Explicit synthetic rule. No customer permission is inferred.",
+    "initial_actual_model_controls_available": 0,
+    "JSON_type_repair": "Numeric zero cannot satisfy a required Boolean false, including nested facts.",
+    "initial_generation_code": "model-runtime-v0.1/src/kyma_local/",
+    "fresh_unpack_generation_code": "model-runtime-fresh-unpack-v0.1.1/src/kyma_local/",
+    "subsequent_PDF_source_extension": "Stored form values, defaults, names and actual pages are added after the initial HTML sample executions. Focused PDF fixtures verify that acquisition behavior. Signature validity remains unverified."
+  },
+  "data_flow": {
+    "source_contents_sent_to": "The user's ChatGPT provider under the existing account and its policies",
+    "source_contents_sent_to_Kyma": false,
+    "credential_files_read_or_copied_by_wrapper": false,
+    "native_Codex_credential_store": "Used directly by the official CLI",
+    "shareable_archive": "Private model reasoning and unrelated owner-memory outputs are excluded. Task tool outputs and full public source inputs remain."
+  },
+  "deployment": {
+    "feature_facts": "Explicit hypothetical proposals",
+    "actual_customer_accounts_changed": false,
+    "actual_customer_deployment": false,
+    "outside_use": false,
+    "acceptance_owner": "Existing Root owner under board 63/67"
+  }
+}
