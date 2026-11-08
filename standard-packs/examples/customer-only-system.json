@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "training_data": [],
+  "training_purposes": [],
+  "training_restrictions": [],
+  "improvement_restrictions": [
+    "solely_customer_benefit"
+  ],
+  "provider_covered_claims": false,
+  "customer_covered_claims": false,
+  "ai_aup_selected": false,
+  "ai_aup_supplied": false,
+  "custom_text": "",
+  "underlying_agreement_supplied": false,
+  "private_amendments_reviewed": false
+}

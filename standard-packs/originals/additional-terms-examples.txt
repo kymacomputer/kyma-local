@@ -1,0 +1,93 @@
+Playbook of Additional Terms
+ for Standard AI Addendum 
+
+These examples show how to add Additional Terms to the Standard AI Addendum v2.0  (AI Addendum).
+Note that the AI Addendum operates as an attachment to a Main Agreement as identified by the parties. 
+You can delete, replace or add to provisions of the AI Addendum.
+These are examples only. Have legal counsel review before using.  
+
+Additional Terms
+The following additions to or modifications of the AI Addendum are agreed by the parties and control in the event of any conflicts: 
+SECTION 2 – AI FEATURES 
+Extend Opt-Out to All AI Features
+Add after Section 2.1 (AI Features): 
+To the extent administrative controls are available, Customer may disable AI Features included in the Cloud Service.
+Minimum Notice Period
+Replace the first sentence of Section 2.2(a)(Notice) with: 
+Provider will give Customer at least 30 days’ prior written notice (email or in-product notification to an administrator is sufficient) before enabling by default any New AI Feature for Customer.
+SECTION 3 – DATA HANDLING
+Definition of Training
+
+
+Add to Section 1 (Definitions):
+"Training" means accessing, using or retaining Input or Output to train, retrain or fine-tune AI Features, any Model Provider models or other AI or machine-learning models. 
+
+Usage Note: Include this definition if using any of the Training exception provisions below (Customer Benefit Training Exception, De-Identified and Aggregated Training Exception, or No Training on Usage Data).
+Customer Benefit Training Exception
+Add after Section 3.1 (No Training): 
+Notwithstanding Section 3.1, Provider may conduct Training using Input and Output, provided that any model so trained will not be made available to, or used for the benefit of, any other customer.
+De-Identified and Aggregated Training Exception
+Add after Section 3.1 (No Training): 
+Notwithstanding Section 3.1, Provider may use Input and Output to conduct Training if such data has been (a) de-identified so that it does not identify Customer, its authorized users or any other person and (b) aggregated with data from other customers.
+No Training on Usage Data 
+Add after Section 3.1 (No Training): 
+Furthermore, any rights granted to Provider with respect to usage data or similar aggregated or de-identified data under the Main Agreement do not authorize Training.
+Change Retention Period
+Replace the definition of “Retention Period” in Section 1 (Definitions) with the following: 
+“Retention Period” means [___] days.
+SECTION 3.2 – OPERATIONAL MONITORING
+Narrow Monitoring to Abuse and Security Only
+Replace the first sentence of Section 3.2(a)(Purpose) with:
+Notwithstanding Section 3.1 (No Training), Provider may retain and internally review Input and Output for no longer than the Retention Period solely to detect and prevent abuse, misuse or security incidents relating to the AI Features (“Operational Monitoring”).
+SECTION 4 – INTELLECTUAL PROPERTY
+Replace Assignment with License
+Replace Section 4.2(a) and (b) with: 
+4.2(a). Subject to the Main Agreement, Provider hereby grants to Customer a non-exclusive, worldwide, perpetual, royalty-free right and license to reproduce, distribute, publicly display, publicly perform and prepare derivative works of Output.
+Replace Assignment with Quitclaim and License
+Replace Section 4.2(a) and (b) with:
+4.2(a). Provider disclaims all right, title and interest in and to the Output. Subject to the Main Agreement, Provider hereby grants to Customer a non-exclusive, worldwide, perpetual, royalty-free right and license to reproduce, distribute, publicly display, publicly perform and prepare derivative works of Output.
+SECTION 5 – OUTPUT INDEMNIFICATION
+Remove Cap for Output Claims
+Delete Section 5.3 (Liability Cap) which reads:
+“Output Claims are not subject to any waiver or disclaimer of consequential damages but are subject to the general limitation of liability under the Main Agreement, regardless of any exceptions or higher caps in the Main Agreement that may otherwise apply to indemnification or intellectual property claims.” 
+
+
+Enhanced Cap for Output Claims
+Replace Section 5.3 with: 
+Output Claims are deemed to be Enhanced Claims under the Main Agreement. 
+
+
+Usage Note: This example uses the Cloud Terms liability framework. If the Main Agreement uses a different structure, adjust the defined terms accordingly and ensure that Output Claims remain exempt from any waiver of consequential damages if desired.
+Carve Out Legal Fees from Cap
+Add after Section 5.3 (Liability Cap): 
+Reasonable attorneys’ fees and court costs incurred by Provider in defending Output Claims are not subject to the limitation of liability in Section 5.3.
+Main Agreement Unmodified
+Replace Section 5 (Output Indemnification) with: 
+The indemnification provisions of the Main Agreement are not modified by this AI Addendum.
+No Output Indemnity
+Replace Section 5 (Output Indemnification) with:
+Due to the nature of the AI Features, Provider does not represent or warrant that any Output is free of third-party intellectual property rights. Claims of intellectual property infringement or misappropriation by Output are excluded from indemnification under the Main Agreement.
+Remove “Reasonably Likely To”
+Replace Section 5.2(b) with: 
+(b) providing infringing or allegedly infringing Input or Input designed to generate infringing Output; or
+SECTION 6 – AI WARRANTIES AND DISCLAIMERS
+Customer High-Risk Deployment  Notification
+Add after Section 6.3 (No High-Risk AI):
+Customer will notify Provider if it intends to use the AI Features in a manner that may constitute a high-risk use case under the EU Artificial Intelligence Act or equivalent applicable AI law.
+SECTION 7 – AI SPECIFIC USE RESTRICTIONS
+Custom Restrictions
+Replace Section 7 (AI Specific Use Restrictions) with:
+In addition to any AUP in the Main Agreement, Customer will comply with the restrictions on use of the AI Features specified in [Exhibit/Attachment ___].
+SECTION 8 – MODEL PROVIDERS
+Minimum Notice Period for Model Provider Changes
+Replace the second sentence of Section 8.1 (Model Providers) with:
+Provider will maintain a current list of Model Providers in its Documentation and notify Customer at least [30] days prior to any changes to the list of Model Providers taking effect (email or in-product notification to an administrator is sufficient).
+Model Provider AUP Change Notice
+Add to end of Section 8.1 (Model Providers): 
+Provider will notify Customer of material changes to Model Provider acceptable use policies made available under Section 7(e).
+
+
+
+
+
+CC0 1.0. Attribution removed as requested by the source publisher.

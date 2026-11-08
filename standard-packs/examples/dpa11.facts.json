@@ -1,0 +1,11 @@
+{
+  "subprocessor_approval_state": "not_approved",
+  "notice_business_days": 0,
+  "notice_calendar_days": 0,
+  "customer_objected": false,
+  "subprocessor_written_flowdown": true,
+  "within_documented_instructions": true,
+  "within_annex_scope": true,
+  "annex_update_notice_given": false,
+  "independent_reuse": true
+}

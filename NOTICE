@@ -8,3 +8,7 @@ and the corresponding _sources.json files. Inclusion supplies research material.
 It does not assert ownership of those documents or permission for a live feature.
 
 OpenFeature SDK, pypdf, and the optional MCP Python SDK retain their own licenses.
+
+Standard contract references retain their separate CC BY 4.0 or CC0 1.0 licenses.
+See standard-packs/SOURCE-LICENSES.md and SOURCE-PINS.json for attribution,
+original source URLs, byte hashes and explicit format changes.

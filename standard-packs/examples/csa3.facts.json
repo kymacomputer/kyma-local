@@ -1,0 +1,8 @@
+{
+  "necessary_to_provide_or_maintain_product": true,
+  "usage_data_aggregated": true,
+  "usage_data_nonidentifying": true,
+  "gdpr_personal_data": true,
+  "recipient_need_to_know": true,
+  "recipient_equivalent_confidentiality": true
+}

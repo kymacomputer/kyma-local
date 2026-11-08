@@ -1,0 +1,1176 @@
+{
+  "schema": "kyma-complete-cover-table-inventory/v2",
+  "documents": [
+    {
+      "original_file": "originals/ai-standalone.docx",
+      "original_sha256": "1745ce987355a3e21a9ffeb0887e579f39dfd9b058880c6e637aff4fb3195e0e",
+      "tables": [
+        {
+          "table": 0,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "[Drafting note: This AI Addendum is intended to be added to an existing, already signed Cloud Service Agreement or Software License Agreement using the Common Paper standards. Fill out the yellow highlighted field below with details about the existing agreement. For example, \"Cloud Service Agreement between Rose Apothecaries, Inc. and Vandelay Industries, Inc. dated January 1, 2025\".]\n\nThis Cover Page incorporates the AI Addendum Standard Terms available at https://commonpaper.com/standards/ai-addendum/1.0/ with the Variables set forth below (collectively, the \"AI Addendum\"). A copy of the AI Addendum Standard Terms is attached for convenience only.\n\nThis AI Addendum amends and is incorporated into the following \"Agreement\": [ insert description of Agreement ]. Undefined capitalized words have the meanings or descriptions given in the Agreement. If there is any inconsistency between this AI Addendum and the Agreement, the AI Addendum will control for the provision of AI Services."
+              ]
+            },
+            {
+              "row": 1,
+              "cells": [
+                "Training Data",
+                "[Drafting note: By default, the provider cannot train any models using customer content, information, or data unless authorized below. Select the categories of data or information that may be used to train models. If no model training is permitted, check \"None\" and delete the rest.]\n\n[    ]None\n\nProvider may Train the Model(s) using the following Training Data:\n[    ]Usage Data\n[    ]Feedback\n[    ]Input\n[    ]Output\n[    ]User prompts, excluding other components of Input\n[    ]Customer Content\n[    ][ free text box ]"
+              ]
+            },
+            {
+              "row": 2,
+              "cells": [
+                "Training Purposes\nPermitted Model Training",
+                "[Drafting note: If model training is permitted, select the purposes for which the trained models may be used. If no model training is permitted, check \"None\" and delete the rest.]\n\n[    ]None\n\nProvider may use Training Data for the following purpose:\n[    ]Train the Model(s) in the AI Services solely for Customer\u2019s benefit\n[    ]Train the Model(s) in the AI Services"
+              ]
+            },
+            {
+              "row": 3,
+              "cells": [
+                "Training Restrictions\nRestrictions on Model Training",
+                "[Drafting note: This is an optional variable. If there are specific restrictions on what must be done before training may be performed, specify that here. Otherwise, write \"None\" or delete the row in its entirety.]\n\n[    ]Training Data must be aggregated\n[    ]Training Data must be de-identified\n[    ]Provider will use commercially reasonable efforts consistent with industry standard technology to de-identify Training Data\n[    ][ free text box ]"
+              ]
+            },
+            {
+              "row": 4,
+              "cells": [
+                "Improvement Restrictions\nFor improvements to the AI System (but not any Models)",
+                "[Drafting note: By default, the provider can use input, output, and training data (if any are defined) to make general product improvements that are not model training. Use this section to add protections and restrictions around the general product improvement. If there are none, write \"None\" or delete the row in its entirety.]\n\n[    ]Neither Input nor Output may identify Customer\n[    ]Improvements based on Customer's Input, Output, or Training Data will be solely for Customer's benefit\n[    ][ free text box ]"
+              ]
+            },
+            {
+              "row": 5,
+              "cells": [
+                "Covered Claims\nClaims covered by indemnity obligations",
+                "[Drafting note: This AI Addendum leverages the common language across Common Paper's CSA and Software License Agreement. Use this section to leverage the existing structure in those agreements to add indemnification obligations specific to the AI Addendum. Update and modify the language as needed. If there are no indemnities specific to the AI Addendum, delete this row in its entirety.]\n\n[    ]Provider Covered Claims include any action, proceeding, or claim [ that the Output\u2014when generated and used by Customer according to the terms of the Agreement and the AI Addendum\u2014violates, misappropriates, or otherwise infringes upon the intellectual property or other proprietary rights of another person or entity. \n\nWithout limiting the indemnity exclusions in the Agreement, Provider's obligations as an Indemnifying Party will not apply to Provider Covered Claims that result from: (a) use of Output in combination with data, software, hardware, equipment, technology, or other products or services not provided by Provider; (b) Input; (c) Customer's use of the AI Services in breach of the Agreement or the AI Addendum; (d) modifications to the Output that were not made by Provider; (e) Output that Customer knew or should have known might violate, misappropriate, or otherwise infringe upon another's intellectual property or other proprietary rights; or (f) a claim that use of Output infringes another's trademark or related rights. ]\n\n[    ]Customer Covered Claims include any action, proceeding, or claim [ that (1) the Input\u2014when used by Provider according to the terms of the Agreement and the AI Addendum\u2014violates, misappropriates, or otherwise infringes upon the intellectual property or other proprietary rights of another person or entity; or (2) results from Customer's use of the AI Services in violation of the applicable restrictions in the Agreement or the AI Addendum. ]"
+              ]
+            },
+            {
+              "row": 6,
+              "cells": [
+                "AI Acceptable Use Policy",
+                "[Drafting note: Many AI products, particularly generative AI products, include an acceptable use policy specific to how users are permitted to interact with the AI features. Attach or link to yours here.]\n\n[    ]Use of the AI Services is subject to the Acceptable Use Policy [ available at URL or attached to this Cover Page ]"
+              ]
+            }
+          ]
+        },
+        {
+          "table": 1,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "",
+                "PROVIDER: [official company name]",
+                "",
+                "CUSTOMER: [official company name]"
+              ]
+            },
+            {
+              "row": 1,
+              "cells": [
+                "Signature",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 2,
+              "cells": [
+                "Print Name",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 3,
+              "cells": [
+                "Title",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 4,
+              "cells": [
+                "Notice Address\nUse email or postal address",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 5,
+              "cells": [
+                "Date",
+                "",
+                "",
+                ""
+              ]
+            }
+          ]
+        }
+      ],
+      "all_original_table_rows_retained": true,
+      "selection_inferred": false
+    },
+    {
+      "original_file": "originals/ai-in-app.docx",
+      "original_sha256": "6a6d2346177c7215cafd2bdb1ea70ffbf25f7810fab753b8d25db282bad55f65",
+      "tables": [
+        {
+          "table": 0,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "[Drafting note: This AI Addendum is intended to be uploaded into the Common Paper platform, and then added as an attachment to either a Cloud Service Agreement or Software License Agreement.]\n\nThis Cover Page incorporates the AI Addendum Standard Terms available at https://commonpaper.com/standards/ai-addendum/1.0/ with the Variables set forth below (collectively, the \"AI Addendum\"). A copy of the AI Addendum Standard Terms is attached for convenience only. Undefined capitalized words have the meanings or descriptions given in the Agreement to which this AI Addendum is attached. If there is any inconsistency between this AI Addendum and the Agreement, the AI Addendum will control for the provision of AI Services."
+              ]
+            },
+            {
+              "row": 1,
+              "cells": [
+                "Training Data",
+                "[Drafting note: By default, the provider cannot train any models using customer content, information, or data unless authorized below. Select the categories of data or information that may be used to train models. If no model training is permitted, check \"None\" and delete the rest.]\n\n[    ]None\n\nProvider may Train the Model(s) using the following Training Data:\n[    ]Usage Data\n[    ]Feedback\n[    ]Input\n[    ]Output\n[    ]User prompts, excluding other components of Input\n[    ]Customer Content\n[    ][ free text box ]"
+              ]
+            },
+            {
+              "row": 2,
+              "cells": [
+                "Training Purposes\nPermitted Model Training",
+                "[Drafting note: If model training is permitted, select the purposes for which the trained models may be used. If no model training is permitted, check \"None\" and delete the rest.]\n\n[    ]None\n\nProvider may use Training Data for the following purpose:\n[    ]Train the Model(s) in the AI Services solely for Customer\u2019s benefit\n[    ]Train the Model(s) in the AI Services"
+              ]
+            },
+            {
+              "row": 3,
+              "cells": [
+                "Training Restrictions\nRestrictions on Model Training",
+                "[Drafting note: This is an optional variable. If there are specific restrictions on what must be done before training may be performed, specify that here. Otherwise, write \"None\" or delete the row in its entirety.]\n\n[    ]Training Data must be aggregated\n[    ]Training Data must be de-identified\n[    ]Provider will use commercially reasonable efforts consistent with industry standard technology to de-identify Training Data\n[    ][ free text box ]"
+              ]
+            },
+            {
+              "row": 4,
+              "cells": [
+                "Improvement Restrictions\nFor improvements to the AI System (but not any Models)",
+                "[Drafting note: By default, the provider can use input, output, and training data (if any are defined) to make general product improvements that are not model training. Use this section to add protections and restrictions around the general product improvement. If there are none, write \"None\" or delete the row in its entirety.]\n\n[    ]Neither Input nor Output may identify Customer\n[    ]Improvements based on Customer's Input, Output, or Training Data will be solely for Customer's benefit\n[    ][ free text box ]"
+              ]
+            },
+            {
+              "row": 5,
+              "cells": [
+                "Covered Claims\nClaims covered by indemnity obligations",
+                "[Drafting note: This AI Addendum leverages the common language across Common Paper's CSA and Software License Agreement. Use this section to leverage the existing structure in those agreements to add indemnification obligations specific to the AI Addendum. Update and modify the language as needed. If there are no indemnities specific to the AI Addendum, delete this row in its entirety.]\n\n[    ]Provider Covered Claims include any action, proceeding, or claim [ that the Output\u2014when generated and used by Customer according to the terms of the Agreement and the AI Addendum\u2014violates, misappropriates, or otherwise infringes upon the intellectual property or other proprietary rights of another person or entity. \n\nWithout limiting the indemnity exclusions in the Agreement, Provider's obligations as an Indemnifying Party will not apply to Provider Covered Claims that result from: (a) use of Output in combination with data, software, hardware, equipment, technology, or other products or services not provided by Provider; (b) Input; (c) Customer's use of the AI Services in breach of the Agreement or the AI Addendum; (d) modifications to the Output that were not made by Provider; (e) Output that Customer knew or should have known might violate, misappropriate, or otherwise infringe upon another's intellectual property or other proprietary rights; or (f) a claim that use of Output infringes another's trademark or related rights. ]\n\n[    ]Customer Covered Claims include any action, proceeding, or claim [ that (1) the Input\u2014when used by Provider according to the terms of the Agreement and the AI Addendum\u2014violates, misappropriates, or otherwise infringes upon the intellectual property or other proprietary rights of another person or entity; or (2) results from Customer's use of the AI Services in violation of the applicable restrictions in the Agreement or the AI Addendum. ]"
+              ]
+            },
+            {
+              "row": 6,
+              "cells": [
+                "AI Acceptable Use Policy",
+                "[Drafting note: Many AI products, particularly generative AI products, include an acceptable use policy specific to how users are permitted to interact with the AI features. Attach or link to yours here.]\n\n[    ]Use of the AI Services is subject to the Acceptable Use Policy [ available at URL or attached to this Cover Page ]"
+              ]
+            }
+          ]
+        }
+      ],
+      "all_original_table_rows_retained": true,
+      "selection_inferred": false
+    },
+    {
+      "original_file": "originals/csa-current-cover-and-terms.docx",
+      "original_sha256": "9e7f74142913dec48f750de2b19e94da72e67593d0a389c494b22a1bae1e2430",
+      "tables": [
+        {
+          "table": 0,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "Order Form\nThe key business terms of this Order Form are as follows:"
+              ]
+            },
+            {
+              "row": 1,
+              "cells": [
+                "Framework Terms",
+                "[Drafting note: Fill in details about the applicable Key Terms. If the Key Terms are included in the same document, you can replace the first sentence with \u201cThis Order Form incorporates and is governed by the Framework Terms included below.\u201d]\n\nThis Order Form incorporates and is governed by the Framework Terms dated [enter Effective Date of Key Terms] between [enter name of Provider] and [enter name of Customer]. If there is any inconsistency between this Order Form and the Framework Terms, this Order Form will control for this Agreement."
+              ]
+            },
+            {
+              "row": 2,
+              "cells": [
+                "Cloud Service",
+                "The Cloud Service available under this Order Form is [description of the product]."
+              ]
+            },
+            {
+              "row": 3,
+              "cells": [
+                "Order Date\nThe date access to the Cloud Service starts",
+                "[Drafting note: Select one option and delete the other.]\n\n( x )Date of last signature on this Order Form\n(    )[Fill in custom start date]"
+              ]
+            },
+            {
+              "row": 4,
+              "cells": [
+                "Subscription details"
+              ]
+            },
+            {
+              "row": 5,
+              "cells": [
+                "Pilot",
+                "[Drafting note: This is an optional Variable. If there is no trial or pilot, delete this entire row.]\n\nCustomer may access the Cloud Service for a limited [fill in length of pilot/trial, e.g. 3 months] trial (\"Pilot Period\"). The Subscription Period will automatically start following the Pilot Period.\n\n[Drafting note: If including a pilot, select one option.]\n(    )Fee for Pilot Period: [fill in $ amount]\n(    )Free trial\n\n[Drafting note: Some companies want to modify parts of the Standard Terms during a trial or pilot. Use this option to do so. See the example for common pilot modifications.]\n[    ]Modifications to the Agreement that apply only to the Pilot Period: \n[For example: - Sections 6.3 (Representations & Warranties from Provider), 6.4 (Provider Warranty Remedy), and 9 (Indemnification) do not apply during the Pilot Period. \n- There are no Increased Claims or Uncapped Claims during the Pilot Period. \n- The General Cap Amount is $1,000 for all claims that arise during the Pilot Period. \n- Either party may immediately terminate the Agreement during the Pilot Period for any or no reason by giving notice to the other party.]"
+              ]
+            },
+            {
+              "row": 6,
+              "cells": [
+                "Subscription Period",
+                "[Fill in length of access, e.g. 12 months]"
+              ]
+            },
+            {
+              "row": 7,
+              "cells": [
+                "Cloud Service Fees",
+                "[    ][fill in $ amount] per [year, month, Subscription Period, User, gigabyte, etc.]\n[    ]Other fee structure: [fill in]\n\n[Drafting note: The choices below are all optional and may be deleted if not applicable.]\n[    ]Fees may increase up to [    ]% per renewal.\n[    ]Fees will increase [    ]% per renewal.\n[    ]Modifying Section 4.1 of the Standard Terms, Fees are inclusive of taxes."
+              ]
+            },
+            {
+              "row": 8,
+              "cells": [
+                "Invoicing & Payment",
+                "[Drafting note: Select one option and delete the other. The first option (Pay by invoice) requires Provider to send invoices to Customer and sets the time frame within which Customer must pay each invoice. The second option (Automatic billing) requires Customer to provide a credit card or other payment method that Provider can automatically charge at the agreed upon cadence.]\n\n(    )Pay by invoice\nProvider will invoice Customer [monthly | quarterly | annually | once per Subscription Period]. \n\nCustomer will pay each invoice within [ # ] days from [Customer's receipt of invoice | the invoice date]. \n\n(    )Automatic payment\n\nProvider will automatically charge, and Customer authorizes Provider to bill and charge Customer's payment method on file [monthly | quarterly | annually | once per Subscription Period] for immediate payment or deduction without further approval. Customer authorizes all such charges. Provider will make a copy of Customer\u2019s bills or transaction history available to Customer."
+              ]
+            },
+            {
+              "row": 9,
+              "cells": [
+                "Auto-renewal",
+                "[Drafting note: Select one option and delete the other. The first option preserves automatic renewal from the Standard Terms and defines how much advance notice of non-renewal must be given. The second option modifies the Standard Terms such that the contract does not automatically renew.]\n\n( x )Non-Renewal Notice Date: At least [fill in number] days before the end of the current Subscription Period\n\n(    )Modifying Section 5.1 of the Standard Terms, this Order Form does not automatically renew and will expire at the end of the Subscription Period."
+              ]
+            },
+            {
+              "row": 10,
+              "cells": [
+                "Technical Support",
+                "[Drafting note: This is an optional Variable. Delete the entire row if not applicable.]\n\n[Describe included support and/or how Customer can receive support]"
+              ]
+            },
+            {
+              "row": 11,
+              "cells": [
+                "Additions and Modifications\n[Drafting note: All fields in Additions and Modifications are optional. Delete any rows that do not apply.]"
+              ]
+            },
+            {
+              "row": 12,
+              "cells": [
+                "SLA\nService Level Agreement",
+                "[Drafting note: Customize, attach, or describe where to find.]\n\n[Provider will use commercially reasonable efforts to provide and maintain the Cloud Service without excessive errors and interruptions. If Provider does not meet the SLA in two consecutive months or over three months in any 12-month period, then Customer may, as its only remedy, terminate this Order Form upon notice and receive a prorated refund of prepaid Fees for the remainder of the Subscription Period.]"
+              ]
+            },
+            {
+              "row": 13,
+              "cells": [
+                "Professional Services",
+                "[Drafting note: If providing professional services, use the first option to incorporate an existing SOW or professional services agreement or the second option to describe the professional services on this order form.]\n\n[    ]Provider will provide professional services according to the [attached SOW or reference PSA].\n[    ]Provider will provide the following professional services: [description of professional services, including any fees that may be assessed.]\n\n[Drafting note: If there are fees associated with the professional services, specify how and when Customer will pay those fees.]\n[    ]Payment process for these services: [describe how services fees will be billed, for example \"Invoices for these services will be sent monthly.\"]\n\nCustomer will reasonably cooperate with Provider to allow the performance of the services described above, including providing Customer Content as needed. Provider is not responsible for any inability to perform these services if Customer does not cooperate as reasonably requested."
+              ]
+            },
+            {
+              "row": 14,
+              "cells": [
+                "Other Changes to Standard Terms\nChanges that apply for this Order Form only",
+                "[Drafting note: Use this area to add modifications that only apply to this Order Form.]"
+              ]
+            }
+          ]
+        },
+        {
+          "table": 1,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "",
+                "PROVIDER: [official company name]",
+                "",
+                "CUSTOMER: [official company name]"
+              ]
+            },
+            {
+              "row": 1,
+              "cells": [
+                "Signature",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 2,
+              "cells": [
+                "Print Name",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 3,
+              "cells": [
+                "Title",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 4,
+              "cells": [
+                "Notice Address\nUse email or postal address",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 5,
+              "cells": [
+                "Date",
+                "",
+                "",
+                ""
+              ]
+            }
+          ]
+        },
+        {
+          "table": 2,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "USING THE FRAMEWORK TERMS\nThe Framework Terms have 2 parts: (1) the Key Terms below (including any attached or referenced policies and documents) and (2) the Common Paper Cloud Service Standard Terms Version 3.0 posted at https://commonpaper.com/standards/cloud-service-agreement/3.0, which are incorporated by reference. If there is any inconsistency between the parts of the Framework Terms, the Key Terms will control over the Standard Terms. Capitalized words have the meanings or descriptions given in the Cover Page or Standard Terms."
+              ]
+            }
+          ]
+        },
+        {
+          "table": 3,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "Key Terms\nThe key legal terms of this Agreement are as follows:"
+              ]
+            },
+            {
+              "row": 1,
+              "cells": [
+                "Effective Date\nThe date the Framework Terms start",
+                "[Drafting note: Select one option and delete the other.]\n\n( x )Date of last Cover Page signature\n(    )[Fill in custom Effective Date]"
+              ]
+            },
+            {
+              "row": 2,
+              "cells": [
+                "Governing Law",
+                "The laws of [fill in state, province, and/or country]"
+              ]
+            },
+            {
+              "row": 3,
+              "cells": [
+                "Chosen Courts\nJurisdiction or where disputes are filed",
+                "The courts (whether state, federal, or otherwise) located in [fill in state, province, and/or county]"
+              ]
+            },
+            {
+              "row": 4,
+              "cells": [
+                "Covered Claims\nClaims covered by indemnity obligations",
+                "[Drafting note: This is an optional Variable. If no Covered Claims are included, delete the entire row. If using Covered Claims, select one or both and customize.]\n\n[ x ]Provider Covered Claims: [Any action, proceeding, or claim that the Cloud Service, when used by Customer according to the terms of the Agreement, violates, misappropriates, or otherwise infringes upon anyone else\u2019s intellectual property or other proprietary rights.]\n\n[ x ]Customer Covered Claims: [Any action, proceeding, or claim that (1) the Customer Content, when used according to the terms of the Agreement, violates, misappropriates, or otherwise infringes upon anyone else\u2019s intellectual property or other proprietary rights; or (2) results from Customer\u2019s breach or alleged breach of Section 2.1 (Restrictions on Customer).]"
+              ]
+            },
+            {
+              "row": 5,
+              "cells": [
+                "General Cap Amount\nLimitation of liability amount for most claims",
+                "[Drafting note: Select one option and delete the others. If there is no General Cap Amount, the contract will not have any limitation of liability.]\n\n[ x ][Fill in a number]x the Fees paid or payable by Customer to Provider in the 12 month period immediately before the claim\n[    ]$[Fill in dollar amount]\n[    ]The greater of $[fill in dollar amount] or [fill in a number]x the Fees paid or payable by Customer to Provider in the 12 month period immediately before the claim"
+              ]
+            },
+            {
+              "row": 6,
+              "cells": [
+                "Supercap\nHigher limitation of liability amount for Increased Claims",
+                "[Drafting note: This is an optional Variable. If no Increased Claims are included, delete the entire row. If Increased Claims are included above, select one and customize and delete the others.]\n\nNotwithstanding Section 8.1, each party\u2019s total cumulative liability for all Increased Claims arising out of or relating to this Agreement will not be more than: \n\n[ x ][Fill in a number other than 1]x the Fees paid or payable by Customer to Provider in the 12 month period immediately before the claim\n[    ]$[Fill in dollar amount]\n[    ]The greater of $[fill in dollar amount] or [fill in a number]x the Fees paid or payable by Customer to Provider in the 12 month period immediately before the claim"
+              ]
+            },
+            {
+              "row": 7,
+              "cells": [
+                "Increased Claims\nSpecific claims covered by the Supercap",
+                "[Drafting note: This is an optional Variable. If no Increased Claims are included, delete the entire row and the row for Supercap. If including Increased Claims, select those that apply and customize, and delete the others.]\n\n[    ]The Supercap applies to the following claims:\n\n[ x ]Breach of Section 3 (Privacy & Security)\n[ x ]Breach of Section 10 (Confidentiality) (however, excluding any data or security breaches)\n[    ]An Indemnifying Party\u2019s indemnification obligation\n[    ]Other: [fill in]"
+              ]
+            },
+            {
+              "row": 8,
+              "cells": [
+                "Uncapped Claims\nClaims excluded from the General Cap Amount and the Supercap",
+                "[Drafting note: This is an optional Variable. If no Uncapped Claims are included, delete the entire row. If including Uncapped Claims, select those that apply and customize, and delete the others.]\n\n[    ]Notwithstanding anything to the contrary, the following claims are not subject to the General Cap Amount or the Supercap:\n\n[    ]Death, bodily harm, or personal injury\n[    ]An Indemnifying Party\u2019s indemnification obligation\n[    ]Breach of Section 3 (Privacy & Security) resulting from gross negligence or willful misconduct\n[    ]Breach of Section 10 (Confidentiality) resulting from gross negligence or willful misconduct (however, excluding any data or security breaches)\n[    ]Breach of Section 3 (Privacy & Security)\n[    ]Breach of Section 10 (Confidentiality) (however, excluding any data or security breaches)\n[    ]Other: [fill in]"
+              ]
+            },
+            {
+              "row": 9,
+              "cells": [
+                "Attachments, Supplements & Modifications\n[Drafting note: All fields in Attachments, Supplements & Modifications are optional. Delete any rows below that do not apply.]"
+              ]
+            },
+            {
+              "row": 10,
+              "cells": [
+                "DPA\nData Processing Agreement",
+                "[Attach or describe where to find.]"
+              ]
+            },
+            {
+              "row": 11,
+              "cells": [
+                "Security Policy",
+                "[Drafting note: Select those that apply and customize, and delete the rest.]\n\n[ x ]Provider will use commercially reasonable efforts to secure the Cloud Service from unauthorized access, alteration, or use and other unlawful tampering.\n[    ]Provider will comply with the Security Policy available at [describe where to find].\n[    ]Provider will maintain annually updated reports or annual certifications of compliance with the following:\n[    ] ISO 27001\n[    ] Penetration testing\n[    ] SOC 2 Type I\n[    ] PCI Level 1\n[    ] SOC 2 Type II\n[    ] PCI Level 2\n[    ] HITRUST\n[    ] FedRAMP Authorized\n[    ] Other: [fill in]\n"
+              ]
+            },
+            {
+              "row": 12,
+              "cells": [
+                "Insurance Minimums",
+                "During the Subscription Period and for six months after, Provider will carry commercial insurance policies with coverage limits that meet the Insurance Minimums below:\n\n[Drafting note: Select those that apply and customize, and delete the rest.]\n\n[    ]Commercial general liability with a minimum limit for each occurrence of at least $[dollar amount] and at least $[dollar amount] in the aggregate\n[    ]Workers\u2019 compensation or employers' liability insurance as required by Applicable Laws\n[    ]Errors and omissions or professional liability with a minimum limit for each occurrence of at least $[dollar amount] and at least $[dollar amount] in the aggregate\n[    ]Cyber liability insurance with a minimum limit for each occurrence of at least $[dollar amount] and at least $[dollar amount] in the aggregate\n\nUpon request, Provider will give Customer a certificate of insurance evidencing its insurance policies that meet the Insurance Minimums. Provider\u2019s insurance policies will not be considered as evidence of Provider\u2019s liability.\n\n[    ]The following of Provider\u2019s policies will cover Customer as additional insured:\n[    ] Commercial general liability\n[    ] Errors and omissions or professional liability\n[    ] Cyber liability\n"
+              ]
+            },
+            {
+              "row": 13,
+              "cells": [
+                "Other Changes to Standard Terms\nList specific changes to the Standard Terms",
+                "[Drafting note: Use this area to add modifications that apply to all contracts governed by these Key Terms.]"
+              ]
+            }
+          ]
+        },
+        {
+          "table": 4,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "[    ] ISO 27001",
+                "[    ] Penetration testing"
+              ]
+            },
+            {
+              "row": 1,
+              "cells": [
+                "[    ] SOC 2 Type I",
+                "[    ] PCI Level 1"
+              ]
+            },
+            {
+              "row": 2,
+              "cells": [
+                "[    ] SOC 2 Type II",
+                "[    ] PCI Level 2"
+              ]
+            },
+            {
+              "row": 3,
+              "cells": [
+                "[    ] HITRUST",
+                "[    ] FedRAMP Authorized"
+              ]
+            },
+            {
+              "row": 4,
+              "cells": [
+                "[    ] Other: [fill in]"
+              ]
+            }
+          ]
+        },
+        {
+          "table": 5,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "[    ] Commercial general liability"
+              ]
+            },
+            {
+              "row": 1,
+              "cells": [
+                "[    ] Errors and omissions or professional liability"
+              ]
+            },
+            {
+              "row": 2,
+              "cells": [
+                "[    ] Cyber liability"
+              ]
+            }
+          ]
+        },
+        {
+          "table": 6,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "",
+                "PROVIDER: [official company name]",
+                "",
+                "CUSTOMER: [official company name]"
+              ]
+            },
+            {
+              "row": 1,
+              "cells": [
+                "Signature",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 2,
+              "cells": [
+                "Print Name",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 3,
+              "cells": [
+                "Title",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 4,
+              "cells": [
+                "Notice Address\nUse email or postal address",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 5,
+              "cells": [
+                "Date",
+                "",
+                "",
+                ""
+              ]
+            }
+          ]
+        },
+        {
+          "table": 7,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "To use these Cloud Service Agreement Standard Terms, the parties must complete and sign or electronically accept Key Terms.\nVariables have the meanings or descriptions given on the Cover Page. All other capitalized words have the meanings or descriptions given in these Standard Terms."
+              ]
+            }
+          ]
+        }
+      ],
+      "all_original_table_rows_retained": true,
+      "selection_inferred": false
+    },
+    {
+      "original_file": "originals/dpa-current-cover-and-terms.docx",
+      "original_sha256": "cb35f3cc70cb6d24955f08b7ae09b899d6cf054ef3b56f1f9e2cf0cae1e3dbf1",
+      "tables": [
+        {
+          "table": 0,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "USING THIS DPA\nThis DPA has 2 parts: (1) the Key Terms on this Cover Page and (2) the Common Paper DPA Standard Terms Version 1.1 posted at http://commonpaper.com/standards/data-processing-agreement/1.1/ (\u201cDPA Standard Terms\u201d), which is incorporated by reference. If there is any inconsistency between the parts of the DPA, the Cover Page will control over the DPA Standard Terms. Capitalized and highlighted words have the meanings given on the Cover Page. However, if the Cover Page omits or does not define a highlighted word, the default meaning will be \u201cnone\u201d or \u201cnot applicable\u201d and the correlating clause, sentence, or section does not apply to this DPA. All other capitalized words have the meanings given in the DPA Standard Terms or the Agreement. A copy of the DPA Standard Terms is attached for convenience only."
+              ]
+            }
+          ]
+        },
+        {
+          "table": 1,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "Key Terms\nThe key legal terms of the DPA are as follows:"
+              ]
+            },
+            {
+              "row": 1,
+              "cells": [
+                "Agreement",
+                "This DPA supplements the [ name & date of underlying agreement ]."
+              ]
+            },
+            {
+              "row": 2,
+              "cells": [
+                "Approved Subprocessors",
+                "[ drafting note: identify all subprocessors or link to a list of subprocessors available online. ]\n\n[ x ]List of Subprocessors available at [ insert URL ]\n\n[    ][ Subprocessor name ]\nCountry of location: [ list of all countries ]\nAnticipated Processing task: [ text box ]"
+              ]
+            },
+            {
+              "row": 3,
+              "cells": [
+                "Provider Security Contact",
+                "[ email and/or physical address ]"
+              ]
+            },
+            {
+              "row": 4,
+              "cells": [
+                "Security Policy",
+                "[ drafting note: check and customize those that apply and delete the rest. ]\n\n[ x ]As defined in the Agreement.\n\n[    ]Provider will use commercially reasonable efforts to secure the Service from unauthorized access, alteration, or use and other unlawful tampering.\n\n[    ]Security Policy available at [insert URL of where to find]\n\n[    ]Provider will maintain annually updated reports or annual certifications of compliance with the following:\n[    ] ISO 27001\n[    ] Penetration testing\n[    ] SOC 2 Type I\n[    ] PCI Level 1\n[    ] SOC 2 Type II\n[    ] PCI Level 2\n[    ] HIPAA\n[    ] FedRAMP Authorized\n[    ] Other: [fill in]\n"
+              ]
+            },
+            {
+              "row": 5,
+              "cells": [
+                "Changes to the Agreement\n[ drafting note: If this DPA does not include a separate indemnity, liability cap, or governing law from the Agreement, delete this entire section. ]"
+              ]
+            },
+            {
+              "row": 6,
+              "cells": [
+                "DPA Covered Claim",
+                "[ drafting note: Check the box to include this language and customize the yellow-bracketed language to add indemnity obligations specific to the DPA. If you do not want to provide a separate indemnity with this DPA, delete this row entirely. ]\n\n[    ][ select if using Common Paper CSA: ] The Agreement includes an additional Provider Covered Claim for any action, proceeding, or claim arising out of or relating to [(1) Provider\u2019s breach or alleged breach of the DPA, or (2) Provider\u2019s gross negligence or willful misconduct, in each case, that results in a Security Incident.]\n\n[    ][ select if not using Common Paper CSA: ] Without limiting the indemnity obligations in the Agreement, if any, Provider will indemnify, defend, and hold harmless Customer from and against any action, proceeding, or claim made by someone other than Customer, Customer\u2019s Affiliates, or Users, and all out-of-pocket damages, awards, settlements, costs, and expenses, including reasonable attorneys\u2019 fees and other legal expenses, that arise from [(1) Provider\u2019s breach or alleged breach of the DPA, or (2) Provider\u2019s gross negligence or willful misconduct, in each case, that results in a Security Incident.]"
+              ]
+            },
+            {
+              "row": 7,
+              "cells": [
+                "DPA Liability Cap",
+                "[ drafting note: Check the box to include this language and customize the yellow-bracketed amounts to add a separate super cap specific to DPA Covered Claims. If you do not want to provide a separate liability cap for DPA Covered Claims, delete this row entirely. ]\n\n[    ][ select if using Common Paper CSA: ] The Agreement includes an additional Increased Claim for DPA Covered Claims, with a separate Increased Cap Amount of the greater of $[_________] or [fill in a number greater than 1] times the fees paid or payable by Customer to Provider in the 12 month period immediately before the claim.\n\n[    ][ select if not using Common Paper CSA: ] The following is added to the end of Section 8.1 of the DPA Standard Terms:\n\nHowever, Provider\u2019s total cumulative liability arising out of or related to DPA Covered Claims will not be more than the greater of $[_________] or [fill in a number greater than 1] times the fees paid or payable by Customer to Provider in the 12 month period immediately before the claim."
+              ]
+            },
+            {
+              "row": 8,
+              "cells": [
+                "Governing Law and Chosen Courts",
+                "[ drafting note: Check the box / include this language to modify the governing law and jurisdiction for this DPA (governing law for SCCs are handled in the Restricted Transfer section). If you do not want to modify the governing law and jurisdiction from the Agreement, delete this row entirely. ]\n\n[    ]Notwithstanding the governing law or similar clauses of the Agreement, all interpretations and disputes about this DPA will be governed by the laws of the Governing State without regard to its conflict of laws provisions. In addition, and notwithstanding the forum selection, jurisdiction, or similar clauses of the Agreement, the parties agree to bring any legal suit, action, or proceeding about this DPA in, and each party irrevocably submits to the exclusive jurisdiction of, the courts of the Governing State.\n\nGoverning State means: [ Select a state, province, or country ]"
+              ]
+            },
+            {
+              "row": 9,
+              "cells": [
+                "Service Provider Relationship",
+                "[ drafting note: Check the box / include this language to affirm a service provider relationship and that no sale of personal information (e.g., as regulated by CCPA) will occur. ]\n\n[    ]To the extent California Consumer Privacy Act, Cal. Civ. Code \u00a7 1798.100 et seq (\u201cCCPA\u201d) applies, the parties acknowledge and agree that Provider is a service provider and is receiving Personal Data from Customer to provide the Service as agreed in the Agreement and detailed below (see Nature and Purpose of Processing), which constitutes a limited and specified business purpose. Provider will not sell or share any Personal Data provided by Customer under the Agreement. In addition, Provider will not retain, use, or disclose any Personal Data provided by Customer under the Agreement except as necessary for providing the Service for Customer, as stated in the Agreement, or as permitted by Applicable Data Protection Laws. Provider certifies that it understands the restrictions of this paragraph and will comply with all Applicable Data Protection Laws. Provider will notify Customer if it can no longer meet its obligations under the CCPA."
+              ]
+            },
+            {
+              "row": 10,
+              "cells": [
+                "Restricted Transfers"
+              ]
+            },
+            {
+              "row": 11,
+              "cells": [
+                "Governing Member State",
+                "[ drafting note: Select EEA for data transfers originating within the EEA; select UK for data transfers originating within the UK ]\n\n[    ]EEA Transfers: [ Select an EU Member State ]\n\n[    ]UK Transfers: [ Select Laws of England and Wales; Scotland; or Northern Ireland ]"
+              ]
+            },
+            {
+              "row": 12,
+              "cells": [
+                "Annex I(A) List of Parties"
+              ]
+            },
+            {
+              "row": 13,
+              "cells": [
+                "Data Exporter",
+                "Name: Customer\nAddress: [ Customer\u2019s Physical Address ]\nContact Person:\nName: [ Customer contact name ]\nPosition: [ Customer contact title ]\nAddress: [ Physical address ]\nActivities relevant to transfer: See Annex 1(B)\nRole: [ Pick one: Controller | Processor ]"
+              ]
+            },
+            {
+              "row": 14,
+              "cells": [
+                "Data Importer",
+                "Name: Provider\nAddress: [ Provider\u2019s Physical Address ]\nContact Person: \nName: [ Provider contact name ]\nPosition: [ Provider contact title ]\nAddress: [ Physical address ]\nActivities relevant to transfer: See Annex 1(B)\nRole: Processor"
+              ]
+            },
+            {
+              "row": 15,
+              "cells": [
+                "Annex I(B) Description of Transfer and Processing Activities"
+              ]
+            },
+            {
+              "row": 16,
+              "cells": [
+                "Service",
+                "[ Name of product or service ]"
+              ]
+            },
+            {
+              "row": 17,
+              "cells": [
+                "Categories of Data Subjects",
+                "[ drafting note: check all that apply, customize as needed, and delete the rest. ]\n\n[    ] Customer\u2019s end users or customers\n[    ] Customer\u2019s employees\n[    ] [ custom option ]"
+              ]
+            },
+            {
+              "row": 18,
+              "cells": [
+                "Categories of Personal Data",
+                "[ drafting note: check all that apply, customize as needed, and delete the rest. ]\n\n[    ] Name\n[    ] Contact information such as email, phone number, or address\n[    ] Employment information such as employee ID or compensation\n[    ] Financial information such as bank account numbers\n[    ] Professional or biographic information such as resume or CV\n[    ] Transactional information such as account information or purchases\n[    ] User activity and analysis such as device information or IP address\n[    ] Location information\n[    ] [ custom option ]"
+              ]
+            },
+            {
+              "row": 19,
+              "cells": [
+                "Special Category Data\nIs special category data Processed?",
+                "[ drafting note: select one or the other. ]\n\n(   ) Yes(   ) No"
+              ]
+            },
+            {
+              "row": 20,
+              "cells": [
+                "Special Category Data Restrictions or Safeguards",
+                "[ drafting note: If \u201cYes\u201d is selected above, identify the safeguards in place to protect special category data by checking the applicable box, customizing as needed, and deleting the rest. If \u201cNo\u201d is selected above, delete this entire row. ]\n\n[   ]See Security Policy \n[   ] [ custom option ]"
+              ]
+            },
+            {
+              "row": 21,
+              "cells": [
+                "Frequency of Transfer",
+                "[ drafting note: check all that apply, customize as needed, and delete the rest. ]\n\n[   ]Continuous\n[   ][ custom options ]"
+              ]
+            },
+            {
+              "row": 22,
+              "cells": [
+                "Nature and Purpose of Processing",
+                "Provider will Process Customer Personal Data as instructed in Section 2.3 of the DPA Standard Terms. The nature of processing includes:\n\n[ drafting note: check all that are applicable, customize as needed, and delete the rest. ]\n\n[    ] Receiving data, including collection, accessing, retrieval, recording, and data entry\n[    ] Holding data, including storage, organization, and structuring\n[    ] Using data, including analysis, consultation, testing, automated decision making, and profiling\n[    ] Updating data, including correcting, adaptation, alteration, alignment, and combination\n[    ] Protecting data, including restricting, encrypting, and security testing\n[    ] Sharing data, including disclosure, dissemination, allowing access, or otherwise making available\n[    ] Returning data to the data exporter or data subject\n[    ] Erasing data, including destruction and deletion\n[    ] [ custom options ]"
+              ]
+            },
+            {
+              "row": 23,
+              "cells": [
+                "Duration of Processing",
+                "Provider will process Customer Personal Data as long as required (i) to conduct the Processing activities instructed in Section 2.2(a)-(d) of the Standard Terms; or (ii) by Applicable Laws."
+              ]
+            },
+            {
+              "row": 24,
+              "cells": [
+                "Annex I(C)"
+              ]
+            },
+            {
+              "row": 25,
+              "cells": [
+                "Competent Supervisory Authority",
+                "The supervisory authority will be the supervisory authority of the data exporter, as determined in accordance with Clause 13 of the EEA SCCs or the relevant provision of the UK Addendum."
+              ]
+            },
+            {
+              "row": 26,
+              "cells": [
+                "Annex II"
+              ]
+            },
+            {
+              "row": 27,
+              "cells": [
+                "Technical and Organizational Security Measures",
+                "[ drafting note: check all that are applicable, customize as needed, and delete the rest. ]\n\n[ x ]See Security Policy\n\n[    ]Pseudonymization and encryption of personal data: \n[ small paragraph text box to describe the measures ]\n\n[    ]Ensuring ongoing confidentiality, integrity, availability, and resilience of processing systems and services: \n[ small paragraph text box to describe the measures ]\n\n[    ]Ability to restore the availability of and access to Customer Personal Data in a timely manner following a physical or technical incident: \n[ small paragraph text box to describe the measures ]\n\n[    ]Regular testing, assessment, and evaluation of the effectiveness of technical and organizational measures used to secure Processing: \n[ small paragraph text box to describe the measures ]\n\n[    ]User identification and authorization process and protection: \n[ small paragraph text box to describe the measures ]\n\n[    ]Protecting Customer Personal Data during transmission (in transit): \n[ small paragraph text box to describe the measures ]\n\n[    ]Protecting Customer Personal Data during storage (at rest): \n[ small paragraph text box to describe the measures ]\n\n[    ]Physical security where Customer Personal Data is processed: \n[ small paragraph text box to describe the measures ]\n\n[    ]Events logging: \n[ small paragraph text box to describe the measures ]\n\n[    ]Systems configuration, including default configuration: \n[ small paragraph text box to describe the measures ]\n\n[    ]Internal IT and IT security governance and management: \n[ small paragraph text box to describe the measures ]\n\n[    ]Certification or assurance of processes and products: \n[ small paragraph text box to describe the measures ]\n\n[    ]Ensuring data minimization: \n[ small paragraph text box to describe the measures ]\n\n[    ]Ensuring data quality: \n[ small paragraph text box to describe the measures ]\n\n[    ]Ensuring limited data retention: \n[ small paragraph text box to describe the measures ]\n\n[    ]Ensuring accountability: \n[ small paragraph text box to describe the measures ]\n\n[    ]Allowing data portability and ensuring erasure: \n[ small paragraph text box to describe the measures ]"
+              ]
+            }
+          ]
+        },
+        {
+          "table": 2,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "[    ] ISO 27001",
+                "[    ] Penetration testing"
+              ]
+            },
+            {
+              "row": 1,
+              "cells": [
+                "[    ] SOC 2 Type I",
+                "[    ] PCI Level 1"
+              ]
+            },
+            {
+              "row": 2,
+              "cells": [
+                "[    ] SOC 2 Type II",
+                "[    ] PCI Level 2"
+              ]
+            },
+            {
+              "row": 3,
+              "cells": [
+                "[    ] HIPAA",
+                "[    ] FedRAMP Authorized"
+              ]
+            },
+            {
+              "row": 4,
+              "cells": [
+                "[    ] Other: [fill in]"
+              ]
+            }
+          ]
+        },
+        {
+          "table": 3,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "",
+                "PROVIDER: [official company name]",
+                "",
+                "CUSTOMER: [official company name]"
+              ]
+            },
+            {
+              "row": 1,
+              "cells": [
+                "Signature",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 2,
+              "cells": [
+                "Print Name",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 3,
+              "cells": [
+                "Title",
+                "",
+                "",
+                ""
+              ]
+            },
+            {
+              "row": 4,
+              "cells": [
+                "Date",
+                "",
+                "",
+                ""
+              ]
+            }
+          ]
+        }
+      ],
+      "all_original_table_rows_retained": true,
+      "selection_inferred": false
+    },
+    {
+      "original_file": "originals/bonterms-ai-playbook.docx",
+      "original_sha256": "90a38076d3b03bf974b11615786c71e4171d65baf4956e8d85715f23f20a3c3b",
+      "tables": [
+        {
+          "table": 0,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "These examples show how to add Additional Terms to the Standard AI Addendum v2.0  (AI Addendum).\nNote that the AI Addendum operates as an attachment to a Main Agreement as identified by the parties. \nYou can delete, replace or add to provisions of the AI Addendum.\nThese are examples only. Have legal counsel review before using.  "
+              ]
+            }
+          ]
+        },
+        {
+          "table": 1,
+          "rows": [
+            {
+              "row": 0,
+              "cells": [
+                "Additional Terms"
+              ]
+            },
+            {
+              "row": 1,
+              "cells": [
+                "The following additions to or modifications of the AI Addendum are agreed by the parties and control in the event of any conflicts: "
+              ]
+            },
+            {
+              "row": 2,
+              "cells": [
+                "SECTION 2 \u2013 AI FEATURES "
+              ]
+            },
+            {
+              "row": 3,
+              "cells": [
+                "Extend Opt-Out to All AI Features",
+                "Add after Section 2.1 (AI Features): \nTo the extent administrative controls are available, Customer may disable AI Features included in the Cloud Service."
+              ]
+            },
+            {
+              "row": 4,
+              "cells": [
+                "Minimum Notice Period",
+                "Replace the first sentence of Section 2.2(a)(Notice) with: \nProvider will give Customer at least 30 days\u2019 prior written notice (email or in-product notification to an administrator is sufficient) before enabling by default any New AI Feature for Customer."
+              ]
+            },
+            {
+              "row": 5,
+              "cells": [
+                "SECTION 3 \u2013 DATA HANDLING"
+              ]
+            },
+            {
+              "row": 6,
+              "cells": [
+                "Definition of Training\n\n",
+                "Add to Section 1 (Definitions):\n\"Training\" means accessing, using or retaining Input or Output to train, retrain or fine-tune AI Features, any Model Provider models or other AI or machine-learning models. "
+              ]
+            },
+            {
+              "row": 7,
+              "cells": [
+                "",
+                "Usage Note: Include this definition if using any of the Training exception provisions below (Customer Benefit Training Exception, De-Identified and Aggregated Training Exception, or No Training on Usage Data)."
+              ]
+            },
+            {
+              "row": 8,
+              "cells": [
+                "Customer Benefit Training Exception",
+                "Add after Section 3.1 (No Training): \nNotwithstanding Section 3.1, Provider may conduct Training using Input and Output, provided that any model so trained will not be made available to, or used for the benefit of, any other customer."
+              ]
+            },
+            {
+              "row": 9,
+              "cells": [
+                "De-Identified and Aggregated Training Exception",
+                "Add after Section 3.1 (No Training): \nNotwithstanding Section 3.1, Provider may use Input and Output to conduct Training if such data has been (a) de-identified so that it does not identify Customer, its authorized users or any other person and (b) aggregated with data from other customers."
+              ]
+            },
+            {
+              "row": 10,
+              "cells": [
+                "No Training on Usage Data ",
+                "Add after Section 3.1 (No Training): \nFurthermore, any rights granted to Provider with respect to usage data or similar aggregated or de-identified data under the Main Agreement do not authorize Training."
+              ]
+            },
+            {
+              "row": 11,
+              "cells": [
+                "Change Retention Period",
+                "Replace the definition of \u201cRetention Period\u201d in Section 1 (Definitions) with the following: \n\u201cRetention Period\u201d means [___] days."
+              ]
+            },
+            {
+              "row": 12,
+              "cells": [
+                "SECTION 3.2 \u2013 OPERATIONAL MONITORING"
+              ]
+            },
+            {
+              "row": 13,
+              "cells": [
+                "Narrow Monitoring to Abuse and Security Only",
+                "Replace the first sentence of Section 3.2(a)(Purpose) with:\nNotwithstanding Section 3.1 (No Training), Provider may retain and internally review Input and Output for no longer than the Retention Period solely to detect and prevent abuse, misuse or security incidents relating to the AI Features (\u201cOperational Monitoring\u201d)."
+              ]
+            },
+            {
+              "row": 14,
+              "cells": [
+                "SECTION 4 \u2013 INTELLECTUAL PROPERTY"
+              ]
+            },
+            {
+              "row": 15,
+              "cells": [
+                "Replace Assignment with License",
+                "Replace Section 4.2(a) and (b) with: \n4.2(a). Subject to the Main Agreement, Provider hereby grants to Customer a non-exclusive, worldwide, perpetual, royalty-free right and license to reproduce, distribute, publicly display, publicly perform and prepare derivative works of Output."
+              ]
+            },
+            {
+              "row": 16,
+              "cells": [
+                "Replace Assignment with Quitclaim and License",
+                "Replace Section 4.2(a) and (b) with:\n4.2(a). Provider disclaims all right, title and interest in and to the Output. Subject to the Main Agreement, Provider hereby grants to Customer a non-exclusive, worldwide, perpetual, royalty-free right and license to reproduce, distribute, publicly display, publicly perform and prepare derivative works of Output."
+              ]
+            },
+            {
+              "row": 17,
+              "cells": [
+                "SECTION 5 \u2013 OUTPUT INDEMNIFICATION"
+              ]
+            },
+            {
+              "row": 18,
+              "cells": [
+                "Remove Cap for Output Claims",
+                "Delete Section 5.3 (Liability Cap) which reads:\n\u201cOutput Claims are not subject to any waiver or disclaimer of consequential damages but are subject to the general limitation of liability under the Main Agreement, regardless of any exceptions or higher caps in the Main Agreement that may otherwise apply to indemnification or intellectual property claims.\u201d \n\n"
+              ]
+            },
+            {
+              "row": 19,
+              "cells": [
+                "Enhanced Cap for Output Claims",
+                "Replace Section 5.3 with: \nOutput Claims are deemed to be Enhanced Claims under the Main Agreement. \n"
+              ]
+            },
+            {
+              "row": 20,
+              "cells": [
+                "",
+                "Usage Note: This example uses the Cloud Terms liability framework. If the Main Agreement uses a different structure, adjust the defined terms accordingly and ensure that Output Claims remain exempt from any waiver of consequential damages if desired."
+              ]
+            },
+            {
+              "row": 21,
+              "cells": [
+                "Carve Out Legal Fees from Cap",
+                "Add after Section 5.3 (Liability Cap): \nReasonable attorneys\u2019 fees and court costs incurred by Provider in defending Output Claims are not subject to the limitation of liability in Section 5.3."
+              ]
+            },
+            {
+              "row": 22,
+              "cells": [
+                "Main Agreement Unmodified",
+                "Replace Section 5 (Output Indemnification) with: \nThe indemnification provisions of the Main Agreement are not modified by this AI Addendum."
+              ]
+            },
+            {
+              "row": 23,
+              "cells": [
+                "No Output Indemnity",
+                "Replace Section 5 (Output Indemnification) with:\nDue to the nature of the AI Features, Provider does not represent or warrant that any Output is free of third-party intellectual property rights. Claims of intellectual property infringement or misappropriation by Output are excluded from indemnification under the Main Agreement."
+              ]
+            },
+            {
+              "row": 24,
+              "cells": [
+                "Remove \u201cReasonably Likely To\u201d",
+                "Replace Section 5.2(b) with: \n(b) providing infringing or allegedly infringing Input or Input designed to generate infringing Output; or"
+              ]
+            },
+            {
+              "row": 25,
+              "cells": [
+                "SECTION 6 \u2013 AI WARRANTIES AND DISCLAIMERS"
+              ]
+            },
+            {
+              "row": 26,
+              "cells": [
+                "Customer High-Risk Deployment  Notification",
+                "Add after Section 6.3 (No High-Risk AI):\nCustomer will notify Provider if it intends to use the AI Features in a manner that may constitute a high-risk use case under the EU Artificial Intelligence Act or equivalent applicable AI law."
+              ]
+            },
+            {
+              "row": 27,
+              "cells": [
+                "SECTION 7 \u2013 AI SPECIFIC USE RESTRICTIONS"
+              ]
+            },
+            {
+              "row": 28,
+              "cells": [
+                "Custom Restrictions",
+                "Replace Section 7 (AI Specific Use Restrictions) with:\nIn addition to any AUP in the Main Agreement, Customer will comply with the restrictions on use of the AI Features specified in [Exhibit/Attachment ___]."
+              ]
+            },
+            {
+              "row": 29,
+              "cells": [
+                "SECTION 8 \u2013 MODEL PROVIDERS"
+              ]
+            },
+            {
+              "row": 30,
+              "cells": [
+                "Minimum Notice Period for Model Provider Changes",
+                "Replace the second sentence of Section 8.1 (Model Providers) with:\nProvider will maintain a current list of Model Providers in its Documentation and notify Customer at least [30] days prior to any changes to the list of Model Providers taking effect (email or in-product notification to an administrator is sufficient)."
+              ]
+            },
+            {
+              "row": 31,
+              "cells": [
+                "Model Provider AUP Change Notice",
+                "Add to end of Section 8.1 (Model Providers): \nProvider will notify Customer of material changes to Model Provider acceptable use policies made available under Section 7(e)."
+              ]
+            }
+          ]
+        }
+      ],
+      "all_original_table_rows_retained": true,
+      "selection_inferred": false,
+      "distributed_source": "originals/additional-terms-examples.txt",
+      "changes": "All original example clauses retained. Publisher attribution removed under the original CC0 instruction."
+    }
+  ],
+  "scope": "Complete original table cells retain every Cover Page and playbook field, drafting note, alternative, exception and signature row. This inventory does not select, sign or interpret a choice.",
+  "source_versions": {
+    "common_ai": "1.0",
+    "common_csa": "3.0",
+    "common_dpa": "1.1",
+    "bonterms_ai": "2.0"
+  },
+  "bonterms_implementation": {
+    "source": "originals/bonterms-ai-v2-signable.txt",
+    "source_sha256": "e431231237bb0e9451925eafc3b6c74fd4a7da104dfab8531d3760a6717b5109",
+    "key_fields": [
+      "Customer",
+      "Provider",
+      "Main Agreement",
+      "AI Addendum Effective Date",
+      "Additional Terms",
+      "Signature",
+      "Name",
+      "Title",
+      "Signature Date"
+    ],
+    "separate_cover_example": "Official example page has no visible body in the acquired HTML. The current Signable version supplies complete fields. The original version is not silently substituted.",
+    "operative_equivalence_source": "https://bonterms.com/how-to/use-the-bonterms-standard-ai-addendum"
+  },
+  "executable_scope": {
+    "common_ai": "Training Data, Training Purposes, Training Restrictions, Improvement Restrictions, Covered Claims, selected AUP, version, custom text and source completeness. Identity and signature facts remain unresolved.",
+    "common_csa": "AI-purpose, data definitions, personal/prohibited data and confidential transfer. Other commercial Cover Page rows remain complete source for the current agent. They never become an automatic AI grant.",
+    "common_dpa": "Role, source omission, CCPA selection, approval/notice/flowdown, Annex purpose and source completeness. Security, risk, transfer and commercial customizations remain exact source inputs for the current agent.",
+    "bonterms_ai": "Default2.0 and exact playbook training, retention, narrow-monitoring and notice examples. Other Additional Terms require fresh current-agent interpretation. All original alternatives remain complete."
+  }
+}

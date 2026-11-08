@@ -1,0 +1,17 @@
+{
+  "generative_feature": true,
+  "monitoring_purpose": "abuse",
+  "monitoring_days": 30,
+  "monitoring_data_separated": true,
+  "monitoring_need_to_know": true,
+  "automatic_deletion": true,
+  "retrieval_per_customer": true,
+  "no_cross_customer_context": true,
+  "inference_transient_or_customer_elected": true,
+  "new_feature_prior_notice": true,
+  "new_feature_admin_disable": true,
+  "core_non_ai_preserved": true,
+  "model_provider_list_current": true,
+  "provider_notice_before_change": true,
+  "model_provider_flowdown": true
+}

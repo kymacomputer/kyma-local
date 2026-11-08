@@ -1,0 +1,9 @@
+{
+  "training_data_class": "input",
+  "training_benefit": "shared",
+  "improves_model": false,
+  "improvement_benefit": "shared",
+  "identifies_customer": false,
+  "proper_human_oversight": false,
+  "falsely_claims_human": true
+}

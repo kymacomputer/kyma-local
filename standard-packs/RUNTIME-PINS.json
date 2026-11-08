@@ -1,0 +1,61 @@
+{
+  "schema": "kyma-standard-runtime-pins/v2",
+  "base_commit": "6996c6960e26292185c7a9da635e1e7c4013c1d3",
+  "files": [
+    {
+      "path": "pyproject.toml",
+      "sha256": "044cc4a8c5db120cedcddf6a2ce47a58e74a326c70e67bcbc32bf9478bb982e7",
+      "bytes": 598
+    },
+    {
+      "path": "src/kyma_local/__init__.py",
+      "sha256": "401a96a20f83bbdb4f5d7ad67150fafcfbcf7b211ee03bd83a6ac5ce246dee43",
+      "bytes": 74
+    },
+    {
+      "path": "src/kyma_local/__main__.py",
+      "sha256": "bc143cdb7df8917d3a2260db1653c582205188b2229f0364df3f0a86cea177be",
+      "bytes": 31
+    },
+    {
+      "path": "src/kyma_local/agent_workflow.py",
+      "sha256": "3c8587160e145c0cd7c907f584d78e753d029624f829e81fc74f3b3838e9d60e",
+      "bytes": 12529
+    },
+    {
+      "path": "src/kyma_local/documents.py",
+      "sha256": "1d3472d56a72ab36a77fff999c48c64897b702d5756a602c7f068dd17d644a29",
+      "bytes": 9748
+    },
+    {
+      "path": "src/kyma_local/follow.py",
+      "sha256": "c6117398d88dea2e1b9c4fa9c5dcf4f8751b081b2697dcdb7655bd53cda60dc6",
+      "bytes": 17723
+    },
+    {
+      "path": "src/kyma_local/importers.py",
+      "sha256": "b7dd15adf862790df0359211480d9963729baed83f85e883c57c9291f5bd7957",
+      "bytes": 18189
+    },
+    {
+      "path": "src/kyma_local/main.py",
+      "sha256": "7a67f3caea7ce33991d73622036b00f8b167f5e23b71d99d814765621536f050",
+      "bytes": 25114
+    },
+    {
+      "path": "src/kyma_local/mcp_server.py",
+      "sha256": "34b4c3d6267c6509cb86f46fd77d91472ae07dedae221a86232004e26d32435c",
+      "bytes": 1307
+    },
+    {
+      "path": "src/kyma_local/tool.py",
+      "sha256": "65726a95884fa1f04bcdffdc6936577cde265ea1642d648299ed40670af2dfc5",
+      "bytes": 16374
+    },
+    {
+      "path": "src/kyma_local/watch.py",
+      "sha256": "c157613ea43695b6b5d9d0bcb920c2b60d343c1c3f4d64181f64cb09ae88c2de",
+      "bytes": 17631
+    }
+  ]
+}

@@ -105,6 +105,9 @@ The skill follows the [Claude Code skill format](https://code.claude.com/docs/en
 For an existing contract-system export or review table, use the [local importer](docs/contract-imports.md).
 It preserves your originals, record metadata and explicit missing-file state.
 
+For Common Paper or Bonterms paper, use the [standard contract packs](standard-packs/README.md).
+The packs preserve version-specific choices and prepare separate references for your actual contract review.
+
 Create one folder per customer.
 Include the complete MSA, DPA, orders, AI riders, amendments and incorporated documents that apply to the named feature.
 The model resolves express amendments, incorporated terms and scoped precedence from their text.

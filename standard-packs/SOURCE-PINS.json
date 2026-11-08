@@ -1,0 +1,72 @@
+{
+  "schema": "kyma-standard-source-pins/v2",
+  "source_version": "Common Paper AI Addendum1.0",
+  "source_license": "CC BY4.0",
+  "source_url": "https://commonpaper.com/standards/ai-addendum/1.0/",
+  "runtime_commit": "6996c6960e26292185c7a9da635e1e7c4013c1d3",
+  "files": [
+    {
+      "path": "originals/ai-standalone.docx",
+      "url": "https://commonpaper.com/standards/ai-addendum/1.0/cover-page-and-standard-terms-docx",
+      "captured_at": "2026-11-05T19:42:59.582816+00:00",
+      "license": "CC BY 4.0",
+      "changes": "None. Exact original bytes.",
+      "bytes": 22140,
+      "sha256": "1745ce987355a3e21a9ffeb0887e579f39dfd9b058880c6e637aff4fb3195e0e"
+    },
+    {
+      "path": "originals/ai-in-app.docx",
+      "url": "https://commonpaper.com/standards/ai-addendum/1.0/cover-page-and-standard-terms-in-app-docx",
+      "captured_at": "2026-11-05T19:43:00.450194+00:00",
+      "license": "CC BY 4.0",
+      "changes": "None. Exact original bytes.",
+      "bytes": 21116,
+      "sha256": "6a6d2346177c7215cafd2bdb1ea70ffbf25f7810fab753b8d25db282bad55f65"
+    },
+    {
+      "path": "originals/csa-current-cover-and-terms.docx",
+      "url": "https://commonpaper.com/standards/cloud-service-agreement/3.0/cover-page-and-standard-terms-docx/",
+      "captured_at": "2026-11-05T19:51:30.325029+00:00",
+      "license": "CC BY 4.0",
+      "changes": "None. Exact original bytes.",
+      "bytes": 126859,
+      "sha256": "9e7f74142913dec48f750de2b19e94da72e67593d0a389c494b22a1bae1e2430"
+    },
+    {
+      "path": "originals/dpa-current-cover-and-terms.docx",
+      "url": "https://commonpaper.com/standards/data-processing-agreement/1.1/cover-page-and-standard-terms-docx/",
+      "captured_at": "2026-11-05T19:51:31.523826+00:00",
+      "license": "CC BY 4.0",
+      "changes": "None. Exact original bytes.",
+      "bytes": 51056,
+      "sha256": "cb35f3cc70cb6d24955f08b7ae09b899d6cf054ef3b56f1f9e2cf0cae1e3dbf1"
+    },
+    {
+      "path": "originals/bonterms-ai-v2-signable.pdf",
+      "url": "https://framerusercontent.com/assets/gdsYS3lFzt2CsHWOnrLr3raKNg.pdf",
+      "captured_at": "2026-11-05T19:55:12.966057+00:00",
+      "license": "CC BY 4.0",
+      "changes": "None. Exact original bytes.",
+      "bytes": 246398,
+      "sha256": "611e9d4914236e3889debabcf3fabecdaee54513627e3611f2348a1311c4ce0b"
+    },
+    {
+      "path": "originals/bonterms-ai-v2-signable.txt",
+      "url": "https://bonterms.com/standard/ai-addendum-v2-signable-version",
+      "license": "CC BY 4.0",
+      "changes": "Plain-text representation of the complete agreement. Website navigation and unrelated site footer omitted. Contract text and attribution retained.",
+      "original_sha256": "9901a12113874c554dc5d9d7cbaff1d545ae1aaf20d8b056edca678881a9e309",
+      "bytes": 13106,
+      "sha256": "e431231237bb0e9451925eafc3b6c74fd4a7da104dfab8531d3760a6717b5109"
+    },
+    {
+      "path": "originals/additional-terms-examples.txt",
+      "url": "https://framerusercontent.com/assets/ZpvT1vskqRLaPs9XxsDGSm0L9sE.docx",
+      "license": "CC0 1.0",
+      "changes": "Plain-text representation. Publisher attribution removed as requested in the original footer. All example clauses retained.",
+      "original_sha256": "90a38076d3b03bf974b11615786c71e4171d65baf4956e8d85715f23f20a3c3b",
+      "bytes": 6673,
+      "sha256": "21f14d7f67915e9322f26bf4a60c00bdbd052b1047f979a66acd07e43215a063"
+    }
+  ]
+}

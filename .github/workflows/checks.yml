@@ -25,3 +25,4 @@ jobs:
       - run: python scripts/check_watch.py --kit . --out "$RUNNER_TEMP/watch.json"
       - run: python scripts/check_importers.py
       - run: python scripts/check_watch_json_receiver.py
+      - run: python standard-packs/check.py --out "$RUNNER_TEMP/standard-packs"
