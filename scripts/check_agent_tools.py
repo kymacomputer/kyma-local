@@ -18,10 +18,11 @@ async def check(kit, output):
     root = Path(tempfile.mkdtemp(prefix='kyma-mcp-consumer-'))
     old = json.loads((kit / 'runs/fresh-user-run/model-decisions.json').read_text())
     checks = []
-    server = StdioServerParameters(command=sys.executable, args=['-m', 'kyma_local.mcp_server'])
+    server = StdioServerParameters(command=sys.executable, args=['-m', 'kyma_local.mcp_server'],
+                                  env={'PYTHONPATH': str(kit / 'src')})
     async with Client(server, mode='2026-07-28', read_timeout_seconds=90) as client:
         listed = await client.list_tools()
-        expected = {'prepare_contract_job', 'prepare_revision_job', 'read_contract_source', 'submit_contract_assessment', 'read_contract_result'}
+        expected = {'import_contract_export', 'prepare_contract_job', 'prepare_revision_job', 'read_contract_source', 'submit_contract_assessment', 'read_contract_result'}
         assert {tool.name for tool in listed.tools} == expected
         checks.append({'case': 'actual_stdio_tool_discovery', 'passed': True, 'tools': sorted(expected)})
 

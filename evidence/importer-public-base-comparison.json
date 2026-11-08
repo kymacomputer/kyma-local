@@ -1,0 +1,62 @@
+{
+  "local_base": "418e776063abb90f945a67daff696396a701fba5",
+  "reported_public_base": "94d304f67ee73497ae1062c7b2d3f5d186adb6b8",
+  "paths": [
+    {
+      "path": "src/kyma_local/documents.py",
+      "both_present": true,
+      "base_bytes_equal": true,
+      "local_base_sha256": "e1fd2c3d463bf0419861139a1afb9a784574f2d4bf41c9de846aaa906a69f594",
+      "public_base_sha256": "e1fd2c3d463bf0419861139a1afb9a784574f2d4bf41c9de846aaa906a69f594"
+    },
+    {
+      "path": "src/kyma_local/agent_workflow.py",
+      "both_present": true,
+      "base_bytes_equal": true,
+      "local_base_sha256": "a5eb51a578c357052c256eeeaadcf28d7a5c8dc135afd7caaeeed07133ceff0f",
+      "public_base_sha256": "a5eb51a578c357052c256eeeaadcf28d7a5c8dc135afd7caaeeed07133ceff0f"
+    },
+    {
+      "path": "src/kyma_local/mcp_server.py",
+      "both_present": true,
+      "base_bytes_equal": true,
+      "local_base_sha256": "526cad5a0c2aec83f8d0dad55785c7be8fc485447438cc87006eba4be96178dc",
+      "public_base_sha256": "526cad5a0c2aec83f8d0dad55785c7be8fc485447438cc87006eba4be96178dc"
+    },
+    {
+      "path": "src/kyma_local/main.py",
+      "both_present": true,
+      "base_bytes_equal": true,
+      "local_base_sha256": "d89ac879ec4e142525e63abda78f6c4433c7d8e02b79374d22d995b963e6a88b",
+      "public_base_sha256": "d89ac879ec4e142525e63abda78f6c4433c7d8e02b79374d22d995b963e6a88b"
+    },
+    {
+      "path": "src/kyma_local/watch.py",
+      "both_present": true,
+      "base_bytes_equal": true,
+      "local_base_sha256": "78d131a72b43e9ded049c46667c254b009092b37ed8d43ac7a1c03d095986f95",
+      "public_base_sha256": "78d131a72b43e9ded049c46667c254b009092b37ed8d43ac7a1c03d095986f95"
+    },
+    {
+      "path": "src/kyma_local/follow.py",
+      "both_present": true,
+      "base_bytes_equal": true,
+      "local_base_sha256": "b3173a4f3c4dece7da5c6b662a95978fa23e1f971c05a155b3c5fbe198de0fb7",
+      "public_base_sha256": "b3173a4f3c4dece7da5c6b662a95978fa23e1f971c05a155b3c5fbe198de0fb7"
+    },
+    {
+      "path": "src/kyma_local/tool.py",
+      "both_present": true,
+      "base_bytes_equal": true,
+      "local_base_sha256": "65726a95884fa1f04bcdffdc6936577cde265ea1642d648299ed40670af2dfc5",
+      "public_base_sha256": "65726a95884fa1f04bcdffdc6936577cde265ea1642d648299ed40670af2dfc5"
+    },
+    {
+      "path": "pyproject.toml",
+      "both_present": true,
+      "base_bytes_equal": true,
+      "local_base_sha256": "39ff8aff75a6e122d0179f172ef459d8be2a42b5aae1f746a6af2ca8164bf16d",
+      "public_base_sha256": "39ff8aff75a6e122d0179f172ef459d8be2a42b5aae1f746a6af2ca8164bf16d"
+    }
+  ]
+}

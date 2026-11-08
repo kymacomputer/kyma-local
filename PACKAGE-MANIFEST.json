@@ -13,8 +13,8 @@
     },
     {
       "path": ".github/workflows/checks.yml",
-      "bytes": 878,
-      "sha256": "30d249b5add7be5cc05de9be2410d1c258565aa7ea476c93a4a0bfadf5a01452"
+      "bytes": 982,
+      "sha256": "cd172f8874203f23607d4a37937d18aa77f6084a6486d8739d4bcb3dd527b565"
     },
     {
       "path": ".gitignore",
@@ -33,18 +33,28 @@
     },
     {
       "path": "README.md",
-      "bytes": 15840,
-      "sha256": "8788617ad50337705d1ce1896b5e4c18442d4359827f53c111ad10d5a3f11552"
+      "bytes": 16048,
+      "sha256": "ba51a5d2ced0937eb6becc04b6de96b8e15dc715e27e3654113408e247d82451"
     },
     {
       "path": "RESULTS.md",
-      "bytes": 9291,
-      "sha256": "19e069719d4854292bd45de44f99bfd11d373abdce6600b921cdd486ec8e975f"
+      "bytes": 10554,
+      "sha256": "a0f74d2ccbdc34baa03a4cdd63f187b1b972465b94554611c63a3122b4056d2c"
     },
     {
       "path": "acquire_sample.py",
       "bytes": 3455,
       "sha256": "1717666b05ceb9f5d2d336cd7004883cfca40177d4e75ef73cf2a1f13a72bec1"
+    },
+    {
+      "path": "docs/contract-imports.md",
+      "bytes": 5672,
+      "sha256": "f995b7e8bdfb467a6bc6e2d9ff46dc385cfb72409b24a7672e4c03c341fbdbfa"
+    },
+    {
+      "path": "docs/releases/v0.4.1.md",
+      "bytes": 1067,
+      "sha256": "e0b2c9419fd26fefc3d72b20fd564f6edb9d64fcfc123ba1c9aa7d1eb96a4559"
     },
     {
       "path": "evidence/equal-input-comparison.json",
@@ -70,6 +80,36 @@
       "path": "evidence/fullstory-x9-independent-source-consumer-review.json",
       "bytes": 2050,
       "sha256": "2206c388b3d88736ed8c84c624cbeb325e49dee9fd188fd277cc2c1f700af1c9"
+    },
+    {
+      "path": "evidence/importer-consumer.json",
+      "bytes": 656,
+      "sha256": "8805d5275265a98a9dd3e9a0edb4294fe706ccbec044fe0f21ab99b0f5681103"
+    },
+    {
+      "path": "evidence/importer-existing-agent-regression.json",
+      "bytes": 3037,
+      "sha256": "531533a5d625394f7435640fc1f7407b2da774b506de8b342d14b75d11d85a5b"
+    },
+    {
+      "path": "evidence/importer-primary-sources/ORIGINALS.zip",
+      "bytes": 16936,
+      "sha256": "8e6afecfaf79e3eb6ccf821d64b2c2d61a833c14f158982cac9a7b69e755fa72"
+    },
+    {
+      "path": "evidence/importer-primary-sources/RECEIPT.json",
+      "bytes": 1007,
+      "sha256": "df6d5bd6e87649ab118bc0ef16fc37d63f0b01edab1b4c3a8a1d1f55ae9d62d2"
+    },
+    {
+      "path": "evidence/importer-public-base-comparison.json",
+      "bytes": 2590,
+      "sha256": "76456e59ff85ea1b9da14b9f36469ec208beab9c21a559d19f18017e10c5393c"
+    },
+    {
+      "path": "evidence/importer-watch-regression.json",
+      "bytes": 2806,
+      "sha256": "99417f39fcc89d85735f4905f1898ad423ba6f025b11baa476989f17aa420d81"
     },
     {
       "path": "evidence/interpretation-and-execution-scope.json",
@@ -134,7 +174,7 @@
     {
       "path": "evidence/package-custody.json",
       "bytes": 24486,
-      "sha256": "e803f8d3653deb3bdb8e0e161dfa38ba00b6a74a176f8c20373a769a96bb0375"
+      "sha256": "5e8832aa92dccac554a5ced874da759b8e734394843e780457a7bef2426ce2ba"
     },
     {
       "path": "evidence/pdf-form-acquisition.json",
@@ -234,7 +274,7 @@
     {
       "path": "pyproject.toml",
       "bytes": 598,
-      "sha256": "39ff8aff75a6e122d0179f172ef459d8be2a42b5aae1f746a6af2ca8164bf16d"
+      "sha256": "bb81b0b66ff110d75efd6ed933d071f03b86035b69bb23e839d822b6d55790fc"
     },
     {
       "path": "runs/fresh-user-run/DECISIONS.md",
@@ -1038,8 +1078,8 @@
     },
     {
       "path": "scripts/check_agent_tools.py",
-      "bytes": 9723,
-      "sha256": "f61dbeb4d56e14e8d560d3de8b98d7358671c5ef403246566239ad4d8f55edb7"
+      "bytes": 9821,
+      "sha256": "9c83b6b6bc2b18e9c48547cc4ed0660c800a082db95506a5131561d5718e0d7f"
     },
     {
       "path": "scripts/check_boundaries.py",
@@ -1050,6 +1090,11 @@
       "path": "scripts/check_distribution.py",
       "bytes": 4017,
       "sha256": "0f21fc449e03e5fe76cc2fe2af856ee02b70c30e534e6a4fb782541b77f12a42"
+    },
+    {
+      "path": "scripts/check_importers.py",
+      "bytes": 19196,
+      "sha256": "4ce142bb25713f3a723ad06d53e49e31c8a6b4c8dcebb447f0f1793a8db2f8ef"
     },
     {
       "path": "scripts/check_pdf_forms.py",
@@ -1065,6 +1110,11 @@
       "path": "scripts/check_watch.py",
       "bytes": 22680,
       "sha256": "ca51b59a785463eba0e0a365258894182d8b673cc2e0149770a6c417ee3ac689"
+    },
+    {
+      "path": "scripts/check_watch_json_receiver.py",
+      "bytes": 6652,
+      "sha256": "af54d02a5482c281649613b23043308a00619b6b7c38fda7b2fc96b3bc0449f4"
     },
     {
       "path": "scripts/compare_runs.py",
@@ -1094,7 +1144,7 @@
     {
       "path": "src/kyma_local/__init__.py",
       "bytes": 74,
-      "sha256": "8bad893a6516172db512d956de151e8022e37610770f861ba3c0b6213dab2cf7"
+      "sha256": "2046388ce07d8a25179a731b846f7ba863d05ddb9d5c8ab9269ffa3439652114"
     },
     {
       "path": "src/kyma_local/__main__.py",
@@ -1103,28 +1153,33 @@
     },
     {
       "path": "src/kyma_local/agent_workflow.py",
-      "bytes": 12257,
-      "sha256": "a5eb51a578c357052c256eeeaadcf28d7a5c8dc135afd7caaeeed07133ceff0f"
+      "bytes": 12529,
+      "sha256": "3c8587160e145c0cd7c907f584d78e753d029624f829e81fc74f3b3838e9d60e"
     },
     {
       "path": "src/kyma_local/documents.py",
-      "bytes": 8984,
-      "sha256": "e1fd2c3d463bf0419861139a1afb9a784574f2d4bf41c9de846aaa906a69f594"
+      "bytes": 9748,
+      "sha256": "1d3472d56a72ab36a77fff999c48c64897b702d5756a602c7f068dd17d644a29"
     },
     {
       "path": "src/kyma_local/follow.py",
-      "bytes": 17560,
-      "sha256": "b3173a4f3c4dece7da5c6b662a95978fa23e1f971c05a155b3c5fbe198de0fb7"
+      "bytes": 17723,
+      "sha256": "c6117398d88dea2e1b9c4fa9c5dcf4f8751b081b2697dcdb7655bd53cda60dc6"
+    },
+    {
+      "path": "src/kyma_local/importers.py",
+      "bytes": 18189,
+      "sha256": "b7dd15adf862790df0359211480d9963729baed83f85e883c57c9291f5bd7957"
     },
     {
       "path": "src/kyma_local/main.py",
-      "bytes": 24460,
-      "sha256": "d89ac879ec4e142525e63abda78f6c4433c7d8e02b79374d22d995b963e6a88b"
+      "bytes": 25114,
+      "sha256": "7a67f3caea7ce33991d73622036b00f8b167f5e23b71d99d814765621536f050"
     },
     {
       "path": "src/kyma_local/mcp_server.py",
-      "bytes": 1237,
-      "sha256": "526cad5a0c2aec83f8d0dad55785c7be8fc485447438cc87006eba4be96178dc"
+      "bytes": 1307,
+      "sha256": "34b4c3d6267c6509cb86f46fd77d91472ae07dedae221a86232004e26d32435c"
     },
     {
       "path": "src/kyma_local/tool.py",
@@ -1133,8 +1188,8 @@
     },
     {
       "path": "src/kyma_local/watch.py",
-      "bytes": 17037,
-      "sha256": "78d131a72b43e9ded049c46667c254b009092b37ed8d43ac7a1c03d095986f95"
+      "bytes": 17631,
+      "sha256": "c157613ea43695b6b5d9d0bcb920c2b60d343c1c3f4d64181f64cb09ae88c2de"
     }
   ],
   "scope": "Exact portable package contents. No outside user or customer deployment is inferred."

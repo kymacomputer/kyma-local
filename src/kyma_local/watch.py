@@ -82,6 +82,13 @@ def prepare_revision(before, contracts, feature, out, references=None, reference
     changes = compare_sources(index(old_manifest['customers']), index(manifest['customers']), before, out,
                               'customer_contract_source', 'C')
     retain_previous_sources({'root': before, 'manifest': old_manifest}, manifest, changes, out)
+    from .importers import import_identity
+    old_import = import_identity(old_manifest.get('contract_import'))
+    new_import = import_identity(manifest.get('contract_import'))
+    if old_import != new_import:
+        changes.append({'id': 'I1', 'kind': 'contract_import_context', 'change': 'import_context_changed',
+                        'before_import': old_import, 'after_import': new_import,
+                        'scope': 'Export metadata, record relationships, query coverage and missing originals. No contractual precedence is inferred.'})
     baseline_groups = manifest.get('historical_reference_sets', []) if reference_baseline else old_manifest.get('reference_sets', [])
     baseline_root = out if reference_baseline else before
     changes += compare_sources(index(baseline_groups), index(manifest.get('reference_sets', [])), baseline_root, out,
@@ -173,7 +180,7 @@ def collection_delta(before, after, identity, projection=lambda row: row):
         if a is not None and b is not None and sorted(canonical(projection(r)) for r in a) == sorted(canonical(projection(r)) for r in b):
             continue
         result.append({'change': 'added' if a is None else 'removed' if b is None else 'changed',
-                       'identity': key, 'before': a[0] if a and len(a) == 1 else a,
+                       'identity': list(key) if isinstance(key, tuple) else key, 'before': a[0] if a and len(a) == 1 else a,
                        'after': b[0] if b and len(b) == 1 else b})
     return result
 

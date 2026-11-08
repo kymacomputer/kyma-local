@@ -1,0 +1,92 @@
+{
+  "checks": [
+    {
+      "case": "unchanged_complete_sources_skip_model",
+      "passed": true
+    },
+    {
+      "case": "existing_revision_preserved",
+      "passed": true,
+      "exact_error": "Use a new revision output folder. Existing work remains intact."
+    },
+    {
+      "case": "explicit_local_event_record_and_zero_model_empty_poll",
+      "passed": true
+    },
+    {
+      "case": "actual_cli_opt_in_resume_exclusive_owner_and_concurrent_local_usefulness_note",
+      "passed": true
+    },
+    {
+      "case": "actual_foreground_source_trigger_agent_receiver_promotion_and_clean_stop",
+      "passed": true,
+      "new_model_calls": 0
+    },
+    {
+      "case": "change_during_analysis_survives_as_next_distinct_job",
+      "passed": true,
+      "completed_fixture_jobs": 3
+    },
+    {
+      "case": "general_verifier_dispatches_current_agent_without_false_model_attestation",
+      "passed": true
+    },
+    {
+      "case": "crash_after_receiver_recovery_reads_one_effect_without_replay",
+      "passed": true
+    },
+    {
+      "case": "same_status_preserves_useful_downstream_work_without_customer_broadcast",
+      "passed": true
+    },
+    {
+      "case": "contract_addition_and_removal_trigger_with_complete_prior_source",
+      "passed": true
+    },
+    {
+      "case": "changed_supplier_reference_retains_complete_current_and_prior_versions",
+      "passed": true
+    },
+    {
+      "case": "failed_attempt_preserves_input_and_never_retries_unchanged_model_job",
+      "passed": true
+    },
+    {
+      "case": "unstable_input_skips_model_and_snapshot",
+      "passed": true
+    },
+    {
+      "case": "explicit_retry_and_manual_one_shot_cannot_count_as_unprompted_repeat",
+      "passed": true
+    },
+    {
+      "case": "repeat_predicate_rejects_uptime_replay_prompted_empty_unconfirmed_and_under24h",
+      "passed": true,
+      "fixture_clock_only": true
+    },
+    {
+      "case": "status_conditions_removed_operations_and_duplicate_drafts_keep_distinct_semantics",
+      "passed": true
+    },
+    {
+      "case": "remote_reference_path_escape_rejected",
+      "passed": true,
+      "exact_error": "reference_path_requires_vendor_folder"
+    },
+    {
+      "case": "conditional_public_reference_fetch_and_deleted_capture_recovery",
+      "passed": true,
+      "mocked_https_only": true
+    },
+    {
+      "case": "interrupted_model_child_stops_and_retains_cancelled_launch",
+      "passed": true,
+      "mocked_child_only": true
+    }
+  ],
+  "all_passed": true,
+  "new_model_calls": 0,
+  "outside_users": 0,
+  "qualified_production_repeat_jobs": 0,
+  "scope": "Actual local source, CLI-library, SDK and SQLite consumers with retained model work and explicit source/clock/HTTPS fixtures. No new AI analysis, live vendor-fetch claim or natural 24-hour retention observation."
+}

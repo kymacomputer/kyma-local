@@ -58,10 +58,14 @@ def describe_contract_job(work: str) -> dict[str, Any]:
         for document in group['documents']:
             sources.append({key: value for key, value in document.items() if key != 'units'})
     result = {'work': str(work), 'feature': facts, 'sources': sources,
+            'source_groups': [{key: value for key, value in group.items() if key != 'documents'}
+                              for group in document_groups(manifest)],
             'assessment_schema': json.loads(SCHEMA),
             'next_action': 'Read every source with read_contract_source. Interpret the complete set, then submit your assessment.',
             'source_reading_attestation': None,
             'data_flow': 'Local extraction only. Your host agent applies its own account and provider policies to source text.'}
+    if manifest.get('contract_import'):
+        result['contract_import'] = manifest['contract_import']
     if (work / 'revision-context.json').exists():
         result['revision_context'] = load(work / 'revision-context.json')
         result['assessment_schema']['revision_impacts'] = [{

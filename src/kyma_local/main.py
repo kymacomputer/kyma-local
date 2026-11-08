@@ -291,6 +291,12 @@ def main():
     parser = argparse.ArgumentParser(description='Use your own Codex subscription on complete local contract sets and named feature facts.')
     commands = parser.add_subparsers(dest='command', required=True)
     commands.add_parser('doctor')
+    imported = commands.add_parser('import', help='Import an offline contract export and local originals.')
+    imported.add_argument('--format', choices=['ironclad-json', 'review-table-csv'], required=True)
+    imported.add_argument('--export', dest='export_path', required=True)
+    imported.add_argument('--files-root', required=True)
+    imported.add_argument('--mapping', dest='mapping_path')
+    imported.add_argument('--out', required=True)
     run = commands.add_parser('analyze')
     run.add_argument('--contracts', type=Path, required=True)
     run.add_argument('--feature', type=Path, required=True)
@@ -338,7 +344,10 @@ def main():
     check = commands.add_parser('verify')
     check.add_argument('out', type=Path)
     args = parser.parse_args()
-    if args.command == 'follow':
+    if args.command == 'import':
+        from .importers import import_contract_export
+        result = import_contract_export(args.format, args.export_path, args.files_root, args.out, args.mapping_path)
+    elif args.command == 'follow':
         assert 0 < args.poll_seconds <= 60 and 0 <= args.settle_seconds <= 60, 'observer_poll_and_settle_range'
         from .follow import run
         result = run(args)

@@ -1,0 +1,17 @@
+{
+  "boundary_tests": 22,
+  "all_passed": true,
+  "consumer": {
+    "actual_modern_stdio_import_prepare_source_submit_readback": true,
+    "original_public_documents": 4,
+    "retained_actual_model_decisions": 6,
+    "actual_openfeature_evaluations": 18,
+    "sqlite_rows": 1,
+    "metadata_only_revision_detected": true,
+    "identical_reimport_ignores_new_capture_clock": true,
+    "actual_cli_csv_import": true,
+    "new_model_invocation": false,
+    "customer_export_or_adoption_claim": false
+  },
+  "scope": "Synthetic vendor metadata and user CSV fixtures with actual public contract bytes. No outside customer export or new model interpretation."
+}

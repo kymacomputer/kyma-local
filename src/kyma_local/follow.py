@@ -47,12 +47,15 @@ def fingerprint(config):
 
 
 def input_identity(work):
+    from .importers import import_identity
     manifest = load(work / 'source-manifest.json')
     value = {'customers': sorted((d['original_relative_path'], d['original_sha256'])
                                 for g in manifest['customers'] for d in g['documents']),
              'references': sorted((d['original_relative_path'], d['original_sha256'])
                                   for g in manifest.get('reference_sets', []) for d in g['documents']),
              'feature': load(work / 'feature.json')}
+    if manifest.get('contract_import'):
+        value['contract_import'] = import_identity(manifest['contract_import'])
     return sha256(canonical(value)).hexdigest()
 
 

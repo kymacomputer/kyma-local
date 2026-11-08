@@ -136,12 +136,26 @@ def read_groups(root, output, role='customer', namespace=''):
 def inventory(contracts, output, references=None, reference_baseline=None):
     contracts = Path(contracts).resolve()
     output = Path(output).resolve()
+    from .importers import read_import_context
+    imported = read_import_context(contracts)
     (output / 'documents').mkdir(parents=True, exist_ok=True)
     customers = read_groups(contracts, output)
+    if imported:
+        if {group['id'] for group in customers} != set(imported['customers']):
+            raise ValueError('Imported customer folders differ from the import manifest.')
+        for group in customers:
+            group['import_context'] = imported['customers'][group['id']]
+            group['import_coverage'] = imported['coverage']
+            group['acquisition_warnings'] += [
+                'Export attachment is missing: ' + json.dumps(row, ensure_ascii=False)
+                for row in group['import_context']['missing']]
+            group['completeness'] = imported['completeness']
     assert customers and any(customer['documents'] for customer in customers), 'No customer subfolder contains supported documents.'
     value = {'schema': 'kyma-source-inventory/v1', 'customers': customers,
              'input_root': str(contracts), 'full_sources': True,
              'limits': 'Complete acquired text is not a guarantee that the underlying legal agreement is complete. Image-only pages and revisions remain explicit.'}
+    if imported:
+        value['contract_import'] = imported
     if references:
         value['reference_sets'] = read_groups(references, output, 'shared_reference', 'reference:')
         value['reference_root'] = str(Path(references).resolve())

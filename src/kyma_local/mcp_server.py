@@ -1,5 +1,6 @@
 """Local stdio MCP tools. The connected host supplies its own model judgment."""
 from functools import wraps
+from .importers import import_contract_export
 
 from .agent_workflow import (
     prepare_contract_job,
@@ -24,7 +25,7 @@ def create_server():
         return invoke
 
     server = MCPServer('Kyma Local')
-    for tool in [prepare_contract_job, prepare_revision_job, read_contract_source, submit_contract_assessment, read_contract_result]:
+    for tool in [import_contract_export, prepare_contract_job, prepare_revision_job, read_contract_source, submit_contract_assessment, read_contract_result]:
         server.tool(structured_output=True)(anticipated_errors(tool))
     return server
 

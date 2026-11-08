@@ -93,7 +93,7 @@ python3 scripts/mcp_config.py
 The second command prints the exact configuration for this installed copy.
 Add that entry to your chosen host through its normal MCP configuration.
 The server uses local stdio. It has no HTTP listener or model-provider connection.
-The five tools prepare first or revision jobs, return a complete document, submit your assessment, and read the result.
+The six tools import local exports, prepare first or revision jobs, return a complete document, submit your assessment, and read the result.
 Your host model performs the interpretation under its existing account and provider policies.
 The adapter records no model identity or complete-reading attestation from a successful tool response.
 
@@ -101,6 +101,9 @@ The adapter uses the [official MCP Python SDK](https://github.com/modelcontextpr
 The skill follows the [Claude Code skill format](https://code.claude.com/docs/en/skills).
 
 ## Your own contract sets
+
+For an existing contract-system export or review table, use the [local importer](docs/contract-imports.md).
+It preserves your originals, record metadata and explicit missing-file state.
 
 Create one folder per customer.
 Include the complete MSA, DPA, orders, AI riders, amendments and incorporated documents that apply to the named feature.

@@ -1,0 +1,22 @@
+{
+  "acquired_date": "2026-11-05",
+  "first_party_sources": [
+    {
+      "url": "https://developer.ironcladapp.com/reference/list-all-records.md",
+      "file": "list-all-records.md",
+      "bytes": 61676,
+      "sha256": "a35e8b8837f2b53080829b91b27d4c295eeb49e19373cfd15a50722b72821c6a"
+    },
+    {
+      "url": "https://developer.ironcladapp.com/reference/retrieve-a-record.md",
+      "file": "retrieve-a-record.md",
+      "bytes": 57171,
+      "sha256": "aa86a715e68294f45bf2cbc980d13cd875bb019152d6800f559fd5b529de173c"
+    }
+  ],
+  "implementation_source": "list-all-records RecordModel and pagination response",
+  "linksquares_reference": "https://help.linksquares.com/hc/en-us/articles/8762862403095-Reporting-in-Analyze",
+  "linksquares_status": "Documented XLSX metadata with agreement links. No XLSX parser or native export compatibility claim in this branch.",
+  "exact_source_archive": "ORIGINALS.zip",
+  "archive_sha256": "8e6afecfaf79e3eb6ccf821d64b2c2d61a833c14f158982cac9a7b69e755fa72"
+}

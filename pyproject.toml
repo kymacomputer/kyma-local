@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kyma-local"
-version = "0.4.0"
+version = "0.4.1"
 description = "Source-bound feature decisions from complete local contract sets using your existing Codex subscription."
 requires-python = ">=3.10"
 dependencies = ["openfeature-sdk==0.10.0", "pypdf==6.21.4"]

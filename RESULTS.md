@@ -1,5 +1,24 @@
 # Actual public-source execution
 
+## Isolated contract-export importer
+
+The X14 branch adds a documented Ironclad record-response importer and a user-defined review-table CSV importer.
+Both retain exact original exports, explicit customer assignments, attachment bytes and incomplete-set context.
+The import command performs no network request.
+The agent receives query coverage, record relationships and missing originals before an assessment.
+The existing revision route detects changed metadata without a changed contract file.
+
+The focused importer check passes 22 boundary tests and the actual CLI/MCP flow.
+Four original public contracts reach six retained model decisions, 18 OpenFeature evaluations and one exact SQLite result.
+The existing agent adapter passes 12 checks across modern and legacy MCP.
+The existing watch path passes 19 regression checks.
+Compilation and Git whitespace checks also pass.
+
+The Ironclad metadata is a schema fixture, not an acquired customer's export.
+The test remaps document identities in retained model work and performs no new model interpretation.
+Live authenticated acquisition, LinkSquares XLSX, public promotion and outside customer use remain separate work.
+See `docs/contract-imports.md` and `evidence/importer-consumer.json` for the exact scope.
+
 ## v0.4 watch and precise downstream diffs
 
 The current-agent CLI and MCP now accept complete revision jobs.
