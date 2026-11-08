@@ -13,8 +13,8 @@
     },
     {
       "path": ".github/workflows/checks.yml",
-      "bytes": 982,
-      "sha256": "cd172f8874203f23607d4a37937d18aa77f6084a6486d8739d4bcb3dd527b565"
+      "bytes": 1062,
+      "sha256": "97290befec052e5cc677909275bfb357756ef9e278f207f9a1a7f3221bfe96ee"
     },
     {
       "path": ".gitignore",
@@ -28,13 +28,13 @@
     },
     {
       "path": "NOTICE",
-      "bytes": 534,
-      "sha256": "ed1fc877df3e370018844ab1b2d5d3ee3579488d321be8828e804160f2b3a6eb"
+      "bytes": 756,
+      "sha256": "d1d59fbb8712d0b784bd8ea1c4ae589361d81fb98ed000ded4ff85a38b3083d6"
     },
     {
       "path": "README.md",
-      "bytes": 16048,
-      "sha256": "ba51a5d2ced0937eb6becc04b6de96b8e15dc715e27e3654113408e247d82451"
+      "bytes": 16255,
+      "sha256": "20e9124a1e9612eeb38703571ea48def55d037db8b0ee2f9ec26f420272fa87e"
     },
     {
       "path": "RESULTS.md",
@@ -55,6 +55,11 @@
       "path": "docs/releases/v0.4.1.md",
       "bytes": 1067,
       "sha256": "e0b2c9419fd26fefc3d72b20fd564f6edb9d64fcfc123ba1c9aa7d1eb96a4559"
+    },
+    {
+      "path": "docs/releases/v0.4.2.md",
+      "bytes": 918,
+      "sha256": "7ab6b1c285ca302c02d096cf669dad093193e70d2dde676bae1f22ea46636222"
     },
     {
       "path": "evidence/equal-input-comparison.json",
@@ -274,7 +279,7 @@
     {
       "path": "pyproject.toml",
       "bytes": 598,
-      "sha256": "bb81b0b66ff110d75efd6ed933d071f03b86035b69bb23e839d822b6d55790fc"
+      "sha256": "044cc4a8c5db120cedcddf6a2ce47a58e74a326c70e67bcbc32bf9478bb982e7"
     },
     {
       "path": "runs/fresh-user-run/DECISIONS.md",
@@ -1144,7 +1149,7 @@
     {
       "path": "src/kyma_local/__init__.py",
       "bytes": 74,
-      "sha256": "2046388ce07d8a25179a731b846f7ba863d05ddb9d5c8ab9269ffa3439652114"
+      "sha256": "401a96a20f83bbdb4f5d7ad67150fafcfbcf7b211ee03bd83a6ac5ce246dee43"
     },
     {
       "path": "src/kyma_local/__main__.py",
@@ -1190,6 +1195,186 @@
       "path": "src/kyma_local/watch.py",
       "bytes": 17631,
       "sha256": "c157613ea43695b6b5d9d0bcb920c2b60d343c1c3f4d64181f64cb09ae88c2de"
+    },
+    {
+      "path": "standard-packs/COVER-CHOICES.json",
+      "bytes": 68614,
+      "sha256": "3647f0eb8da668a5f05c0e7f49476a2b283a78dba61fdf5360a820d097acce89"
+    },
+    {
+      "path": "standard-packs/EXTENDED-SOURCE-PINS.json",
+      "bytes": 3469,
+      "sha256": "13ea2c3bff7e6d25bb3c9a7c56c97ea52a1cf47e113fff69a45a79d86779ab3d"
+    },
+    {
+      "path": "standard-packs/README.md",
+      "bytes": 3289,
+      "sha256": "33a88d3fba7f922c29e294d458ab3c82328081f697bf9df45fd234961092a717"
+    },
+    {
+      "path": "standard-packs/RUNTIME-PINS.json",
+      "bytes": 1883,
+      "sha256": "09f1e9293214f247d0c8130d7f97fb59e3a1e2a264f3813447ef5f31985787fa"
+    },
+    {
+      "path": "standard-packs/SOURCE-LICENSES.md",
+      "bytes": 2737,
+      "sha256": "e827ef64ca07336a965da1615d7f4ee2f185b5cc2b22456ec88b298c601929f6"
+    },
+    {
+      "path": "standard-packs/SOURCE-PINS.json",
+      "bytes": 3400,
+      "sha256": "f6cf8d97d0dd0ddf8c1268a5eb21533a9fb896662bd6a0f2d6f087ca4fd65039"
+    },
+    {
+      "path": "standard-packs/check.py",
+      "bytes": 6399,
+      "sha256": "30bdd6416d9230fe07bd7926056d2531ad6e0c9f880a4cc8787955e76a0194c9"
+    },
+    {
+      "path": "standard-packs/examples/bonterms2.choices.json",
+      "bytes": 55,
+      "sha256": "a1e5ee7eb979520f657d019bd0ce2b49013872909dcb90735e10d167e6941e94"
+    },
+    {
+      "path": "standard-packs/examples/bonterms2.facts.json",
+      "bytes": 536,
+      "sha256": "94681dfced3fc2b16208ea31a077d437e5a5f06c8bbc5a94ebcf4a91d295b89c"
+    },
+    {
+      "path": "standard-packs/examples/csa3.choices.json",
+      "bytes": 87,
+      "sha256": "883b3b40c61eb00d108b3f06c43fe3b21ef89f9d48f9dc2f22613278ec0124ee"
+    },
+    {
+      "path": "standard-packs/examples/csa3.facts.json",
+      "bytes": 237,
+      "sha256": "8bbb041bfc1a1f0012d40c62382ba87b77a704e3dd291fccf1eacc9082c56a26"
+    },
+    {
+      "path": "standard-packs/examples/custom-amendment.json",
+      "bytes": 423,
+      "sha256": "e58a0ce87bf4dd464c6701121620e4b5049df51dfdc8e4520ced00dfccba5b2a"
+    },
+    {
+      "path": "standard-packs/examples/customer-only-system.json",
+      "bytes": 402,
+      "sha256": "1a02a1618ab306c25cd417943ee43caeee637e80b6c8dd8d50dd82b71209e3d6"
+    },
+    {
+      "path": "standard-packs/examples/customer-only-training.json",
+      "bytes": 457,
+      "sha256": "e5813d824e83c78bf5a25ce8c939f10245543ca28f6e4a7aeabbc621236d42fd"
+    },
+    {
+      "path": "standard-packs/examples/dpa11.choices.json",
+      "bytes": 98,
+      "sha256": "0b93bf35cdbe805c24b5a5b5015de06e6d5af145a7d984adcddf2e8e3077c6e0"
+    },
+    {
+      "path": "standard-packs/examples/dpa11.facts.json",
+      "bytes": 320,
+      "sha256": "ab4aa309997d25d8137fba965f11daced42f580332cd4e0d0aca0a9758ab62d3"
+    },
+    {
+      "path": "standard-packs/examples/facts.json",
+      "bytes": 230,
+      "sha256": "5dca340b621120cdbff097e72aac35da5c9bcd4d4aee452c1ba22798ba0d6924"
+    },
+    {
+      "path": "standard-packs/examples/no-customer-identification.json",
+      "bytes": 405,
+      "sha256": "cb8307fae44d57982f497a2183dc72a029a20895cb325c19c8c79f1891ec320c"
+    },
+    {
+      "path": "standard-packs/examples/no-training.json",
+      "bytes": 397,
+      "sha256": "4f054b7b3dccd63b520bf811beb808d656d1c427c163d748616d7a1e94345849"
+    },
+    {
+      "path": "standard-packs/examples/selected-missing-aup.json",
+      "bytes": 368,
+      "sha256": "382578dc2d91d76998d9655d954c7c4b92c33ceb796de5963c514823485c0867"
+    },
+    {
+      "path": "standard-packs/examples/selected-output-indemnity.json",
+      "bytes": 367,
+      "sha256": "e5aa79820176db7df49c344850c38a65df046566978540b9fec4cc373eabb8a2"
+    },
+    {
+      "path": "standard-packs/examples/shared-model-training.json",
+      "bytes": 405,
+      "sha256": "0c9cae814151ee598d0093cf50897f40ee02156f880c5659cdb34333d2f4b58a"
+    },
+    {
+      "path": "standard-packs/originals/additional-terms-examples.txt",
+      "bytes": 6673,
+      "sha256": "21f14d7f67915e9322f26bf4a60c00bdbd052b1047f979a66acd07e43215a063"
+    },
+    {
+      "path": "standard-packs/originals/ai-in-app.docx",
+      "bytes": 21116,
+      "sha256": "6a6d2346177c7215cafd2bdb1ea70ffbf25f7810fab753b8d25db282bad55f65"
+    },
+    {
+      "path": "standard-packs/originals/ai-standalone.docx",
+      "bytes": 22140,
+      "sha256": "1745ce987355a3e21a9ffeb0887e579f39dfd9b058880c6e637aff4fb3195e0e"
+    },
+    {
+      "path": "standard-packs/originals/bonterms-ai-v2-signable.pdf",
+      "bytes": 246398,
+      "sha256": "611e9d4914236e3889debabcf3fabecdaee54513627e3611f2348a1311c4ce0b"
+    },
+    {
+      "path": "standard-packs/originals/bonterms-ai-v2-signable.txt",
+      "bytes": 13106,
+      "sha256": "e431231237bb0e9451925eafc3b6c74fd4a7da104dfab8531d3760a6717b5109"
+    },
+    {
+      "path": "standard-packs/originals/csa-current-cover-and-terms.docx",
+      "bytes": 126859,
+      "sha256": "9e7f74142913dec48f750de2b19e94da72e67593d0a389c494b22a1bae1e2430"
+    },
+    {
+      "path": "standard-packs/originals/dpa-current-cover-and-terms.docx",
+      "bytes": 51056,
+      "sha256": "cb35f3cc70cb6d24955f08b7ae09b899d6cf054ef3b56f1f9e2cf0cae1e3dbf1"
+    },
+    {
+      "path": "standard-packs/pack.py",
+      "bytes": 24727,
+      "sha256": "e47e3f3f0b38cd9d2eeffb39420d5d00e9ef20db473be712f86635d7e1ba1538"
+    },
+    {
+      "path": "standard-packs/prepare_actual.py",
+      "bytes": 6173,
+      "sha256": "7676c8bc0d772893bb2cb5cd3607e97e2ce9b4723aab214a2875107172455d89"
+    },
+    {
+      "path": "standard-packs/run_examples.py",
+      "bytes": 3740,
+      "sha256": "4efee57afdbdc0d9d57e4012b50bceef983872bf3a29146d62302443acd9e61b"
+    },
+    {
+      "path": "standard-packs/run_standard_examples.py",
+      "bytes": 5183,
+      "sha256": "87d68aff2d9a3967219c2f1437e1f14ee7651bedaf731573b60bab2b2b738f40"
+    },
+    {
+      "path": "standard-packs/standard_packs.py",
+      "bytes": 29582,
+      "sha256": "5c7cbafa15fbbff0c2ce33a855a2aabd6814ed3fb63cbfe8500890afb7475093"
+    },
+    {
+      "path": "standard-packs/test_pack.py",
+      "bytes": 8071,
+      "sha256": "53db3579164576bdadb402a7769ed1a0a8da482d2348f15f934cdba6be702dd7"
+    },
+    {
+      "path": "standard-packs/test_standard_packs.py",
+      "bytes": 12651,
+      "sha256": "bd17bc7f4d6e915871bcce19bb15dda80437f8b358a9d9c8d6f62d443e71e29d"
     }
   ],
   "scope": "Exact portable package contents. No outside user or customer deployment is inferred."
