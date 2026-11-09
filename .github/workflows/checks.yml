@@ -26,3 +26,5 @@ jobs:
       - run: python scripts/check_importers.py
       - run: python scripts/check_watch_json_receiver.py
       - run: python standard-packs/check.py --out "$RUNNER_TEMP/standard-packs"
+      - run: python -m unittest discover -s ai-terms -p 'test_*.py'
+      - run: python ai-terms/check.py ai-terms/examples/intercom.ai-terms.json --out "$RUNNER_TEMP/ai-terms"

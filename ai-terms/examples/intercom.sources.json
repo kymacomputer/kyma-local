@@ -1,0 +1,2142 @@
+{
+  "schema": "kyma-ai-terms-evidence/v1",
+  "sources": [
+    {
+      "id": "intercom-ai-terms",
+      "kind": "public-contract",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "final_url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "status": 200,
+      "sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "bytes": 1069853,
+      "body_path": "sources/intercom-ai-terms.html"
+    },
+    {
+      "id": "intercom-cx-score",
+      "kind": "feature-documentation",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "final_url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "status": 200,
+      "sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "bytes": 411685,
+      "body_path": "sources/intercom-cx-score.html"
+    },
+    {
+      "id": "intercom-connectors",
+      "kind": "implementation-documentation",
+      "url": "https://www.intercom.com/help/en/articles/9916497-how-to-set-up-data-connectors",
+      "final_url": "https://www.intercom.com/help/en/articles/9916497-how-to-set-up-data-connectors",
+      "observed_at_utc": "2026-11-04T12:45:46.990205+00:00",
+      "status": 200,
+      "sha256": "7f4abb01c4ec4fd935498866314a4c8840acee4e5f33e9d6f27efd192ba8a4aa",
+      "bytes": 464704,
+      "body_path": "sources/intercom-connectors.html"
+    },
+    {
+      "id": "intercom-legal-guide",
+      "kind": "legal-security-documentation",
+      "url": "https://www.intercom.com/help/en/articles/10213899-intercom-ai-products-a-guide-for-customer-legal-and-security-teams",
+      "final_url": "https://www.intercom.com/help/en/articles/10213899-intercom-ai-products-a-guide-for-customer-legal-and-security-teams",
+      "observed_at_utc": "2026-11-04T12:45:46.990294+00:00",
+      "status": 200,
+      "sha256": "6cda96c11d32ff019a6655a9ac11dc754ee11553d6858b21f69521b2d17b5968",
+      "bytes": 133524,
+      "body_path": "sources/intercom-legal-guide.html"
+    },
+    {
+      "id": "intercom-tos",
+      "kind": "public-contract",
+      "url": "https://www.intercom.com/legal/terms-and-policies",
+      "final_url": "https://www.intercom.com/legal/terms-and-policies",
+      "observed_at_utc": "2026-11-04T12:45:46.990368+00:00",
+      "status": 200,
+      "sha256": "b57629957a73ef7fd273c0ffdea6aec4a6a7e2700e6a8b3b062ba5ee7ba15a57",
+      "bytes": 1162980,
+      "body_path": "sources/intercom-tos.html"
+    },
+    {
+      "id": "intercom-dpa",
+      "kind": "public-contract",
+      "url": "https://www.intercom.com/legal/data-processing-agreement",
+      "final_url": "https://www.intercom.com/legal/data-processing-agreement",
+      "observed_at_utc": "2026-11-04T12:45:46.990424+00:00",
+      "status": 200,
+      "sha256": "45879834f8594df69c150900e9f7c20168da652a5de587d5ed1e7a93052eb3af",
+      "bytes": 1252884,
+      "body_path": "sources/intercom-dpa.html"
+    },
+    {
+      "id": "intercom-aup",
+      "kind": "public-contract",
+      "url": "https://www.intercom.com/legal/acceptable-use-policy",
+      "final_url": "https://www.intercom.com/legal/acceptable-use-policy",
+      "observed_at_utc": "2026-11-04T12:45:46.990480+00:00",
+      "status": 200,
+      "sha256": "13bed556d97a37931befbd26b5a2e0199e880f2e85f74aa5497daf3e25a36dfb",
+      "bytes": 1015394,
+      "body_path": "sources/intercom-aup.html"
+    },
+    {
+      "id": "intercom-subprocessors",
+      "kind": "public-provider-list",
+      "url": "https://www.intercom.com/legal/subprocessors-list",
+      "final_url": "https://www.intercom.com/legal/subprocessors-list",
+      "observed_at_utc": "2026-11-04T12:45:46.990530+00:00",
+      "status": 200,
+      "sha256": "c77e9ed02c860de6edd6f77ea42501ddb4452c60027322a7d7acb362de03490b",
+      "bytes": 1012628,
+      "body_path": "sources/intercom-subprocessors.html"
+    },
+    {
+      "id": "intercom-product-privacy",
+      "kind": "product-privacy-notice",
+      "url": "https://www.intercom.com/legal/product-privacy-notice",
+      "final_url": "https://www.intercom.com/legal/product-privacy-notice",
+      "observed_at_utc": "2026-11-04T12:45:46.990584+00:00",
+      "status": 200,
+      "sha256": "1a9cb3d2b205a4fed89639e0189765056b027a79befe74a73352d4d82835cc86",
+      "bytes": 1018803,
+      "body_path": "sources/intercom-product-privacy.html"
+    },
+    {
+      "id": "intercom-model-training",
+      "kind": "feature-data-use-documentation",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "final_url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "status": 200,
+      "sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "bytes": 104778,
+      "body_path": "sources/intercom-model-training.html"
+    },
+    {
+      "id": "intercom-fin-cx-models",
+      "kind": "vendor-model-description",
+      "url": "https://fin.ai/cx-models",
+      "final_url": "https://fin.ai/cx-models",
+      "observed_at_utc": "2026-11-04T12:46:36.671847+00:00",
+      "status": 200,
+      "sha256": "3d74b34d2b6e0ee5ec7363703dff69b5ae3543f28f2ce2c8b14f7e53cd70275d",
+      "bytes": 2073942,
+      "body_path": "sources/intercom-fin-cx-models.html"
+    },
+    {
+      "id": "intercom-regional-addendum",
+      "kind": "public-contract",
+      "url": "https://www.intercom.com/legal/regional-data-hosting-addendum",
+      "final_url": "https://www.intercom.com/legal/regional-data-hosting-addendum",
+      "observed_at_utc": "2026-11-04T12:46:36.672073+00:00",
+      "status": 200,
+      "sha256": "a4894a09c1ff3ac7c07fc2e483fdf86dbdcfaa9cc4a3695cb1393c7b4ca1a7c1",
+      "bytes": 1046131,
+      "body_path": "sources/intercom-regional-addendum.html"
+    }
+  ],
+  "spans": [
+    {
+      "id": "T01",
+      "source_id": "intercom-ai-terms",
+      "section": "Additional Product Terms introduction",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 402015,
+      "html_byte_end_exclusive": 402642,
+      "html_span_sha256": "a4e81d2771cb9b394d50d2ebe55fea950cb6d3a0719072cc0c3aa9df72ffaa7f",
+      "normalized_text_sha256": "74dd9a83f40a50dc01f3cc7a2747c367138317fed27da0e13940b9377f1f608c",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T02",
+      "source_id": "intercom-ai-terms",
+      "section": "Additional Product Terms conflict rule",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 402643,
+      "html_byte_end_exclusive": 403007,
+      "html_span_sha256": "a9cc9150e363d46aa1380318420a858a48d5cb5fdf63c456c886af3fa065d4ca",
+      "normalized_text_sha256": "489831ace2628433bd1b358ac5603b258709c8f6c18e23addc86a3509547d1ce",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T03",
+      "source_id": "intercom-ai-terms",
+      "section": "AI Products introduction",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 403108,
+      "html_byte_end_exclusive": 403744,
+      "html_span_sha256": "8818c441dc4234e37e518b635000b4f78cfa0c40bf807a8b36ffba11e6b4eb23",
+      "normalized_text_sha256": "9e46fb023bda561c8ded51f569dce4ab37605cb8d4a81a46691d33e0e047629a",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T04",
+      "source_id": "intercom-ai-terms",
+      "section": "AI Products 1: third-party processors",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 403810,
+      "html_byte_end_exclusive": 404366,
+      "html_span_sha256": "32b4e61298c2e780c09ba1d7210cd0c2bdebdf2cfbe72bb8fa8482bd0b0be1a1",
+      "normalized_text_sha256": "4f9f26b90944d535f42bf30825da9a2cbb4a0dcfc1a62da19719df7faa275ea9",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T05",
+      "source_id": "intercom-ai-terms",
+      "section": "AI Products 2: Input",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 404607,
+      "html_byte_end_exclusive": 405167,
+      "html_span_sha256": "ea3829136852052a1e3fbf36755b81cc72644eb989d7643b46f4ef73d6778c14",
+      "normalized_text_sha256": "25f5c7a24fb541168c6086c5f6f41bbe41657ce7d0a40a8efbefefd4b8b4e175",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T06",
+      "source_id": "intercom-ai-terms",
+      "section": "AI Products 2: Output",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 405205,
+      "html_byte_end_exclusive": 405361,
+      "html_span_sha256": "919355317a1ec720a2db01c4bd5d60b3bd54643c0b880d12598f63cdedd7227f",
+      "normalized_text_sha256": "336c7d1175ff8520da0655e0e66ff43ab49c2f04f8b411dd9cb3cdb05f5e4254",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T07",
+      "source_id": "intercom-ai-terms",
+      "section": "AI Products 2: Customer authorization",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 405381,
+      "html_byte_end_exclusive": 406112,
+      "html_span_sha256": "26b89369a0bf0196b90327adde40f89eb12b0c1e699ce77e3836bf8c03bb8be2",
+      "normalized_text_sha256": "a7cf17e094100c926d4400b751a81f671c0741dc8a80288a3d40b8b38f74697f",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T08",
+      "source_id": "intercom-ai-terms",
+      "section": "AI Products 3: intended-use responsibility",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 406188,
+      "html_byte_end_exclusive": 406618,
+      "html_span_sha256": "4c1ec38a376dc328f62eedd443105fbd2768fda767e040f2c3cba75dfadb3579",
+      "normalized_text_sha256": "4f1cb3e8f791b583f1281b4703db2893af07c9b29256d682f4ff0041f90147b1",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T09",
+      "source_id": "intercom-ai-terms",
+      "section": "AI Products 5: accuracy",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 407214,
+      "html_byte_end_exclusive": 407781,
+      "html_span_sha256": "37ec2f544c85041e5751ae3cbd4787d503bf1e064c4320ba5192b01072a66e95",
+      "normalized_text_sha256": "21e98a33d0258c5726062941055c18bd303008ced3ac5fab59379143039bcc17",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T10",
+      "source_id": "intercom-ai-terms",
+      "section": "AI Products 6: transparency",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 407819,
+      "html_byte_end_exclusive": 408115,
+      "html_span_sha256": "85e81c7eb794912f38f0a724ad1fcd175d5ffb6ed4485ad9057869ed13ebcdc7",
+      "normalized_text_sha256": "3f03d7cf8ce49f6db75ee6f98c06f34f61733bc3e3e306eca5ab4a3779c0dacf",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T11",
+      "source_id": "intercom-ai-terms",
+      "section": "AI Products 7: third-party rights and training restriction",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 408153,
+      "html_byte_end_exclusive": 408555,
+      "html_span_sha256": "06145c6cfdf5e2e73acf3867c65a4c86f62bb85369dbe89e74ed6759078dd73d",
+      "normalized_text_sha256": "2c2a45ee230e005a4ff812e1cdf2e7cc0b1a395fb5fa5f93e23e415fac48fa28",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T12",
+      "source_id": "intercom-ai-terms",
+      "section": "AI Products 8.1: passed-through terms",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 408838,
+      "html_byte_end_exclusive": 409475,
+      "html_span_sha256": "6b82214f612878af4f47493c1a0b9bfb39d6bd32216ef57f69502f43c2da01ea",
+      "normalized_text_sha256": "4ee07719f3e7904e9ae6271b0c1834842762e6acc2423ae16c5257c19e31b3d1",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T13",
+      "source_id": "intercom-ai-terms",
+      "section": "AI Products 8.3: intended purpose",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 415291,
+      "html_byte_end_exclusive": 415640,
+      "html_span_sha256": "5eba72996d6e83f12fe5057ea5ab60aaf2e8e916982920d2e47ff29c25678c74",
+      "normalized_text_sha256": "b74876b320729280cce0b27604de7130bbe14e9a08b5c85af8979a1d0f5af56f",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T14",
+      "source_id": "intercom-ai-terms",
+      "section": "AI Products 9: human support evaluation data",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 415716,
+      "html_byte_end_exclusive": 416206,
+      "html_span_sha256": "1d9309e1404ee19d12cdeb079b028ea49d4ede187247887641086d722ed9dd6c",
+      "normalized_text_sha256": "391896761605d11716a4a60f8998299a6511a35b0be9c3b9a13a6d82256afc2f",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T15",
+      "source_id": "intercom-ai-terms",
+      "section": "Data Connectors: configuration responsibility",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 420033,
+      "html_byte_end_exclusive": 420522,
+      "html_span_sha256": "a7b18557e5b66675556b4f4d59dcc84e4353feeb94efec41c45f6a83b49cf93f",
+      "normalized_text_sha256": "c19f04552c09bab0da4e3e9fe49a8b47ce4dae50ac37ee5a61662628a6e46903",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "T16",
+      "source_id": "intercom-ai-terms",
+      "section": "Data Connectors: received data",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "source_observed_at_utc": "2026-11-04T12:45:46.989449+00:00",
+      "source_sha256": "18cc68ff6071f051437d4571329924ca542162eb47a6dbb9c33d50ebc097a78d",
+      "html_path": "sources/intercom-ai-terms.html",
+      "html_byte_start": 420560,
+      "html_byte_end_exclusive": 420839,
+      "html_span_sha256": "bb6f61ee509a50ae76d667416bc3471ba478ba5054a0c94df90a25e42cf02738",
+      "normalized_text_sha256": "9d2dc6691d2cf0f2d8f89b6bd4196d536cb38be66298eb7471a402ae9e69e25b",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C01",
+      "source_id": "intercom-cx-score",
+      "section": "Feature introduction: intended customer-experience purpose",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 46009,
+      "html_byte_end_exclusive": 46234,
+      "html_span_sha256": "63c63ca96a4a33641d536f188f9d94ce15b14d34f0c155adc012507b2d0987f7",
+      "normalized_text_sha256": "b4d0961c55e1835d883b8a4543122c7768722e146428b03060e70bc8c3d5a23c",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C02",
+      "source_id": "intercom-cx-score",
+      "section": "Feature access: Pro add-on",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 47219,
+      "html_byte_end_exclusive": 47435,
+      "html_span_sha256": "bc81eb6375701d39aa16c4b7ebd357a34a9254110cf04cb0e1be176c3e7fa0b5",
+      "normalized_text_sha256": "d65ca5b9dba33ac8590d2b870c941af783ba75c8d8d317a2ba18be4c9aaaa0b3",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C03",
+      "source_id": "intercom-cx-score",
+      "section": "Feature access: Fin",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 51058,
+      "html_byte_end_exclusive": 51309,
+      "html_span_sha256": "02599c8d1049b155a960b1f0bea4cbcc217c6ad256505b3a4cdd82402a173311",
+      "normalized_text_sha256": "cbafb70d3116f72f2366f3279953fc6b91d5213052789799f05b2c5eb6dca80e",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C04",
+      "source_id": "intercom-cx-score",
+      "section": "Data processing and security: model classes",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 57261,
+      "html_byte_end_exclusive": 57516,
+      "html_span_sha256": "491110a17d530a02b895bdd1cf069a6038c6a12c0401b984b76cb2490d8d0915",
+      "normalized_text_sha256": "fd69ec55e77bdb68f7399f592dd68261e1fade3a7c5a96445b01d2c4e87ea825",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C05",
+      "source_id": "intercom-cx-score",
+      "section": "Data processing and security: provider assurances",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 57808,
+      "html_byte_end_exclusive": 58271,
+      "html_span_sha256": "930f489b9cd646374467a1b75877faf8c3de5c65a6d1b0d0cb78df706cb572dc",
+      "normalized_text_sha256": "9403709551c8f0d64949aa91a0afc803b15f72e4f874c82048991936eee376cc",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C06",
+      "source_id": "intercom-cx-score",
+      "section": "Specific criteria: closed conversation",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 58850,
+      "html_byte_end_exclusive": 58890,
+      "html_span_sha256": "02c47ff47b869350ca1a8d444bddd4649e632a6531df2622ee8c4172164f20ff",
+      "normalized_text_sha256": "f7845bf777684bf544b8c142cd36271715614aa1c11e76f1784ef0e6a8fa9efd",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C07",
+      "source_id": "intercom-cx-score",
+      "section": "Specific criteria: conclusive information",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 58991,
+      "html_byte_end_exclusive": 59079,
+      "html_span_sha256": "5d4292c1a1b944dbc2670b036ae013b181d25b8aba2f5436b336495dbc268002",
+      "normalized_text_sha256": "8b6e9346ccbbd4cf17214baa7b6ff4271248d582e2038818b7563c90aad1cd6c",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C08",
+      "source_id": "intercom-cx-score",
+      "section": "Specific criteria: channel",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 59180,
+      "html_byte_end_exclusive": 59246,
+      "html_span_sha256": "04db801748c155455901f31023aead1ea3d05e01dad24ff84fc3f17baed720c8",
+      "normalized_text_sha256": "5c58883c6f07ac1260dbe6fa80ca4cadaf1eb164382028dac0fc3840f8cd1158",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C09",
+      "source_id": "intercom-cx-score",
+      "section": "Specific criteria: reply count",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 59347,
+      "html_byte_end_exclusive": 59440,
+      "html_span_sha256": "cfc4b357ca5379d1a29fe97d04cccc4eac71f80f87e88dcb0049ae5533803a14",
+      "normalized_text_sha256": "7573a13caabca43bf85638d7450fcc92885a1618119ae1967b20ecbcb0b40981",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C10",
+      "source_id": "intercom-cx-score",
+      "section": "Specific criteria: user origin",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 59541,
+      "html_byte_end_exclusive": 59591,
+      "html_span_sha256": "7d367d16f31388cc84d1d3a9803b9a03f89165f85492aceda916d25794f2637e",
+      "normalized_text_sha256": "e52c302ae544117a8bd0c6404bcaacb2ce930889aa4abc1c3ae1300b37bcbcd2",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C11",
+      "source_id": "intercom-cx-score",
+      "section": "Specific criteria: expanded low-context coverage",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 59899,
+      "html_byte_end_exclusive": 60118,
+      "html_span_sha256": "1c07832d3d4564be0543454c5e75d1c3c338df7f27b0c2a396e8f15ecfc6ffeb",
+      "normalized_text_sha256": "e2a92617fdb0fdefc0db1e73a1fbde518f12c1039dfdeefdc01e52513c71a585",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C12",
+      "source_id": "intercom-cx-score",
+      "section": "Custom reports: public API attributes",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 79539,
+      "html_byte_end_exclusive": 79893,
+      "html_span_sha256": "e54e23ab3d08bc72eb896df0b3066a13beb4b137e8c844c56e52969e4cb57478",
+      "normalized_text_sha256": "99764ea13ca7a7d2eb88a2a44a5caff16f1968a2a33c0b0a91d8fe562d23d1fe",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C13",
+      "source_id": "intercom-cx-score",
+      "section": "Custom reports: unavailable participant grouping field",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 81532,
+      "html_byte_end_exclusive": 81847,
+      "html_span_sha256": "d5de5d90aef7f5b77eaaf8c0b1b7eae413e4512e95d01bda0e21d810d103f609",
+      "normalized_text_sha256": "5a37f0d22a74ed32a01af1078f766eed05b448e3539e3d553bdae1c20003614b",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C14",
+      "source_id": "intercom-cx-score",
+      "section": "Getting most value: routing needs custom development",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 85163,
+      "html_byte_end_exclusive": 85559,
+      "html_span_sha256": "cb3ff3387956882a3d7c58a4e6d2f3c829138b10aeeea530ee60529497750a5f",
+      "normalized_text_sha256": "1fc02a0e79bcae4b962876ae78b145bcdfd8170921b15f9d5e5f52bb88a0f47d",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C15",
+      "source_id": "intercom-cx-score",
+      "section": "FAQ: individual attribution limitation",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 91043,
+      "html_byte_end_exclusive": 91405,
+      "html_span_sha256": "4387a509fe4c6558d8f99cba9a2fa883071dd86a91ebfd8e0f28b9887cdb252b",
+      "normalized_text_sha256": "5e28b884b42d196f76aca34c3bd1364d307e11361ace91a1e21b2925ce0e80d9",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C16",
+      "source_id": "intercom-cx-score",
+      "section": "FAQ: specific human-agent performance restriction",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 92148,
+      "html_byte_end_exclusive": 92813,
+      "html_span_sha256": "774b7ba0bd8306f56af6fb69b5868f436279cd5f9ad903553cb53258cd448d0c",
+      "normalized_text_sha256": "a8da91e5601eca1e72b027c54fd6d4c00973b0f38f4da208bbffda1b2dfdf56a",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "C17",
+      "source_id": "intercom-cx-score",
+      "section": "FAQ: teammate filter",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990021+00:00",
+      "source_sha256": "c992f11b255d54869e41b5bf944da5ebe6c7ad7d672be81b537c5634d5704ce6",
+      "html_path": "sources/intercom-cx-score.html",
+      "html_byte_start": 93267,
+      "html_byte_end_exclusive": 93572,
+      "html_span_sha256": "14e912720f5b578bca46eb604940929d15b205d3263bebffe0124255bae1ee38",
+      "normalized_text_sha256": "b58d08d3a379c7d443a78ccef9c142ff3e902d5526eb8db66b1f9ae977e41df3",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "G01",
+      "source_id": "intercom-legal-guide",
+      "section": "Provider and model selection",
+      "url": "https://www.intercom.com/help/en/articles/10213899-intercom-ai-products-a-guide-for-customer-legal-and-security-teams",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990294+00:00",
+      "source_sha256": "6cda96c11d32ff019a6655a9ac11dc754ee11553d6858b21f69521b2d17b5968",
+      "html_path": "sources/intercom-legal-guide.html",
+      "html_byte_start": 25176,
+      "html_byte_end_exclusive": 25407,
+      "html_span_sha256": "5975b8e75d6d9c8a113e97938c647aa57f29ce7d55f845d3dce26ecfdfedfa78",
+      "normalized_text_sha256": "bc244bd399ab34e4982e0d6be2f946316258203c95d968688644ca7c96564179",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "G02",
+      "source_id": "intercom-legal-guide",
+      "section": "Third-party retention restriction",
+      "url": "https://www.intercom.com/help/en/articles/10213899-intercom-ai-products-a-guide-for-customer-legal-and-security-teams",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990294+00:00",
+      "source_sha256": "6cda96c11d32ff019a6655a9ac11dc754ee11553d6858b21f69521b2d17b5968",
+      "html_path": "sources/intercom-legal-guide.html",
+      "html_byte_start": 30778,
+      "html_byte_end_exclusive": 31175,
+      "html_span_sha256": "131944acc697fc9a23994f3db24010b6d12b6dbb9017a1eaddeb30f09f759893",
+      "normalized_text_sha256": "7709b933b41444e55e5cab26635f84f99c74c8a46354cc5be91d1bbbb7b69f78",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "G03",
+      "source_id": "intercom-legal-guide",
+      "section": "Intercom own model improvement",
+      "url": "https://www.intercom.com/help/en/articles/10213899-intercom-ai-products-a-guide-for-customer-legal-and-security-teams",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990294+00:00",
+      "source_sha256": "6cda96c11d32ff019a6655a9ac11dc754ee11553d6858b21f69521b2d17b5968",
+      "html_path": "sources/intercom-legal-guide.html",
+      "html_byte_start": 33449,
+      "html_byte_end_exclusive": 33796,
+      "html_span_sha256": "dc8f887a32fc760741eda88d50fe2f623b53f81feb638b9a65d56b657463f41f",
+      "normalized_text_sha256": "03bfa8a8606cb1bd830c07b685a64ecbb096a2d4f7d5c9fa9d0ec85e66f45c45",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "G04",
+      "source_id": "intercom-legal-guide",
+      "section": "No native pre-provider redaction feature",
+      "url": "https://www.intercom.com/help/en/articles/10213899-intercom-ai-products-a-guide-for-customer-legal-and-security-teams",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990294+00:00",
+      "source_sha256": "6cda96c11d32ff019a6655a9ac11dc754ee11553d6858b21f69521b2d17b5968",
+      "html_path": "sources/intercom-legal-guide.html",
+      "html_byte_start": 36510,
+      "html_byte_end_exclusive": 36749,
+      "html_span_sha256": "5761d7bbf50ed5f030f166b597a122358b67358790c28aa88c5479bdf19383f6",
+      "normalized_text_sha256": "46b5aa7fb7d8ae585fef994fa8267a7eafcfe35f036aa0ea66569aa25538754d",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "G05",
+      "source_id": "intercom-legal-guide",
+      "section": "Monitors and Custom Scorecards: distinct narrower statement",
+      "url": "https://www.intercom.com/help/en/articles/10213899-intercom-ai-products-a-guide-for-customer-legal-and-security-teams",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990294+00:00",
+      "source_sha256": "6cda96c11d32ff019a6655a9ac11dc754ee11553d6858b21f69521b2d17b5968",
+      "html_path": "sources/intercom-legal-guide.html",
+      "html_byte_start": 42044,
+      "html_byte_end_exclusive": 42732,
+      "html_span_sha256": "457c4235c1c6413efdaa6cf1988d91ab1956b5e6865c166a3cd3d72f63efad1b",
+      "normalized_text_sha256": "f183ce94733df53e6b75df0237a5baed003e750d85cbd1869974a29ecd7befba",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M01",
+      "source_id": "intercom-model-training",
+      "section": "Own-model data population and de-identification",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 15848,
+      "html_byte_end_exclusive": 16291,
+      "html_span_sha256": "58e8eac08a30d7b736b28ded873da4cc94c32b53b0cf09534ab273503f47c54a",
+      "normalized_text_sha256": "eed7c47ca72639eed9b691fc04edac5be5888a13cd505c7cdae25be390451a4c",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M02",
+      "source_id": "intercom-model-training",
+      "section": "Automatic training exclusions",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 16483,
+      "html_byte_end_exclusive": 16599,
+      "html_span_sha256": "216cd72465555a7826f286a7182e1f29c302d13d175cdf7307c9d26e1cdac8e0",
+      "normalized_text_sha256": "bca7c9242084543f70d6411e09bed29495f16005450d9502962d50257407c6bb",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M03",
+      "source_id": "intercom-model-training",
+      "section": "Automatic exclusion: BAA",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 16755,
+      "html_byte_end_exclusive": 16795,
+      "html_span_sha256": "1340c832021bd6e8d853ff4dd78b42202d87199655be7795c3425679cc0d843d",
+      "normalized_text_sha256": "b40f8032ba4afd30fc3289987d75b5ad3be09474bb5446786429dbd2d1cb079e",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M04",
+      "source_id": "intercom-model-training",
+      "section": "Automatic exclusion: EU/AU",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 16896,
+      "html_byte_end_exclusive": 16955,
+      "html_span_sha256": "de3922fb83d4e22027356551f90ce5dba610f8d8912be45df16d30aa4bfbc775",
+      "normalized_text_sha256": "4440c46cf8746745bab3fe4edf5d14e54f5286b90952cb6dc81269a9fb64ec94",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M05",
+      "source_id": "intercom-model-training",
+      "section": "Automatic exclusion: prior grant",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 17056,
+      "html_byte_end_exclusive": 17115,
+      "html_span_sha256": "cf52ed82a8bd2c6c76325595acd51a79f36a50df8154d0b8e9883e6ea504b5d8",
+      "normalized_text_sha256": "c03f7ecb476cf6739c18381dd8f77f1b9c418236a7a43ab5a7f2da8dbfbb7b48",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M06",
+      "source_id": "intercom-model-training",
+      "section": "Automatic exclusion: negotiated contract cohort",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 17216,
+      "html_byte_end_exclusive": 17482,
+      "html_span_sha256": "a74b1d7bdb6c210bb46200a6377447d5c8426a4e21099fb0b4e7cc9455736f05",
+      "normalized_text_sha256": "47d927cb4f663aa7acb80ff70aab5952e534ad37427cc1a53d5d7da33e858b47",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M07",
+      "source_id": "intercom-model-training",
+      "section": "Automatic exclusion: trial",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 17583,
+      "html_byte_end_exclusive": 17619,
+      "html_span_sha256": "0b42c4a577e43957ecdb7f0b7f5042837fcaee75d9eef7cf410a9e84d9e3a86d",
+      "normalized_text_sha256": "d927afb1d2231ae90e0021ba32718f0909ed5d52efba52355602a81f8259b195",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M08",
+      "source_id": "intercom-model-training",
+      "section": "Opt-out request: native settings",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 27847,
+      "html_byte_end_exclusive": 28141,
+      "html_span_sha256": "718de91e99a2443ab632472c9beb4bc314e508cc7d5620d2ea145bfcea6b7686",
+      "normalized_text_sha256": "dc757372c0144fe2289e694181a00752edcf1c8d3df10eadb269e8111792e23c",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M09",
+      "source_id": "intercom-model-training",
+      "section": "Opt-out request: negotiated contracts",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 19415,
+      "html_byte_end_exclusive": 19775,
+      "html_span_sha256": "10d2ee23ee2c1a7b556d8ca0c78f79dd3c8da0dd9c725a4df97c639fbd6cf144",
+      "normalized_text_sha256": "2ea99d616e09ca2502255fcc142c01bada9f98b39509595ba96a434abfc5936e",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M10",
+      "source_id": "intercom-model-training",
+      "section": "Opt-out processing and future-data effect",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 19967,
+      "html_byte_end_exclusive": 20179,
+      "html_span_sha256": "30ac8efcaac5ecd2fa752dc44bf1220b4542cf68fa3433c34ef5d7a673a662dd",
+      "normalized_text_sha256": "776fec8a74deb0c841faa75a31b29848233cfe46444624bf8d2f2236df934029",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M11",
+      "source_id": "intercom-model-training",
+      "section": "Training data categories",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 21709,
+      "html_byte_end_exclusive": 22162,
+      "html_span_sha256": "b8f7cc6286dab7fc3ad2a648dc9d443f9569c6fd1ff529db9126b30d8d745992",
+      "normalized_text_sha256": "2e00609418397cb33230a160d8087578d1103727f7f7282245887345b25e6852",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M12",
+      "source_id": "intercom-model-training",
+      "section": "De-identification and continuing GDPR treatment",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 22531,
+      "html_byte_end_exclusive": 23154,
+      "html_span_sha256": "8b6a26fd4dfa506eb42a27ce4ca07a638ce28502f79134765d0a547dd2e47bfc",
+      "normalized_text_sha256": "454c6e140ab5dd27be22c1901272a887af6d34251131193284fbf5f1adbc7860",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M13",
+      "source_id": "intercom-model-training",
+      "section": "Own models: open weights and AWS",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 23524,
+      "html_byte_end_exclusive": 23676,
+      "html_span_sha256": "0d5bb8797ad9058725b26720ef4a56b5c02985a480f30df7975177b5a659ba22",
+      "normalized_text_sha256": "2da1704517e0d5e136d735c2ebba1938d2a476ec4687689e0297450cd7d8742f",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "M14",
+      "source_id": "intercom-model-training",
+      "section": "Customer cannot select Fin models",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "source_observed_at_utc": "2026-11-04T12:46:36.670785+00:00",
+      "source_sha256": "8b86dd9a7403abb59693fe462ce86b7832d324600357ffbae1b55150ff57b80b",
+      "html_path": "sources/intercom-model-training.html",
+      "html_byte_start": 28508,
+      "html_byte_end_exclusive": 28706,
+      "html_span_sha256": "2f7ae7745c567fa46b34261c9a751439aa605c61332b1fd382c6a85f21cc7236",
+      "normalized_text_sha256": "f842df31dfbb44d26a2e5eca96d1ec44c17cdf42b01efa4b13cad5a3501519d7",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "S01",
+      "source_id": "intercom-tos",
+      "section": "Terms of Service 3.2: Intercom model-training license",
+      "url": "https://www.intercom.com/legal/terms-and-policies",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990368+00:00",
+      "source_sha256": "b57629957a73ef7fd273c0ffdea6aec4a6a7e2700e6a8b3b062ba5ee7ba15a57",
+      "html_path": "sources/intercom-tos.html",
+      "html_byte_start": 425319,
+      "html_byte_end_exclusive": 425886,
+      "html_span_sha256": "4610650db92a2e64a5a0706d0a1d365484b8b26d02f91ba59d7406d126a76846",
+      "normalized_text_sha256": "9f47eda97c7ef7b42cf846898d32b1c2470d9a7fad4a92498fff3996f1f51abd",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "S02",
+      "source_id": "intercom-tos",
+      "section": "Terms of Service: applicability to renewal and order",
+      "url": "https://www.intercom.com/legal/terms-and-policies",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990368+00:00",
+      "source_sha256": "b57629957a73ef7fd273c0ffdea6aec4a6a7e2700e6a8b3b062ba5ee7ba15a57",
+      "html_path": "sources/intercom-tos.html",
+      "html_byte_start": 404540,
+      "html_byte_end_exclusive": 405884,
+      "html_span_sha256": "de123f47acfac085c5859510e079ba4e46310880e4bd44286b612b7db7f5da08",
+      "normalized_text_sha256": "c7c5fd2ba4cbbe23701c41c9e8e85aa880128d8b3a7e5cc256a59c1a78899c91",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "S03",
+      "source_id": "intercom-tos",
+      "section": "Terms of Service 16.5: signed amendment",
+      "url": "https://www.intercom.com/legal/terms-and-policies",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990368+00:00",
+      "source_sha256": "b57629957a73ef7fd273c0ffdea6aec4a6a7e2700e6a8b3b062ba5ee7ba15a57",
+      "html_path": "sources/intercom-tos.html",
+      "html_byte_start": 472579,
+      "html_byte_end_exclusive": 473695,
+      "html_span_sha256": "cf78525cb8bbedbf213ca9381955c25d4f5156d152f08b8ac10d24e5c1b6ec84",
+      "normalized_text_sha256": "5f69b6a3641a9a3836960e0a707ce5dad46094db01aef48ed0737781a1643dd6",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "D01",
+      "source_id": "intercom-dpa",
+      "section": "DPA effective date",
+      "url": "https://www.intercom.com/legal/data-processing-agreement",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990424+00:00",
+      "source_sha256": "45879834f8594df69c150900e9f7c20168da652a5de587d5ed1e7a93052eb3af",
+      "html_path": "sources/intercom-dpa.html",
+      "html_byte_start": 401587,
+      "html_byte_end_exclusive": 401663,
+      "html_span_sha256": "abe2a71c221999e615a780117ff84caca2be6c161673f614745638c280fe0a59",
+      "normalized_text_sha256": "63b8d3380b190e1bdb33264bdbc4eaf149159c862d9c7f4da50ed484c49f4552",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "D02",
+      "source_id": "intercom-dpa",
+      "section": "DPA 2.iii: customer and Intercom roles",
+      "url": "https://www.intercom.com/legal/data-processing-agreement",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990424+00:00",
+      "source_sha256": "45879834f8594df69c150900e9f7c20168da652a5de587d5ed1e7a93052eb3af",
+      "html_path": "sources/intercom-dpa.html",
+      "html_byte_start": 417047,
+      "html_byte_end_exclusive": 417537,
+      "html_span_sha256": "c80f6901f64cd67e0c6c0a87c7abb3869700f226898f9d7a3849ea91631dd071",
+      "normalized_text_sha256": "fa3db5a74248c2e5e7a97ebf65b0e197dfbc83e117388c82323f002c6a91b6de",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "D03",
+      "source_id": "intercom-dpa",
+      "section": "DPA 2.iv: distinct Account Data role",
+      "url": "https://www.intercom.com/legal/data-processing-agreement",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990424+00:00",
+      "source_sha256": "45879834f8594df69c150900e9f7c20168da652a5de587d5ed1e7a93052eb3af",
+      "html_path": "sources/intercom-dpa.html",
+      "html_byte_start": 417538,
+      "html_byte_end_exclusive": 418389,
+      "html_span_sha256": "8a1c082cc95bb05a34a66493bf8aa70cb691459c33ee48ef26175bb50c8c4b91",
+      "normalized_text_sha256": "b57c8b260b526fd3448bcc14854bd1965949f6b9d7d2be223182df6a5dbac59f",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "D04",
+      "source_id": "intercom-dpa",
+      "section": "DPA 3.iii: additional instructions",
+      "url": "https://www.intercom.com/legal/data-processing-agreement",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990424+00:00",
+      "source_sha256": "45879834f8594df69c150900e9f7c20168da652a5de587d5ed1e7a93052eb3af",
+      "html_path": "sources/intercom-dpa.html",
+      "html_byte_start": 420470,
+      "html_byte_end_exclusive": 420760,
+      "html_span_sha256": "f68e53c52e87e27190846930b4a836356adf655986272feacdfe7debca0d1d7d",
+      "normalized_text_sha256": "7a2e3ec2c14456bf512c25cdfcef3f05c0a151706e6cf1f6e23b5e984d585273",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "D05",
+      "source_id": "intercom-dpa",
+      "section": "DPA 5: notices, authorization and transfer right",
+      "url": "https://www.intercom.com/legal/data-processing-agreement",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990424+00:00",
+      "source_sha256": "45879834f8594df69c150900e9f7c20168da652a5de587d5ed1e7a93052eb3af",
+      "html_path": "sources/intercom-dpa.html",
+      "html_byte_start": 421354,
+      "html_byte_end_exclusive": 422077,
+      "html_span_sha256": "4ae09625f34f27ada3d8c16ed166266c8b2a1aca22d2406ab8a7fe0bc9a63552",
+      "normalized_text_sha256": "9b2d559f7321161ec97d38a98293435680e054046d6bdbe2f677e28d1dec743d",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "D06",
+      "source_id": "intercom-dpa",
+      "section": "DPA 7.i: subprocessor purpose limitation",
+      "url": "https://www.intercom.com/legal/data-processing-agreement",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990424+00:00",
+      "source_sha256": "45879834f8594df69c150900e9f7c20168da652a5de587d5ed1e7a93052eb3af",
+      "html_path": "sources/intercom-dpa.html",
+      "html_byte_start": 491088,
+      "html_byte_end_exclusive": 491414,
+      "html_span_sha256": "d608c64751219703289fa1880ec1b6df556b343f698ce5a2ea44d43960a5d8c5",
+      "normalized_text_sha256": "774f65acbd019c1a50ab0a332b77455f921e6fb843789ad9610c8c5086241a18",
+      "element": "li",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "D07",
+      "source_id": "intercom-dpa",
+      "section": "DPA 7.ii: notification and objection",
+      "url": "https://www.intercom.com/legal/data-processing-agreement",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990424+00:00",
+      "source_sha256": "45879834f8594df69c150900e9f7c20168da652a5de587d5ed1e7a93052eb3af",
+      "html_path": "sources/intercom-dpa.html",
+      "html_byte_start": 426820,
+      "html_byte_end_exclusive": 427967,
+      "html_span_sha256": "3198295f1eed40af1ddbdcececec6f246a3542567b968758035234d0fcb54740",
+      "normalized_text_sha256": "57553ded5a48d99f2ad582d0e6d17ca846d92563bf06ae26883d391b794c85bc",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "D08",
+      "source_id": "intercom-dpa",
+      "section": "DPA 15.i: conflict hierarchy",
+      "url": "https://www.intercom.com/legal/data-processing-agreement",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990424+00:00",
+      "source_sha256": "45879834f8594df69c150900e9f7c20168da652a5de587d5ed1e7a93052eb3af",
+      "html_path": "sources/intercom-dpa.html",
+      "html_byte_start": 451185,
+      "html_byte_end_exclusive": 451670,
+      "html_span_sha256": "fa844f8e825ff8c4d41c066c37ac401bc59dd8f14245bd74da75bf47a435f31c",
+      "normalized_text_sha256": "46d713a55da8f222a59b3f68d84157d09aab6ae2d95170b7003b45abe61f044c",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "D09",
+      "source_id": "intercom-dpa",
+      "section": "DPA 15.ii: prior DPA replacement statement",
+      "url": "https://www.intercom.com/legal/data-processing-agreement",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990424+00:00",
+      "source_sha256": "45879834f8594df69c150900e9f7c20168da652a5de587d5ed1e7a93052eb3af",
+      "html_path": "sources/intercom-dpa.html",
+      "html_byte_start": 451671,
+      "html_byte_end_exclusive": 451986,
+      "html_span_sha256": "7cde2ffc634dc635aee97741b9ae5d837164e8472c0c330b5196638fce90353c",
+      "normalized_text_sha256": "b0e55156c719f897ee736438a8eec4c6edf726d54f407f5c20f85162670a6ce0",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "A01",
+      "source_id": "intercom-aup",
+      "section": "AUP: third-party conflict rule",
+      "url": "https://www.intercom.com/legal/acceptable-use-policy",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990480+00:00",
+      "source_sha256": "13bed556d97a37931befbd26b5a2e0199e880f2e85f74aa5497daf3e25a36dfb",
+      "html_path": "sources/intercom-aup.html",
+      "html_byte_start": 401929,
+      "html_byte_end_exclusive": 402603,
+      "html_span_sha256": "e006136049ec7adfd146531833f1824aa745b31f1d07f35b69cfe6a986cf29a2",
+      "normalized_text_sha256": "bc6beed1e597dc7ca482f492f2965e33b661c69c043cdf5a8ce35d074935db73",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "A02",
+      "source_id": "intercom-aup",
+      "section": "AUP: AI high-risk use restriction",
+      "url": "https://www.intercom.com/legal/acceptable-use-policy",
+      "source_observed_at_utc": "2026-11-04T12:45:46.990480+00:00",
+      "source_sha256": "13bed556d97a37931befbd26b5a2e0199e880f2e85f74aa5497daf3e25a36dfb",
+      "html_path": "sources/intercom-aup.html",
+      "html_byte_start": 410203,
+      "html_byte_end_exclusive": 410913,
+      "html_span_sha256": "8f3d955a1af029ebd067a7d233cf80f2c71ba2143f1f835c68e9f317fe40a74f",
+      "normalized_text_sha256": "f5126a0bff5f4f559ee70dadeb6cb766b3ff809b67f0f80c68e51d3ee7cd8744",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    },
+    {
+      "id": "R01",
+      "source_id": "intercom-regional-addendum",
+      "section": "Regional addendum subject-limited precedence",
+      "url": "https://www.intercom.com/legal/regional-data-hosting-addendum",
+      "source_observed_at_utc": "2026-11-04T12:46:36.672073+00:00",
+      "source_sha256": "a4894a09c1ff3ac7c07fc2e483fdf86dbdcfaa9cc4a3695cb1393c7b4ca1a7c1",
+      "html_path": "sources/intercom-regional-addendum.html",
+      "html_byte_start": 404255,
+      "html_byte_end_exclusive": 404653,
+      "html_span_sha256": "4b640e926dfbe9b61dd55c42ee4ce36e99991ee01a5e1e54043ab2c9b8f6f54a",
+      "normalized_text_sha256": "9bcb6b75db5041640f495686c5a7332118af445894076edec02c6f5f8d9c151b",
+      "element": "p",
+      "element_id": null,
+      "manual_selection": true
+    }
+  ],
+  "proposition_recheck": [
+    {
+      "id": "intercom-ai-terms",
+      "observed_at_utc": "2026-11-08T19:51:45.113283+00:00",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "final_url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "status": 200,
+      "bytes": 1083602,
+      "sha256": "03e9437013ad75b22e16ac73e4aaee18c4bd954adf6eb21b43b9dff4d8838812",
+      "text_decoding": "utf-8",
+      "retained_spans": [
+        {
+          "id": "T01",
+          "retained_text_present": true,
+          "text_sha256": "74dd9a83f40a50dc01f3cc7a2747c367138317fed27da0e13940b9377f1f608c"
+        },
+        {
+          "id": "T02",
+          "retained_text_present": true,
+          "text_sha256": "489831ace2628433bd1b358ac5603b258709c8f6c18e23addc86a3509547d1ce"
+        },
+        {
+          "id": "T03",
+          "retained_text_present": true,
+          "text_sha256": "db91d77e4a6dabf1037845fb983a99f67ed525c2b9c83b129b9af49616a0a6d6"
+        },
+        {
+          "id": "T04",
+          "retained_text_present": true,
+          "text_sha256": "d0ff1fd2c5bbe4e6a00f84bbb4380364d94eaac02df15e9374944ed3157dd60d"
+        },
+        {
+          "id": "T05",
+          "retained_text_present": true,
+          "text_sha256": "25f5c7a24fb541168c6086c5f6f41bbe41657ce7d0a40a8efbefefd4b8b4e175"
+        },
+        {
+          "id": "T06",
+          "retained_text_present": true,
+          "text_sha256": "336c7d1175ff8520da0655e0e66ff43ab49c2f04f8b411dd9cb3cdb05f5e4254"
+        },
+        {
+          "id": "T07",
+          "retained_text_present": true,
+          "text_sha256": "a7cf17e094100c926d4400b751a81f671c0741dc8a80288a3d40b8b38f74697f"
+        },
+        {
+          "id": "T08",
+          "retained_text_present": true,
+          "text_sha256": "4f1cb3e8f791b583f1281b4703db2893af07c9b29256d682f4ff0041f90147b1"
+        },
+        {
+          "id": "T09",
+          "retained_text_present": true,
+          "text_sha256": "21e98a33d0258c5726062941055c18bd303008ced3ac5fab59379143039bcc17"
+        },
+        {
+          "id": "T10",
+          "retained_text_present": true,
+          "text_sha256": "3f03d7cf8ce49f6db75ee6f98c06f34f61733bc3e3e306eca5ab4a3779c0dacf"
+        },
+        {
+          "id": "T11",
+          "retained_text_present": true,
+          "text_sha256": "2c2a45ee230e005a4ff812e1cdf2e7cc0b1a395fb5fa5f93e23e415fac48fa28"
+        },
+        {
+          "id": "T12",
+          "retained_text_present": true,
+          "text_sha256": "f9176512457fd8af3c11e200aceceb98e186591991e9e8b7b00c3a7f1d291af3"
+        },
+        {
+          "id": "T13",
+          "retained_text_present": true,
+          "text_sha256": "8784d851c8d9e328ceb00f4ed0800093d59fb71d425de0a1028ca2d643402e56"
+        },
+        {
+          "id": "T14",
+          "retained_text_present": true,
+          "text_sha256": "391896761605d11716a4a60f8998299a6511a35b0be9c3b9a13a6d82256afc2f"
+        },
+        {
+          "id": "T15",
+          "retained_text_present": true,
+          "text_sha256": "c19f04552c09bab0da4e3e9fe49a8b47ce4dae50ac37ee5a61662628a6e46903"
+        },
+        {
+          "id": "T16",
+          "retained_text_present": true,
+          "text_sha256": "9d2dc6691d2cf0f2d8f89b6bd4196d536cb38be66298eb7471a402ae9e69e25b"
+        }
+      ]
+    },
+    {
+      "id": "intercom-cx-score",
+      "observed_at_utc": "2026-11-08T19:51:45.113655+00:00",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "final_url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "status": 200,
+      "bytes": 415464,
+      "sha256": "43c3c41e0ee4ba3a09f45859e27a2d895b0ebb63b6b4229178f4f94b8e5c708c",
+      "text_decoding": "utf-8",
+      "retained_spans": [
+        {
+          "id": "C01",
+          "retained_text_present": true,
+          "text_sha256": "b4d0961c55e1835d883b8a4543122c7768722e146428b03060e70bc8c3d5a23c"
+        },
+        {
+          "id": "C02",
+          "retained_text_present": true,
+          "text_sha256": "d65ca5b9dba33ac8590d2b870c941af783ba75c8d8d317a2ba18be4c9aaaa0b3"
+        },
+        {
+          "id": "C03",
+          "retained_text_present": true,
+          "text_sha256": "cbafb70d3116f72f2366f3279953fc6b91d5213052789799f05b2c5eb6dca80e"
+        },
+        {
+          "id": "C04",
+          "retained_text_present": true,
+          "text_sha256": "fd69ec55e77bdb68f7399f592dd68261e1fade3a7c5a96445b01d2c4e87ea825"
+        },
+        {
+          "id": "C05",
+          "retained_text_present": true,
+          "text_sha256": "43beca6c5eef80e100f1086e63c53719cbc86991c0b0ce14753b838896b37b69"
+        },
+        {
+          "id": "C06",
+          "retained_text_present": true,
+          "text_sha256": "f7845bf777684bf544b8c142cd36271715614aa1c11e76f1784ef0e6a8fa9efd"
+        },
+        {
+          "id": "C07",
+          "retained_text_present": true,
+          "text_sha256": "8b6e9346ccbbd4cf17214baa7b6ff4271248d582e2038818b7563c90aad1cd6c"
+        },
+        {
+          "id": "C08",
+          "retained_text_present": true,
+          "text_sha256": "5c58883c6f07ac1260dbe6fa80ca4cadaf1eb164382028dac0fc3840f8cd1158"
+        },
+        {
+          "id": "C09",
+          "retained_text_present": true,
+          "text_sha256": "7573a13caabca43bf85638d7450fcc92885a1618119ae1967b20ecbcb0b40981"
+        },
+        {
+          "id": "C10",
+          "retained_text_present": true,
+          "text_sha256": "e52c302ae544117a8bd0c6404bcaacb2ce930889aa4abc1c3ae1300b37bcbcd2"
+        },
+        {
+          "id": "C11",
+          "retained_text_present": true,
+          "text_sha256": "e2a92617fdb0fdefc0db1e73a1fbde518f12c1039dfdeefdc01e52513c71a585"
+        },
+        {
+          "id": "C12",
+          "retained_text_present": true,
+          "text_sha256": "99764ea13ca7a7d2eb88a2a44a5caff16f1968a2a33c0b0a91d8fe562d23d1fe"
+        },
+        {
+          "id": "C13",
+          "retained_text_present": true,
+          "text_sha256": "5a37f0d22a74ed32a01af1078f766eed05b448e3539e3d553bdae1c20003614b"
+        },
+        {
+          "id": "C14",
+          "retained_text_present": true,
+          "text_sha256": "1fc02a0e79bcae4b962876ae78b145bcdfd8170921b15f9d5e5f52bb88a0f47d"
+        },
+        {
+          "id": "C15",
+          "retained_text_present": true,
+          "text_sha256": "5e28b884b42d196f76aca34c3bd1364d307e11361ace91a1e21b2925ce0e80d9"
+        },
+        {
+          "id": "C16",
+          "retained_text_present": true,
+          "text_sha256": "1c6cc878da8ba7d89f81cb96d1a377abfff56777bd0db1b034f183a918ab564e"
+        },
+        {
+          "id": "C17",
+          "retained_text_present": true,
+          "text_sha256": "b58d08d3a379c7d443a78ccef9c142ff3e902d5526eb8db66b1f9ae977e41df3"
+        }
+      ]
+    },
+    {
+      "id": "intercom-connectors",
+      "observed_at_utc": "2026-11-08T19:51:45.113837+00:00",
+      "url": "https://www.intercom.com/help/en/articles/9916497-how-to-set-up-data-connectors",
+      "final_url": "https://www.intercom.com/help/en/articles/9916497-how-to-set-up-data-connectors",
+      "status": 200,
+      "bytes": 468617,
+      "sha256": "6cd8b5bd04aa5a758c51e8e467b0d0f3c404588fedbbc24b0d8751eacd836ae1",
+      "text_decoding": "utf-8",
+      "retained_spans": []
+    },
+    {
+      "id": "intercom-legal-guide",
+      "observed_at_utc": "2026-11-08T19:51:45.114015+00:00",
+      "url": "https://www.intercom.com/help/en/articles/10213899-intercom-ai-products-a-guide-for-customer-legal-and-security-teams",
+      "final_url": "https://www.intercom.com/help/en/articles/10213899-intercom-ai-products-a-guide-for-customer-legal-and-security-teams",
+      "status": 200,
+      "bytes": 133524,
+      "sha256": "2f892cba531af4f9f41f3f357a1b3572b599338dcf3ceab51da5d5000d1712bf",
+      "text_decoding": "utf-8",
+      "retained_spans": [
+        {
+          "id": "G01",
+          "retained_text_present": true,
+          "text_sha256": "bc244bd399ab34e4982e0d6be2f946316258203c95d968688644ca7c96564179"
+        },
+        {
+          "id": "G02",
+          "retained_text_present": true,
+          "text_sha256": "7709b933b41444e55e5cab26635f84f99c74c8a46354cc5be91d1bbbb7b69f78"
+        },
+        {
+          "id": "G03",
+          "retained_text_present": true,
+          "text_sha256": "03bfa8a8606cb1bd830c07b685a64ecbb096a2d4f7d5c9fa9d0ec85e66f45c45"
+        },
+        {
+          "id": "G04",
+          "retained_text_present": true,
+          "text_sha256": "46b5aa7fb7d8ae585fef994fa8267a7eafcfe35f036aa0ea66569aa25538754d"
+        },
+        {
+          "id": "G05",
+          "retained_text_present": true,
+          "text_sha256": "119b8855fd9334f31027581c62f1b795327bf769cb9c2d70829b443a67eec396"
+        }
+      ]
+    },
+    {
+      "id": "intercom-tos",
+      "observed_at_utc": "2026-11-08T19:51:45.114193+00:00",
+      "url": "https://www.intercom.com/legal/terms-and-policies",
+      "final_url": "https://www.intercom.com/legal/terms-and-policies",
+      "status": 200,
+      "bytes": 1176729,
+      "sha256": "6d50074290fce7888adc375415c53f14c6f536f7e3fd1527915000bf3fea803b",
+      "text_decoding": "utf-8",
+      "retained_spans": [
+        {
+          "id": "S01",
+          "retained_text_present": true,
+          "text_sha256": "90eb245f151e9cdcd7e1bbda0e7ebe2221e06e0beeca4f197805cc2f01ca363a"
+        },
+        {
+          "id": "S02",
+          "retained_text_present": true,
+          "text_sha256": "f0b6a6a2625f9f4ce485425c4922bd2d3cd4cf93613d752438f6dd730e3d76e2"
+        },
+        {
+          "id": "S03",
+          "retained_text_present": true,
+          "text_sha256": "963a7bddc53e883231c238fc7b30954d968df93de58d2fd1e2923450d7765667"
+        }
+      ]
+    },
+    {
+      "id": "intercom-dpa",
+      "observed_at_utc": "2026-11-08T19:51:45.114346+00:00",
+      "url": "https://www.intercom.com/legal/data-processing-agreement",
+      "final_url": "https://www.intercom.com/legal/data-processing-agreement",
+      "status": 200,
+      "bytes": 1266631,
+      "sha256": "f7b5606da43e9966e12031dfc6169ca327ad06a88b652fd5e9297b14f8dae422",
+      "text_decoding": "utf-8",
+      "retained_spans": [
+        {
+          "id": "D01",
+          "retained_text_present": true,
+          "text_sha256": "63b8d3380b190e1bdb33264bdbc4eaf149159c862d9c7f4da50ed484c49f4552"
+        },
+        {
+          "id": "D02",
+          "retained_text_present": true,
+          "text_sha256": "ea82babb080afbd315a9861c959fe3a3d8341c165db18bc2c21c047370c2d772"
+        },
+        {
+          "id": "D03",
+          "retained_text_present": true,
+          "text_sha256": "eff3e2d3214909be284f121e3ed2f0f4188122c81f4abda9752c5b96f7d38200"
+        },
+        {
+          "id": "D04",
+          "retained_text_present": true,
+          "text_sha256": "8046cb56d1f5b48fed65f570825d7a43d9c2a317cae7d4a5ad9a5039a98b9fef"
+        },
+        {
+          "id": "D05",
+          "retained_text_present": true,
+          "text_sha256": "9b2d559f7321161ec97d38a98293435680e054046d6bdbe2f677e28d1dec743d"
+        },
+        {
+          "id": "D06",
+          "retained_text_present": true,
+          "text_sha256": "774f65acbd019c1a50ab0a332b77455f921e6fb843789ad9610c8c5086241a18"
+        },
+        {
+          "id": "D07",
+          "retained_text_present": true,
+          "text_sha256": "66926d050f86dc9116dc7b947c2c52d3d6f480fe21a4fed6fd5b304912654660"
+        },
+        {
+          "id": "D08",
+          "retained_text_present": true,
+          "text_sha256": "96a4fa0fb622443d239f9c451174e94941ca5047284b54d579bbe6c93bdff10d"
+        },
+        {
+          "id": "D09",
+          "retained_text_present": true,
+          "text_sha256": "5aeffdac5b0a84b81890d71e182acacf678ba9ad631792bc1187f74c980404b8"
+        }
+      ]
+    },
+    {
+      "id": "intercom-aup",
+      "observed_at_utc": "2026-11-08T19:51:45.391039+00:00",
+      "url": "https://www.intercom.com/legal/acceptable-use-policy",
+      "final_url": "https://www.intercom.com/legal/acceptable-use-policy",
+      "status": 200,
+      "bytes": 1029143,
+      "sha256": "cb5383a8274a225ced9c02d40c09e3d6b009aba22a87db948a016622a89ff118",
+      "text_decoding": "utf-8",
+      "retained_spans": [
+        {
+          "id": "A01",
+          "retained_text_present": true,
+          "text_sha256": "bc6beed1e597dc7ca482f492f2965e33b661c69c043cdf5a8ce35d074935db73"
+        },
+        {
+          "id": "A02",
+          "retained_text_present": true,
+          "text_sha256": "10e9f34432aaee393882f07fbc2965597b6d8cda50c8f641dde1ded570cf2f66"
+        }
+      ]
+    },
+    {
+      "id": "intercom-subprocessors",
+      "observed_at_utc": "2026-11-08T19:51:45.414402+00:00",
+      "url": "https://www.intercom.com/legal/subprocessors-list",
+      "final_url": "https://www.intercom.com/legal/subprocessors-list",
+      "status": 200,
+      "bytes": 1026377,
+      "sha256": "c88f61676ba1c2334f0e40506b8c58452515ae2062cb4a331cde0ddcc055e83f",
+      "text_decoding": "utf-8",
+      "retained_spans": []
+    },
+    {
+      "id": "intercom-product-privacy",
+      "observed_at_utc": "2026-11-08T19:51:45.417589+00:00",
+      "url": "https://www.intercom.com/legal/product-privacy-notice",
+      "final_url": "https://www.intercom.com/legal/product-privacy-notice",
+      "status": 200,
+      "bytes": 1032552,
+      "sha256": "9c3c2ca69686943afa1552b4446a2a6f55a7557c0c55897f1de619ba1ac626ed",
+      "text_decoding": "utf-8",
+      "retained_spans": []
+    },
+    {
+      "id": "intercom-model-training",
+      "observed_at_utc": "2026-11-08T19:51:45.488406+00:00",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "final_url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "status": 200,
+      "bytes": 104784,
+      "sha256": "fc404c02e726fa147702254daeee5e7c33c0963bba27dc6bf0ffc8fb2d626929",
+      "text_decoding": "utf-8",
+      "retained_spans": [
+        {
+          "id": "M01",
+          "retained_text_present": true,
+          "text_sha256": "eed7c47ca72639eed9b691fc04edac5be5888a13cd505c7cdae25be390451a4c"
+        },
+        {
+          "id": "M02",
+          "retained_text_present": true,
+          "text_sha256": "bca7c9242084543f70d6411e09bed29495f16005450d9502962d50257407c6bb"
+        },
+        {
+          "id": "M03",
+          "retained_text_present": true,
+          "text_sha256": "b40f8032ba4afd30fc3289987d75b5ad3be09474bb5446786429dbd2d1cb079e"
+        },
+        {
+          "id": "M04",
+          "retained_text_present": true,
+          "text_sha256": "4440c46cf8746745bab3fe4edf5d14e54f5286b90952cb6dc81269a9fb64ec94"
+        },
+        {
+          "id": "M05",
+          "retained_text_present": true,
+          "text_sha256": "c03f7ecb476cf6739c18381dd8f77f1b9c418236a7a43ab5a7f2da8dbfbb7b48"
+        },
+        {
+          "id": "M06",
+          "retained_text_present": true,
+          "text_sha256": "47d927cb4f663aa7acb80ff70aab5952e534ad37427cc1a53d5d7da33e858b47"
+        },
+        {
+          "id": "M07",
+          "retained_text_present": true,
+          "text_sha256": "d927afb1d2231ae90e0021ba32718f0909ed5d52efba52355602a81f8259b195"
+        },
+        {
+          "id": "M08",
+          "retained_text_present": true,
+          "text_sha256": "f73aba07f28b62f656c6219fa7c87645817263239deefa1b400dee69dfd6251d"
+        },
+        {
+          "id": "M09",
+          "retained_text_present": true,
+          "text_sha256": "ea7fa93aecada25fe56a62b1782fe8fa9d2408e645dcfd30f508ef8b7bc79dc1"
+        },
+        {
+          "id": "M10",
+          "retained_text_present": true,
+          "text_sha256": "776fec8a74deb0c841faa75a31b29848233cfe46444624bf8d2f2236df934029"
+        },
+        {
+          "id": "M11",
+          "retained_text_present": true,
+          "text_sha256": "2e00609418397cb33230a160d8087578d1103727f7f7282245887345b25e6852"
+        },
+        {
+          "id": "M12",
+          "retained_text_present": true,
+          "text_sha256": "454c6e140ab5dd27be22c1901272a887af6d34251131193284fbf5f1adbc7860"
+        },
+        {
+          "id": "M13",
+          "retained_text_present": true,
+          "text_sha256": "2da1704517e0d5e136d735c2ebba1938d2a476ec4687689e0297450cd7d8742f"
+        },
+        {
+          "id": "M14",
+          "retained_text_present": true,
+          "text_sha256": "f842df31dfbb44d26a2e5eca96d1ec44c17cdf42b01efa4b13cad5a3501519d7"
+        }
+      ]
+    },
+    {
+      "id": "intercom-fin-cx-models",
+      "observed_at_utc": "2026-11-08T19:51:45.604702+00:00",
+      "url": "https://fin.ai/cx-models",
+      "final_url": "https://fin.ai/cx-models",
+      "status": 200,
+      "bytes": 2087319,
+      "sha256": "e74390a5b104d607d3b06a7c617143b8b3d61cfd262945f7c30d45f687bf3a7e",
+      "text_decoding": "utf-8",
+      "retained_spans": []
+    },
+    {
+      "id": "intercom-regional-addendum",
+      "observed_at_utc": "2026-11-08T19:51:45.608816+00:00",
+      "url": "https://www.intercom.com/legal/regional-data-hosting-addendum",
+      "final_url": "https://www.intercom.com/legal/regional-data-hosting-addendum",
+      "status": 200,
+      "bytes": 1059880,
+      "sha256": "23beec1ed636285b027c7a8ab78aa646b9ef30d131d284547e5fb7a97bd3541f",
+      "text_decoding": "utf-8",
+      "retained_spans": [
+        {
+          "id": "R01",
+          "retained_text_present": true,
+          "text_sha256": "f5aebef624d8564080f8991a4ec02e1daa641ec8f943907d45b818a082a024d7"
+        }
+      ]
+    }
+  ],
+  "additional_proposition_rechecks": [
+    {
+      "id": "intercom-ai-terms",
+      "url": "https://www.intercom.com/legal/terms-and-policies/additional-product-terms",
+      "observed_at_utc": "2026-11-09T13:53:00.115009+00:00",
+      "status": 200,
+      "bytes": 1062787,
+      "sha256": "e0b4555f10e88cd743c46a53e976c414013f1136bb2d9cce9a5c0654527ca1e3",
+      "spans": [
+        {
+          "id": "T01",
+          "retained_text_present": true,
+          "text_sha256": "74dd9a83f40a50dc01f3cc7a2747c367138317fed27da0e13940b9377f1f608c"
+        },
+        {
+          "id": "T02",
+          "retained_text_present": true,
+          "text_sha256": "489831ace2628433bd1b358ac5603b258709c8f6c18e23addc86a3509547d1ce"
+        },
+        {
+          "id": "T03",
+          "retained_text_present": true,
+          "text_sha256": "db91d77e4a6dabf1037845fb983a99f67ed525c2b9c83b129b9af49616a0a6d6"
+        },
+        {
+          "id": "T04",
+          "retained_text_present": true,
+          "text_sha256": "d0ff1fd2c5bbe4e6a00f84bbb4380364d94eaac02df15e9374944ed3157dd60d"
+        },
+        {
+          "id": "T05",
+          "retained_text_present": true,
+          "text_sha256": "25f5c7a24fb541168c6086c5f6f41bbe41657ce7d0a40a8efbefefd4b8b4e175"
+        },
+        {
+          "id": "T06",
+          "retained_text_present": true,
+          "text_sha256": "336c7d1175ff8520da0655e0e66ff43ab49c2f04f8b411dd9cb3cdb05f5e4254"
+        },
+        {
+          "id": "T07",
+          "retained_text_present": true,
+          "text_sha256": "a7cf17e094100c926d4400b751a81f671c0741dc8a80288a3d40b8b38f74697f"
+        },
+        {
+          "id": "T08",
+          "retained_text_present": true,
+          "text_sha256": "4f1cb3e8f791b583f1281b4703db2893af07c9b29256d682f4ff0041f90147b1"
+        },
+        {
+          "id": "T09",
+          "retained_text_present": true,
+          "text_sha256": "21e98a33d0258c5726062941055c18bd303008ced3ac5fab59379143039bcc17"
+        },
+        {
+          "id": "T10",
+          "retained_text_present": true,
+          "text_sha256": "3f03d7cf8ce49f6db75ee6f98c06f34f61733bc3e3e306eca5ab4a3779c0dacf"
+        },
+        {
+          "id": "T11",
+          "retained_text_present": true,
+          "text_sha256": "2c2a45ee230e005a4ff812e1cdf2e7cc0b1a395fb5fa5f93e23e415fac48fa28"
+        },
+        {
+          "id": "T12",
+          "retained_text_present": true,
+          "text_sha256": "f9176512457fd8af3c11e200aceceb98e186591991e9e8b7b00c3a7f1d291af3"
+        },
+        {
+          "id": "T13",
+          "retained_text_present": true,
+          "text_sha256": "8784d851c8d9e328ceb00f4ed0800093d59fb71d425de0a1028ca2d643402e56"
+        },
+        {
+          "id": "T14",
+          "retained_text_present": true,
+          "text_sha256": "391896761605d11716a4a60f8998299a6511a35b0be9c3b9a13a6d82256afc2f"
+        },
+        {
+          "id": "T15",
+          "retained_text_present": true,
+          "text_sha256": "c19f04552c09bab0da4e3e9fe49a8b47ce4dae50ac37ee5a61662628a6e46903"
+        },
+        {
+          "id": "T16",
+          "retained_text_present": true,
+          "text_sha256": "9d2dc6691d2cf0f2d8f89b6bd4196d536cb38be66298eb7471a402ae9e69e25b"
+        }
+      ]
+    },
+    {
+      "id": "intercom-cx-score",
+      "url": "https://www.intercom.com/help/en/articles/10495092-understand-customer-experience-at-scale-with-the-cx-score",
+      "observed_at_utc": "2026-11-09T13:53:00.115389+00:00",
+      "status": 200,
+      "bytes": 415595,
+      "sha256": "e3de57e321db8670e4b75a074964a1f11c96cdd33e51a45435c6dcfbaf202526",
+      "spans": [
+        {
+          "id": "C01",
+          "retained_text_present": true,
+          "text_sha256": "b4d0961c55e1835d883b8a4543122c7768722e146428b03060e70bc8c3d5a23c"
+        },
+        {
+          "id": "C02",
+          "retained_text_present": true,
+          "text_sha256": "d65ca5b9dba33ac8590d2b870c941af783ba75c8d8d317a2ba18be4c9aaaa0b3"
+        },
+        {
+          "id": "C03",
+          "retained_text_present": true,
+          "text_sha256": "cbafb70d3116f72f2366f3279953fc6b91d5213052789799f05b2c5eb6dca80e"
+        },
+        {
+          "id": "C04",
+          "retained_text_present": true,
+          "text_sha256": "fd69ec55e77bdb68f7399f592dd68261e1fade3a7c5a96445b01d2c4e87ea825"
+        },
+        {
+          "id": "C05",
+          "retained_text_present": true,
+          "text_sha256": "43beca6c5eef80e100f1086e63c53719cbc86991c0b0ce14753b838896b37b69"
+        },
+        {
+          "id": "C06",
+          "retained_text_present": true,
+          "text_sha256": "f7845bf777684bf544b8c142cd36271715614aa1c11e76f1784ef0e6a8fa9efd"
+        },
+        {
+          "id": "C07",
+          "retained_text_present": true,
+          "text_sha256": "8b6e9346ccbbd4cf17214baa7b6ff4271248d582e2038818b7563c90aad1cd6c"
+        },
+        {
+          "id": "C08",
+          "retained_text_present": true,
+          "text_sha256": "5c58883c6f07ac1260dbe6fa80ca4cadaf1eb164382028dac0fc3840f8cd1158"
+        },
+        {
+          "id": "C09",
+          "retained_text_present": true,
+          "text_sha256": "7573a13caabca43bf85638d7450fcc92885a1618119ae1967b20ecbcb0b40981"
+        },
+        {
+          "id": "C10",
+          "retained_text_present": true,
+          "text_sha256": "e52c302ae544117a8bd0c6404bcaacb2ce930889aa4abc1c3ae1300b37bcbcd2"
+        },
+        {
+          "id": "C11",
+          "retained_text_present": true,
+          "text_sha256": "e2a92617fdb0fdefc0db1e73a1fbde518f12c1039dfdeefdc01e52513c71a585"
+        },
+        {
+          "id": "C12",
+          "retained_text_present": true,
+          "text_sha256": "99764ea13ca7a7d2eb88a2a44a5caff16f1968a2a33c0b0a91d8fe562d23d1fe"
+        },
+        {
+          "id": "C13",
+          "retained_text_present": true,
+          "text_sha256": "5a37f0d22a74ed32a01af1078f766eed05b448e3539e3d553bdae1c20003614b"
+        },
+        {
+          "id": "C14",
+          "retained_text_present": true,
+          "text_sha256": "1fc02a0e79bcae4b962876ae78b145bcdfd8170921b15f9d5e5f52bb88a0f47d"
+        },
+        {
+          "id": "C15",
+          "retained_text_present": true,
+          "text_sha256": "5e28b884b42d196f76aca34c3bd1364d307e11361ace91a1e21b2925ce0e80d9"
+        },
+        {
+          "id": "C16",
+          "retained_text_present": true,
+          "text_sha256": "1c6cc878da8ba7d89f81cb96d1a377abfff56777bd0db1b034f183a918ab564e"
+        },
+        {
+          "id": "C17",
+          "retained_text_present": true,
+          "text_sha256": "b58d08d3a379c7d443a78ccef9c142ff3e902d5526eb8db66b1f9ae977e41df3"
+        }
+      ]
+    },
+    {
+      "id": "intercom-connectors",
+      "url": "https://www.intercom.com/help/en/articles/9916497-how-to-set-up-data-connectors",
+      "observed_at_utc": "2026-11-09T13:53:00.115504+00:00",
+      "status": 200,
+      "bytes": 468806,
+      "sha256": "ec9e9e7c297d09720bcad61b07f3313930a27f99499a62c11029ae9892eccec5",
+      "spans": []
+    },
+    {
+      "id": "intercom-legal-guide",
+      "url": "https://www.intercom.com/help/en/articles/10213899-intercom-ai-products-a-guide-for-customer-legal-and-security-teams",
+      "observed_at_utc": "2026-11-09T13:53:00.115601+00:00",
+      "status": 200,
+      "bytes": 133523,
+      "sha256": "81b7086e24633491fddd0cf8065402edc8b0cf01249916c588dff0284f20c37d",
+      "spans": [
+        {
+          "id": "G01",
+          "retained_text_present": true,
+          "text_sha256": "bc244bd399ab34e4982e0d6be2f946316258203c95d968688644ca7c96564179"
+        },
+        {
+          "id": "G02",
+          "retained_text_present": true,
+          "text_sha256": "7709b933b41444e55e5cab26635f84f99c74c8a46354cc5be91d1bbbb7b69f78"
+        },
+        {
+          "id": "G03",
+          "retained_text_present": true,
+          "text_sha256": "03bfa8a8606cb1bd830c07b685a64ecbb096a2d4f7d5c9fa9d0ec85e66f45c45"
+        },
+        {
+          "id": "G04",
+          "retained_text_present": true,
+          "text_sha256": "46b5aa7fb7d8ae585fef994fa8267a7eafcfe35f036aa0ea66569aa25538754d"
+        },
+        {
+          "id": "G05",
+          "retained_text_present": true,
+          "text_sha256": "119b8855fd9334f31027581c62f1b795327bf769cb9c2d70829b443a67eec396"
+        }
+      ]
+    },
+    {
+      "id": "intercom-tos",
+      "url": "https://www.intercom.com/legal/terms-and-policies",
+      "observed_at_utc": "2026-11-09T13:53:00.115675+00:00",
+      "status": 200,
+      "bytes": 1155871,
+      "sha256": "7f372a888f5ad1ad50f53ea140581c93f452a2b22ab811c4fc7497792f3e27f2",
+      "spans": [
+        {
+          "id": "S01",
+          "retained_text_present": true,
+          "text_sha256": "90eb245f151e9cdcd7e1bbda0e7ebe2221e06e0beeca4f197805cc2f01ca363a"
+        },
+        {
+          "id": "S02",
+          "retained_text_present": true,
+          "text_sha256": "f0b6a6a2625f9f4ce485425c4922bd2d3cd4cf93613d752438f6dd730e3d76e2"
+        },
+        {
+          "id": "S03",
+          "retained_text_present": true,
+          "text_sha256": "963a7bddc53e883231c238fc7b30954d968df93de58d2fd1e2923450d7765667"
+        }
+      ]
+    },
+    {
+      "id": "intercom-dpa",
+      "url": "https://www.intercom.com/legal/data-processing-agreement",
+      "observed_at_utc": "2026-11-09T13:53:00.115734+00:00",
+      "status": 200,
+      "bytes": 1245840,
+      "sha256": "defdb7289dfef9fbb13843814d3b7909f2cb3289c4b7964efb978f880e28283f",
+      "spans": [
+        {
+          "id": "D01",
+          "retained_text_present": true,
+          "text_sha256": "63b8d3380b190e1bdb33264bdbc4eaf149159c862d9c7f4da50ed484c49f4552"
+        },
+        {
+          "id": "D02",
+          "retained_text_present": true,
+          "text_sha256": "ea82babb080afbd315a9861c959fe3a3d8341c165db18bc2c21c047370c2d772"
+        },
+        {
+          "id": "D03",
+          "retained_text_present": true,
+          "text_sha256": "eff3e2d3214909be284f121e3ed2f0f4188122c81f4abda9752c5b96f7d38200"
+        },
+        {
+          "id": "D04",
+          "retained_text_present": true,
+          "text_sha256": "8046cb56d1f5b48fed65f570825d7a43d9c2a317cae7d4a5ad9a5039a98b9fef"
+        },
+        {
+          "id": "D05",
+          "retained_text_present": true,
+          "text_sha256": "9b2d559f7321161ec97d38a98293435680e054046d6bdbe2f677e28d1dec743d"
+        },
+        {
+          "id": "D06",
+          "retained_text_present": true,
+          "text_sha256": "774f65acbd019c1a50ab0a332b77455f921e6fb843789ad9610c8c5086241a18"
+        },
+        {
+          "id": "D07",
+          "retained_text_present": true,
+          "text_sha256": "66926d050f86dc9116dc7b947c2c52d3d6f480fe21a4fed6fd5b304912654660"
+        },
+        {
+          "id": "D08",
+          "retained_text_present": true,
+          "text_sha256": "96a4fa0fb622443d239f9c451174e94941ca5047284b54d579bbe6c93bdff10d"
+        },
+        {
+          "id": "D09",
+          "retained_text_present": true,
+          "text_sha256": "5aeffdac5b0a84b81890d71e182acacf678ba9ad631792bc1187f74c980404b8"
+        }
+      ]
+    },
+    {
+      "id": "intercom-aup",
+      "url": "https://www.intercom.com/legal/acceptable-use-policy",
+      "observed_at_utc": "2026-11-09T13:53:00.524258+00:00",
+      "status": 200,
+      "bytes": 1008285,
+      "sha256": "150d7ea749789d697bb62d34ddd9ca94e7acf72aca8aa2ab7cae2cd37ba510ec",
+      "spans": [
+        {
+          "id": "A01",
+          "retained_text_present": true,
+          "text_sha256": "bc6beed1e597dc7ca482f492f2965e33b661c69c043cdf5a8ce35d074935db73"
+        },
+        {
+          "id": "A02",
+          "retained_text_present": true,
+          "text_sha256": "10e9f34432aaee393882f07fbc2965597b6d8cda50c8f641dde1ded570cf2f66"
+        }
+      ]
+    },
+    {
+      "id": "intercom-subprocessors",
+      "url": "https://www.intercom.com/legal/subprocessors-list",
+      "observed_at_utc": "2026-11-09T13:53:00.527348+00:00",
+      "status": 200,
+      "bytes": 1005519,
+      "sha256": "1f8d9cfcebef8b722eb489582e1fcdbce2be2c6b43d6ea1c064d972c126147c5",
+      "spans": []
+    },
+    {
+      "id": "intercom-product-privacy",
+      "url": "https://www.intercom.com/legal/product-privacy-notice",
+      "observed_at_utc": "2026-11-09T13:53:00.528669+00:00",
+      "status": 200,
+      "bytes": 1011694,
+      "sha256": "48ec636efa15472a2c9fcd8b51989a187e210779c20057f508aa694bcf4a0a31",
+      "spans": []
+    },
+    {
+      "id": "intercom-model-training",
+      "url": "https://www.intercom.com/help/en/articles/11993352-ai-model-training-and-fine-tuning?gtm_id=14bf6b7b-3f31-46d3-9dd5-5f883d5b6217",
+      "observed_at_utc": "2026-11-09T13:53:00.624376+00:00",
+      "status": 200,
+      "bytes": 104777,
+      "sha256": "95fdc6928d54a963436f58820db5820888e5d60705e61c25a730411ef303a451",
+      "spans": [
+        {
+          "id": "M01",
+          "retained_text_present": true,
+          "text_sha256": "eed7c47ca72639eed9b691fc04edac5be5888a13cd505c7cdae25be390451a4c"
+        },
+        {
+          "id": "M02",
+          "retained_text_present": true,
+          "text_sha256": "bca7c9242084543f70d6411e09bed29495f16005450d9502962d50257407c6bb"
+        },
+        {
+          "id": "M03",
+          "retained_text_present": true,
+          "text_sha256": "b40f8032ba4afd30fc3289987d75b5ad3be09474bb5446786429dbd2d1cb079e"
+        },
+        {
+          "id": "M04",
+          "retained_text_present": true,
+          "text_sha256": "4440c46cf8746745bab3fe4edf5d14e54f5286b90952cb6dc81269a9fb64ec94"
+        },
+        {
+          "id": "M05",
+          "retained_text_present": true,
+          "text_sha256": "c03f7ecb476cf6739c18381dd8f77f1b9c418236a7a43ab5a7f2da8dbfbb7b48"
+        },
+        {
+          "id": "M06",
+          "retained_text_present": true,
+          "text_sha256": "47d927cb4f663aa7acb80ff70aab5952e534ad37427cc1a53d5d7da33e858b47"
+        },
+        {
+          "id": "M07",
+          "retained_text_present": true,
+          "text_sha256": "d927afb1d2231ae90e0021ba32718f0909ed5d52efba52355602a81f8259b195"
+        },
+        {
+          "id": "M08",
+          "retained_text_present": true,
+          "text_sha256": "f73aba07f28b62f656c6219fa7c87645817263239deefa1b400dee69dfd6251d"
+        },
+        {
+          "id": "M09",
+          "retained_text_present": true,
+          "text_sha256": "ea7fa93aecada25fe56a62b1782fe8fa9d2408e645dcfd30f508ef8b7bc79dc1"
+        },
+        {
+          "id": "M10",
+          "retained_text_present": true,
+          "text_sha256": "776fec8a74deb0c841faa75a31b29848233cfe46444624bf8d2f2236df934029"
+        },
+        {
+          "id": "M11",
+          "retained_text_present": true,
+          "text_sha256": "2e00609418397cb33230a160d8087578d1103727f7f7282245887345b25e6852"
+        },
+        {
+          "id": "M12",
+          "retained_text_present": true,
+          "text_sha256": "454c6e140ab5dd27be22c1901272a887af6d34251131193284fbf5f1adbc7860"
+        },
+        {
+          "id": "M13",
+          "retained_text_present": true,
+          "text_sha256": "2da1704517e0d5e136d735c2ebba1938d2a476ec4687689e0297450cd7d8742f"
+        },
+        {
+          "id": "M14",
+          "retained_text_present": true,
+          "text_sha256": "f842df31dfbb44d26a2e5eca96d1ec44c17cdf42b01efa4b13cad5a3501519d7"
+        }
+      ]
+    },
+    {
+      "id": "intercom-fin-cx-models",
+      "url": "https://fin.ai/cx-models",
+      "observed_at_utc": "2026-11-09T13:53:00.773069+00:00",
+      "status": 200,
+      "bytes": 2050374,
+      "sha256": "42a312db98a1a023b694745f967b9b82297990a1f9e45310d48f9357852a36d4",
+      "spans": []
+    },
+    {
+      "id": "intercom-regional-addendum",
+      "url": "https://www.intercom.com/legal/regional-data-hosting-addendum",
+      "observed_at_utc": "2026-11-09T13:53:00.831945+00:00",
+      "status": 200,
+      "bytes": 1039065,
+      "sha256": "631743c559a260b178c6a8c346252a8053883c4270a60b7c312f2389bcc600fa",
+      "spans": [
+        {
+          "id": "R01",
+          "retained_text_present": true,
+          "text_sha256": "f5aebef624d8564080f8991a4ec02e1daa641ec8f943907d45b818a082a024d7"
+        }
+      ]
+    }
+  ],
+  "scope": "Exact original source metadata and selected span hashes. The later comparison checks selected propositions. Full vendor pages and selected quotations remain outside this public file."
+}

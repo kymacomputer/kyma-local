@@ -1,0 +1,405 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Kyma AI-terms file v1",
+  "type": "object",
+  "description": "Editable public-source review format. Structural validity, source integrity, substantive interpretation and adoption are distinct.",
+  "required": [
+    "schema",
+    "format_license",
+    "company",
+    "domain",
+    "created_at_utc",
+    "status",
+    "method",
+    "customer_specific_clearance",
+    "vendor_authored",
+    "vendor_adopted",
+    "outside_adoption",
+    "source_pins",
+    "index_fields",
+    "source_document_ids",
+    "decision_case",
+    "boundaries"
+  ],
+  "properties": {
+    "schema": {
+      "const": "kyma-ai-terms-file/v1"
+    },
+    "format_license": {
+      "const": "MIT"
+    },
+    "company": {
+      "$ref": "#/$defs/text"
+    },
+    "domain": {
+      "$ref": "#/$defs/text"
+    },
+    "status": {
+      "$ref": "#/$defs/text"
+    },
+    "method": {
+      "$ref": "#/$defs/text"
+    },
+    "created_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "customer_specific_clearance": {
+      "const": false
+    },
+    "vendor_authored": {
+      "type": "boolean"
+    },
+    "vendor_adopted": {
+      "type": "boolean"
+    },
+    "outside_adoption": {
+      "type": "boolean"
+    },
+    "source_pins": {
+      "$ref": "#/$defs/pin"
+    },
+    "index_fields": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": {
+        "$ref": "#/$defs/field"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "type": "object",
+            "required": [
+              "field"
+            ],
+            "properties": {
+              "field": {
+                "const": "training_on_customer_data"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "type": "object",
+            "required": [
+              "field"
+            ],
+            "properties": {
+              "field": {
+                "const": "ai_subprocessors_and_wayback_first_seen"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "type": "object",
+            "required": [
+              "field"
+            ],
+            "properties": {
+              "field": {
+                "const": "new_subprocessor_notice_days"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "type": "object",
+            "required": [
+              "field"
+            ],
+            "properties": {
+              "field": {
+                "const": "objection_remedy"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "type": "object",
+            "required": [
+              "field"
+            ],
+            "properties": {
+              "field": {
+                "const": "prompt_output_retention_days"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "type": "object",
+            "required": [
+              "field"
+            ],
+            "properties": {
+              "field": {
+                "const": "ai_processing_regions"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "type": "object",
+            "required": [
+              "field"
+            ],
+            "properties": {
+              "field": {
+                "const": "customer_ai_stop_right"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "source_document_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/text"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "decision_case": {
+      "type": "object",
+      "required": [
+        "rows",
+        "uncertainty_queue",
+        "customer_specific_clearance"
+      ],
+      "properties": {
+        "rows": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/decision"
+          }
+        },
+        "uncertainty_queue": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/uncertainty"
+          }
+        },
+        "customer_specific_clearance": {
+          "const": false
+        }
+      }
+    },
+    "boundaries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/text"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "refs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/text"
+      },
+      "uniqueItems": true
+    },
+    "pin": {
+      "type": "object",
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/text"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "relation": {
+      "type": "object",
+      "required": [
+        "statement",
+        "source_span_ids"
+      ],
+      "properties": {
+        "statement": {
+          "$ref": "#/$defs/text"
+        },
+        "source_span_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        }
+      }
+    },
+    "field": {
+      "type": "object",
+      "required": [
+        "field",
+        "value",
+        "statement",
+        "source_span_ids",
+        "uncertainty_queue_ids"
+      ],
+      "properties": {
+        "field": {
+          "enum": [
+            "training_on_customer_data",
+            "ai_subprocessors_and_wayback_first_seen",
+            "new_subprocessor_notice_days",
+            "objection_remedy",
+            "prompt_output_retention_days",
+            "ai_processing_regions",
+            "customer_ai_stop_right"
+          ]
+        },
+        "value": {
+          "$ref": "#/$defs/text"
+        },
+        "statement": {
+          "$ref": "#/$defs/text"
+        },
+        "source_span_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "uncertainty_queue_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "public_decision",
+        "actor",
+        "data",
+        "purpose",
+        "model",
+        "feature",
+        "hierarchy",
+        "condition"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/text"
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "public_decision": {
+          "$ref": "#/$defs/text"
+        },
+        "actor": {
+          "$ref": "#/$defs/relation"
+        },
+        "data": {
+          "$ref": "#/$defs/relation"
+        },
+        "purpose": {
+          "$ref": "#/$defs/relation"
+        },
+        "model": {
+          "$ref": "#/$defs/relation"
+        },
+        "feature": {
+          "$ref": "#/$defs/relation"
+        },
+        "hierarchy": {
+          "$ref": "#/$defs/relation"
+        },
+        "condition": {
+          "$ref": "#/$defs/relation"
+        },
+        "uncertainty_queue_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "uncertainty": {
+      "type": "object",
+      "required": [
+        "id",
+        "issue",
+        "needed_evidence",
+        "decision_effect",
+        "state",
+        "owner"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/text"
+        },
+        "issue": {
+          "$ref": "#/$defs/text"
+        },
+        "needed_evidence": {
+          "$ref": "#/$defs/text"
+        },
+        "decision_effect": {
+          "$ref": "#/$defs/text"
+        },
+        "state": {
+          "$ref": "#/$defs/text"
+        },
+        "owner": {
+          "$ref": "#/$defs/text"
+        },
+        "source_span_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          },
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}

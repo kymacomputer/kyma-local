@@ -1,0 +1,10 @@
+{
+  "file_sha256": "9d0e1840569a6862de5494b619f0ce5e25be503dc4a5c9c217f1458bad62d08b",
+  "evidence_sha256": "e9acc193750ce96bd077f087883566a5cdc98ca4a00cd4beab4ed07e9a28f0ec",
+  "index_fields": 7,
+  "decision_rows": 21,
+  "source_spans": 67,
+  "original_reviewed_candidate_sha256": "70429eb2e250d9cda8089703371a5427250c9d1da73a52db2b99b5c9cb6d7ea0",
+  "original_decision_table_sha256": "5c005e6a6d597109f08eb35499b376521dad9ed61a66b774ca24b05a370c4b96",
+  "scope": "Integrity anchor for this independent example. It supplies no vendor signature, legal clearance or outside adoption."
+}

@@ -1,0 +1,1823 @@
+{
+  "schema": "kyma-ai-terms-file/v1",
+  "format_license": "MIT",
+  "company": "Intercom",
+  "domain": "intercom.com",
+  "created_at_utc": "2026-11-09T13:55:48.802506+00:00",
+  "status": "INDEPENDENT_PUBLIC_SOURCE_EXAMPLE",
+  "method": "Existing manual source interpretations with deterministic conversion. The original source clocks and later proposition comparison remain separate. No new model interpretation.",
+  "customer_specific_clearance": false,
+  "vendor_authored": false,
+  "vendor_adopted": false,
+  "outside_adoption": false,
+  "source_pins": {
+    "path": "intercom.sources.json",
+    "sha256": "e9acc193750ce96bd077f087883566a5cdc98ca4a00cd4beab4ed07e9a28f0ec"
+  },
+  "index_fields": [
+    {
+      "field": "training_on_customer_data",
+      "value": "actor_and_agreement_specific",
+      "statement": "Intercom own-model use and third-party provider use have separate permissions. A requested opt-out is not a granted exclusion.",
+      "source_span_ids": [
+        "T11",
+        "G02",
+        "G03",
+        "M01",
+        "M02",
+        "M08",
+        "M10",
+        "S01"
+      ],
+      "uncertainty_queue_ids": [
+        "U01",
+        "U03",
+        "U06"
+      ]
+    },
+    {
+      "field": "ai_subprocessors_and_wayback_first_seen",
+      "value": "published_list_with_unresolved_history",
+      "statement": "The public subprocessor list names possible providers. It does not identify the actual CX Score route or first appointment.",
+      "source_span_ids": [
+        "T04",
+        "G01"
+      ],
+      "uncertainty_queue_ids": [
+        "U01",
+        "U04"
+      ]
+    },
+    {
+      "field": "new_subprocessor_notice_days",
+      "value": "20_unqualified_days_before_change",
+      "statement": "Published DPA 7.ii requires notice at least 20 days before a supplier change. Customer receipt and applicable private terms remain unresolved.",
+      "source_span_ids": [
+        "D07",
+        "D01",
+        "D09"
+      ],
+      "uncertainty_queue_ids": [
+        "U01"
+      ]
+    },
+    {
+      "field": "objection_remedy",
+      "value": "reasonable_objection_then_alternative_or_termination",
+      "statement": "Published DPA 7.ii permits a reasonable objection within 20 days after notice. Unresolved alternatives can permit termination.",
+      "source_span_ids": [
+        "D07",
+        "D08",
+        "D09"
+      ],
+      "uncertainty_queue_ids": [
+        "U01"
+      ]
+    },
+    {
+      "field": "prompt_output_retention_days",
+      "value": "actor_specific_no_universal_numeric_period",
+      "statement": "The legal guide states third-party zero retention with its stated classifier scope. This does not establish Intercom retention or deletion.",
+      "source_span_ids": [
+        "G02",
+        "T11",
+        "M10",
+        "M12"
+      ],
+      "uncertainty_queue_ids": [
+        "U04",
+        "U10"
+      ]
+    },
+    {
+      "field": "ai_processing_regions",
+      "value": "provider_product_and_workspace_specific",
+      "statement": "The AI Product, workspace and provider affect the route. Regional hosting and its addendum do not establish one observed inference destination.",
+      "source_span_ids": [
+        "G01",
+        "T12",
+        "R01"
+      ],
+      "uncertainty_queue_ids": [
+        "U01",
+        "U03",
+        "U04"
+      ]
+    },
+    {
+      "field": "customer_ai_stop_right",
+      "value": "training_optout_is_not_whole_feature_disable",
+      "statement": "A model-training request has its own grant and future-data effect. It does not establish a whole-feature stop or model unlearning.",
+      "source_span_ids": [
+        "M08",
+        "M09",
+        "M10",
+        "M12",
+        "M14"
+      ],
+      "uncertainty_queue_ids": [
+        "U03",
+        "U06",
+        "U09",
+        "U10"
+      ]
+    }
+  ],
+  "source_document_ids": [
+    "intercom-subprocessors"
+  ],
+  "decision_case": {
+    "schema": "kyma.public-source-decision-annex.v1",
+    "created_at_utc": "2026-11-04T12:57:08.354391+00:00",
+    "subject": "Intercom CX Score",
+    "mode": "PUBLIC SOURCES ONLY",
+    "method": "Manual source review followed by deterministic field/span verification and native synthetic execution.",
+    "consumer_decision": "Choose an aggregate customer-experience workflow. Exclude CX Score from human-agent performance decisions. Resolve own-model training independently.",
+    "customer_specific_clearance": false,
+    "customer_delivery": false,
+    "automatic_extraction": false,
+    "rows": [
+      {
+        "id": "CX01",
+        "title": "Aggregate customer-experience workflow",
+        "public_decision": "SUPPORTED FEATURE PURPOSE, SUBJECT TO CUSTOMER REVIEW",
+        "actor": {
+          "statement": "The Customer is the entity with the applicable Intercom agreement. Intercom and its providers have distinct roles.",
+          "source_span_ids": [
+            "T01",
+            "D02",
+            "D03"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Conversation data enters CX Score. Ratings and explanations are AI output and Customer Data.",
+          "source_span_ids": [
+            "C04",
+            "T05",
+            "T06",
+            "T07"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Customer sentiment, topic and friction analysis for support-content, workflow and product improvements.",
+          "source_span_ids": [
+            "C01",
+            "C14"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "Additional Product Terms prevail over conflicting Agreement terms within their scope. Actual signed amendments and applicable versions remain necessary.",
+          "source_span_ids": [
+            "T01",
+            "T02",
+            "S02",
+            "S03"
+          ],
+          "nature": "public_conflict_rule_and_applicability_unknown"
+        },
+        "condition": {
+          "statement": "Fin and Pro access, authorized data and purpose, appropriate notices, and source review remain conditions.",
+          "source_span_ids": [
+            "C02",
+            "C03",
+            "T07",
+            "T10"
+          ],
+          "nature": "vendor_statement"
+        },
+        "uncertainty_queue_ids": [
+          "U01",
+          "U02",
+          "U03",
+          "U04",
+          "U05"
+        ],
+        "product_owner_action": "Select an aggregate customer-experience workflow. Keep its outputs outside human-agent performance decisions.",
+        "native_projection": "The local gate recognizes aggregate_customer_experience and route_high_customer_effort as candidate purposes.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX02",
+        "title": "Human-agent performance use",
+        "public_decision": "DO NOT USE CX SCORE FOR THIS PURPOSE UNDER THE PUBLISHED FEATURE GUIDANCE",
+        "actor": {
+          "statement": "Customer and human support agents whose performance would be evaluated.",
+          "source_span_ids": [
+            "C15",
+            "C16",
+            "T14"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Conversation data enters CX Score. Ratings and explanations are AI output and Customer Data.",
+          "source_span_ids": [
+            "C04",
+            "T05",
+            "T06",
+            "T07"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Use or reliance on CX Score that materially influences human-agent performance reviews, or evaluates human-agent performance.",
+          "source_span_ids": [
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "The feature FAQ says this use is not permitted under existing Terms. General evaluation terms do not erase this feature restriction.",
+          "source_span_ids": [
+            "C16",
+            "T14",
+            "T13"
+          ],
+          "nature": "feature_specific_vendor_restriction_and_manual_scope_resolution"
+        },
+        "condition": {
+          "statement": "The restriction is specific to CX Score. A claim about an EU AI Act classification is the vendor's rationale, not this annex's legal opinion.",
+          "source_span_ids": [
+            "C16",
+            "A02"
+          ],
+          "nature": "scope_boundary"
+        },
+        "uncertainty_queue_ids": [
+          "U01",
+          "U07"
+        ],
+        "product_owner_action": "Exclude CX Score from human-agent performance decisions. Preserve a different approved process for that task.",
+        "native_projection": "The local gate rejects human_agent_performance_evaluation and human_agent_performance_review_material.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX03",
+        "title": "A teammate filter is not permission for performance evaluation",
+        "public_decision": "A FILTER DOES NOT EXPAND THE APPROVED PURPOSE",
+        "actor": {
+          "statement": "A report author and selected teammate participants.",
+          "source_span_ids": [
+            "C17",
+            "C15"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Conversation data enters CX Score. Ratings and explanations are AI output and Customer Data.",
+          "source_span_ids": [
+            "C04",
+            "T05",
+            "T06",
+            "T07"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Filter conversations that contain a teammate reply. Do not infer individual causal attribution or permission for performance assessment.",
+          "source_span_ids": [
+            "C17",
+            "C15",
+            "C16"
+          ],
+          "nature": "manual_resolution_of_adjacent_documentation"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "Additional Product Terms prevail over conflicting Agreement terms within their scope. Actual signed amendments and applicable versions remain necessary.",
+          "source_span_ids": [
+            "T01",
+            "T02",
+            "S02",
+            "S03"
+          ],
+          "nature": "public_conflict_rule_and_applicability_unknown"
+        },
+        "condition": {
+          "statement": "The same article offers teammate filters and separately restricts CX Score performance use. Both statements remain in this annex.",
+          "source_span_ids": [
+            "C17",
+            "C16"
+          ],
+          "nature": "manual_scope_resolution"
+        },
+        "uncertainty_queue_ids": [
+          "U07"
+        ],
+        "product_owner_action": "Label teammate-filter views as conversation subsets. Exclude employment or individual-performance decisions from their destinations.",
+        "native_projection": "Not automated in the native replay.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX04",
+        "title": "Model and provider identity",
+        "public_decision": "DO NOT ASSERT A SINGLE KNOWN MODEL OR ROUTE",
+        "actor": {
+          "statement": "Intercom selects models. Third-party AI providers process inputs according to the relevant service route.",
+          "source_span_ids": [
+            "G01",
+            "M14",
+            "T04"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Conversation data enters CX Score. Ratings and explanations are AI output and Customer Data.",
+          "source_span_ids": [
+            "C04",
+            "T05",
+            "T06",
+            "T07"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Analyze conversations and generate CX ratings.",
+          "source_span_ids": [
+            "C04"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "Additional Product Terms prevail over conflicting Agreement terms within their scope. Actual signed amendments and applicable versions remain necessary.",
+          "source_span_ids": [
+            "T01",
+            "T02",
+            "S02",
+            "S03"
+          ],
+          "nature": "public_conflict_rule_and_applicability_unknown"
+        },
+        "condition": {
+          "statement": "The provider mix depends on product and workspace region. Customers cannot select Fin's models under the current help article.",
+          "source_span_ids": [
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement"
+        },
+        "uncertainty_queue_ids": [
+          "U04"
+        ],
+        "product_owner_action": "Record the workspace region and obtain the actual CX Score provider path before a route-specific assurance.",
+        "native_projection": "Not automated in the native replay.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX05",
+        "title": "Third-party model training",
+        "public_decision": "VENDOR CONTRACTUALLY RESTRICTS THIRD-PARTY PROVIDER TRAINING",
+        "actor": {
+          "statement": "Third Party AI Providers, distinct from Intercom's own model team.",
+          "source_span_ids": [
+            "T11",
+            "G03"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Customer Data, including Input and Output. The help guide describes third-party restrictions on both.",
+          "source_span_ids": [
+            "T07",
+            "T11",
+            "G02"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Third-party delivery of Output, legal compliance and provider policy enforcement. Provider training or service improvement is restricted.",
+          "source_span_ids": [
+            "T11"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Third-party AI provider models and services. This restriction does not describe Intercom's own Fin models.",
+          "source_span_ids": [
+            "T11",
+            "G03"
+          ],
+          "nature": "vendor_statement"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "Additional Product Terms prevail over conflicting Agreement terms within their scope. Actual signed amendments and applicable versions remain necessary.",
+          "source_span_ids": [
+            "T01",
+            "T02",
+            "S02",
+            "S03"
+          ],
+          "nature": "public_conflict_rule_and_applicability_unknown"
+        },
+        "condition": {
+          "statement": "Treat this as a published contractual assurance. This annex does not inspect provider behavior or the tenant's negotiated terms.",
+          "source_span_ids": [
+            "T11",
+            "T01"
+          ],
+          "nature": "evidence_boundary"
+        },
+        "uncertainty_queue_ids": [
+          "U01",
+          "U04"
+        ],
+        "product_owner_action": "Use a provider-specific no-training statement. Keep Intercom's own training position as a separate field.",
+        "native_projection": "The replay classifies third-party training as vendor_contractually_restricts_provider_training.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX06",
+        "title": "Intercom's own Fin models",
+        "public_decision": "OWN-MODEL TRAINING MAY APPLY, SUBJECT TO EXCLUSIONS AND THE APPLICABLE AGREEMENT",
+        "actor": {
+          "statement": "Intercom, distinct from Third Party AI Providers.",
+          "source_span_ids": [
+            "S01",
+            "G03"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "De-identified production Fin conversations, attributes and retrieved knowledge content. Human-agent-only conversations are excluded from this stated training population.",
+          "source_span_ids": [
+            "M01",
+            "M11"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Improve Fin through training and fine-tuning custom models.",
+          "source_span_ids": [
+            "S01",
+            "G03",
+            "M11"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "The help article describes open-weight fin-cx models trained and hosted within AWS. It does not identify each CX Score model version.",
+          "source_span_ids": [
+            "M13",
+            "C04"
+          ],
+          "nature": "vendor_statement"
+        },
+        "feature": {
+          "statement": "Fin CX model suite across AI Products. Do not equate this suite name with proof that a specific CX Score model was trained on a tenant's data.",
+          "source_span_ids": [
+            "M01",
+            "C04"
+          ],
+          "nature": "vendor_statement_and_scope_boundary"
+        },
+        "hierarchy": {
+          "statement": "Public ToS 3.2 includes Intercom AI model training. Actual MSSA language, version and exclusions may change the tenant result.",
+          "source_span_ids": [
+            "S01",
+            "S02",
+            "M06"
+          ],
+          "nature": "public_license_and_customer_applicability_unknown"
+        },
+        "condition": {
+          "statement": "Apply the training exclusions and opt-out status separately. A third-party no-training assurance cannot settle this field.",
+          "source_span_ids": [
+            "M02",
+            "M10",
+            "T11"
+          ],
+          "nature": "manual_scope_resolution"
+        },
+        "uncertainty_queue_ids": [
+          "U01",
+          "U03",
+          "U06"
+        ],
+        "product_owner_action": "Avoid an Intercom-wide no-training assurance. Determine the applicable contract cohort and documented exclusion status.",
+        "native_projection": "The replay leaves own-model training possible unless a documented exclusion predicate is true.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX07",
+        "title": "Automatic own-model training exclusions",
+        "public_decision": "DOCUMENTED EXCLUSION CAN SETTLE THE FUTURE TRAINING-DATA PATH",
+        "actor": {
+          "statement": "Customer with a BAA, EU/AU workspace, prior opt-out, specified older MSSA, or trial account.",
+          "source_span_ids": [
+            "M03",
+            "M04",
+            "M05",
+            "M06",
+            "M07"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "The Customer Data population that Intercom otherwise uses for own-model training.",
+          "source_span_ids": [
+            "M01",
+            "M11"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Exclude Customer Data from Intercom's model-training population.",
+          "source_span_ids": [
+            "M02"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom's own custom Fin models. This is distinct from third-party model restrictions.",
+          "source_span_ids": [
+            "M01",
+            "T11"
+          ],
+          "nature": "vendor_statement"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "The help article specifies customer categories. A real tenant's agreement and account evidence must establish category membership.",
+          "source_span_ids": [
+            "M02",
+            "M06"
+          ],
+          "nature": "vendor_policy_and_evidence_requirement"
+        },
+        "condition": {
+          "statement": "An eligible condition must be documented. Unknown region, trial or contract dates do not establish an exemption.",
+          "source_span_ids": [
+            "M03",
+            "M04",
+            "M05",
+            "M06",
+            "M07"
+          ],
+          "nature": "manual_evidence_rule"
+        },
+        "uncertainty_queue_ids": [
+          "U01",
+          "U03",
+          "U06"
+        ],
+        "product_owner_action": "Record the exact exclusion category and its account or contract proof. Do not infer a category from a company's headquarters.",
+        "native_projection": "Synthetic cases exercise EU, AU, BAA, trial, prior grant and pre-September-2025 MSSA exclusions.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX08",
+        "title": "Opt-out request versus granted exclusion",
+        "public_decision": "A REQUEST DOES NOT PROVE THE EXCLUSION IS ACTIVE",
+        "actor": {
+          "statement": "Customer workspace owner, Relationship Manager or Intercom legal team.",
+          "source_span_ids": [
+            "M08",
+            "M09"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Customer Data for creation of further training data after the opt-out is granted.",
+          "source_span_ids": [
+            "M10"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Request exclusion from AI model training and fine-tuning.",
+          "source_span_ids": [
+            "M08",
+            "M10"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom custom models. No promise to reverse previous training appears in the cited prospective-effect statement.",
+          "source_span_ids": [
+            "M10"
+          ],
+          "nature": "vendor_statement_and_explicit_limit"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "Additional Product Terms prevail over conflicting Agreement terms within their scope. Actual signed amendments and applicable versions remain necessary.",
+          "source_span_ids": [
+            "T01",
+            "T02",
+            "S02",
+            "S03"
+          ],
+          "nature": "public_conflict_rule_and_applicability_unknown"
+        },
+        "condition": {
+          "statement": "Intercom states that requests are processed within 30 days. The stated exclusion begins once granted and concerns further training data.",
+          "source_span_ids": [
+            "M10"
+          ],
+          "nature": "vendor_statement"
+        },
+        "uncertainty_queue_ids": [
+          "U06"
+        ],
+        "product_owner_action": "Use Settings > Workspace > Security > AI model training and fine-tuning. Preserve the grant confirmation before an exclusion assurance.",
+        "native_projection": "The replay distinguishes optout_pending from an active exclusion grant.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX09",
+        "title": "Input and purpose authorization",
+        "public_decision": "CUSTOMER AUTHORIZATION IS REQUIRED AND NOT PROVED BY THESE PUBLIC DOCUMENTS",
+        "actor": {
+          "statement": "The Customer is the entity with the applicable Intercom agreement. Intercom and its providers have distinct roles.",
+          "source_span_ids": [
+            "T01",
+            "D02",
+            "D03"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Input and Output are Customer Data. End-user messages and retrieved knowledge may include third-party rights or Personal Data.",
+          "source_span_ids": [
+            "T05",
+            "T06",
+            "T07",
+            "M11"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "The particular instructed AI use must fall within the purposes authorized by the applicable Agreement.",
+          "source_span_ids": [
+            "T07"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "Additional Product Terms prevail over conflicting Agreement terms within their scope. Actual signed amendments and applicable versions remain necessary.",
+          "source_span_ids": [
+            "T01",
+            "T02",
+            "S02",
+            "S03"
+          ],
+          "nature": "public_conflict_rule_and_applicability_unknown"
+        },
+        "condition": {
+          "statement": "Customer must have the rights, notices and authorizations required for the relevant data and processing.",
+          "source_span_ids": [
+            "T07",
+            "D05"
+          ],
+          "nature": "vendor_statement"
+        },
+        "uncertainty_queue_ids": [
+          "U01",
+          "U02",
+          "U03"
+        ],
+        "product_owner_action": "Obtain the complete agreement set and accepted feature facts for any customer-specific permission decision.",
+        "native_projection": "The local candidate gate fails when input_and_purpose_authorized is false or absent.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX10",
+        "title": "AI notices and output labeling",
+        "public_decision": "KEEP THE AI TRANSPARENCY CONDITIONS WITH THE FEATURE FACTS",
+        "actor": {
+          "statement": "Customer provides the relevant People-facing notices and output presentation.",
+          "source_span_ids": [
+            "T10",
+            "D05"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Conversation data enters CX Score. Ratings and explanations are AI output and Customer Data.",
+          "source_span_ids": [
+            "C04",
+            "T05",
+            "T06",
+            "T07"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Inform People of AI interaction, identify artificial output and avoid false human authorship.",
+          "source_span_ids": [
+            "T10"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "Additional Product Terms prevail over conflicting Agreement terms within their scope. Actual signed amendments and applicable versions remain necessary.",
+          "source_span_ids": [
+            "T01",
+            "T02",
+            "S02",
+            "S03"
+          ],
+          "nature": "public_conflict_rule_and_applicability_unknown"
+        },
+        "condition": {
+          "statement": "The applicable presentation and interaction facts must satisfy the transparency obligations. This annex does not inspect the actual UI.",
+          "source_span_ids": [
+            "T10"
+          ],
+          "nature": "vendor_rule_and_unobserved_implementation"
+        },
+        "uncertainty_queue_ids": [
+          "U05"
+        ],
+        "product_owner_action": "Inspect the real customer-facing interaction and score presentation before a deployment claim.",
+        "native_projection": "The local gate requires notice and output-label predicates. Their synthetic values are not observations of Intercom's UI.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX11",
+        "title": "Customer Personal Data and Account Data roles",
+        "public_decision": "KEEP DATA ROLES SEPARATE",
+        "actor": {
+          "statement": "For Customer Personal Data, Customer may be controller or processor and Intercom is processor. Intercom independently controls Account Data.",
+          "source_span_ids": [
+            "D02",
+            "D03"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Conversation Personal Data differs from account, billing, identity and abuse-prevention Account Data.",
+          "source_span_ids": [
+            "D02",
+            "D03"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Process Customer Personal Data under documented instructions. Distinct Account Data has its own listed purposes.",
+          "source_span_ids": [
+            "D02",
+            "D03"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "The public DPA applies within its stated personal-data scope. The tenant's actual DPA version is unresolved.",
+          "source_span_ids": [
+            "D01",
+            "D02"
+          ],
+          "nature": "public_document_scope_and_unknown"
+        },
+        "condition": {
+          "statement": "Classify each actual data flow. Do not assign a single universal controller role to Intercom.",
+          "source_span_ids": [
+            "D02",
+            "D03"
+          ],
+          "nature": "manual_classification_action"
+        },
+        "uncertainty_queue_ids": [
+          "U01",
+          "U02"
+        ],
+        "product_owner_action": "Add the role and data category to each flow in the tenant's source-to-feature table.",
+        "native_projection": "Not automated in the native replay.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX12",
+        "title": "Region and passed-through provider policies",
+        "public_decision": "RECORD REGION BEFORE A PROVIDER-SPECIFIC ASSURANCE",
+        "actor": {
+          "statement": "The Customer is the entity with the applicable Intercom agreement. Intercom and its providers have distinct roles.",
+          "source_span_ids": [
+            "T01",
+            "D02",
+            "D03"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Conversation data enters CX Score. Ratings and explanations are AI output and Customer Data.",
+          "source_span_ids": [
+            "C04",
+            "T05",
+            "T06",
+            "T07"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Regional service delivery and compliance with the applicable provider policies.",
+          "source_span_ids": [
+            "G01",
+            "T12"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "The model mixture depends on product and regional workspace. The general subprocessor list is not a tenant execution trace.",
+          "source_span_ids": [
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_trace_limit"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "AI terms pass through relevant provider terms by workspace class. Regional addendum precedence is limited to its subject matter.",
+          "source_span_ids": [
+            "T12",
+            "R01"
+          ],
+          "nature": "vendor_statement"
+        },
+        "condition": {
+          "statement": "The actual workspace region, current provider route and applicable addendum remain necessary inputs.",
+          "source_span_ids": [
+            "G01",
+            "R01"
+          ],
+          "nature": "manual_evidence_requirement"
+        },
+        "uncertainty_queue_ids": [
+          "U01",
+          "U04"
+        ],
+        "product_owner_action": "Capture the workspace region and governing provider policies for the actual feature. Do not use headquarters as a region proxy.",
+        "native_projection": "Not automated in the native replay.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX13",
+        "title": "Public DPA changed on the observation date",
+        "public_decision": "DO NOT SUBSTITUTE TODAY'S PUBLIC DPA FOR THE CUSTOMER'S APPLICABLE VERSION",
+        "actor": {
+          "statement": "The Customer is the entity with the applicable Intercom agreement. Intercom and its providers have distinct roles.",
+          "source_span_ids": [
+            "T01",
+            "D02",
+            "D03"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Conversation data enters CX Score. Ratings and explanations are AI output and Customer Data.",
+          "source_span_ids": [
+            "C04",
+            "T05",
+            "T06",
+            "T07"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Identify the governing agreement and data-processing instructions.",
+          "source_span_ids": [
+            "T01",
+            "D04"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "The captured public DPA states November 4, 2026. It contains a prior-DPA replacement statement, but no tenant acceptance record was acquired.",
+          "source_span_ids": [
+            "D01",
+            "D09"
+          ],
+          "nature": "public_document_fact_and_missing_join"
+        },
+        "condition": {
+          "statement": "Effective-date text proves the published version date. The tenant's applicability requires the real agreement and update record.",
+          "source_span_ids": [
+            "D01",
+            "S02",
+            "S03"
+          ],
+          "nature": "manual_applicability_boundary"
+        },
+        "uncertainty_queue_ids": [
+          "U01"
+        ],
+        "product_owner_action": "Retain the public version and separately obtain the applicable signed DPA, order, amendments and update history.",
+        "native_projection": "Not automated in the native replay.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX14",
+        "title": "Conflict hierarchy",
+        "public_decision": "USE SUBJECT-SPECIFIC CONFLICT RULES, NOT ONE INVENTED TOTAL ORDER",
+        "actor": {
+          "statement": "The Customer is the entity with the applicable Intercom agreement. Intercom and its providers have distinct roles.",
+          "source_span_ids": [
+            "T01",
+            "D02",
+            "D03"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Conversation data enters CX Score. Ratings and explanations are AI output and Customer Data.",
+          "source_span_ids": [
+            "C04",
+            "T05",
+            "T06",
+            "T07"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Resolve a real conflict among applicable documents.",
+          "source_span_ids": [
+            "T02",
+            "D08",
+            "R01",
+            "A01"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "DPA prevails over Agreement, with SCC priority for relevant conflicts. Additional terms prevail over Agreement within scope. RDH has subject-limited priority. AUP prevails over conflicting passed-through provider terms.",
+          "source_span_ids": [
+            "D08",
+            "T02",
+            "R01",
+            "A01"
+          ],
+          "nature": "vendor_statement"
+        },
+        "condition": {
+          "statement": "Signed amendments and actual applicability can change the result. Help guidance does not itself prove a signed amendment or universal document priority.",
+          "source_span_ids": [
+            "S03",
+            "T01"
+          ],
+          "nature": "manual_conflict_boundary"
+        },
+        "uncertainty_queue_ids": [
+          "U01",
+          "U07"
+        ],
+        "product_owner_action": "Record the precise conflict, relevant subject and actual signed document. Escalate an unresolved conflict to counsel.",
+        "native_projection": "Not automated in the native replay.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX15",
+        "title": "Conversation eligibility",
+        "public_decision": "USE THE PUBLISHED ELIGIBILITY AS A CHECKLIST, WITH THE EXPANSION NOTE RETAINED",
+        "actor": {
+          "statement": "Customer support users, Fin and teammate participants.",
+          "source_span_ids": [
+            "C06",
+            "C08",
+            "C09",
+            "C10"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Closed user-initiated chat or email conversations with conclusive information. The article lists minimum reply counts and a later low-context expansion note.",
+          "source_span_ids": [
+            "C06",
+            "C07",
+            "C08",
+            "C09",
+            "C10",
+            "C11"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Generate an eligible conversation's CX rating.",
+          "source_span_ids": [
+            "C01",
+            "C06"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "Additional Product Terms prevail over conflicting Agreement terms within their scope. Actual signed amendments and applicable versions remain necessary.",
+          "source_span_ids": [
+            "T01",
+            "T02",
+            "S02",
+            "S03"
+          ],
+          "nature": "public_conflict_rule_and_applicability_unknown"
+        },
+        "condition": {
+          "statement": "Fin and Pro must be active. Vendor eligibility and low-context expansion require actual score observations before a strict reply-count filter.",
+          "source_span_ids": [
+            "C02",
+            "C03",
+            "C09",
+            "C11"
+          ],
+          "nature": "vendor_rules_and_manual_ambiguity_boundary"
+        },
+        "uncertainty_queue_ids": [
+          "U03",
+          "U08"
+        ],
+        "product_owner_action": "Confirm Fin and Pro, then inspect actual ratings. Avoid a custom filter that silently discards newly eligible low-context conversations.",
+        "native_projection": "Not automated in the native replay.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX16",
+        "title": "Output accuracy and causal attribution",
+        "public_decision": "EVALUATE OUTPUT BEFORE RELIANCE",
+        "actor": {
+          "statement": "Customer and the human reviewer of the intended use.",
+          "source_span_ids": [
+            "T08",
+            "T09"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Conversation data enters CX Score. Ratings and explanations are AI output and Customer Data.",
+          "source_span_ids": [
+            "C04",
+            "T05",
+            "T06",
+            "T07"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Assess whether the AI rating and explanation are accurate and appropriate for the permitted task.",
+          "source_span_ids": [
+            "T09",
+            "C15"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "Additional Product Terms prevail over conflicting Agreement terms within their scope. Actual signed amendments and applicable versions remain necessary.",
+          "source_span_ids": [
+            "T01",
+            "T02",
+            "S02",
+            "S03"
+          ],
+          "nature": "public_conflict_rule_and_applicability_unknown"
+        },
+        "condition": {
+          "statement": "Customer must independently evaluate accuracy and appropriateness. A holistic conversation score does not establish an individual teammate's contribution.",
+          "source_span_ids": [
+            "T09",
+            "C15"
+          ],
+          "nature": "vendor_statement"
+        },
+        "uncertainty_queue_ids": [
+          "U05",
+          "U07"
+        ],
+        "product_owner_action": "Review representative score explanations against the actual conversation for the chosen customer-experience task.",
+        "native_projection": "Not automated in the native replay.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX17",
+        "title": "Data Connector operation",
+        "public_decision": "A DOCUMENTED ROUTE EXISTS, BUT THE RECIPIENT OPERATION REMAINS UNBUILT",
+        "actor": {
+          "statement": "Customer configures its Connector, authentication and identity controls. Connected Services remain separately controlled.",
+          "source_span_ids": [
+            "T15"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "CX Score reasons and Customer Data may reach a selected customer or third-party system.",
+          "source_span_ids": [
+            "C12",
+            "C14",
+            "T16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Route high-customer-effort conversations or apply tags through an API and Data Connector.",
+          "source_span_ids": [
+            "C14"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "The AI terms and Data Connector terms both apply. Destination-specific agreements and instructions remain outside this public record.",
+          "source_span_ids": [
+            "T07",
+            "T15",
+            "T16"
+          ],
+          "nature": "combined_public_scope_and_missing_destination_terms"
+        },
+        "condition": {
+          "statement": "Automated routing needs custom development, supported authentication, correct identity and a reviewed destination.",
+          "source_span_ids": [
+            "C14",
+            "T15"
+          ],
+          "nature": "vendor_statement"
+        },
+        "uncertainty_queue_ids": [
+          "U02",
+          "U04",
+          "U09"
+        ],
+        "product_owner_action": "Build a local fixture for an approved destination. The account owner must verify the actual recipient operation before a deployed claim.",
+        "native_projection": "Not automated in the native replay.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX18",
+        "title": "API group and feature identity",
+        "public_decision": "KEEP PUBLIC API LIMITS WITH ANY EXPORTED REPORT",
+        "actor": {
+          "statement": "A report or integration author.",
+          "source_span_ids": [
+            "C12",
+            "C13"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "CX rating, reasons and explanation are public conversation attributes. The internal participant grouping field is unavailable in the public API.",
+          "source_span_ids": [
+            "C12",
+            "C13"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Export or route the correct conversation subset without false participant attribution.",
+          "source_span_ids": [
+            "C13",
+            "C15"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "Additional Product Terms prevail over conflicting Agreement terms within their scope. Actual signed amendments and applicable versions remain necessary.",
+          "source_span_ids": [
+            "T01",
+            "T02",
+            "S02",
+            "S03"
+          ],
+          "nature": "public_conflict_rule_and_applicability_unknown"
+        },
+        "condition": {
+          "statement": "The help article offers a Fin-only approximation via resolution state. An approximation is not the exact internal grouping.",
+          "source_span_ids": [
+            "C13"
+          ],
+          "nature": "vendor_statement"
+        },
+        "uncertainty_queue_ids": [
+          "U08",
+          "U09"
+        ],
+        "product_owner_action": "Mark an approximate Fin-only API cohort explicitly. Test it against actual message senders where the task needs exact membership.",
+        "native_projection": "Not automated in the native replay.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX19",
+        "title": "Custom Scorecards are a different feature",
+        "public_decision": "DO NOT BORROW A HUMAN-REVIEW EXCEPTION INTO CX SCORE",
+        "actor": {
+          "statement": "Customer, human agents, and the owner of the separate scorecard feature.",
+          "source_span_ids": [
+            "G05",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Conversation data enters CX Score. Ratings and explanations are AI output and Customer Data.",
+          "source_span_ids": [
+            "C04",
+            "T05",
+            "T06",
+            "T07"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "The legal guide gives a particular statement for Monitors and Custom Scorecards. CX Score has a separate stronger feature FAQ restriction.",
+          "source_span_ids": [
+            "G05",
+            "C16"
+          ],
+          "nature": "manual_feature_scope_resolution"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score differs from Teammate QA, Monitors and Custom Scorecards.",
+          "source_span_ids": [
+            "G05",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "General AI human-support evaluation terms classify relevant data and responsibility. They do not confer permission for every feature.",
+          "source_span_ids": [
+            "T14",
+            "C16"
+          ],
+          "nature": "manual_scope_resolution"
+        },
+        "condition": {
+          "statement": "A human review step does not by itself remove the CX Score-specific restriction in the cited FAQ.",
+          "source_span_ids": [
+            "G05",
+            "C16"
+          ],
+          "nature": "manual_scope_resolution"
+        },
+        "uncertainty_queue_ids": [
+          "U07"
+        ],
+        "product_owner_action": "Keep separate feature rows. Obtain product-specific clarification before any revised human-performance use.",
+        "native_projection": "Not automated in the native replay.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX20",
+        "title": "De-identification is not a blanket legal exemption",
+        "public_decision": "PRESERVE THE VENDOR'S CONTINUING GDPR TREATMENT",
+        "actor": {
+          "statement": "Intercom as the stated processor of anonymized training data, with the Customer's actual role separately determined.",
+          "source_span_ids": [
+            "M12",
+            "D02"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "Intercom removes direct and indirect natural-person identifiers and customer references before training. It still treats that training data as subject to GDPR.",
+          "source_span_ids": [
+            "M12"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Intercom own-model training and fine-tuning.",
+          "source_span_ids": [
+            "M11",
+            "M12"
+          ],
+          "nature": "vendor_statement"
+        },
+        "model": {
+          "statement": "Custom Fin models rather than unrestricted third-party training.",
+          "source_span_ids": [
+            "M13",
+            "T11"
+          ],
+          "nature": "vendor_statement"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "Additional Product Terms prevail over conflicting Agreement terms within their scope. Actual signed amendments and applicable versions remain necessary.",
+          "source_span_ids": [
+            "T01",
+            "T02",
+            "S02",
+            "S03"
+          ],
+          "nature": "public_conflict_rule_and_applicability_unknown"
+        },
+        "condition": {
+          "statement": "The anonymized label alone does not prove that GDPR or contractual processing obligations disappear.",
+          "source_span_ids": [
+            "M12"
+          ],
+          "nature": "vendor_statement_and_manual_boundary"
+        },
+        "uncertainty_queue_ids": [
+          "U01",
+          "U02",
+          "U06"
+        ],
+        "product_owner_action": "Preserve the processor and purpose limits in the training row. Do not replace them with an unrestricted anonymous-data conclusion.",
+        "native_projection": "Not automated in the native replay.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      },
+      {
+        "id": "CX21",
+        "title": "Retention scope",
+        "public_decision": "THIRD-PARTY ZERO RETENTION DOES NOT PROVE INTERCOM ZERO RETENTION",
+        "actor": {
+          "statement": "Third Party AI Providers and Intercom have distinct processing positions.",
+          "source_span_ids": [
+            "G02",
+            "G03"
+          ],
+          "nature": "vendor_statement"
+        },
+        "data": {
+          "statement": "The third-party guide describes temporary Input and Output use and no persistent provider storage.",
+          "source_span_ids": [
+            "G02"
+          ],
+          "nature": "vendor_statement"
+        },
+        "purpose": {
+          "statement": "Provider delivery differs from Intercom's service, conversation storage and own-model data use.",
+          "source_span_ids": [
+            "G02",
+            "M11"
+          ],
+          "nature": "manual_scope_resolution"
+        },
+        "model": {
+          "statement": "Intercom proprietary technology and third-party LLMs. The exact CX Score model, version and selected route remain unknown.",
+          "source_span_ids": [
+            "C04",
+            "G01",
+            "M14"
+          ],
+          "nature": "vendor_statement_and_explicit_unknown"
+        },
+        "feature": {
+          "statement": "CX Score for customer experience across Fin and human conversations. This is not all AI Products.",
+          "source_span_ids": [
+            "C01",
+            "C16"
+          ],
+          "nature": "vendor_statement"
+        },
+        "hierarchy": {
+          "statement": "Additional Product Terms prevail over conflicting Agreement terms within their scope. Actual signed amendments and applicable versions remain necessary.",
+          "source_span_ids": [
+            "T01",
+            "T02",
+            "S02",
+            "S03"
+          ],
+          "nature": "public_conflict_rule_and_applicability_unknown"
+        },
+        "condition": {
+          "statement": "No tenant-specific retention setting, deletion completion or universal Intercom zero-retention assurance was acquired.",
+          "source_span_ids": [
+            "G02",
+            "M10"
+          ],
+          "nature": "explicit_unobserved_state"
+        },
+        "uncertainty_queue_ids": [
+          "U01",
+          "U06",
+          "U10"
+        ],
+        "product_owner_action": "State the provider retention assurance precisely. Obtain Intercom retention and deletion evidence for the actual data path.",
+        "native_projection": "Not automated in the native replay.",
+        "customer_specific_clearance": false,
+        "interpretation_method": "Manual source review"
+      }
+    ],
+    "uncertainty_queue": [
+      {
+        "id": "U01",
+        "issue": "Applicable agreement set and version",
+        "needed_evidence": "Signed MSSA or applicable ToS, orders, DPA, amendments, regional addendum and update or acceptance record.",
+        "decision_effect": "The public DPA now states November 4, 2026. Publication is not the tenant's acceptance join.",
+        "source_span_ids": [
+          "T01",
+          "S02",
+          "S03",
+          "D01",
+          "D09"
+        ],
+        "state": "UNRESOLVED FOR A REAL CUSTOMER",
+        "owner": "Existing customer/account owner and appropriate reviewer"
+      },
+      {
+        "id": "U02",
+        "issue": "Customer data rights and instructions",
+        "needed_evidence": "A precise data inventory, third-party content rights and documented authorized purposes.",
+        "decision_effect": "Public vendor terms impose customer responsibilities but cannot attest to the customer's rights.",
+        "source_span_ids": [
+          "T07",
+          "D05",
+          "M11"
+        ],
+        "state": "UNRESOLVED FOR A REAL CUSTOMER",
+        "owner": "Existing customer/account owner and appropriate reviewer"
+      },
+      {
+        "id": "U03",
+        "issue": "Workspace and feature facts",
+        "needed_evidence": "Workspace region, Fin deployment, Pro entitlement, trial status, BAA and contract cohort.",
+        "decision_effect": "A company address or general product page cannot prove a tenant setting.",
+        "source_span_ids": [
+          "C02",
+          "C03",
+          "M03",
+          "M04",
+          "M06",
+          "M07"
+        ],
+        "state": "UNRESOLVED FOR A REAL CUSTOMER",
+        "owner": "Existing customer/account owner and appropriate reviewer"
+      },
+      {
+        "id": "U04",
+        "issue": "Actual provider, model and destination path",
+        "needed_evidence": "The CX Score route, model version, region, passed-through provider policies and downstream systems.",
+        "decision_effect": "Public provider lists and product-level descriptions do not identify one execution's actual route.",
+        "source_span_ids": [
+          "C04",
+          "G01",
+          "T12",
+          "T15"
+        ],
+        "state": "UNRESOLVED FOR A REAL CUSTOMER",
+        "owner": "Existing customer/account owner and appropriate reviewer"
+      },
+      {
+        "id": "U05",
+        "issue": "Actual notices, output use and accuracy",
+        "needed_evidence": "The recipient UI, AI notices, downstream consumers and representative score-to-conversation review.",
+        "decision_effect": "No actual customer screen, report or receiving operation was inspected.",
+        "source_span_ids": [
+          "T09",
+          "T10",
+          "C15"
+        ],
+        "state": "UNRESOLVED FOR A REAL CUSTOMER",
+        "owner": "Existing customer/account owner and appropriate reviewer"
+      },
+      {
+        "id": "U06",
+        "issue": "Own-model exclusion or grant",
+        "needed_evidence": "The documented exclusion category, opt-out request timestamp, grant confirmation and any prior-training treatment.",
+        "decision_effect": "A pending request can take 30 days. The published prospective statement does not prove deletion or model unlearning.",
+        "source_span_ids": [
+          "M02",
+          "M08",
+          "M10",
+          "M12"
+        ],
+        "state": "UNRESOLVED FOR A REAL CUSTOMER",
+        "owner": "Existing customer/account owner and appropriate reviewer"
+      },
+      {
+        "id": "U07",
+        "issue": "Purpose and feature conflict",
+        "needed_evidence": "Exact proposed human-performance use and product-specific written clarification if the intended use crosses the CX restriction.",
+        "decision_effect": "Teammate filters and a different scorecard feature do not establish permission for CX Score performance evaluation.",
+        "source_span_ids": [
+          "C15",
+          "C16",
+          "C17",
+          "G05",
+          "T14"
+        ],
+        "state": "UNRESOLVED FOR A REAL CUSTOMER",
+        "owner": "Existing customer/account owner and appropriate reviewer"
+      },
+      {
+        "id": "U08",
+        "issue": "Eligibility and API cohort accuracy",
+        "needed_evidence": "Actual scored conversations, low-context eligibility and observed participant membership.",
+        "decision_effect": "The criteria expansion and API approximation need a receiving-state check.",
+        "source_span_ids": [
+          "C09",
+          "C11",
+          "C13"
+        ],
+        "state": "UNRESOLVED FOR A REAL CUSTOMER",
+        "owner": "Existing customer/account owner and appropriate reviewer"
+      },
+      {
+        "id": "U09",
+        "issue": "Receiving operation",
+        "needed_evidence": "Account-owner access, supported API scope, destination authorization and an actual readback of the intended tag or route.",
+        "decision_effect": "This annex executes native synthetic policy decisions. It has no deployed Intercom integration.",
+        "source_span_ids": [
+          "C14",
+          "T15",
+          "T16"
+        ],
+        "state": "UNRESOLVED FOR A REAL CUSTOMER",
+        "owner": "Existing customer/account owner and appropriate reviewer"
+      },
+      {
+        "id": "U10",
+        "issue": "Intercom retention and deletion",
+        "needed_evidence": "Applicable storage and deletion terms, tenant settings and actual deletion evidence for the chosen data flow.",
+        "decision_effect": "Third-party zero retention and future-training exclusion do not prove this wider state.",
+        "source_span_ids": [
+          "G02",
+          "M10",
+          "M11"
+        ],
+        "state": "UNRESOLVED FOR A REAL CUSTOMER",
+        "owner": "Existing customer/account owner and appropriate reviewer"
+      }
+    ]
+  },
+  "boundaries": [
+    "These are public vendor statements and independent interpretations. Applicable signed terms and actual customer facts remain necessary.",
+    "The original November 4 source clocks remain exact. A November 8 proposition match does not prove unchanged whole documents or customer notice.",
+    "The seven Index field names remain compatible. No current Index record is amended.",
+    "Only the draft format and our code have the MIT license. Vendor source material retains its own rights.",
+    "The public file supplies an independent example. No vendor authorship, adoption, customer applicability or customer notice follows."
+  ]
+}

@@ -13,8 +13,8 @@
     },
     {
       "path": ".github/workflows/checks.yml",
-      "bytes": 1062,
-      "sha256": "97290befec052e5cc677909275bfb357756ef9e278f207f9a1a7f3221bfe96ee"
+      "bytes": 1239,
+      "sha256": "5255818138d1e23c1955ad528912adf79708318bc7fc557009ab201e48f8235f"
     },
     {
       "path": ".gitignore",
@@ -33,8 +33,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 16255,
-      "sha256": "20e9124a1e9612eeb38703571ea48def55d037db8b0ee2f9ec26f420272fa87e"
+      "bytes": 16555,
+      "sha256": "4a9ddc2046793f0978a65131f65a7a5c5cafa420ddb998437cd299016f33eefe"
     },
     {
       "path": "RESULTS.md",
@@ -45,6 +45,41 @@
       "path": "acquire_sample.py",
       "bytes": 3455,
       "sha256": "1717666b05ceb9f5d2d336cd7004883cfca40177d4e75ef73cf2a1f13a72bec1"
+    },
+    {
+      "path": "ai-terms/README.md",
+      "bytes": 3452,
+      "sha256": "4664f36e269bdea95a3be0c5debaf42cf0c6789afccb2d8e801c7d1938ac3761"
+    },
+    {
+      "path": "ai-terms/ai-terms.schema.json",
+      "bytes": 8702,
+      "sha256": "6b2d6bf60469091cddfbba59aebdc30053c8e3ab77219aad2c3c54b66a04ee8e"
+    },
+    {
+      "path": "ai-terms/check.py",
+      "bytes": 12498,
+      "sha256": "1871f34bf6083077be025dadfb8cb1812d668fde11aa38502e93b0a798ab2db2"
+    },
+    {
+      "path": "ai-terms/examples/REVIEWED-ANCHOR.json",
+      "bytes": 586,
+      "sha256": "e6831e5b20c20dba67d11c57150a4b2238a8a1113c7c3e84dd11e39434250e1d"
+    },
+    {
+      "path": "ai-terms/examples/intercom.ai-terms.json",
+      "bytes": 68697,
+      "sha256": "9d0e1840569a6862de5494b619f0ce5e25be503dc4a5c9c217f1458bad62d08b"
+    },
+    {
+      "path": "ai-terms/examples/intercom.sources.json",
+      "bytes": 93653,
+      "sha256": "e9acc193750ce96bd077f087883566a5cdc98ca4a00cd4beab4ed07e9a28f0ec"
+    },
+    {
+      "path": "ai-terms/test_check.py",
+      "bytes": 9411,
+      "sha256": "a87158a6bc53d73090ca5b42ff9e2c4ea8e0a60e577775620f29c53933c1fd86"
     },
     {
       "path": "docs/contract-imports.md",
@@ -179,7 +214,7 @@
     {
       "path": "evidence/package-custody.json",
       "bytes": 24486,
-      "sha256": "5e8832aa92dccac554a5ced874da759b8e734394843e780457a7bef2426ce2ba"
+      "sha256": "ff74cab550ac05eecabb22608b7a2522a3ea4c3eb00f84dc82920e235e205484"
     },
     {
       "path": "evidence/pdf-form-acquisition.json",

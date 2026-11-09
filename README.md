@@ -108,6 +108,10 @@ It preserves your originals, record metadata and explicit missing-file state.
 For Common Paper or Bonterms paper, use the [standard contract packs](standard-packs/README.md).
 The packs preserve version-specific choices and prepare separate references for your actual contract review.
 
+For a reusable public-source review file, use the [AI-terms format and offline reader](ai-terms/README.md).
+The Intercom example joins seven Index fields to detailed decisions, source spans and unresolved questions.
+You can edit a copy for another vendor without a model call or account connection.
+
 Create one folder per customer.
 Include the complete MSA, DPA, orders, AI riders, amendments and incorporated documents that apply to the named feature.
 The model resolves express amendments, incorporated terms and scoped precedence from their text.
