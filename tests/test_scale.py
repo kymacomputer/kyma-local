@@ -8,6 +8,7 @@ import tempfile
 import threading
 import unittest
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import contextmanager, ExitStack
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
@@ -48,6 +49,130 @@ class Scale(unittest.TestCase):
         (cache / name).write_text(json.dumps({"s": f"{light.VERSION}:1:1", "p": str(source),
                                             "b": source.name, "a": calls, "y": people or {}}))
 
+    @contextmanager
+    def discovered_history(self):
+        root = Path(self.tmp.name)
+        with ExitStack() as stack:
+            for name, value in (("CLAUDE_ROOT", str(root / ".claude/projects")),
+                                ("CODEX_ROOT", str(root / ".codex/sessions")),
+                                ("CODEX_ARCHIVE", str(root / ".codex/archived_sessions"))):
+                stack.enter_context(patch.object(sources, name, value))
+            stack.enter_context(patch.object(light, "CACHE", str(root / "hours")))
+            stack.enter_context(patch.object(light, "_pool", lambda: ThreadPoolExecutor(max_workers=1)))
+            yield root
+
+    def test_alias_owner_survives_append_after_alias_disappears(self):
+        with self.discovered_history() as root:
+            canonical = root / ".claude/projects/p/z-canonical.jsonl"
+            alias = canonical.with_name("a-alias.jsonl")
+            canonical.parent.mkdir(parents=True)
+            canonical.write_text(json.dumps(call("echo original")) + "\n")
+            counts = [sum(light.gather()["a"].values())]
+            os.link(canonical, alias)
+            counts.append(sum(light.gather()["a"].values()))
+            alias.unlink()
+            with canonical.open("a") as fh:
+                fh.write(json.dumps(call("echo appended")) + "\n")
+            counts.append(sum(light.gather()["a"].values()))
+            canonical.unlink()
+            counts.append(sum(light.gather()["a"].values()))
+            self.assertEqual(counts, [1, 1, 2, 2])
+
+    def test_stale_retained_path_cannot_join_new_hard_link(self):
+        with self.discovered_history() as root:
+            prior = root / ".claude/projects/p/z-prior.jsonl"
+            current = prior.with_name("a-current.jsonl")
+            prior.parent.mkdir(parents=True)
+            prior.write_text(json.dumps(call("echo prior session")) + "\n")
+            counts = [sum(light.gather()["a"].values())]
+            prior.unlink()
+            current.write_text(json.dumps(call("echo distinct new session")) + "\n")
+            os.link(current, prior)
+            counts.append(sum(light.gather()["a"].values()))
+            current.unlink()
+            prior.unlink()
+            counts.append(sum(light.gather()["a"].values()))
+            self.assertEqual(counts, [1, 2, 2])
+
+    def test_same_size_same_second_replacement_is_a_distinct_history(self):
+        with self.discovered_history() as root:
+            prior = root / ".claude/projects/p/z-prior.jsonl"
+            current = prior.with_name("a-current.jsonl")
+            prior.parent.mkdir(parents=True)
+            prior.write_text(json.dumps(call("echo first")) + "\n")
+            self.assertEqual(sum(light.gather()["a"].values()), 1)
+            before = prior.stat()
+            prior.unlink()
+            current.write_text(json.dumps(call("echo other")) + "\n")
+            stamp = (before.st_mtime_ns // 1_000_000_000) * 1_000_000_000 + 1
+            if stamp == before.st_mtime_ns:
+                stamp += 1
+            os.utime(current, ns=(stamp, stamp))
+            self.assertEqual(current.stat().st_size, before.st_size)
+            self.assertEqual(int(current.stat().st_mtime), int(before.st_mtime))
+            os.link(current, prior)
+            self.assertEqual(sum(light.gather()["a"].values()), 2)
+            current.unlink()
+            prior.unlink()
+            self.assertEqual(sum(light.gather()["a"].values()), 2)
+
+    def test_legacy_equal_stamp_replacement_never_establishes_new_inode_union(self):
+        with self.discovered_history() as root:
+            prior = root / ".claude/projects/p/z-prior.jsonl"
+            current = prior.with_name("a-current.jsonl")
+            prior.parent.mkdir(parents=True)
+            prior.write_text(json.dumps(call("echo old")) + "\n")
+            before = prior.stat()
+            self.assertEqual(sum(light.gather()["a"].values()), 1)
+            for cp in (root / "hours").glob("*.json"):
+                d = json.loads(cp.read_text())
+                for field in ("i", "f", "h", "bytes", "r"):
+                    d.pop(field, None)
+                cp.write_text(json.dumps(d))
+            prior.unlink()
+            current.write_text(json.dumps(call("echo new")) + "\n")
+            os.utime(current, ns=(before.st_atime_ns, before.st_mtime_ns))
+            self.assertEqual(current.stat().st_size, before.st_size)
+            os.link(current, prior)
+            self.assertEqual(sum(light.gather()["a"].values()), 2)
+            current.unlink()
+            prior.unlink()
+            self.assertEqual(sum(light.gather()["a"].values()), 2)
+
+    def test_native_archive_retains_identity_after_hard_link_owner_change(self):
+        with self.discovered_history() as root:
+            canonical = root / ".codex/sessions/rollout-z.jsonl"
+            alias = canonical.with_name("rollout-a.jsonl")
+            archive = root / ".codex/archived_sessions" / canonical.name
+            canonical.parent.mkdir(parents=True)
+            archive.parent.mkdir(parents=True)
+            canonical.write_text(json.dumps({"type": "response_item", "timestamp": TS, "payload": {
+                "type": "function_call", "name": "exec_command", "arguments": "{}"}}) + "\n")
+            counts = [sum(light.gather()["a"].values())]
+            os.link(canonical, alias)
+            counts.append(sum(light.gather()["a"].values()))
+            alias.unlink()
+            canonical.rename(archive)
+            counts.append(sum(light.gather()["a"].values()))
+            archive.unlink()
+            counts.append(sum(light.gather()["a"].values()))
+            self.assertEqual(counts, [1, 1, 1, 1])
+
+    def test_generic_path_replacement_does_not_inherit_alias_ownership(self):
+        with self.discovered_history() as root:
+            canonical = root / ".claude/projects/p/z-canonical.jsonl"
+            alias = canonical.with_name("a-alias.jsonl")
+            canonical.parent.mkdir(parents=True)
+            canonical.write_text(json.dumps(call("echo original")) + "\n")
+            self.assertEqual(sum(light.gather()["a"].values()), 1)
+            os.link(canonical, alias)
+            self.assertEqual(sum(light.gather()["a"].values()), 1)
+            alias.unlink()
+            canonical.write_text(json.dumps(call("echo replaced transcript")) + "\n")
+            self.assertEqual(sum(light.gather()["a"].values()), 2)
+            canonical.unlink()
+            self.assertEqual(sum(light.gather()["a"].values()), 2)
+
     def test_alias_owned_hours_stay_once_after_canonical_source_deletion(self):
         root = Path(self.tmp.name)
         cache = root / "hours"
@@ -65,7 +190,8 @@ class Scale(unittest.TestCase):
             # The released predecessor stored no durable identity.
             for cp in cache.glob("*.json"):
                 d = json.loads(cp.read_text())
-                d.pop("k", None)
+                for field in ("k", "i", "f", "h", "bytes", "r"):
+                    d.pop(field, None)
                 cp.write_text(json.dumps(d))
             work[:] = [(str(real), "codex")]
             self.assertEqual(sum(light.gather()["a"].values()), 1)

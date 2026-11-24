@@ -132,16 +132,24 @@ def _human_text(content) -> str:
     return "" if not t or t.startswith(_MACHINE) else t
 
 
-def _scan(path: str, agent: str) -> dict:
+def _scan(path: str, agent: str, prior: dict | None = None) -> dict:
     agents, you = Counter(), Counter()
     scripted = False
     last = None                      # older Codex logs stamp the session once, not every item
+    digest, prefix, size = hashlib.sha256(), hashlib.sha256(), 0
+    prior = prior or {}
+    prior_size = prior.get("bytes", 0)
+    prior_size = prior_size if type(prior_size) is int and prior_size >= 0 else 0
     try:
         lines = sources._zstd_lines(path) if path.endswith(".zst") else sources._log_lines(path)
     except Exception:
         return None                    # could not read is not the same as empty: never cache it
     try:
         for raw in lines:
+            digest.update(raw)
+            if size < prior_size:
+                prefix.update(raw[:prior_size - size])
+            size += len(raw)
             if not scripted and _SCRIPTED.search(raw[:4000]):
                 scripted = True
             if agent == "claude":
@@ -205,13 +213,14 @@ def _scan(path: str, agent: str) -> dict:
             lines.close()
         except Exception:
             pass
-    return {"a": dict(agents), "y": {} if scripted else dict(you)}
+    return {"a": dict(agents), "y": {} if scripted else dict(you), "h": digest.hexdigest(), "bytes": size,
+            "_continues": bool(prior.get("h")) and size >= prior_size and prefix.hexdigest() == prior["h"]}
 
 
 _SESSION_ID = r"[a-fA-F0-9]{8}(?:-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}"
 
 
-def _history_identity(d: dict) -> str:
+def _history_identity(d: dict, intrinsic: bool = False) -> str:
     """One transcript across aliases, native moves and compression.
 
     Codex preserves its rollout basename when it archives or compresses a log.
@@ -220,20 +229,21 @@ def _history_identity(d: dict) -> str:
     so unrelated projects with a file named session.jsonl do not collapse.
     Persist this digest while an alias still resolves, before its deletion.
     """
-    key = d.get("k")
+    key = d.get("i" if intrinsic else "k")
     if isinstance(key, str) and re.fullmatch(r"[a-f0-9]{64}", key):
         return key
-    path = os.path.realpath(str(d.get("p", "")))
+    path = d.get("r") or os.path.abspath(str(d.get("p", "")))
     name = os.path.basename(path)
-    key = "path:" + path
+    key = "path:" + path + (":" + d["h"] if d.get("h") else "")
     plain = name[:-4] if name.endswith(".zst") else name
     if sources._is_rollout(plain):
         for marker in (os.sep + "sessions" + os.sep, os.sep + "archived_sessions" + os.sep):
             if marker in path:
-                key = "codex:" + path.rsplit(marker, 1)[0] + ":" + plain
+                key = "codex:" + os.path.realpath(path.rsplit(marker, 1)[0]) + ":" + plain
                 break
     elif os.sep + "projects" + os.sep in path:
         store, relative = path.rsplit(os.sep + "projects" + os.sep, 1)
+        store = os.path.realpath(store)
         if re.fullmatch(_SESSION_ID + r"\.jsonl", name):
             key = "claude:" + store + ":" + name
         else:
@@ -243,32 +253,66 @@ def _history_identity(d: dict) -> str:
     return hashlib.sha256(key.encode("utf-8", "surrogatepass")).hexdigest()
 
 
+def _hour_stamp(st) -> str:
+    return f"{VERSION}:{int(st.st_mtime)}:{st.st_size}"
+
+
+def _hour_file(st) -> list:
+    return [st.st_dev, st.st_ino, st.st_mtime_ns, st.st_size]
+
+
+def _hour_current(d: dict, st) -> bool:
+    # Older hour snapshots have only second-resolution mtime and size.
+    # New snapshots also require exact file identity and nanosecond mtime.
+    return d.get("s") == _hour_stamp(st) and ("f" not in d or d["f"] == _hour_file(st))
+
+
 def _digest(item) -> dict:
     path, agent = item
     try:
         st = os.stat(path)
     except OSError:
         return {"a": {}, "y": {}}
-    stamp = f"{VERSION}:{int(st.st_mtime)}:{st.st_size}"
+    stamp = _hour_stamp(st)
     cp = os.path.join(CACHE, hashlib.sha1(path.encode("utf-8", "replace")).hexdigest() + ".json")
+    c = {}
     try:
         with open(cp) as fh:
             c = json.load(fh)
-        if c.get("s") == stamp:
+        if _hour_current(c, st) and c.get("h") and c.get("f") and c.get("i"):
             if not c.get("k"):
                 c["k"] = _history_identity(c)
                 state_write(cp, json.dumps(c, separators=(",", ":")))
             return c
     except (OSError, ValueError):
         pass
-    d = _scan(path, agent)
+    d = _scan(path, agent, c)
     if d is None:
         return {"a": {}, "y": {}}
     d["s"] = stamp
     d["p"] = path
     d["b"] = os.path.basename(path)
-    d["k"] = _history_identity(d)
+    d["r"] = os.path.realpath(path)
+    d["f"] = _hour_file(st)
+    continued = d.pop("_continues", False)
+    same_file = c.get("f", [])[:2] == d["f"][:2]
+    # A prior alias owner survives append only when the observed old bytes are
+    # still the prefix of this same file. Unchanged legacy stamps retain their
+    # existing identity at the old mtime/size precision, without content proof.
+    prior_current = bool(c) and _hour_current(c, st)
+    if prior_current or (same_file and continued):
+        d["i"] = _history_identity(c, intrinsic=True)
+        d["k"] = _history_identity(c)
+    else:
+        d["i"] = _history_identity(d, intrinsic=True)
+        d["k"] = d["i"]
     try:
+        if c.get("p") and _history_identity(c) != d["k"]:
+            # Preserve a replaced generic transcript separately. Its pathname
+            # now belongs to the new file, but its old hours still belong here.
+            old = dict(c, k=_history_identity(c), i=_history_identity(c, intrinsic=True))
+            old_cp = os.path.join(CACHE, "past-" + os.path.basename(cp)[:-5] + "-" + old["k"] + ".json")
+            state_write(old_cp, json.dumps(old, separators=(",", ":")))
         state_write(cp, json.dumps(d, separators=(",", ":")))
     except OSError:
         pass
@@ -312,7 +356,7 @@ def gather(progress=None) -> dict:
     with _pool() as pool:
         for d in (pool.map(_digest, work, chunksize=4) if work else ()):
             if d.get("p"):
-                rows.append((d, True))
+                rows.append((d, True, None))
                 a.update(d.get("a", {}))
                 y.update(d.get("y", {}))
             done += 1
@@ -344,11 +388,14 @@ def gather(progress=None) -> dict:
         except (OSError, ValueError):
             continue
         if str(d.get("s", "")).startswith(f"{VERSION}:") and d.get("p"):
-            rows.append((d, False))
-    # A live inode proves that different names are the same file, including
-    # hard links. Resolve all such evidence before counting any old snapshots.
-    # Persist the resulting source key, never the inode: a deleted inode can
-    # later belong to an unrelated log and must not join its retained history.
+            rows.append((d, False, os.path.join(CACHE, name)))
+    # A current snapshot can prove that different names are the same file.
+    # A retained path may now refer to unrelated content, so its exact prior
+    # file stamp must match before its inode can establish a new alias relation.
+    # Legacy snapshots without that evidence remain separate unless their
+    # native transcript identities already establish the relation.
+    # Persist the source key. An inode is only freshness evidence, never a
+    # durable transcript identity: the filesystem can reuse it after deletion.
     owners, parents = {}, {}
 
     def owner(key):
@@ -358,23 +405,29 @@ def gather(progress=None) -> dict:
             key = parents[key]
         return key
 
-    for d, _ in rows:
+    for d, _, _ in rows:
+        # Native identity survives an alias-owner change: an archive under the
+        # original rollout name can still join the previously established set.
+        original = owner(_history_identity(d, intrinsic=True))
+        parents[original] = owner(_history_identity(d))
+    for d, _, _ in rows:
         key = owner(_history_identity(d))
         try:
             st = os.stat(d["p"])
-            if st.st_ino and stat.S_ISREG(st.st_mode):
+            if d.get("f") and _hour_current(d, st) and st.st_ino and stat.S_ISREG(st.st_mode):
                 inode = (st.st_dev, st.st_ino)
                 parents[key] = owner(owners.setdefault(inode, key))
         except OSError:
             pass
     a.clear()
     y.clear()
-    for d, is_live in rows:
+    for d, is_live, stored_path in rows:
         key = owner(_history_identity(d))
         merge(d, key, is_live)
-        if d.get("k") != key:
+        if d.get("k") != key or not d.get("i"):
+            d["i"] = _history_identity(d, intrinsic=True)
             d["k"] = key
-            cp = os.path.join(CACHE, hashlib.sha1(d["p"].encode("utf-8", "replace")).hexdigest() + ".json")
+            cp = stored_path or os.path.join(CACHE, hashlib.sha1(d["p"].encode("utf-8", "replace")).hexdigest() + ".json")
             try:
                 state_write(cp, json.dumps(d, separators=(",", ":")))
             except OSError:

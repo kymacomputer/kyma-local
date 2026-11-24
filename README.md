@@ -123,7 +123,7 @@ kyma reads each tool call before Claude Code runs it, and works out what the cal
 - Codex sessions are read and drawn, not gated: the hook goes into Claude Code only.
 - The hook needs Claude Code 2.1.295 or later. Older versions run a call when its hook fails, so `kyma on` and `kyma status` warn when they find one.
 - Each call costs about an eighth of a second on a recent Python, and about a third on macOS's built-in Python 3.9, which never keeps compiled code. Install with a newer Python (`uv tool install --python 3.13 ...`) for the faster hook.
-- Tested on macOS with Python 3.9 and 3.13. Linux and Windows are untested; `.github/workflows/test.yml` runs the suite on Linux once it is on GitHub.
+- The test suite passes on macOS and Ubuntu 24.04 with Python 3.9 and 3.13. Windows remains untested.
 
 For a boundary an agent cannot talk its way through, run it in a container or a VM. kyma tells you what it did there too. What the gate promises, what it does not, and how to report a way past it: [SECURITY.md](SECURITY.md).
 
