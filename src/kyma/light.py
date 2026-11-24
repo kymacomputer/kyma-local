@@ -1377,10 +1377,9 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
 <fieldset class="setup-scopes" id="setup-scopes"><legend>Where rules apply</legend><label><input type="radio" name="setup-scope" value="project"> <span id="setup-project-label">This project</span></label><label><input type="radio" name="setup-scope" value="global"> All projects</label></fieldset>
 <p id="setup-scope">All Claude Code projects on this computer. Codex stays report-only.</p>
 <section class="setup-rules" aria-labelledby="setup-rules-title"><h3 id="setup-rules-title"></h3><div class="setup-rule-status" id="setup-rule-status" hidden></div><ul id="setup-rules-list"></ul></section>
-<section id="setup-recovery" hidden><h3>Claude Code has disabled these checks</h3><div id="setup-recovery-files"></div></section>
 <ol>
 <li><span class="setup-step" aria-hidden="true">1</span>Open a new terminal, outside your Claude conversation.</li>
-<li><span class="setup-step" aria-hidden="true">2</span><span id="setup-action">Paste this command and press Enter.</span><div class="setup-command"><code id="setup-command"></code><button class="plain-button" id="setup-copy" aria-label="Copy setup command">Copy</button></div>
+<li><span class="setup-step" aria-hidden="true">2</span><section id="setup-recovery" hidden><h3>Claude Code has disabled these checks</h3><div id="setup-recovery-files"></div></section><span id="setup-action">Paste this command and press Enter.</span><div class="setup-command"><code id="setup-command"></code><button class="plain-button" id="setup-copy" aria-label="Copy setup command">Copy</button></div>
 <p class="setup-done" id="setup-feedback" aria-live="polite"></p>
 <div class="setup-success" id="setup-success">Success shows <strong>“On.”</strong> and <strong>“The hook answered its self-test.”</strong></div></li>
 </ol>
