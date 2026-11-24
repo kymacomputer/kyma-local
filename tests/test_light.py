@@ -279,6 +279,36 @@ if __name__ == "__main__":
     check("no logs: a kind word, no page, no error", out.returncode == 0 and "No AI activity found yet." in out.stdout
           and not os.path.exists(os.path.join(empty, ".kyma", "kyma.html")), out.stdout + out.stderr)
 
+    source = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    empty_env = dict(os.environ, HOME=empty, KYMA_HOME=os.path.join(empty, ".kyma"),
+                     CLAUDE_CONFIG_DIR=os.path.join(empty, ".claude"),
+                     CODEX_HOME=os.path.join(empty, ".codex"), PATH="/usr/bin:/bin")
+    out = subprocess.run([sys.executable, "kyma"], cwd=source, env=empty_env,
+                         capture_output=True, text=True, timeout=60)
+    check("Python source entry gives a runnable first step", out.returncode == 0
+          and "Try a safe example now:  ./kyma demo" in out.stdout
+          and "run ./kyma again" in out.stdout, out.stdout + out.stderr)
+    demo_command = out.stdout.split("Try a safe example now:  ", 1)[-1].splitlines()[0]
+    demo_out = subprocess.run(demo_command, shell=True, cwd=source, env=empty_env,
+                              capture_output=True, text=True, timeout=60)
+    check("the printed source demo command executes without an installed kyma",
+          demo_out.returncode == 0 and "outbox/  empty" in demo_out.stdout
+          and "outbox/  1 message to cofounder@example.com" in demo_out.stdout,
+          demo_out.stdout + demo_out.stderr)
+    parent = os.path.dirname(source)
+    out = subprocess.run([sys.executable, os.path.join(os.path.basename(source), "kyma")],
+                         cwd=parent, env=empty_env, capture_output=True, text=True, timeout=60)
+    import shlex
+    run_command = out.stdout.split("task, run ", 1)[-1].split(" again.", 1)[0]
+    check("a relative source entry keeps its launcher from the parent folder",
+          out.returncode == 0 and shlex.split(run_command) == [os.path.join(source, "kyma")],
+          out.stdout + out.stderr)
+    repeated = subprocess.run(shlex.split(run_command), cwd=parent, env=empty_env,
+                              capture_output=True, text=True, timeout=60)
+    check("the printed refresh command executes from the original parent folder",
+          repeated.returncode == 0 and "No AI activity found yet." in repeated.stdout,
+          repeated.stdout + repeated.stderr)
+
     shutil.rmtree(FAKE, ignore_errors=True)
     shutil.rmtree(empty, ignore_errors=True)
     print(f"light: {'PASS' if not FAIL else str(len(FAIL)) + ' FAILURES'}")

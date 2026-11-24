@@ -107,8 +107,11 @@ def prog(rest: str = "", *, absolute: bool = False) -> str:
     import os as _os
     argv0 = sys.argv[0] if sys.argv else "kyma"
     real = _os.path.realpath(argv0)
+    launcher = _os.path.realpath(_os.path.join(_os.path.dirname(__file__), "..", "..", "kyma"))
     if any(m in real for m in ("/.cache/uv/", "/archive-v0/", "/uv/builds-v0/")):
         base = "uvx --from git+https://github.com/kymacomputer/kyma-local kyma"
+    elif real == launcher and _os.path.isfile(launcher):
+        base = shlex.quote(real) if absolute or _os.path.dirname(real) != _os.path.realpath(_os.getcwd()) else "./kyma"
     elif _os.path.basename(argv0) == "kyma" and ("/" in argv0) and not _os.path.dirname(real).endswith("/bin"):
         base = shlex.quote(real) if absolute else shlex.quote(argv0) if argv0.startswith((".", "/")) else "./kyma"
         if not absolute and base.startswith("/") and _os.path.dirname(real) == _os.getcwd():
