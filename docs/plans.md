@@ -77,5 +77,5 @@ The [executable contract example](contract-bridge.md) proves this handoff with f
 It shows a grant, withdrawal, and another customer's preserved permission.
 It does not establish a production customer integration or paid demand.
 
-The [README](../README.md) describes installation and actual host coverage.
+The [README](../README.md) gives the agent setup handoff and actual host coverage. The [reference](usage.md) lists commands and local files.
 The [security scope](../SECURITY.md) describes the enforcement boundary.

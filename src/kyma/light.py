@@ -36,7 +36,7 @@ def _quiet_worker() -> None:
 def _pool():
     return ProcessPoolExecutor(max_workers=min(8, os.cpu_count() or 2), initializer=_quiet_worker)
 
-from . import HOME, ensure_home, sources, state_write
+from . import HOME, ensure_home, history_scope, sources, state_write
 
 # Not inside .kyma-cache: index rebuilds that folder whenever its format
 # changes, and these digests are the only copy of hours whose logs the agent
@@ -823,12 +823,12 @@ def _hook_totals() -> dict:
 
 # ------------------------------------------------------------------ the shape
 
-def shape(data: dict) -> dict:
+def shape(data: dict, *, include_empty: bool = False) -> dict:
     """Days from the first lit hour to today, 24 hours each."""
     a, y = data.get("a", {}), data.get("y", {})
     undated = data.get("undated_actions", 0)
     keys = list(a) + list(y) + [m[0] for m in data.get("held", {}).get("live", [])]
-    if not keys and not undated:
+    if not keys and not undated and not include_empty:
         return {}
     first = min(k[:10] for k in keys) if keys else _dt.date.today().isoformat()
     d0 = _dt.date.fromisoformat(first)
@@ -1476,7 +1476,8 @@ const M = (D.marks || []).filter(m => !m.undated && m.i != null && m.h != null);
 $("past-note").textContent = D.checked_calls ? `Past actions checked against ${D.yours ? "your" : "starter"} rules. This check stopped nothing.` : "No actions checked yet.";
 $("event-rule-owner").textContent = D.yours ? "↓  matched your rule" : "↓  matched a starter rule";
 const datedActivity = (D.actions || 0) > (D.undated_actions || 0);
-$("date-range").textContent = datedActivity ? short(day0) + " – " + long(new Date(D.today + "T00:00:00")) : "Dates not recorded";
+$("date-range").textContent = datedActivity ? short(day0) + " – " + long(new Date(D.today + "T00:00:00")) :
+  D.actions ? "Dates not recorded" : "No recorded tool calls";
 $("activity").hidden = !datedActivity;
 const liveReceipt = [];
 if (D.held_live) liveReceipt.push(`${fmt(D.held_live)} actually stopped`);
@@ -1652,10 +1653,16 @@ function evidence(h, by) {
   e.append(el("span", "ring " + (h[1] === "block" ? "vstop" : "vask")), el("code", "", targetOf(h)));
   return e;
 }
+function rulesPill() {
+  if (D.hooks_off) return ["stop", "Rules disabled here"];
+  if (D.on) return ["on", "Rules on"];
+  if (D.setup_checks === "report-only") return ["off", "Report only"];
+  if (D.setup_checks === "blocked") return ["off", "Checks unverified"];
+  return ["off", "Rules off"];
+}
 function card(a, kind, count) {
   const c = el("div", "ag"); c.setAttribute("role", "listitem"); c.tabIndex = -1;
-  // On only when the hook will run: disableAllHooks turns it off however it is installed.
-  const [pill, label] = kind === "root" ? (D.hooks_off ? ["stop", "Rules disabled here"] : D.on ? ["on", "Rules on"] : ["off", "Rules off"]) : pillOf(a);
+  const [pill, label] = kind === "root" ? rulesPill() : pillOf(a);
   const st = kind === "root" ? pill : stateOf(a)[0];
   c.dataset.st = st;
   // A subagent with no type of its own goes by its model; its task sits under it.
@@ -1680,7 +1687,7 @@ function card(a, kind, count) {
   c.querySelector(".st span").textContent = label;
   const task = c.querySelector(".task");
   if (kind === "root") { task.remove();
-    if (D.claude === false) c.querySelector(".evs").append(el("div", "ev-result", "Report only")); }
+    if (D.claude === false && !D.setup_checks) c.querySelector(".evs").append(el("div", "ev-result", "Report only")); }
   else if (!a.task || a.task === name) task.remove();
   else task.textContent = a.task;
   const ft = c.querySelector(".ft span");
@@ -2554,6 +2561,7 @@ def setup_modes(data: dict, loaded: list, files: list) -> dict:
             recovery.append(row)
     data["setup_recovery"] = recovery
     modes = {}
+    activate = " setup --host claude --" if "setup_checks" in data else " on --"
     for scope in ("project", "global"):
         folder = root if scope == "project" else os.path.expanduser("~")
         project = [r for r in loaded if r.trust != "global"] if scope == "project" else []
@@ -2564,7 +2572,7 @@ def setup_modes(data: dict, loaded: list, files: list) -> dict:
         modes[scope] = {"name": os.path.basename(root) if scope == "project" else "All projects",
                         "title": "Your rules" if data["setup_yours"] else "Starter + project rules" if project else "Starter rules",
                         "rules": rows, "files": rule_files,
-                        "on": bound(folder, runner + " on --" + scope),
+                        "on": bound(folder, runner + activate + scope),
                         "review": bound(folder, runner + " rules"),
                         "check": bound(root, runner + " status && " + runner),
                         "report": bound(root, runner),
@@ -2573,7 +2581,7 @@ def setup_modes(data: dict, loaded: list, files: list) -> dict:
     return modes
 
 
-def page(s: dict, path: str = OUT) -> str:
+def page(s: dict, path: str = OUT, *, setup_checks=None) -> str:
     data = {k: s.get(k) for k in ("first", "days", "A", "Y", "actions", "together", "alone",
                                   "marks", "examples", "more", "held_past", "held_live", "asked_live", "away_past", "stop_past", "ask_past", "yours", "judged",
                                   "judged_from", "judged_of", "today", "partial_logs", "checked_calls",
@@ -2609,6 +2617,12 @@ def page(s: dict, path: str = OUT) -> str:
     except Exception:
         data["on"], data["hooks_off"] = False, False
         data["on_scope"], data["on_project"], data["hooks_off_reason"] = "", "", ""
+    if setup_checks is not None:
+        data["setup_checks"] = setup_checks["checks"]
+        data["on"] = setup_checks["checks"] == "on"
+        data["on_scope"] = setup_checks["scope"] if data["on"] else ""
+        data["hooks_off"] = bool(setup_checks.get("hooks_disabled"))
+        data["hooks_off_reason"] = setup_checks["reason"] if data["hooks_off"] else ""
     data["claude"] = os.path.isdir(sources.claude_dir())
     data["roots"] = [r for r, a in (("~/.claude/projects", "claude"), ("~/.codex/sessions", "codex"))
                      if any(x.get("agent") == a for x in (s.get("agents") or []))]
@@ -3011,10 +3025,30 @@ def _interactive() -> bool:
     return sys.stdin.isatty() and sys.stdout.isatty() and not os.environ.get("CI")
 
 
+def report_data(work, scope, *, include_empty=False, progress=None, judging=None) -> dict:
+    """Build the same Local report for the terminal and for agent setup."""
+    quick = scope["mode"] == "recent"
+    scoped = scope["mode"] != "all"
+    data = gather(progress, work=work) if scoped else gather(progress)
+    data["held"] = held_moments(judging, work=work, budget=history_scope.REPLAY_SECONDS if quick else None) \
+        if scoped else held_moments(judging)
+    s = shape(data, include_empty=include_empty)
+    if s:
+        s["quick"], s["scope"] = quick, scope
+    if s and s["actions"]:
+        try:
+            from . import agents
+            # The newest 200 and every session a rule met.
+            s["agents"] = agents.sessions(limit=200, judged=data["held"].get("paths", []), work=work if scoped else None)
+            s["sessions"] = len(work) if scoped else agents.total_sessions()
+        except Exception:
+            s["agents"] = []
+    return s
+
+
 def run(open_it: bool = True, details: bool = False, all_history: bool = False,
         since_days=None, limit=None) -> int:
     import webbrowser
-    from . import history_scope
     # Never die on the way to the picture: a locale that cannot print a dot
     # gets a "?", a folder deleted under the shell gets home.
     for stream in (sys.stdout, sys.stderr):
@@ -3048,31 +3082,18 @@ def run(open_it: bool = True, details: bool = False, all_history: bool = False,
         if tty:
             sys.stdout.write(_bar(done, total, _COOL[8], "logs"))
             sys.stdout.flush()
-    try:
-        data = gather(progress, work=work) if scoped else gather(progress)
-    except OSError as e:
-        sys.stdout.write(f"\r\x1b[K  kyma cannot write to {HOME}: {e.strerror or e}\n" if tty else
-                         f"kyma cannot write to {HOME}: {e.strerror or e}\n")
-        return 1
     def judging(done, total):
         if tty:
             sys.stdout.write(_bar(done, total, _HELD, "logs against your rules"))
             sys.stdout.flush()
-    data["held"] = held_moments(judging, work=work,
-                                budget=history_scope.REPLAY_SECONDS if quick else None) if scoped else held_moments(judging)
+    try:
+        s = report_data(work, scope, progress=progress, judging=judging)
+    except OSError as e:
+        sys.stdout.write(f"\r\x1b[K  kyma cannot write to {HOME}: {e.strerror or e}\n" if tty else
+                         f"kyma cannot write to {HOME}: {e.strerror or e}\n")
+        return 1
     if tty:
         sys.stdout.write("\r\x1b[K")
-    s = shape(data)
-    if s:
-        s["quick"], s["scope"] = quick, scope
-    if s and s.get("actions"):
-        try:
-            from . import agents
-            # the newest 200 and every one a rule met: the page's "+N" reaches all of them
-            s["agents"] = agents.sessions(limit=200, judged=data["held"].get("paths", []), work=work if scoped else None)
-            s["sessions"] = len(work) if scoped else agents.total_sessions()
-        except Exception:
-            s["agents"] = []
     if not s or not s["actions"]:
         if n_files:
             from . import render

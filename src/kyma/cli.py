@@ -85,6 +85,11 @@ def cmd_demo(args) -> int:
     return demo.run()
 
 
+def cmd_setup(args) -> int:
+    from . import setup
+    return setup.run(args)
+
+
 def cmd_try(args) -> int:
     return scan.try_rule(" ".join(args.rule), since_days=args.days, limit=_limit(args), keep=args.keep)
 
@@ -123,7 +128,7 @@ def _review_changes(where: str, tty=None, ask=input) -> list:
 _FAIL_CLOSED = (2, 1, 295)
 
 
-def claude_version(run=None):
+def claude_version(run=None, *, verify_host=False):
     """-> (version tuple, text) from `claude --version`, or (None, why). Never raises."""
     import re
     import shutil
@@ -134,11 +139,15 @@ def claude_version(run=None):
     try:
         if run is None:
             p = subprocess.run([exe, "--version"], capture_output=True, text=True, timeout=3)
+            if p.returncode:
+                return None, f"version command exited {p.returncode}"
             text = (p.stdout or p.stderr or "").strip()
         else:
             text = run()
     except Exception as exc:          # a slow or broken binary must not stop `kyma on`
         return None, type(exc).__name__
+    if verify_host and not re.search(r"\bClaude Code\b", text or "", re.IGNORECASE):
+        return None, "version output did not identify Claude Code"
     m = re.search(r"(\d+)\.(\d+)\.(\d+)", text or "")
     if not m:
         return None, (text or "no answer")[:40]
@@ -639,6 +648,7 @@ class _Parser(argparse.ArgumentParser):
   kyma demo                     Try a safe example with no setup.
   kyma import FILE              Add a kyma.history.v1 JSONL export.
   kyma try "Ask me before email" Test a rule against your past activity.
+  kyma setup --help             Set up Kyma from an agent or script.
 
 Turn checks on:
 
@@ -694,6 +704,18 @@ def build_parser() -> argparse.ArgumentParser:
     imp.add_argument("--format", choices=("normalized",), default="normalized")
     imp.set_defaults(func=cmd_import)
     sub.add_parser("demo", help="try a safe example with no setup").set_defaults(func=cmd_demo)
+    setup = sub.add_parser("setup", help="write your report and set up supported checks without prompts")
+    setup.add_argument("--host", choices=("auto", "claude", "codex", "cursor", "gemini"), default="auto",
+                       help="agent to set up (default: auto)")
+    scope = setup.add_mutually_exclusive_group()
+    scope.add_argument("--project", dest="setup_scope", action="store_const", const="project",
+                       help="Claude Code checks for this Git project (default in a project)")
+    scope.add_argument("--global", dest="setup_scope", action="store_const", const="global",
+                       help="Claude Code checks for all projects")
+    setup.add_argument("--no-open", action="store_true", default=argparse.SUPPRESS,
+                       help="write the report without opening it")
+    setup.add_argument("--json", action="store_true", help="print a JSON receipt")
+    setup.set_defaults(func=cmd_setup)
     t = with_history(sub.add_parser("try", help='replay a rule against your history: kyma try "never use sudo"'))
     t.add_argument("rule", nargs="+")
     t.add_argument("--keep", action="store_true", help="add the rule to your rules")

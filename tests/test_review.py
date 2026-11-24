@@ -970,7 +970,7 @@ def the_demo_runs_isolated_and_leaves_nothing_behind():
 @check
 def version_is_the_public_line():
     import kyma
-    assert kyma.__version__ == "0.6.1", kyma.__version__
+    assert kyma.__version__ == "0.7.0", kyma.__version__
 
 
 @check

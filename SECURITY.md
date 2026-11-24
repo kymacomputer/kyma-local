@@ -10,9 +10,9 @@ A useful report has the payload you piped to `kyma hook` (with fake secrets), th
 
 kyma has two parts with two different promises.
 
-**The reader** (`kyma`, `kyma see`, `kyma try`) reads the logs Claude Code and Codex keep on your disk.
-- It opens no network connection. The README shows how to check the code for one.
-- It writes under `~/.kyma` (or `$KYMA_HOME`), as `0700` with files `0600`. Outside it: one copy of the rules you accepted (and on macOS a hash in your keychain), and the hook entry `kyma on` adds to Claude Code's settings. The README lists each file.
+**The reader** (`kyma`, `kyma see`, `kyma try`) reads local history from Claude Code, Codex, Cursor, and Gemini CLI.
+- It opens no network connection. The [reference](docs/usage.md#what-stays-on-your-computer) shows how to check the code for one.
+- It writes under `~/.kyma` (or `$KYMA_HOME`), as `0700` with files `0600`. Outside it: one copy of the rules you accepted (and on macOS a hash in your keychain), and the hook entry `kyma on` adds to Claude Code's settings. The [reference](docs/usage.md#what-stays-on-your-computer) lists each file.
 - Project setup can add the new local settings file to `.git/info/exclude`. `kyma off` removes the exclusion it added.
 - It masks known secret formats before it writes an excerpt.
 - Command evidence retains at most 4,096 characters per input, for the first 60 matched inputs per log and first 40 recorded inputs per displayed session. Page and cache evidence excludes raw tool-result output and native call IDs. Masking cannot detect every possible secret.
