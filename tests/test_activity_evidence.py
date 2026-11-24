@@ -122,8 +122,12 @@ class ActivityEvidence(unittest.TestCase):
         _, view = self.session([codex("git diff --stat")], "codex")
         self.assertEqual(view["task"], "")
         self.assertEqual(view["held"], [])
-        self.assertEqual(view["attempts"], [{"tool": "exec_command", "command": "git diff --stat",
-                                            "command_clipped": False}])
+        self.assertEqual(len(view["attempts"]), 1)
+        attempt = view["attempts"][0]
+        self.assertEqual({k: attempt[k] for k in ("tool", "command", "command_clipped")},
+                         {"tool": "exec_command", "command": "git diff --stat", "command_clipped": False})
+        self.assertEqual(attempt["status"], "unknown")
+        self.assertEqual(len(attempt["call_id"]), 64)
         self.assertIn("git diff --stat", self.emitted(view))
 
     def test_first_forty_are_retained_in_order_without_normalizing_tail(self):
@@ -144,12 +148,13 @@ class ActivityEvidence(unittest.TestCase):
         self.assertEqual(normalize.call_count, 40)
         self.assertNotIn(NATIVE_ID, json.dumps(log))
 
-    def test_only_first_forty_records_are_parsed_for_input_sample(self):
+    def test_only_first_forty_codex_inputs_are_normalized_for_sample(self):
         self.write([codex("echo item-" + str(i), "id-" + str(i)) for i in range(250)])
-        with patch.object(sources, "_loads", wraps=sources._loads) as parse:
+        with patch.object(light, "command_evidence", wraps=light.command_evidence) as normalize:
             log = agents._read_log(str(self.path), "codex")
         self.assertEqual(len(log["attempts"]), 40)
-        self.assertEqual(parse.call_count, 40)
+        self.assertEqual(normalize.call_count, 40)
+        self.assertEqual(log["calls"], 250)
 
     def test_only_first_sixty_holds_keep_original_input(self):
         self.write([claude("sudo true", "hold-" + str(i)) for i in range(65)])
@@ -182,7 +187,10 @@ class ActivityEvidence(unittest.TestCase):
                 _, view = self.session(rows, agent)
                 self.assertEqual(view["held"][0][4]["status"], "tool_succeeded")
                 self.assertEqual(len(view["attempts"]), 1)
-                self.assertEqual(set(view["attempts"][0]), {"tool", "command", "command_clipped"})
+                attempt = view["attempts"][0]
+                self.assertEqual(set(attempt), {"tool", "command", "command_clipped", "call_id", "actor_id", "status", "source"})
+                self.assertEqual(attempt["status"], "tool_succeeded")
+                self.assertEqual(len(attempt["call_id"]), 64)
                 emitted = self.emitted(view)
                 self.assertNotIn(OUTPUT, emitted)
                 self.assertNotIn(NATIVE_ID, emitted)

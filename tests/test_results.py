@@ -147,10 +147,54 @@ class Results(unittest.TestCase):
             row = codex_call("outer", "exec")
             row["payload"].update(type="custom_tool_call", input=script)
             del row["payload"]["arguments"]
-            view = self.consumer([row, codex_result("outer", {"exit_code": 0})], "codex")
-            self.assertEqual(len(view["held"]), count)
-            self.assertTrue(all(result_metadata(h) == {"call_id": "", "status": "unknown", "source": "unknown"}
-                                for h in view["held"]))
+            for output in ({"exit_code": 0}, "Chunk ID: native_123\nWall time: 0.0000 seconds\n"
+                           "Process exited with code 0\nOriginal token count: 12664\nOutput:\n" + SECRET):
+                view = self.consumer([row, codex_result("outer", output)], "codex")
+                self.assertEqual(len(view["held"]), count)
+                self.assertTrue(all(result_metadata(h) == {"call_id": "", "status": "unknown", "source": "unknown"}
+                                    for h in view["held"]))
+
+    def test_codex_native_token_count_header_preserves_exact_shell_results(self):
+        header = ("Chunk ID: native_123\nWall time: 0.0000 seconds\nProcess exited with code 0\n"
+                  "Original token count: 12664\nOutput:\n" + SECRET)
+        rows = [codex_call("ok"), codex_result("ok", header),
+                codex_call("zero"), codex_result("zero", header.replace("12664", "0")),
+                codex_call("failed"), codex_result("failed", header.replace("code 0", "code 2")),
+                codex_call("fake"), codex_result("fake", "body text\n" + header),
+                codex_call("body"), codex_result("body", header + "\nProcess exited with code 4"),
+                codex_call("mcp", "mcp__mail__send_email"), codex_result("mcp", header)]
+        self.write(rows)
+        ids = ("ok", "zero", "failed", "fake", "body", "mcp")
+        log = agents._read_log(self.path, "codex", {self.cid(cid) for cid in ids})
+        expected = {"ok": "tool_succeeded", "zero": "tool_succeeded", "failed": "tool_failed",
+                    "fake": "unknown", "body": "tool_succeeded", "mcp": "unknown"}
+        self.assertEqual({cid: value["status"] for cid, value in log["results"].items()},
+                         {self.cid(cid): status for cid, status in expected.items()})
+        self.assertEqual(log["results"][self.cid("ok")]["source"], "codex_shell_header")
+        for invalid in ("-1", "1.5", "many", "1\nOriginal token count: 2"):
+            with self.subTest(token_count=invalid):
+                self.assertEqual(sources._codex_result_status({"output": header.replace("12664", invalid)}),
+                                 ("unknown", "unknown"))
+
+    def test_token_count_result_refreshes_a9_actor_cache_without_replaying_rules(self):
+        header = ("Chunk ID: native_123\nWall time: 0.0001 seconds\nProcess exited with code 0\n"
+                  "Original token count: 0\nOutput:\n" + SECRET)
+        self.write([codex_call("cached"), codex_result("cached", header)])
+        marks, done = light._judge((self.path, "codex", POLICY))
+        self.assertTrue(done)
+        held_path = Path(light._held_cache(self.path))
+        held_bytes = held_path.read_bytes()
+        self.assertEqual(marks[0][4]["status"], "unknown")
+        st = os.stat(self.path)
+        links_tag = hashlib.sha256(self.cid("cached").encode()).hexdigest()[:16]
+        actor_path = self.cache / ("agent-" + hashlib.sha1(self.path.encode()).hexdigest() + ".json")
+        actor_path.write_text(json.dumps({"s": f"a9:codex:{st.st_mtime_ns}:{st.st_size}:{links_tag}",
+                                          "v": {"obsolete": True}}))
+        view = agents._session(self.path, "codex", POLICY)
+        self.assertEqual(view["held"][0][4]["status"], "tool_succeeded")
+        self.assertEqual(view["held"][0][4]["source"], "codex_shell_header")
+        self.assertEqual(held_path.read_bytes(), held_bytes)
+        self.assertTrue(json.loads(actor_path.read_text())["s"].startswith("a10:"))
 
     def test_append_result_preserves_marks_counts_and_cursor(self):
         self.write([call("append")])
@@ -174,7 +218,7 @@ class Results(unittest.TestCase):
         marks, _ = light._judge((self.path, "claude", POLICY))
         cp = Path(light._held_cache(self.path))
         data = json.loads(cp.read_text())
-        data["t"] = data["t"].replace(".4:", ".3:")
+        data["t"] = "obsolete-format:" + data["t"]
         data["m"] = [m[:4] for m in marks]
         cp.write_text(json.dumps(data))
         self.assertEqual(light.cached_marks(self.path, POLICY), [])

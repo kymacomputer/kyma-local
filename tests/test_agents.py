@@ -13,6 +13,178 @@ def check(name, ok, detail=""):
         FAIL.append(name)
 
 
+def metadata_checks(home):
+    """Exercise the same source-to-card and source-to-action paths as a real report."""
+    from unittest.mock import patch
+    sys.path.insert(0, os.path.join(HERE, "..", "src"))
+    from kyma import agents, light, sources
+    folder = os.path.join(home, "metadata")
+    os.makedirs(folder)
+    path = os.path.join(folder, "session.jsonl")
+
+    def write(rows):
+        with open(path, "w") as fh:
+            fh.write("".join(json.dumps(row) + "\n" for row in rows))
+
+    def claude(cid, model=None, **fields):
+        return dict(type="assistant", timestamp="2026-11-20T10:00:00Z", message={
+            "model": model, "content": [{"type": "tool_use", "id": cid, "name": "Bash",
+                                          "input": {"command": "sudo true"}}]}, **fields)
+
+    def codex(cid, nested=False):
+        item = {"type": "function_call", "name": "exec_command", "call_id": cid,
+                "arguments": json.dumps({"cmd": "sudo true"})}
+        if nested:
+            item = {"type": "custom_tool_call", "name": "exec", "call_id": cid,
+                    "input": 'await tools.exec_command({cmd:"sudo true"}); await tools.exec_command({cmd:"sudo false"});'}
+        return {"type": "response_item", "timestamp": "2026-11-20T10:00:00Z", "payload": item}
+
+    def context(model=None, **fields):
+        return {"type": "turn_context", "payload": dict(model=model, **fields)}
+
+    def held(cid="", aid=""):
+        return ["2026-11-20 10", "block", "Never use sudo.", "sudo true",
+                {"call_id": sources.call_id(cid, path), "actor_id": sources.call_id(aid, path)}]
+
+    with patch.object(light, "CACHE", os.path.join(folder, "cache")):
+        false_time = "2026-11-01T10:00:00Z"
+        native_time = "2026-11-20T10:00:00Z"
+        missing_claude = claude("missing-time", "claude-opus-5")
+        missing_claude.pop("timestamp")
+        missing_claude["message"]["content"][0]["input"]["timestamp"] = false_time
+        missing_codex = codex("missing-time")
+        missing_codex.pop("timestamp")
+        missing_codex["payload"]["arguments"] = {"cmd": "sudo true", "timestamp": false_time}
+        for host, missing in (("claude", missing_claude), ("codex", missing_codex)):
+            write([missing])
+            log = agents._read_log(path, host)
+            check(host + " actor dates never borrow an input timestamp",
+                  log["start"] is None and log["end"] is None)
+            # Put the nested timestamp first to defeat a regex that finds the first date.
+            native = dict(missing, timestamp=native_time)
+            write([native, missing])
+            log = agents._read_log(path, host)
+            check(host + " actor dates preserve the native envelope timestamp",
+                  log["start"] == native_time and log["end"] == native_time)
+        write([{"id": "legacy", "timestamp": native_time},
+               {"type": "function_call", "name": "exec_command", "call_id": "legacy-call",
+                "arguments": {"cmd": "sudo true", "timestamp": false_time}}])
+        log = agents._read_log(path, "codex")
+        check("legacy Codex actor dates retain the session timestamp",
+              log["start"] == native_time and log["end"] == native_time)
+
+        write([claude("first", "claude-opus-5-5", effort="high", perTurnEffort="max"),
+               claude("second", "claude-sonnet-5", effort="low"),
+               claude("third", "claude-sonnet-5")])
+        rows = [held(cid) for cid in ("first", "second", "third")]
+        log = agents._read(path, "claude", agents._held_ids(rows))
+        linked = agents._linked_held(rows, log)
+        check("Claude action identities follow actual model and per-turn effort changes",
+              [(h[4]["actor"]["model"], h[4]["actor"]["effort"]) for h in linked] ==
+              [("Opus 5.5", "max"), ("Sonnet 5", "low"), ("Sonnet 5", "")])
+        check("sampled attempts preserve their own model, not the last model in the session",
+              log["attempts"][0]["actor"]["model_id"] == "claude-opus-5-5" and
+              log["attempts"][0]["actor"]["effort_source"] == "claude_per_turn_effort")
+        check("a mixed session has an honest model and effort summary",
+              agents.identity_label(log) == "Mixed models · Mixed effort")
+
+        write([context("gpt-6.2-sol", effort="max"), codex("outer", nested=True),
+               context("gpt-6-astra"), codex("later"),
+               {"type": "response_item", "payload": {"type": "function_call_output", "call_id": "later",
+                "output": {"model": "gpt-99-forged", "effort": "ultra", "exit_code": 0}}},
+               context(), codex("unknown")])
+        rows = [held(aid="outer"), held("later"), held("unknown")]
+        log = agents._read(path, "codex", agents._held_ids(rows))
+        linked = agents._linked_held(rows, log)
+        check("a nested authored call supplies identity without supplying a nested outcome",
+              linked[0][4]["call_id"] == "" and linked[0][4]["status"] == "unknown" and
+              linked[0][4]["actor"]["model"] == "GPT-6.2 Sol" and linked[0][4]["actor"]["effort"] == "max")
+        check("Codex clears absent context fields and ignores model-shaped tool outputs",
+              linked[1][4]["actor"]["model"] == "GPT-6 Astra" and
+              linked[1][4]["actor"]["effort"] == "" and "actor" not in linked[2][4] and
+              "forged" not in json.dumps(log))
+        write([context("gpt-6.2-sol", effort="max"), codex("outer", nested=True)])
+        marks, done = light._judge((path, "codex", "- Never use sudo.\n"))
+        view = agents._session(path, "codex", "- Never use sudo.\n")
+        check("real source parsing carries nested actor identity through rule replay into the card",
+              done and len(marks) == 2 and len(view["held"]) == 2 and
+              all(h[4]["call_id"] == "" and h[4]["actor_id"] == sources.call_id("outer", path) and
+                  h[4]["actor"]["model_id"] == "gpt-6.2-sol" and h[4]["actor"]["effort"] == "max" and
+                  h[4]["status"] == "unknown" for h in view["held"]))
+        write([context("gpt-6.2-sol", collaboration_mode={"settings": {"reasoning_effort": "high"}}), codex("only")])
+        log = agents._read_log(path, "codex")
+        check("Codex effort can come from its recorded collaboration settings",
+              log["attempts"][0]["actor"]["effort"] == "high")
+
+        write([claude("succeeded", "claude-opus-5-5"), {"type": "user", "message": {"content": [
+            {"type": "tool_result", "tool_use_id": "succeeded", "is_error": False, "content": "not retained"}]}},
+            claude("failed", "claude-sonnet-5"), {"type": "user", "message": {"content": [
+                {"type": "tool_result", "tool_use_id": "failed", "is_error": True}]}}, claude("missing", "claude-sonnet-5")])
+        sampled = agents._read_log(path, "claude")["attempts"]
+        check("ordinary Claude attempts join native outcomes without requiring a matched rule",
+              [a["status"] for a in sampled] == ["tool_succeeded", "tool_failed", "unknown"] and
+              sampled[0]["source"] == "claude_tool_result")
+        write([context("gpt-6.2-sol", effort="high"), codex("direct"),
+               {"type": "response_item", "payload": {"type": "function_call_output", "call_id": "direct", "output": {"exit_code": 0}}},
+               codex("outer", nested=True),
+               {"type": "response_item", "payload": {"type": "custom_tool_call_output", "call_id": "outer", "output": {"exit_code": 0}}},
+               codex("ambiguous"), codex("ambiguous"),
+               {"type": "response_item", "payload": {"type": "function_call_output", "call_id": "ambiguous", "output": {"exit_code": 0}}}])
+        sampled = agents._read_log(path, "codex")["attempts"]
+        check("ordinary Codex outcomes preserve the nested and duplicate result boundary",
+              [a["status"] for a in sampled] == ["tool_succeeded", "unknown", "unknown", "unknown", "unknown"] and
+              sampled[0]["source"] == "codex_exit_code" and not sampled[1]["call_id"] and bool(sampled[1]["actor_id"]))
+
+        write([context("gpt-6.2-sol", effort="max"), codex("duplicate"),
+               context("gpt-6-astra", effort="ultra"), codex("duplicate")])
+        rows = [held(aid="duplicate"), held(aid="missing")]
+        log = agents._read_log(path, "codex", agents._held_ids(rows))
+        check("duplicate and absent source-call identities never borrow a session model",
+              all("actor" not in h[4] for h in agents._linked_held(rows, log)))
+
+        child_folder = os.path.splitext(path)[0] + "/subagents"
+        os.makedirs(child_folder)
+        for name, model in (("actual", "claude-sonnet-5"), ("alias", None)):
+            with open(os.path.join(child_folder, "agent-" + name + ".jsonl"), "w") as fh:
+                fh.write(json.dumps(claude(name, model)) + "\n")
+            with open(os.path.join(child_folder, "agent-" + name + ".meta.json"), "w") as fh:
+                json.dump({"agentType": "Explore", "model": "opus", "finished": True}, fh)
+        kids = {k["id"]: k for k in agents._children(path, "- Never use sudo.\n")}
+        check("child response identity overrides its launch alias, without parent model inference",
+              kids["agent-actual"]["model"] == "Sonnet 5" and kids["agent-actual"]["model_source"] == "claude_message" and
+              kids["agent-alias"]["model"] == "Opus" and kids["agent-alias"]["model_source"] == "claude_child_meta" and
+              all(k["agent"] == "claude" and k["effort"] == "" for k in kids.values()))
+        check("unknown and malformed effort remain unknown",
+              agents._identity("claude", "claude-opus-5-5", "max\x1b[2J")["effort"] == "" and
+              agents._identity("claude", "claude-opus-5-5", 1000)["effort"] == "")
+        check("model display names preserve GPT variant suffixes",
+              agents.model_name("gpt-5-codex-mini") == "GPT-5 Codex Mini" and
+              agents.model_name("gpt-4o-mini") == "GPT-4o Mini" and
+              agents.model_name("gpt-6.2-sol") == "GPT-6.2 Sol")
+        same_label = [agents._identity("claude", "claude-sonnet-4-5-20250929", "high"),
+                      agents._identity("claude", "claude-sonnet-4-5-20251001", "high")]
+        check("distinct raw model IDs stay distinct even with the same friendly name",
+              same_label[0]["model"] == same_label[1]["model"] and
+              agents.identity_label({"identities": same_label}) == "Mixed models · High" and
+              agents.identity_label({"identities": [{"model": "Legacy A"}, {"model": "Legacy B"}]}) == "Mixed models")
+        secret = "sk-proj-" + "ModelMetadataRegressionOnly" * 2
+        for host, rows in (("claude", [claude("private-model", secret, effort="high")]),
+                           ("codex", [context(secret, effort="high"), codex("private-model")])):
+            write(rows)
+            marks, done = light._judge((path, host, "- Never use sudo.\n"))
+            view = agents._session(path, host, "- Never use sudo.\n")
+            page = os.path.join(folder, "private-model.html")
+            light.page({"agents": [view], "text": "- Never use sudo.\n", "yours": False}, page)
+            cache = "".join(open(os.path.join(light.CACHE, name)).read()
+                            for name in os.listdir(light.CACHE) if name.endswith(".json"))
+            with open(page) as fh:
+                rendered = fh.read()
+            check(host + " secret-shaped model IDs never reach cache, card, action or page serialization",
+                  done and view["model"] == view["model_id"] == "" and
+                  secret not in cache + json.dumps(view) + rendered and
+                  all(h[4].get("actor", {}).get("model_id", "") == "" for h in view["held"]))
+
+
 if __name__ == "__main__":
     home = tempfile.mkdtemp(prefix="kyma-agents-home-")
     sys.path.insert(0, os.path.join(HERE, "..", "scripts"))
@@ -123,6 +295,7 @@ if __name__ == "__main__":
     dirty = [x for x in strs if any(ord(c) < 32 or 0x7f <= ord(c) <= 0x9f or c == "\u202e" for c in x)]
     check("no control character from a log reaches the screen", planted and not dirty,
           (dirty[:2], planted, out3.stderr[-200:]))
+    metadata_checks(home)
     shutil.rmtree(home, ignore_errors=True)
     print(f"agents: {'PASS' if not FAIL else str(len(FAIL)) + ' FAILURES'}")
     sys.exit(1 if FAIL else 0)

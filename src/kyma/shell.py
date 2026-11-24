@@ -41,8 +41,8 @@ SHELLS = {"sh", "bash", "zsh", "dash", "ksh", "fish"}
 # Tool names that run a shell command, across agents (Claude Code, Codex, the
 # rest). Kept equal to sources.SHELL_TOOLS by test: a name missing here is a
 # command the gate reads as "other" and lets through.
-SHELL_TOOLS = {"Bash", "exec", "shell", "local_shell", "run_command", "execute_command",
-               "shell_command", "exec_command", "container.exec"}
+SHELL_TOOLS = {"Bash", "Shell", "exec", "shell", "local_shell", "run_command", "execute_command",
+               "shell_command", "exec_command", "run_shell_command", "container.exec"}
 INTERPRETERS = SHELLS | {"python", "python3", "node", "deno", "bun", "ruby", "perl", "php", "osascript"}
 WRAPPERS = {"sudo", "doas", "env", "command", "exec", "nohup", "time", "nice", "ionice", "stdbuf",
             "caffeinate", "timeout", "gtimeout", "xargs", "watch", "then", "do", "else", "elif",
@@ -1815,7 +1815,8 @@ def shell_units(command: str, tool: str = "Bash", cwd: str | None = None,
         if at < len(words) and words[at] in funcs and _depth < 3:
             body = funcs[words[at]]
             args = words[at + 1:]
-            body = re.sub(r'"?\$(?:@|\*|\{@\}|\{\*\})"?', " ".join(shlex.quote(a) for a in args), body)
+            expanded_args = " ".join(shlex.quote(a) for a in args)
+            body = re.sub(r'"?\$(?:@|\*|\{@\}|\{\*\})"?', lambda _m: expanded_args, body)
             body = re.sub(r'"?\$\{?([1-9])\}?"?', lambda m: shlex.quote(args[int(m.group(1)) - 1])
                           if int(m.group(1)) <= len(args) else "", body)
             units.extend(shell_units(body, tool, cwd, background, _depth + 1, hd))

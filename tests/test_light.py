@@ -159,6 +159,35 @@ if __name__ == "__main__":
         r = _sp.run([node, "-e", code], capture_output=True, text=True)
         check("action titles preserve unknown composite, preview and clipped commands",
               r.returncode == 0 and _json.loads(r.stdout) == [c[1] for c in cases], r.stderr[:300])
+        identity_functions = page.split("const hostName = ", 1)[1].split("const deep = ", 1)[0]
+        identity_probe = r'''
+const nodes = {};
+const $ = id => nodes[id] ||= {};
+const GLYPH = {claude:"claude-mark", codex:"openai-mark", unknown:"neutral-mark"};
+'''
+        identity_probe += "const hostName = " + identity_functions
+        identity_probe += r'''
+const session = {agent:"codex", model:"GPT-6.2 Sol", effort:"max"};
+showActor(session, {model:"GPT-5.6 Sol", model_id:"gpt-5.6-sol", effort:"high"}, true);
+const exact = [nodes["event-agent"].textContent, nodes["event-model"].textContent, nodes["event-glyph"].innerHTML];
+showActor(session, null, false);
+const missing = nodes["event-model"].textContent;
+showActor({agent:"unrecognized"}, {model:"Custom model", effort:""}, false);
+console.log(JSON.stringify({exact, missing, unknown:[nodes["event-agent"].textContent,nodes["event-glyph"].innerHTML],
+  mixed:modelLabel({identities:[{model:"Opus 5.5",effort:"high"},{model:"Sonnet 5",effort:"low"}]}),
+  distinct:modelLabel({identities:[{model:"Model",model_id:"model-v1",effort:"high"},{model:"Model",model_id:"model-v2",effort:"high"}]}),
+  single:modelLabel({model:"Opus 5.5",effort:"max"})}));
+'''
+        r = _sp.run([node, "-e", identity_probe], capture_output=True, text=True)
+        identity = _json.loads(r.stdout) if r.returncode == 0 else {}
+        check("selected action uses its recorded model and effort, not the session default",
+              identity.get("exact") == ["GPT-5.6 Sol · helper", "High effort", "openai-mark"], r.stderr[:300])
+        check("missing action identity stays unknown and unknown hosts keep a neutral mark",
+              identity.get("missing") == "Effort not recorded"
+              and identity.get("unknown") == ["Custom model", "neutral-mark"], identity)
+        check("model and effort summaries preserve within-session changes",
+              identity.get("mixed") == "Mixed models · Mixed effort" and identity.get("single") == "Opus 5.5 · Max"
+              and identity.get("distinct") == "Mixed models · High", identity)
     else:
         print("skip  the page's script parses (no node on this machine)")
     check("the page is yours alone", oct(os.stat(html_path).st_mode & 0o777) in ("0o600",), oct(os.stat(html_path).st_mode & 0o777))

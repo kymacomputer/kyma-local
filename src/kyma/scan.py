@@ -14,8 +14,8 @@ from . import index, render, rules, shell, signals, sources
 
 NOTHING = """  No agent logs on this machine yet.
 
-  kyma reads the logs Claude Code and Codex already write:
-      ~/.claude/projects/        ~/.codex/sessions/
+  kyma reads local Claude Code, Codex, Cursor, and Gemini CLI history.
+  Import another host's JSONL history with kyma import <file>.
 
   {demo}   watch the gate stop a command, without any logs
 """
@@ -98,12 +98,13 @@ def asleep(hours: dict) -> int:
 
 
 def scope_line(data: dict, live: tuple) -> str:
-    names = {"claude": "Claude Code", "codex": "Codex"}
+    names = {"claude": "Claude Code", "codex": "Codex", "cursor": "Cursor", "gemini": "Gemini CLI",
+             "normalized": "Imported history"}
     files = data.get("files", 0)
     scope = f"{files:,} {render.plural(files, 'session')}"
     if data.get("files_found", 0) > files:
         scope = f"newest {files:,} of {data['files_found']:,} sessions"
-    bits = [" · ".join(names[a] for a in live), scope]
+    bits = [" · ".join(names.get(a, signals.clean_label(a)) for a in live), scope]
     start = render.when(data.get("first_ts", ""))
     if start:
         bits.append(f"since {start}")
@@ -117,10 +118,10 @@ def headline(data: dict) -> str:
     return f"Your agents have made {n} tool calls on this machine."
 
 
-def scan(since_days: int | None = None, agents: tuple = ("claude", "codex"),
+def scan(since_days: int | None = None, agents: tuple | None = None,
          limit: int | None = index.DEFAULT_LIMIT) -> dict:
     found = sources.available()
-    live = tuple(a for a in agents if found.get(a))
+    live = tuple(a for a in (found if agents is None else agents) if found.get(a))
     skipped = getattr(sources, "compressed_skipped", lambda: 0)()
     if not live:
         render.out(NOTHING.format(demo=render.bold(render.prog("demo"))))

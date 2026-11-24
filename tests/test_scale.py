@@ -325,6 +325,50 @@ class Scale(unittest.TestCase):
         self.assertEqual([a.command for a in rest], ["sudo two", "sudo three"])
         self.assertTrue(all(a.project == "/w/project" for a in rest))
 
+    def test_compressed_resume_budget_starts_after_old_prefix(self):
+        self.path = self.path.with_suffix(".jsonl.zst")
+        self.path.write_bytes(b"compressed fixture")
+        clock = [0]
+
+        def decoded_actions(_path):
+            for i in range(7):
+                clock[0] += 3
+                yield sources.Action("codex", "exec_command", TS, "sudo echo hi",
+                                     call_id=f"{i + 1:064x}")
+
+        reached = []
+        with patch.object(sources, "_read_codex", decoded_actions), \
+                patch.object(light.time, "monotonic", side_effect=lambda: clock[0]), \
+                patch.object(light, "_FILE_BUDGET", 8):
+            for _ in range(3):
+                marks, done = light._judge((str(self.path), "codex", POLICY))
+                saved = json.loads(Path(light._held_cache(str(self.path))).read_text())
+                reached.append(saved["n"])
+
+        # On later passes, just decoding the already checked prefix exceeds
+        # the budget. Each pass still makes progress without duplicate holds.
+        self.assertEqual(reached, [3, 6, 7])
+        self.assertTrue(done)
+        self.assertEqual(len(marks), 7)
+        self.assertEqual(saved["checked"], 7)
+        self.assertEqual(len({m[4]["call_id"] for m in marks}), 7)
+
+    def test_compressed_first_action_after_slow_preamble_makes_progress(self):
+        self.path = self.path.with_suffix(".jsonl.zst")
+        self.path.write_bytes(b"compressed fixture with slow preamble")
+        clock = [0]
+
+        def decoded_actions(_path):
+            clock[0] += 30
+            yield sources.Action("codex", "exec_command", TS, "sudo echo hi")
+
+        with patch.object(sources, "_read_codex", decoded_actions), \
+                patch.object(light.time, "monotonic", side_effect=lambda: clock[0]), \
+                patch.object(light, "_FILE_BUDGET", 8):
+            marks, done = light._judge((str(self.path), "codex", POLICY))
+        self.assertTrue(done)
+        self.assertEqual(len(marks), 1)
+
     def test_partial_last_record_is_retried_after_append(self):
         full = json.dumps(call()).encode()
         self.path.write_bytes(full[:80])
@@ -334,6 +378,19 @@ class Scale(unittest.TestCase):
         with self.path.open("ab") as fh:
             fh.write(full[80:] + b"\n")
         self.assertEqual(len(list(sources._read_claude(str(self.path), cursor=cursor))), 1)
+
+    def test_function_backslash_arguments_do_not_stall_history_replay(self):
+        self.write([
+            call(r'''f() { git "$@"; }; f push '\x' '''),
+            call(r'''f() { printf '%s' "$@"; }; f '\1' '''),
+            call(r'''f() { "$@"; }; f 'g\151t' push'''),
+        ])
+        marks, done = light._judge((str(self.path), "claude", "Ask me before any git push."))
+        self.assertTrue(done)
+        self.assertEqual(len(marks), 1)
+        self.assertEqual(marks[0][1], "ask")
+        saved = json.loads(Path(light._held_cache(str(self.path))).read_text())
+        self.assertEqual(saved["checked"], 3)
 
     def test_coverage_bounds_order_timestamps_by_instant(self):
         earlier = "2026-11-21T12:05:00+03:00"

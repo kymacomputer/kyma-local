@@ -47,7 +47,7 @@ LEGACY_CACHE = os.path.join(HOME, "cache")
 # 8: secret values are masked before anything is stored. Caches written by
 # earlier versions may hold them in clear, so a version change purges the whole
 # directory once (see _purge_stale) rather than merely ignoring old entries.
-CACHE_VERSION = 14        # all distinct commands/paths retained for exact replay counts
+CACHE_VERSION = 15        # provider-neutral adapters and their native tool kinds
 #        # 12: a day-by-hour grid of agent work and of you
 #        # 11: commands carry how often they ran; file reads and writes kept
 HITS_PER_SIGNAL = 25      # enough to show, cheap to store
@@ -154,7 +154,7 @@ def digest_file(args) -> dict:
     cp = _cache_path(path)
     try:
         st = os.stat(path)
-        stamp = f"{int(st.st_mtime)}:{st.st_size}"
+        stamp = f"{agent}:{st.st_mtime_ns}:{st.st_size}"
     except OSError:
         return _blank()
     try:
@@ -169,7 +169,7 @@ def digest_file(args) -> dict:
     d["stamp"] = stamp
     d["src"] = path
     d["sessions"] = 1
-    reader = sources._read_claude if agent == "claude" else sources._read_codex
+    reader = sources.reader(agent)
     unreadable = getattr(sources, "Unreadable", ())
     try:
         actions = list(reader(path))
@@ -313,7 +313,7 @@ def _merge(total: dict, d: dict) -> None:
 DEFAULT_LIMIT = 400
 
 
-def build(since_days: int | None = None, agents: tuple = ("claude", "codex"),
+def build(since_days: int | None = None, agents: tuple | None = None,
           jobs: int | None = None, progress=None, limit: int | None = DEFAULT_LIMIT) -> dict:
     """Digest log files, newest first, in parallel, cached.
 
@@ -324,11 +324,8 @@ def build(since_days: int | None = None, agents: tuple = ("claude", "codex"),
     itself worth printing: "most recent 400 of 4,891 sessions" says something.
     """
     _purge_stale()
-    found = []
-    if "claude" in agents:
-        found += [(f, "claude") for f in sources._claude_files(since_days)]
-    if "codex" in agents:
-        found += [(f, "codex") for f in sources._codex_files(since_days)]
+    found = [(path, format) for path, format in sources.history_files(since_days)
+             if agents is None or format in agents]
 
     def mtime(item):
         try:

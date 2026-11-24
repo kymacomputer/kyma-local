@@ -492,7 +492,7 @@ def test_symlinks_and_links():
     files = sources._claude_files()
     check("claude: a hard link is the same file, counted once", len(files) == 1 and files[0] in (real, hard),
           repr(files))
-    check("available() counts each session once", sources.available() == {"claude": 1, "codex": 1},
+    check("available() counts each session once", sources.available() == {"claude": 1, "codex": 1, "cursor": 0, "gemini": 0, "normalized": 0},
           repr(sources.available()))
     check("read_all reads each session once", [a.command for a in sources.read_all()] == ["echo once"] * 2)
 
@@ -576,7 +576,7 @@ def test_fifo_zero_and_dirs():
     check("a FIFO named like a log does not block discovery", not hung, "timed out after 30 s")
     if not hung:
         check("FIFOs, empty files and directories named *.jsonl are not sessions",
-              avail == {"claude": 1, "codex": 0} and cfiles == [good] and xfiles == [],
+              avail == {"claude": 1, "codex": 0, "cursor": 0, "gemini": 0, "normalized": 0} and cfiles == [good] and xfiles == [],
               repr((avail, cfiles, xfiles)))
         check("reading a FIFO directly raises Unreadable at once", direct == ["unreadable"], repr(direct))
 
@@ -646,7 +646,7 @@ def test_compressed():
     check("without zstd: compressed logs are counted, not silently dropped", skipped == 1, f"skipped={skipped}")
     check("without zstd: they are left out, and a plain sibling hides its stale .zst", files == [plain], repr(files))
     check("without zstd: reading one directly raises Unreadable", "zstd" in direct, repr(direct))
-    check("available() keeps its two keys", set(sources.available()) == {"claude", "codex"})
+    check("available() names every supported history format", set(sources.available()) == {"claude", "codex", "cursor", "gemini", "normalized"})
     if not zstd:
         print("skip zstd read: no zstd on this machine")
         return

@@ -69,10 +69,11 @@ CODEX_ROOT = os.path.join(codex_dir(), "sessions")
 CODEX_ARCHIVE = os.path.join(codex_dir(), "archived_sessions")
 
 # Tools whose job is to run a shell command, across agents.
-SHELL_TOOLS = {"Bash", "exec", "shell", "local_shell", "run_command", "execute_command",
-               "shell_command", "exec_command", "container.exec"}
+SHELL_TOOLS = {"Bash", "Shell", "exec", "shell", "local_shell", "run_command", "execute_command",
+               "shell_command", "exec_command", "container.exec", "run_shell_command"}
 # Tools that write to the filesystem.
-WRITE_TOOLS = {"Write", "Edit", "MultiEdit", "NotebookEdit", "apply_patch", "patch", "create_file"}
+WRITE_TOOLS = {"Write", "Edit", "MultiEdit", "NotebookEdit", "apply_patch", "patch", "create_file",
+               "StrReplace", "write_file", "replace"}
 # Tools that read the filesystem.
 READ_TOOLS = {"Read", "read_file", "view", "cat"}
 
@@ -128,7 +129,7 @@ def _clean_paths(v) -> list:
 class Action:
     """One thing an agent did."""
 
-    agent: str                 # "claude" | "codex"
+    agent: str                 # recorded host, separate from model and provider
     tool: str                  # tool name as the agent recorded it
     ts: str = ""               # ISO timestamp, may be empty
     command: str = ""          # shell command, when there is one
@@ -137,6 +138,7 @@ class Action:
     session: str = ""          # session id, for "show me that run"
     kind: str = "other"        # shell | write | read | mcp | other
     call_id: str = ""          # source-scoped digest of the exact native call ID
+    actor_id: str = ""         # authored native call, including a wrapper around nested actions
 
     def __post_init__(self):
         # The log decides what arrives here, and it can hold anything. A
@@ -151,6 +153,7 @@ class Action:
                 and type(p) is list and len(c) <= COMMAND_CAP and len(t) <= 64 and self.kind
                 and len(self.tool) <= 512 and len(self.project) <= 4096 and len(self.session) <= 512
                 and type(self.call_id) is str and (not self.call_id or re.fullmatch(r"[a-f0-9]{64}", self.call_id))
+                and type(self.actor_id) is str and (not self.actor_id or re.fullmatch(r"[a-f0-9]{64}", self.actor_id))
                 and (not p or (len(p) == 1 and type(p[0]) is str and 0 < len(p[0]) <= COMMAND_CAP))):
             return
         if type(self.agent) is not str:
@@ -171,6 +174,8 @@ class Action:
             self.kind = "other"
         if type(self.call_id) is not str or not re.fullmatch(r"[a-f0-9]{64}", self.call_id):
             self.call_id = ""
+        if type(self.actor_id) is not str or not re.fullmatch(r"[a-f0-9]{64}", self.actor_id):
+            self.actor_id = ""
 
     @property
     def subject(self) -> str:
@@ -198,7 +203,7 @@ def _kind(tool: str) -> str:
         return "write"
     if tool in READ_TOOLS:
         return "read"
-    if tool.startswith("mcp__"):
+    if tool.startswith("mcp__") or tool == "CallMcpTool":
         return "mcp"
     return "other"
 
@@ -515,6 +520,7 @@ def _read_claude(path: str, cursor: dict | None = None) -> Iterator[Action]:
                 session=session,
                 kind=_kind(tool),
                 call_id=call_id(block.get("id"), path),
+                actor_id=call_id(block.get("id"), path),
             )
 
 
@@ -547,6 +553,11 @@ def human_times(path: str, agent: str) -> Iterator[str]:
                 ts = rec.get("timestamp")
                 if type(ts) is str:
                     yield ts
+        elif agent in ("cursor", "gemini", "normalized"):
+            for event in history_events(path, agent):
+                if event["type"] == "user" and event.get("text", "").strip() and not event["text"].lstrip().startswith("<"):
+                    if event.get("timestamp"):
+                        yield event["timestamp"]
         elif not path.endswith(".json"):
             lines = _zstd_lines(path) if path.endswith(".zst") else _log_lines(path)
             try:
@@ -823,8 +834,11 @@ def _codex_result_status(item: dict) -> tuple:
         return ("tool_failed" if errors[0] else "tool_succeeded"), "codex_is_error"
     if type(data) is str:
         # Read only the host header. Output text can itself contain fake status.
+        # Native Codex transcripts can include the original output token count
+        # between the exit status and Output. This field is metadata, not body text.
         match = re.match(r"\AChunk ID: [A-Za-z0-9_-]+\r?\nWall time: [0-9.]+ seconds\r?\n"
-                         r"Process exited with code (-?\d+)\r?\n(?:Final output|Output):", data[:400])
+                         r"Process exited with code (-?\d+)\r?\n"
+                         r"(?:Original token count: [0-9]+\r?\n)?(?:Final output|Output):", data[:400])
         if match:
             return ("tool_failed" if int(match.group(1)) else "tool_succeeded"), "codex_shell_header"
     return "unknown", "unknown"
@@ -834,7 +848,13 @@ def result_links(rec: dict, agent: str, path: str):
     """Yield call/result identities and status only. Never retain output text."""
     if type(rec) is not dict:
         return
-    if agent == "claude":
+    if agent in ("cursor", "gemini", "normalized"):
+        kind = rec.get("type")
+        if kind in ("action", "result"):
+            status = rec.get("status")
+            yield ("call" if kind == "action" else "result", call_id(rec.get("id"), path),
+                   status if status in ("tool_succeeded", "tool_failed") else "unknown", rec.get("source", "unknown"))
+    elif agent == "claude":
         msg = rec.get("message")
         if type(msg) is not dict or type(msg.get("content")) is not list:
             return
@@ -981,7 +1001,8 @@ def _read_codex(path: str, cursor: dict | None = None) -> Iterator[Action]:
                     cursor["item"] = i + 1
                 yield Action(agent="codex", tool=tool, ts=ts, command=command, paths=paths,
                              project=project, session=session, kind=kind,
-                             call_id=codex_call_id(item, path, tool, calls))
+                             call_id=codex_call_id(item, path, tool, calls),
+                             actor_id=call_id(item.get("call_id"), path))
     finally:
         lines.close()                   # stops zstd at once if the caller stopped early
 
@@ -1014,30 +1035,73 @@ def _read_codex_json(path: str, session: str) -> Iterator[Action]:
         for kind, command, paths in calls:
             yield Action(agent="codex", tool=tool, ts=ts, command=command, paths=paths,
                          project=_abs(workdir), session=session, kind=kind,
-                         call_id=codex_call_id(item, path, tool, calls))
+                         call_id=codex_call_id(item, path, tool, calls),
+                         actor_id=call_id(item.get("call_id"), path))
 
 
 # ----------------------------------------------------------------- public API
 
+def history_files(since_days: int | None = None) -> list:
+    """Known source files as (path, format), without reads of their contents."""
+    from . import history
+    return ([(p, "claude") for p in _claude_files(since_days)] +
+            [(p, "codex") for p in _codex_files(since_days)] + history.files(since_days))
+
+
+def history_events(path: str, format: str, cursor=None):
+    """Canonical session/user/action/result events for additional host adapters."""
+    from . import history
+    yield from history.events(path, format, cursor)
+
+
+def _read_cursor(path: str, cursor=None):
+    from . import history
+    yield from history.actions(path, "cursor", cursor)
+
+
+def _read_gemini(path: str, cursor=None):
+    from . import history
+    yield from history.actions(path, "gemini", cursor)
+
+
+def _read_normalized(path: str, cursor=None):
+    from . import history
+    yield from history.actions(path, "normalized", cursor)
+
+
+def reader(format: str):
+    """Select a reader explicitly. An unknown format cannot become Codex."""
+    readers = {"claude": _read_claude, "codex": _read_codex, "cursor": _read_cursor,
+               "gemini": _read_gemini, "normalized": _read_normalized}
+    if format not in readers:
+        raise ValueError("unsupported history format")
+    return readers[format]
+
+
+def import_history(path: str, format: str = "normalized") -> dict:
+    """Import a local kyma.history.v1 JSONL session. No network or execution."""
+    if format != "normalized":
+        raise ValueError("import requires kyma.history.v1 normalized JSONL")
+    from . import history
+    return history.import_file(path)
+
+
 def available() -> dict:
     """Which agents left logs on this machine."""
-    return {
-        "claude": len(_claude_files()),
-        "codex": len(_codex_files()),
-    }
+    counts = dict.fromkeys(("claude", "codex", "cursor", "gemini", "normalized"), 0)
+    for _, format in history_files():
+        counts[format] += 1
+    return counts
 
 
-def read_all(since_days: int | None = None, agents: tuple = ("claude", "codex")) -> Iterator[Action]:
+def read_all(since_days: int | None = None, agents: tuple | None = None) -> Iterator[Action]:
     """Every action, from every log that can be read. A log that cannot be
     read is passed over here; index.py, which caches, needs to know and calls
     the readers directly."""
-    work = []
-    if "claude" in agents:
-        work += [(f, _read_claude) for f in _claude_files(since_days)]
-    if "codex" in agents:
-        work += [(f, _read_codex) for f in _codex_files(since_days)]
-    for f, reader in work:
+    for f, format in history_files(since_days):
+        if agents is not None and format not in agents:
+            continue
         try:
-            yield from reader(f)
+            yield from reader(format)(f)
         except Unreadable:
             continue

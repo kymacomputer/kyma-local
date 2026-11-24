@@ -28,14 +28,14 @@ import os
 import stat
 from contextlib import contextmanager
 
-__version__ = "0.5.1"
+__version__ = "0.6.0"
 
 # abspath: a relative KYMA_HOME baked into a hook would move with every folder
 # Claude Code starts a session in.
 HOME = os.path.abspath(os.path.expanduser(os.environ.get("KYMA_HOME") or "~/.kyma"))
 MARK = ".kyma"                 # present in every directory kyma owns
 MARK_TEXT = "kyma state folder. kyma changes only its own files in here.\n"
-OWN = ("RULES.md", "log.jsonl", "checked", "report.html", ".kyma-cache", "cache", MARK)
+OWN = ("RULES.md", "log.jsonl", "checked", "report.html", ".kyma-cache", "cache", "imports", MARK)
 _NOFOLLOW = getattr(os, "O_NOFOLLOW", 0)
 
 
@@ -145,7 +145,7 @@ def ensure_home() -> str:
 
 
 _STATE_NAMES = ("RULES.md", "log.jsonl", "log.jsonl.lock", "checked", "checked.lock", "rules.seen", "authored.json", "authored.json.lock",
-                "installs.json", "HALT", "log.summary.json", "report.html", ".kyma-cache", "cache")
+                "installs.json", "HALT", "log.summary.json", "report.html", ".kyma-cache", "cache", "imports")
 
 
 def _only_kymas() -> bool:

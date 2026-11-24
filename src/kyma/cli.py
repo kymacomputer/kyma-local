@@ -64,7 +64,21 @@ def cmd_scan(args) -> int:
 
 
 def cmd_see(args) -> int:
-    return page.run(since_days=args.days, limit=_limit(args), open_it=not args.no_open)
+    from . import light
+    return light.run(open_it=not args.no_open, all_history=args.all,
+                     since_days=args.days, limit=args.limit, details=getattr(args, "details", False))
+
+
+def cmd_import(args) -> int:
+    from . import sources
+    try:
+        result = sources.import_history(os.path.expanduser(args.path), args.format)
+    except (OSError, ValueError, sources.Unreadable) as exc:
+        render.out("Not imported: " + signals.clean(str(exc)))
+        return 1
+    render.out(f"Imported {result['actions']:,} actions and {result['results']:,} results. Stored only on this computer.")
+    render.out("See this history: " + render.prog())
+    return 0
 
 
 def cmd_demo(args) -> int:
@@ -618,10 +632,12 @@ class _Parser(argparse.ArgumentParser):
     def format_help(self):
         if not self.beginner:
             return super().format_help()
-        text = """Kyma shows what Claude Code and Codex tried on this computer.
+        text = """Kyma shows recorded agent actions on this computer.
 
-  kyma                          See your past activity. Changes nothing.
+  kyma                          See a recent sample of your own activity.
+  kyma --all                    Read all available and retained history.
   kyma demo                     Try a safe example with no setup.
+  kyma import FILE              Add a kyma.history.v1 JSONL export.
   kyma try "Ask me before email" Test a rule against your past activity.
 
 Turn checks on:
@@ -634,9 +650,10 @@ For one project, open its folder in your terminal and use PROJECT_ON_COMMAND.
 Use PROJECT_OFF_COMMAND from the same folder to remove those checks.
 
 Claude Code asks you before an action that matches an "ask" rule.
-Codex history is visible here. Automatic checks support Claude Code.
+Native history supports Claude Code, Codex, Cursor, and Gemini CLI.
+Other agents need a kyma.history.v1 export. Automatic checks support Claude Code.
 
-  kyma --details                Show the full terminal report.
+  kyma --details                Show more detail for this report.
   kyma help --all               Show every command and option.
   kyma COMMAND --help           Show options for one command.
 """
@@ -654,20 +671,28 @@ def build_parser() -> argparse.ArgumentParser:
                                          "Then turn the rules on.")
     from . import __version__
     p.add_argument("--version", action="version", version=f"kyma {__version__}")
-    p.add_argument("--details", action="store_true", help="show the complete terminal history view")
+    p.add_argument("--details", action="store_true", help="show the detailed terminal history view")
     p.add_argument("--no-open", action="store_true", help="write the page, do not open it")
+    p.add_argument("--all", action="store_true", help="read all available and retained history")
+    p.add_argument("--days", type=int, default=None, help="read logs changed in the last N days")
+    p.add_argument("--limit", type=int, default=None, help="read the newest N logs")
     sub = p.add_subparsers(dest="cmd", metavar="command", parser_class=_Parser)
 
     def with_history(sp):
-        sp.add_argument("--days", type=int, default=None, help="only the last N days")
-        sp.add_argument("--all", action="store_true", help="every session, not just the newest 400")
-        sp.add_argument("--limit", type=int, default=None, help="how many recent sessions to read")
+        sp.add_argument("--days", type=int, default=argparse.SUPPRESS, help="only the last N days")
+        sp.add_argument("--all", action="store_true", default=argparse.SUPPRESS, help="read every available session")
+        sp.add_argument("--limit", type=int, default=argparse.SUPPRESS, help="how many recent sessions to read")
         return sp
 
     with_history(sub.add_parser("scan", help="what your agents tried, as text")).set_defaults(func=cmd_scan)
     v = with_history(sub.add_parser("see", help="the same, as a page you can keep"))
-    v.add_argument("--no-open", action="store_true", help="write the page, do not open it")
+    v.add_argument("--no-open", action="store_true", default=argparse.SUPPRESS, help="write the page, do not open it")
+    v.add_argument("--details", action="store_true", default=argparse.SUPPRESS, help="show the detailed terminal report")
     v.set_defaults(func=cmd_see)
+    imp = sub.add_parser("import", help="import a local kyma.history.v1 JSONL export")
+    imp.add_argument("path", metavar="FILE")
+    imp.add_argument("--format", choices=("normalized",), default="normalized")
+    imp.set_defaults(func=cmd_import)
     sub.add_parser("demo", help="try a safe example with no setup").set_defaults(func=cmd_demo)
     t = with_history(sub.add_parser("try", help='replay a rule against your history: kyma try "never use sudo"'))
     t.add_argument("rule", nargs="+")
@@ -747,7 +772,8 @@ def _main(argv) -> int:
     if args.cmd is None:
         from . import light
         try:
-            return light.run(open_it=not args.no_open, details=args.details)
+            return light.run(open_it=not args.no_open, details=args.details, all_history=args.all,
+                             since_days=args.days, limit=args.limit)
         except KeyboardInterrupt:
             # Leave the terminal as it was: cursor shown, a clean line, no traceback.
             if sys.stdout.isatty():

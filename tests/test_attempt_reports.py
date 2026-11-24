@@ -47,17 +47,22 @@ class AttemptReports(unittest.TestCase):
 
                 terminal = run("scan")
                 run("see", "--no-open")
-                page = (home / ".kyma" / "report.html").read_text()
+                page = (home / ".kyma" / "kyma.html").read_text()
                 first_run = run("--no-open")
-                for view in (terminal, page):
+                for view in (terminal,):
                     self.assertIn("attempted to publish code or open a pull request", view)
                     self.assertIn("attempted to send or fetch data over the network", view)
                     self.assertIn("git push origin main", view)
                     self.assertNotIn("published code or opened a pull request", view)
                     self.assertNotIn("sent or fetched data over the network", view)
                     self.assertNotIn("Every line above already happened", view)
-                self.assertIn("What your agents tried", page)
-                self.assertIn("checks each Claude Code tool call", page)
+                data = json.loads(page.split("const D = ", 1)[1].split(";\n", 1)[0])
+                held = [h for a in data["agents"] for h in a.get("held", [])]
+                self.assertTrue(held)
+                self.assertTrue(all(h[4]["status"] == ("unknown" if error is None else "tool_failed" if error else "tool_succeeded") for h in held))
+                self.assertIn("git push origin main", page)
+                self.assertIn("This check stopped nothing.", page)
+                self.assertIn("Set up Claude Code checks", page)
                 self.assertIn("Your AI tried to publish code", first_run)
                 self.assertFalse((home / ".claude" / "settings.json").exists())
 

@@ -134,8 +134,9 @@ def _human_text(content) -> str:
 
 def _scan(path: str, agent: str, prior: dict | None = None) -> dict:
     agents, you = Counter(), Counter()
+    undated = 0
     scripted = False
-    last = None                      # older Codex logs stamp the session once, not every item
+    last = ""                        # older Codex logs stamp the session once, not every item
     digest, prefix, size = hashlib.sha256(), hashlib.sha256(), 0
     prior = prior or {}
     prior_size = prior.get("bytes", 0)
@@ -146,6 +147,7 @@ def _scan(path: str, agent: str, prior: dict | None = None) -> dict:
         return None                    # could not read is not the same as empty: never cache it
     try:
         for raw in lines:
+            first_line = size == 0
             digest.update(raw)
             if size < prior_size:
                 prefix.update(raw[:prior_size - size])
@@ -153,16 +155,20 @@ def _scan(path: str, agent: str, prior: dict | None = None) -> dict:
             if not scripted and _SCRIPTED.search(raw[:4000]):
                 scripted = True
             if agent == "claude":
-                n = raw.count(b'"type":"tool_use"') + raw.count(b'"type": "tool_use"')
+                rec = sources._loads(raw) if b'"tool_use"' in raw else None
+                message = rec.get("message") if isinstance(rec, dict) and rec.get("type") == "assistant" else None
+                content = message.get("content") if isinstance(message, dict) else None
+                n = sum(isinstance(b, dict) and b.get("type") == "tool_use" for b in content) if isinstance(content, list) else 0
                 person = _USER.search(raw) is not None and b'"tool_result"' not in raw
                 relayed = _RELAYED in raw
                 if not (n or person or relayed):
                     continue
-                ts = _TS.findall(raw)
-                if not ts:
-                    continue
-                k = _ukey(ts[-1].decode())
+                rec = rec if isinstance(rec, dict) else sources._loads(raw)
+                ts = rec.get("timestamp") if isinstance(rec, dict) else ""
+                ts = ts if isinstance(ts, str) else ""
+                k = _ukey(ts)
                 if not k:
+                    undated += n
                     continue
                 if n:
                     agents[k] += n
@@ -175,18 +181,23 @@ def _scan(path: str, agent: str, prior: dict | None = None) -> dict:
                         msg = rec.get("message")
                         if isinstance(msg, dict) and _human_text(msg.get("content")):
                             you[k] += 1
-            else:
-                if b'"timestamp"' in raw:
-                    t = _TS.search(raw)
-                    if t:
-                        last = t.group(1)
+            elif agent == "codex":
+                if first_line:
+                    _, last = sources._codex_meta(raw)
                 call = (b'"function_call"' in raw or b'"custom_tool_call"' in raw or b'"local_shell_call"' in raw)
+                rec = None
+                if call:
+                    rec = sources._loads(raw)
+                    item = rec.get("payload", rec) if isinstance(rec, dict) else None
+                    call = isinstance(item, dict) and item.get("type") in sources._CODEX_CALLS
                 person = b'"user_message"' in raw or (b'"role":"user"' in raw and b'"compacted"' not in raw[:120])
                 if not (call or person):
                     continue
-                ts = _TS.findall(raw)
-                k = _ukey(ts[0].decode()) if ts else (_ukey(last.decode()) if last else None)
+                rec = rec if isinstance(rec, dict) else sources._loads(raw)
+                ts = rec.get("timestamp") if isinstance(rec, dict) and "payload" in rec else last
+                k = _ukey(ts) if isinstance(ts, str) else None
                 if not k:
+                    undated += int(call)
                     continue
                 if call and b'_output"' not in raw[:200]:
                     agents[k] += 1
@@ -204,6 +215,18 @@ def _scan(path: str, agent: str, prior: dict | None = None) -> dict:
                         continue
                     if _human_text(text):
                         you[k] += 1
+        if agent not in ("claude", "codex"):
+            for event in sources.history_events(path, agent):
+                kind = event.get("type")
+                ts = event.get("timestamp")
+                k = _ukey(ts) if isinstance(ts, str) else None
+                if kind == "action":
+                    if k:
+                        agents[k] += 1
+                    else:
+                        undated += 1
+                elif kind == "user" and k:
+                    you[k] += 1
     except (sources.Unreadable, OSError):
         return None                    # permission, a missing zstd, a vanished file: try again next run
     except Exception:
@@ -213,7 +236,8 @@ def _scan(path: str, agent: str, prior: dict | None = None) -> dict:
             lines.close()
         except Exception:
             pass
-    return {"a": dict(agents), "y": {} if scripted else dict(you), "h": digest.hexdigest(), "bytes": size,
+    return {"a": dict(agents), "y": {} if scripted else dict(you), "undated": undated,
+            "native_counts": True, "h": digest.hexdigest(), "bytes": size,
             "_continues": bool(prior.get("h")) and size >= prior_size and prefix.hexdigest() == prior["h"]}
 
 
@@ -279,7 +303,7 @@ def _digest(item) -> dict:
     try:
         with open(cp) as fh:
             c = json.load(fh)
-        if _hour_current(c, st) and c.get("h") and c.get("f") and c.get("i"):
+        if _hour_current(c, st) and c.get("h") and c.get("f") and c.get("i") and c.get("native_counts"):
             if not c.get("k"):
                 c["k"] = _history_identity(c)
                 state_write(cp, json.dumps(c, separators=(",", ":")))
@@ -320,7 +344,7 @@ def _digest(item) -> dict:
 
 
 def files() -> list:
-    out = [(f, "claude") for f in sources._claude_files(None)] + [(f, "codex") for f in sources._codex_files(None)]
+    out = sources.history_files()
     def m(item):
         try:
             return os.path.getmtime(item[0])
@@ -330,12 +354,13 @@ def files() -> list:
     return out
 
 
-def gather(progress=None) -> dict:
+def gather(progress=None, work=None) -> dict:
     """{'a': {cell: n}, 'y': {cell: n}} over every log, newest first, cached."""
     ensure_home()
     _adopt_old_cache()
     os.makedirs(CACHE, exist_ok=True)
-    work = files()
+    scoped = work is not None
+    work = list(work) if scoped else files()
     a, y = Counter(), Counter()
     snapshots, rows = {}, []
 
@@ -343,14 +368,23 @@ def gather(progress=None) -> dict:
         # Snapshots of one append-only transcript overlap. Maxima retain its
         # older hours and later appends without counting either snapshot twice.
         # Different transcript identities still add, even in the same hour.
-        group = snapshots.setdefault(key, {"a": {}, "y": {}, "live": False})
+        group = snapshots.setdefault(key, {"a": {}, "y": {}, "undated": 0, "live": False,
+                                           "native_cells": set(), "legacy": False})
         group["live"] |= live
+        group["undated"] = max(group["undated"], d.get("undated", 0))
         for field, total in (("a", a), ("y", y)):
             for cell, n in d.get(field, {}).items():
+                if field == "a":
+                    if d.get("native_counts"):
+                        group["native_cells"].add(cell)
+                    elif cell in group["native_cells"]:
+                        continue
                 prior = group[field].get(cell, 0)
                 if n > prior:
                     total[cell] += n - prior
                     group[field][cell] = n
+                    if field == "a" and not d.get("native_counts"):
+                        group["legacy"] = True
 
     done = 0
     with _pool() as pool:
@@ -367,7 +401,7 @@ def gather(progress=None) -> dict:
     # *when*, which is all the picture ever needed.
     live = {hashlib.sha1(f.encode("utf-8", "replace")).hexdigest() + ".json" for f, _ in work}
     try:
-        names = os.listdir(CACHE)
+        names = [] if scoped else os.listdir(CACHE)
     except OSError:
         names = []
     for name in names:
@@ -421,7 +455,9 @@ def gather(progress=None) -> dict:
             pass
     a.clear()
     y.clear()
-    for d, is_live, stored_path in rows:
+    # An exact native count supersedes an older byte-match count for the same
+    # transcript and cell. Keep legacy-only hours when their source is gone.
+    for d, is_live, stored_path in sorted(rows, key=lambda row: not row[0].get("native_counts")):
         key = owner(_history_identity(d))
         merge(d, key, is_live)
         if d.get("k") != key or not d.get("i"):
@@ -433,7 +469,9 @@ def gather(progress=None) -> dict:
             except OSError:
                 pass
     kept = sum(not d["live"] for d in snapshots.values())
-    return {"a": dict(_localize(a)), "y": dict(_localize(y)), "files": len(work), "kept": kept}
+    return {"a": dict(_localize(a)), "y": dict(_localize(y)), "files": len(work), "kept": kept,
+            "legacy_kept": sum(d["legacy"] for d in snapshots.values()),
+            "undated_actions": sum(d["undated"] for d in snapshots.values())}
 
 
 # ------------------------------------------------- what your rules would hold
@@ -479,7 +517,7 @@ def _head(path: str) -> str:
 
 
 def _tag(text: str) -> str:
-    return f"h{VERSION}.4:{hashlib.sha1(text.encode()).hexdigest()[:12]}"
+    return f"h{VERSION}.6:{hashlib.sha1(text.encode()).hexdigest()[:12]}"
 
 
 def command_evidence(value: str) -> dict:
@@ -521,7 +559,8 @@ def _judge(item) -> tuple:
     A log that runs out of time keeps how far it got, and the next run
     carries on from there. A log that only grew (a live session) is judged
     from where it was, not from the top."""
-    path, agent, text = item
+    path, agent, text = item[:3]
+    deadline = item[3] if len(item) > 3 else None
     from . import rules, shell, signals
     try:
         st = os.stat(path)
@@ -529,7 +568,7 @@ def _judge(item) -> tuple:
         return [], True
     tag, cp, head = _tag(text), _held_cache(path), _head(path)
     size, mtime = st.st_size, st.st_mtime_ns
-    seekable = not path.endswith((".zst", ".json"))
+    seekable = agent != "gemini" and not path.endswith((".zst", ".json"))
     marks, start, cursor = [], 0, {"offset": 0, "item": 0}
     first, last, checked = "", "", 0
     try:
@@ -537,7 +576,7 @@ def _judge(item) -> tuple:
             c = json.load(fh)
         if isinstance(c, dict) and c.get("t") == tag and c.get("head") == head and isinstance(c.get("n"), int):
             same = c.get("size") == size and c.get("mtime") == mtime
-            grew = size > (c.get("size") or 0) and not path.endswith(".zst")
+            grew = size > (c.get("size") or 0) and seekable
             if same and c.get("done"):
                 return c.get("m", []), True
             if same or grew:
@@ -553,9 +592,11 @@ def _judge(item) -> tuple:
     if active is None:                       # once per worker, not once per log
         active = [r for r in rules.parse(text) if r.enforced]
         active = _PARSED[text] = getattr(rules, "prepare_rules", list)(active)
-    reader = sources._read_claude if agent == "claude" else sources._read_codex
+    reader = sources.reader(agent)
     previous_fs, shell._FS[0] = shell._FS[0], False
     stop_at = time.monotonic() + _FILE_BUDGET
+    if deadline is not None:
+        stop_at = min(stop_at, deadline)
     n, done = start, True
 
     def keep():
@@ -571,6 +612,9 @@ def _judge(item) -> tuple:
     try:
         i = 0
         while True:
+            if deadline is not None and time.monotonic() > deadline:
+                done = False
+                break
             before = dict(cursor)
             try:
                 act = next(iterator)
@@ -579,14 +623,17 @@ def _judge(item) -> tuple:
             if not seekable and i < start:
                 i += 1
                 continue
+            if not seekable and i == start:
+                # A compressed stream must decode its old prefix to resume.
+                # Charge the budget to new work after reaching the next action;
+                # otherwise a prefix slower than the budget stalls every pass.
+                stop_at = min(time.monotonic() + _FILE_BUDGET, deadline) if deadline is not None else time.monotonic() + _FILE_BUDGET
             if time.monotonic() > stop_at:
                 cursor, done = before, False
                 break
             i += 1
             n += 1
-            k = _ukey(act.ts) if act.ts else None
-            if not k:
-                continue
+            k = (_ukey(act.ts) if act.ts else None) or ""
             if act.command:
                 inp, tool = {"command": act.command[:shell.MAX]}, "Bash"
             elif act.paths:
@@ -617,16 +664,16 @@ def _judge(item) -> tuple:
                 break
             verdict, rule_text, seen = result
             checked += 1
-            order = _timestamp_order(act.ts)
-            if order < first_order:
+            order = _timestamp_order(act.ts) if k else None
+            if order is not None and order < first_order:
                 first, first_order = act.ts, order
-            if order > last_order:
+            if order is not None and order > last_order:
                 last, last_order = act.ts, order
             if verdict == "allow" or not rule_text:
                 continue
             # Every hold is counted; only the first 60 in a log keep a quote.
             ex = seen if len(marks) < 60 else ""
-            meta = {"call_id": act.call_id, "status": "unknown", "source": "unknown"}
+            meta = {"call_id": act.call_id, "actor_id": act.actor_id, "status": "unknown", "source": "unknown"}
             if ex:
                 meta.update(command_evidence(act.command or (act.paths[0] if act.paths else act.tool)))
             marks.append([k, verdict, rule_text, ex, meta])
@@ -650,12 +697,16 @@ def _judge_coverage(item) -> tuple:
     return marks, done, coverage
 
 
-def held_moments(progress=None) -> dict:
+def held_moments(progress=None, work=None, budget=None) -> dict:
     """What your rules would have stopped in your newest logs, and what the
     hook has actually stopped since you plugged it in."""
     from . import enforce, signals
     text, yours = rules_text()
-    work = [(f, a, text) for f, a in files()[:HELD_FILES]]
+    scoped = work is not None
+    bounded = scoped and budget is not None
+    selected = list(work) if scoped else files()[:HELD_FILES]
+    deadline = time.monotonic() + (HELD_BUDGET if budget is None else budget)
+    work = [(f, a, text, deadline) if scoped and budget is not None else (f, a, text) for f, a in selected]
     total = len(work)
     past = []
     inspected, partial_logs, checked = [], 0, 0
@@ -666,18 +717,17 @@ def held_moments(progress=None) -> dict:
         # rest back; whatever was judged in time is the judged window, and the
         # page and the terminal say which days it covers.
         from concurrent.futures import as_completed, TimeoutError as _Timeout
-        deadline = time.monotonic() + HELD_BUDGET
         pool = _pool()
         finished = []
         try:
             futs = {pool.submit(_judge_coverage, w): w for w in work}
             try:
-                for n, fut in enumerate(as_completed(futs, timeout=max(0.1, deadline - time.monotonic())), 1):
+                for n, fut in enumerate(as_completed(futs, timeout=None if bounded else max(0.1, deadline - time.monotonic())), 1):
                     try:
                         m, whole, coverage = fut.result()
                     except Exception:
                         m, whole, coverage = [], False, {}
-                    past += [[_local(r[0])] + list(r[1:]) for r in m if _local(r[0])]
+                    past += [[_local(r[0]) or ""] + list(r[1:]) for r in m if not r[0] or _local(r[0])]
                     inspected.append(futs[fut][0])
                     checked += coverage.get("n", 0)
                     partial_logs += not whole
@@ -689,15 +739,15 @@ def held_moments(progress=None) -> dict:
                         finished.append(futs[fut])
                     if progress and n % 10 == 0:
                         progress(n, total)
-                    if time.monotonic() > deadline:
+                    if not bounded and time.monotonic() > deadline:
                         break
             except _Timeout:
                 pass
         finally:
             try:
-                pool.shutdown(wait=False, cancel_futures=True)
+                pool.shutdown(wait=bounded, cancel_futures=True)
             except TypeError:
-                pool.shutdown(wait=False)
+                pool.shutdown(wait=bounded)
         work = finished
     live = []
     for e in enforce.held(2000):
@@ -776,10 +826,11 @@ def _hook_totals() -> dict:
 def shape(data: dict) -> dict:
     """Days from the first lit hour to today, 24 hours each."""
     a, y = data.get("a", {}), data.get("y", {})
+    undated = data.get("undated_actions", 0)
     keys = list(a) + list(y) + [m[0] for m in data.get("held", {}).get("live", [])]
-    if not keys:
+    if not keys and not undated:
         return {}
-    first = min(k[:10] for k in keys)
+    first = min(k[:10] for k in keys) if keys else _dt.date.today().isoformat()
     d0 = _dt.date.fromisoformat(first)
     today = _dt.date.today()
     days = (today - d0).days + 1
@@ -798,6 +849,11 @@ def shape(data: dict) -> dict:
     for kind, rows in (("past", data.get("held", {}).get("past", [])), ("live", data.get("held", {}).get("live", []))):
         for row in rows:
             k, verdict, rule, ex = row[:4]
+            result = row[4] if len(row) > 4 and isinstance(row[4], dict) else {"status": "unknown"}
+            if not k:
+                marks.append({"i": None, "h": None, "undated": True, "v": verdict, "r": rule,
+                              "c": ex, "live": kind == "live", "result": result})
+                continue
             try:
                 i = (_dt.date.fromisoformat(k[:10]) - d0).days
                 h = int(k[11:13])
@@ -806,14 +862,15 @@ def shape(data: dict) -> dict:
             if 0 <= i < days and 0 <= h < 24:
                 result = row[4] if len(row) > 4 and isinstance(row[4], dict) else {"status": "unknown"}
                 marks.append({"i": i, "h": h, "v": verdict, "r": rule, "c": ex, "live": kind == "live", "result": result})
-    marks.sort(key=lambda m: (m["live"], m["i"], m["h"]), reverse=True)
+    marks.sort(key=lambda m: (m["live"], m["i"] if m["i"] is not None else -1,
+                              m["h"] if m["h"] is not None else -1), reverse=True)
     # One example per rule, the clearest: something stopped live first, then the shortest quote.
     by_rule = {}
     for m in marks:
         by_rule.setdefault(m["r"], []).append(m)
     examples = []
     for m in marks:
-        m["away"] = not Y[m["i"]][m["h"]]               # it happened in an hour you were not there
+        m["away"] = not m.get("undated") and not Y[m["i"]][m["h"]]
     for r, ms in sorted(by_rule.items(), key=lambda kv: (-any(m["live"] for m in kv[1]),
                                                          -any(m["away"] for m in kv[1]), -len(kv[1]))):
         # The clearest proof, not the shortest: something stopped live, then
@@ -821,7 +878,8 @@ def shape(data: dict) -> dict:
         # most forceful (a force push over a plain one), then the most recent.
         loud = lambda c: any(k in c for k in ("--force", " -f ", "-rf", "sudo", ".env", "| sh", "| bash"))
         best = min(ms, key=lambda m: (not m["c"], not m["live"], not m["away"], m["v"] != "block", not loud(m["c"]),
-                                      len(m["c"]) > 90, -m["i"], -m["h"]))
+                                      len(m["c"]) > 90, -(m["i"] if m["i"] is not None else -1),
+                                      -(m["h"] if m["h"] is not None else -1)))
         examples.append(dict(best, n=len(ms)))
         if len(examples) == 3:
             break
@@ -840,7 +898,8 @@ def shape(data: dict) -> dict:
     live_counts = data.get("held", {}).get("hook", {}).get("by_rule")
     if live_counts is None:
         live_counts = dict(Counter(m["r"] for m in live_marks))
-    return {"first": first, "days": days, "A": A, "Y": Y, "actions": sum(map(sum, A)),
+    return {"first": first, "days": days, "A": A, "Y": Y, "actions": sum(map(sum, A)) + undated,
+            "undated_actions": undated, "legacy_kept": data.get("legacy_kept", 0),
             "together": together, "alone": alone, "you": sum(1 for r in Y for v in r if v),
             "marks": shown, "examples": examples, "by_rule": dict(past_counts), "live_by_rule": live_counts,
             "marks_total": len(past_marks) + sum(live_counts.values()),
@@ -957,6 +1016,8 @@ def draw(s: dict, animate: bool = True, out=None) -> None:
     top = max((a for col in cols for a, _ in col), default=1)
     marked = {}
     for m in s.get("marks", []):
+        if m.get("undated"):
+            continue
         key = (m["i"] // per, m["h"])
         marked[key] = _LIVE if (m["live"] or marked.get(key) == _LIVE) else _HELD
     dots = size.lines >= 34
@@ -1133,6 +1194,8 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
 .ag-h{display:flex;align-items:flex-start;gap:9px}
 .tile{flex:none;width:28px;height:28px;border-radius:7px;border:1px solid #2f2f33;display:grid;place-items:center;background:#202024}
 .tile svg{width:16px;height:16px}
+.tile img{display:block;object-fit:contain;flex:none}.tile img.provider-mark{max-width:none}
+.tile svg.claude-mark{width:18px;height:18px}.tile svg.codex-mark{width:32px;height:32px}
 .tt{min-width:0;flex:1}
 .ti{font-weight:500;font-size:13px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff}
 .ob{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -1229,7 +1292,9 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
 .qrow{display:grid;grid-template-columns:minmax(0,14rem) minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:7px 2px;
   border-bottom:1px solid var(--hair);font-size:12.5px}
 .qrow .qt{color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.qrow .qt i{font-style:normal;color:var(--meta);margin-left:6px}
+.qrow .qt{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.qrow .qt i{font-style:normal;color:var(--meta)}
+.qrow .qt .tile{width:20px;height:20px;flex:none}.qrow .qt .tile svg{width:16px;height:16px}
+.qrow .qt .tile svg.codex-mark{width:28px;height:28px}
 .qrow .qk{color:var(--task);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .qrow .qm{color:var(--meta);white-space:nowrap}
 .qrow .ob{font:inherit;text-align:left;border:0;background:none;padding:0;cursor:pointer}.qrow .ob:hover{text-decoration:underline}.qrow .all{grid-column:1 / -1}
@@ -1239,8 +1304,9 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
 .context-line{display:flex;justify-content:space-between;gap:16px;padding:10px 15px 0;font-size:12px;color:var(--task)}
 .context-line #date-range{white-space:nowrap;color:var(--meta)}
 .coverage{margin:8px 15px 0;color:#c5a876;font-size:11px;line-height:1.5}
+.scan-scope{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 15px 0;font-size:11px;color:var(--task)}.scan-scope[hidden]{display:none}.scan-scope .chipbtn{margin-left:auto}.scope-tag{border:1px solid #49443a;color:#d8c49e;border-radius:4px;padding:3px 6px}
 .live-note{margin:10px 15px 0;padding:8px 10px;border:1px solid #31533c;border-radius:6px;background:#17261d;color:#8ed6a7;font-size:12px}
-.local-note{display:flex;justify-content:flex-end;padding:12px 1px;color:var(--meta);font-size:11px}
+.local-note{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 1px;color:var(--meta);font-size:11px}.local-note a{color:var(--meta);text-underline-offset:3px}
 .ag.root{width:360px}.ag.root .evs{margin-top:10px}.ag.root .ft{font-size:11px}.ag.root .ft>span{white-space:normal}
 .ag.root .go{height:32px;font:inherit;font-size:12px;padding:0 12px}
 .ag:not(.root) .ag-h{position:relative;padding-bottom:17px}
@@ -1263,9 +1329,10 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
 .inspect-verdict.ordinary{border-color:#8c9eaf}.inspect-verdict.ordinary strong{color:#d2dce6}.qrow.focused{border-left:2px solid #8c9eaf;padding-left:10px}
 .inspect-outcome{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:10px;color:var(--meta);margin:21px 0 12px}
 .inspect-outcome>span{background:#29292e;padding:2px 6px;border-radius:4px}
-.inspect-evidence{font-size:11px;color:var(--meta);margin-bottom:20px}.inspect-evidence summary{cursor:pointer;padding:6px 0}.inspect-evidence code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;padding:10px;background:#121215;border:1px solid var(--line);border-radius:6px;color:#ddd}.inspect-evidence p{font-size:11px;line-height:1.5}
+.inspect-evidence{font-size:11px;color:var(--meta);margin-bottom:20px}.inspect-evidence summary{cursor:pointer;padding:6px 0}.inspect-evidence code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;max-height:140px;overflow:auto;padding:10px;background:#121215;border:1px solid var(--line);border-radius:6px;color:#ddd}.inspect-evidence p{font-size:11px;line-height:1.5}
 .inspector .setup-primary{margin-top:4px}
 .ag:not(.root) .ag-h{padding-bottom:0}.ag:not(.root) .mo{position:static;max-width:100%;font-size:11px;margin-top:5px}
+.ag:not(.root) .mo{white-space:normal;line-height:1.45;overflow-wrap:anywhere}
 .ag:not(.root) .st{display:none}.ag:not(.root) .ti,.ag:not(.root) .ob{white-space:normal;font-size:13px;line-height:1.4}
 .ag:not(.root) .ob{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
 #activity>summary{cursor:pointer;padding:15px;list-style:disclosure-closed}#activity[open]>summary{list-style:disclosure-open}
@@ -1327,6 +1394,7 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
   </div>
   <div class="context-line"><span id="past-note"></span><span id="date-range"></span></div>
   <div class="live-note" id="live-note" hidden></div>
+  <div class="scan-scope" id="scan-scope" hidden><span class="scope-tag">Recent sample</span><span id="scan-count"></span><button class="chipbtn" id="scan-all">Scan all history</button></div>
   <p class="coverage" id="coverage" hidden></p>
   <h2 class="sr">Filter past attempts</h2>
   <div class="rules" id="rules" hidden role="group" aria-label="Your rules"></div>
@@ -1340,14 +1408,14 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
   <aside class="side">
   <section class="inspector" id="inspector" aria-labelledby="event-title">
     <header class="inspect-head"><h2 id="event-title">Selected attempt</h2><div class="inspect-nav"><button class="icon" id="event-prev" aria-label="Previous attempt">‹</button><span class="mono" id="event-position"></span><button class="icon" id="event-next" aria-label="Next attempt">›</button></div></header>
-    <div class="inspect-source"><span class="tile" id="event-glyph"></span><div><strong id="event-agent"></strong><span id="event-project"></span></div></div>
+    <div class="inspect-source"><span class="tile" id="event-glyph"></span><div><strong id="event-agent"></strong><span id="event-model"></span><span id="event-project"></span></div></div>
     <div class="inspect-arrow" id="event-action"></div>
     <div class="inspect-artifact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/></svg><code id="event-target"></code></div>
+    <div class="inspect-outcome"><span id="event-outcome">Outcome unknown</span><time id="event-time"></time></div>
+    <details class="inspect-evidence" open><summary id="event-evidence-title">Command &amp; tool result</summary><code id="event-command" tabindex="0"></code><p id="event-result-note">This report records the attempt. It does not include the tool result.</p></details>
     <div class="inspect-arrow" id="event-rule-owner"></div>
     <div class="inspect-verdict" id="event-verdict"><strong id="event-result"></strong><span id="event-rule"></span></div>
-    <div class="inspect-outcome"><span id="event-outcome">Outcome unknown</span><time id="event-time"></time></div>
-    <details class="inspect-evidence"><summary id="event-evidence-title">Command &amp; tool result</summary><code id="event-command"></code><p id="event-result-note">This report records the attempt. It does not include the tool result.</p></details>
-    <button class="setup-primary" id="setup-open" aria-haspopup="dialog">Turn rules on</button>
+    <button class="setup-primary" id="setup-open" aria-haspopup="dialog">Set up Claude Code checks</button>
   </section>
   <details id="activity"><summary>Activity by hour</summary>
   <div class="lane mono">
@@ -1368,7 +1436,7 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
   </aside>
   </div>
 </section>
-<footer class="local-note">Local report · Nothing uploaded</footer>
+<footer class="local-note"><span>Local report · Nothing uploaded</span><a href="https://www.kyma.stream/clearance" target="_blank" rel="noopener noreferrer">Contract review from $1,000 ↗</a></footer>
 <dialog class="setup-dialog" id="refresh-dialog" aria-labelledby="refresh-title">
 <header><h2 id="refresh-title">Refresh your activity</h2><button class="setup-close" id="refresh-close" aria-label="Close refresh">×</button></header>
 <div class="setup-body"><p>Open a terminal outside your agent conversation. Paste this command and press Enter.</p><div class="setup-command"><code id="refresh-command"></code><button class="plain-button" id="refresh-copy" aria-label="Copy report command">Copy</button></div><p class="setup-done" id="refresh-feedback" aria-live="polite"></p><details id="refresh-help"><summary>Command not found? Start with Python</summary><p>Requires Git and Python 3.9 or later.</p><div class="setup-command"><code id="refresh-python-command"></code><button class="plain-button" id="refresh-python-copy" aria-label="Copy Python setup command">Copy</button></div><p class="setup-done" id="refresh-python-feedback" aria-live="polite"></p></details></div></dialog>
@@ -1384,7 +1452,7 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
 <p class="setup-done" id="setup-feedback" aria-live="polite"></p>
 <div class="setup-success" id="setup-success">Success shows <strong>“On.”</strong> and <strong>“The hook answered its self-test.”</strong></div></li>
 </ol>
-<details class="setup-more" id="setup-edit"><summary>Edit rules</summary><div id="setup-rule-files"></div></details>
+<details class="setup-more" id="setup-edit"><summary>Edit rules</summary><div id="setup-rule-files"></div><p>Need rules from customer contracts? <a href="https://www.kyma.stream/clearance" target="_blank" rel="noopener noreferrer">Kyma contract review</a> starts at $1,000 for up to 25 agreement sets. Local checks stay free.</p></details>
 <details class="setup-more"><summary>Check setup &amp; refresh this report</summary><p>Claude Code normally loads the change automatically. This command checks the rules and opens a fresh report.</p><div class="setup-command"><code id="setup-check-command"></code><button class="plain-button" id="setup-check-copy" aria-label="Copy check and refresh command">Copy</button></div><p class="setup-done" id="setup-check-feedback" aria-live="polite"></p></details>
 <details class="setup-more"><summary>Turn rules off</summary><p id="setup-off-scope"></p><div class="setup-command"><code id="setup-off-command"></code><button class="plain-button" id="setup-off-copy" aria-label="Copy turn-off command">Copy</button></div><p class="setup-done" id="setup-off-feedback" aria-live="polite"></p></details>
 <button class="setup-primary" id="setup-return">Back to report</button>
@@ -1404,10 +1472,12 @@ const long = d => d.toLocaleDateString(undefined, {day: "numeric", month: "short
 const hr = h => (h % 12 || 12) + (h < 12 ? "am" : "pm");
 const at = (i, h) => dateOf(i).toLocaleDateString(undefined, {weekday: "short", day: "numeric", month: "short"}) + " · " + hr(h);
 $("f-t").textContent = fmt(D.together); $("f-o").textContent = fmt(D.alone);
-const M = D.marks || [];
+const M = (D.marks || []).filter(m => !m.undated && m.i != null && m.h != null);
 $("past-note").textContent = D.checked_calls ? `Past actions checked against ${D.yours ? "your" : "starter"} rules. This check stopped nothing.` : "No actions checked yet.";
 $("event-rule-owner").textContent = D.yours ? "↓  matched your rule" : "↓  matched a starter rule";
-$("date-range").textContent = short(day0) + " – " + long(new Date(D.today + "T00:00:00"));
+const datedActivity = (D.actions || 0) > (D.undated_actions || 0);
+$("date-range").textContent = datedActivity ? short(day0) + " – " + long(new Date(D.today + "T00:00:00")) : "Dates not recorded";
+$("activity").hidden = !datedActivity;
 const liveReceipt = [];
 if (D.held_live) liveReceipt.push(`${fmt(D.held_live)} actually stopped`);
 if (D.asked_live) liveReceipt.push(`${fmt(D.asked_live)} required permission`);
@@ -1423,11 +1493,19 @@ if (D.held_past) { $("held-fact").hidden = false;
   for (const [k, n] of [["hs", D.stop_past], ["ha", D.ask_past]]) { $("f-" + k).textContent = fmt(n || 0); for (const x of ["f-" + k, "f-" + k + "-r", "f-" + k + "-t"]) $(x).hidden = !n; }
 }
 const scope = [];
+if (D.quick && D.scope) {
+  $("scan-scope").hidden = false;
+  const size = D.scope.selected_bytes < 1048576 ? "<1 MB" : `${Math.ceil(D.scope.selected_bytes / 1048576)} MB`;
+  $("scan-count").textContent = `${fmt(D.scope.selected_files)} of ${fmt(D.scope.available_files)} logs · ${size}`;
+  $("scan-count").title = "Newest logs within the first-run size limit. Larger and older logs remain available through Scan all history.";
+}
+if (D.undated_actions) scope.push(`${fmt(D.undated_actions)} ${D.undated_actions === 1 ? "action has" : "actions have"} no recorded time`);
+if (D.legacy_kept) scope.push(`${fmt(D.legacy_kept)} retained log snapshots use legacy call counts`);
 if (D.judged_of && (D.judged < D.judged_of || D.partial_logs)) {
-  scope.push(`${fmt(D.checked_calls || 0)} calls replayed · ${fmt(D.judged)} complete` +
+  scope.push(`${fmt(D.checked_calls || 0)} actions replayed · ${fmt(D.judged)} complete` +
     (D.partial_logs ? ` + ${fmt(D.partial_logs)} partial` : "") + ` of ${fmt(D.judged_of)} available logs`);
 }
-if (D.marks_total > M.length) scope.push(`${fmt(M.length)} of ${fmt(D.marks_total)} moments shown`);
+if (D.marks_total > (D.marks || []).length) scope.push(`${fmt((D.marks || []).length)} of ${fmt(D.marks_total)} moments shown`);
 const unsupportedRules = (D.rules || []).filter(r => !r.ok).length;
 if (unsupportedRules) scope.push(`${fmt(unsupportedRules)} rules could not be evaluated`);
 if (scope.length) { $("coverage").hidden = false; $("coverage").textContent = scope.join(" · "); }
@@ -1453,6 +1531,15 @@ const actionNames = {
 };
 const receipts = [];
 const collectReceipts = (a, root, parent) => { for (const h of a.held || []) receipts.push({a, h, root, parent}); for (const k of a.children || []) collectReceipts(k, root, a); };
+function firstAttempt(roots) {
+  const visit = (a, root, parent) => {
+    if (a.attempts?.length) return {a, root, parent, attempt:a.attempts[0]};
+    for (const child of a.children || []) { const found = visit(child, root, a); if (found) return found; }
+    return null;
+  };
+  for (const root of roots) { const found = visit(root, root, null); if (found) return found; }
+  return null;
+}
 AG.forEach(a => collectReceipts(a, a, null)); receipts.sort((a,b) => b.h[0].localeCompare(a.h[0]));
 let selectedReceipt = receipts[0] || null, selectedRoot = selectedReceipt?.root, receiptOptions = receipts;
 const targetOf = h => {
@@ -1465,11 +1552,13 @@ const targetOf = h => {
   }
   return {"Code uploads":"Code changes", "Email":"Email", "Scheduled tasks":"Scheduled task", "Admin access":"Administrator access"}[category] || "Tool action";
 };
+// First-party identification assets and provenance: docs/agent-marks.md.
 const GLYPH = {
-  claude: '<svg viewBox="0 0 16 16" aria-hidden="true"><g stroke="#d67859" stroke-width="1.7" stroke-linecap="round">' +
-          [0,22.5,45,67.5,90,112.5,135,157.5].map(a => `<line x1="8" y1="2.2" x2="8" y2="6.2" transform="rotate(${a} 8 8)"/><line x1="8" y1="9.8" x2="8" y2="13.8" transform="rotate(${a} 8 8)"/>`).join("") + '</g></svg>',
-  codex: '<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="#e8e8ea" stroke-width="1.3"><circle cx="8" cy="5.6" r="3"/><circle cx="5.9" cy="9.4" r="3"/><circle cx="10.1" cy="9.4" r="3"/></svg>',
+  unknown: '<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="#a7a7b0" stroke-width="1.3"><rect x="3" y="4" width="10" height="9" rx="2"/><path d="M8 1.5V4M5.5 8h.01M10.5 8h.01M6 10.5h4" stroke-linecap="round"/></svg>',
+  claude: "<svg class=\"claude-mark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 248 248\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M52.4285 162.873L98.7844 136.879L99.5485 134.602L98.7844 133.334H96.4921L88.7237 132.862L62.2346 132.153L39.3113 131.207L17.0249 130.026L11.4214 128.844L6.2 121.873L6.7094 118.447L11.4214 115.257L18.171 115.847L33.0711 116.911L55.485 118.447L71.6586 119.392L95.728 121.873H99.5485L100.058 120.337L98.7844 119.392L97.7656 118.447L74.5877 102.732L49.4995 86.1905L36.3823 76.62L29.3779 71.7757L25.8121 67.2858L24.2839 57.3608L30.6515 50.2716L39.3113 50.8623L41.4763 51.4531L50.2636 58.1879L68.9842 72.7209L93.4357 90.6804L97.0015 93.6343L98.4374 92.6652L98.6571 91.9801L97.0015 89.2625L83.757 65.2772L69.621 40.8192L63.2534 30.6579L61.5978 24.632C60.9565 22.1032 60.579 20.0111 60.579 17.4246L67.8381 7.49965L71.9133 6.19995L81.7193 7.49965L85.7946 11.0443L91.9074 24.9865L101.714 46.8451L116.996 76.62L121.453 85.4816L123.873 93.6343L124.764 96.1155H126.292V94.6976L127.566 77.9197L129.858 57.3608L132.15 30.8942L132.915 23.4505L136.608 14.4708L143.994 9.62643L149.725 12.344L154.437 19.0788L153.8 23.4505L150.998 41.6463L145.522 70.1215L141.957 89.2625H143.994L146.414 86.7813L156.093 74.0206L172.266 53.698L179.398 45.6635L187.803 36.802L193.152 32.5484H203.34L210.726 43.6549L207.415 55.1159L196.972 68.3492L188.312 79.5739L175.896 96.2095L168.191 109.585L168.882 110.689L170.738 110.53L198.755 104.504L213.91 101.787L231.994 98.7149L240.144 102.496L241.036 106.395L237.852 114.311L218.495 119.037L195.826 123.645L162.07 131.592L161.696 131.893L162.137 132.547L177.36 133.925L183.855 134.279H199.774L229.447 136.524L237.215 141.605L241.8 147.867L241.036 152.711L229.065 158.737L213.019 154.956L175.45 145.977L162.587 142.787H160.805V143.85L171.502 154.366L191.242 172.089L215.82 195.011L217.094 200.682L213.91 205.172L210.599 204.699L188.949 188.394L180.544 181.069L161.696 165.118H160.422V166.772L164.752 173.152L187.803 207.771L188.949 218.405L187.294 221.832L181.308 223.959L174.813 222.777L161.187 203.754L147.305 182.486L136.098 163.345L134.745 164.2L128.075 235.42L125.019 239.082L117.887 241.8L111.902 237.31L108.718 229.984L111.902 215.452L115.722 196.547L118.779 181.541L121.58 162.873L123.291 156.636L123.14 156.219L121.773 156.449L107.699 175.752L86.304 204.699L69.3663 222.777L65.291 224.431L58.2867 220.768L58.9235 214.27L62.8713 208.48L86.304 178.705L100.44 160.155L109.551 149.507L109.462 147.967L108.959 147.924L46.6977 188.512L35.6182 189.93L30.7788 185.44L31.4156 178.115L33.7079 175.752L52.4285 162.873Z\" fill=\"#D97757\" /></svg>",
+  codex: "<svg class=\"codex-mark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 716 716\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M508.749 317.399C516.777 287.314 508.991 253.884 485.389 230.282C461.788 206.681 428.36 198.895 398.273 206.923C376.231 184.928 343.39 174.956 311.148 183.596C278.906 192.234 255.45 217.292 247.36 247.361C217.291 255.451 192.233 278.91 183.595 311.149C174.957 343.391 184.927 376.232 206.924 398.274C198.896 428.359 206.683 461.789 230.284 485.391C253.885 508.992 287.313 516.779 317.401 508.75C339.442 530.745 372.286 540.717 404.525 532.079C436.767 523.441 460.223 498.384 468.313 468.315C498.383 460.224 523.44 436.766 532.078 404.526C540.716 372.285 530.747 339.443 508.749 317.402V317.399ZM470.899 244.776C486.892 260.77 493.488 282.601 490.687 303.412L415.577 260.046C412.411 258.218 408.509 258.218 405.345 260.046L317.401 310.82V277.526C317.401 275.191 318.652 273.005 320.676 271.837L387.644 233.174C414.178 218.353 448.346 222.223 470.901 244.776H470.899ZM357.837 311.144L398.275 334.491V381.185L357.837 404.532L317.398 381.185V334.491L357.837 311.144ZM264.776 269.693C265.207 239.305 285.644 211.649 316.453 203.393C338.3 197.54 360.505 202.744 377.127 215.573L302.014 258.937C298.848 260.764 296.898 264.144 296.898 267.798V369.346L268.065 352.699C266.043 351.531 264.776 349.353 264.776 347.017V269.691V269.693ZM203.391 316.454C209.244 294.608 224.854 277.978 244.276 269.999V356.73C244.276 360.384 246.226 363.763 249.392 365.591L337.337 416.365L308.503 433.013C306.481 434.181 303.961 434.188 301.939 433.02L234.971 394.357C208.868 378.789 195.138 347.261 203.391 316.454ZM244.775 470.9C228.781 454.906 222.186 433.075 224.986 412.264L300.096 455.63C303.263 457.457 307.164 457.457 310.328 455.63L398.273 404.856V438.149C398.273 440.485 397.022 442.671 394.997 443.839L328.029 482.502C301.495 497.322 267.327 493.452 244.772 470.9H244.775ZM450.897 445.982C450.466 476.371 430.029 504.027 399.22 512.283C377.373 518.136 355.168 512.932 338.547 500.102L413.659 456.738C416.826 454.911 418.775 451.532 418.775 447.877V346.329L447.609 362.977C449.631 364.145 450.897 366.323 450.897 368.659V445.985V445.982ZM512.282 399.221C506.429 421.068 490.819 437.697 471.397 445.676V358.946C471.397 355.292 469.448 351.912 466.281 350.085L378.336 299.311L407.17 282.663C409.192 281.495 411.712 281.487 413.734 282.655L480.702 321.318C506.805 336.887 520.536 368.415 512.282 399.221Z\" fill=\"white\" /></svg>",
   home: '<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="#74b6f9" stroke-width="1.4" stroke-linejoin="round"><rect x="2.5" y="3.5" width="11" height="7.5" rx="1.3"/><path d="M6 13.5h4M8 11v2.5"/></svg>'};
+Object.assign(GLYPH, __PROVIDER_MARKS__);
 const ICON = {
   done: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.3l2.2 2.2 4.8-5"/></svg>',
   off: '',
@@ -1479,13 +1568,65 @@ const ICON = {
   stop: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M6 1.6l4.6 8.2H1.4z"/><path d="M6 5v2" stroke-linecap="round"/></svg>',
   chev: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.5l3 3 3-3"/></svg>'};
 const kindName = k => (!k || k === "subagent") ? "Agent" : k === "general-purpose" ? "General" : k;
+const hostName = a => ({claude:"Claude Code", codex:"Codex"}[a.agent] || "Agent");
+function providerOf(a) {
+  const identities = a.identities?.length ? a.identities : [a];
+  const providers = identities.map(i => {
+    const raw = (i.model_id || i.model || "").toLowerCase();
+    const model = raw.replace(/^(anthropic|openai|google|deepseek|xai|mistral|meta-llama|qwen)\//, "");
+    if (/^(claude-|opus\b|sonnet\b|haiku\b)/.test(model)) return "anthropic";
+    if (/^(gpt-|chatgpt-|o[134](?:-|$))/.test(model)) return "openai";
+    if (/^gemini/.test(model)) return "gemini";
+    if (/^gemma/.test(model)) return "google";
+    if (/^deepseek/.test(model)) return "deepseek";
+    if (/^grok/.test(model)) return "xai";
+    if (/^(mistral|mixtral|codestral|devstral|ministral)/.test(model)) return "mistral";
+    if (/^(llama|meta-llama)/.test(model)) return "meta";
+    if (/^qwen/.test(model)) return "qwen";
+    return (i.provider || "unknown").toLowerCase();
+  });
+  return new Set(providers).size === 1 ? providers[0] : "unknown";
+}
+const glyphFor = a => GLYPH[({anthropic:"claude", openai:"codex"}[providerOf(a)] || providerOf(a))] || GLYPH.unknown;
+const effortName = value => value ? value[0].toUpperCase() + value.slice(1) : "";
+function displayModel(value) {
+  const raw = value || "";
+  const known = raw.replace(/^(?:google|deepseek|qwen|meta-llama)\//i, "");
+  const match = /^(gemini|deepseek|qwen\d*|llama|grok)-([a-z0-9.-]+)$/i.exec(known);
+  if (!match) return raw;
+  const family = {gemini:"Gemini", deepseek:"DeepSeek", llama:"Llama", grok:"Grok"}[match[1].toLowerCase()] || match[1].replace(/^qwen/i, "Qwen");
+  const suffix = match[2].split("-").map(part => /^[rv]\d+$|^\d+b$/i.test(part) ? part.toUpperCase() : part[0].toUpperCase() + part.slice(1));
+  return [family, ...suffix].join(" ");
+}
+function modelParts(a) {
+  const identities = a.identities?.length ? a.identities : [a];
+  const models = [...new Set(identities.map(i => i.model_id || i.model || ""))];
+  const efforts = [...new Set(identities.map(i => i.effort || ""))];
+  return [models.length > 1 ? "Mixed models" : displayModel(identities[0].model) || "Model not recorded",
+    efforts.length > 1 ? "Mixed effort" : effortName(efforts[0])];
+}
+function modelLabel(a, exact = false) {
+  const [model, effort] = modelParts(a);
+  return [model, effort || (exact ? "Effort not recorded" : "")].filter(Boolean).join(" · ");
+}
+function identityTitle(a) {
+  return (a.identities?.length ? a.identities : [a]).map(i => modelLabel(i, true) + (i.model_id ? ` [${i.model_id}]` : "")).join("\n");
+}
+function showActor(a, actor, helper) {
+  const exact = actor || {}, [model, effort] = modelParts(exact);
+  $("event-glyph").innerHTML = glyphFor(exact);
+  $("event-glyph").title = hostName(a);
+  $("event-agent").textContent = model + (helper ? " · helper" : "");
+  $("event-model").textContent = effort ? effort + " effort" : "Effort not recorded";
+  $("event-model").title = actor?.model_id || "";
+}
 const deep = a => (a.held || []).concat(...(a.children || []).map(deep));
 const RANK = {stop: 3, ask: 2, run: 1, done: 0};
 function stateOf(a) {
   const h = deep(a);
   if (h.some(x => x[1] === "block")) return ["stop", "Would block"];
   if (h.some(x => x[1] === "ask")) return ["ask", "Would ask"];
-  if (a.live || (a.children || []).some(k => k.live)) return ["run", "Running"];
+  if (a.live || (a.children || []).some(k => k.live)) return ["run", "Recent log"];
   return ["done", "No match"];
 }
 // A card's pill: what this agent itself did, or "Via <subagent>" when the call was
@@ -1496,16 +1637,16 @@ function pillOf(a) {
   if (own.some(x => x[1] === "ask")) return ["ask", `${own.length} ${own.length === 1 ? "match" : "matches"}`];
   const kid = (a.children || []).find(k => deep(k).length);
   if (kid) return [stateOf(kid)[0] + " via", "Helper match"];
-  if (a.live || (a.children || []).some(k => k.live)) return ["run", "Running"];
+  if (a.live || (a.children || []).some(k => k.live)) return ["run", "Recent log"];
   return ["done", "No match"];
 }
 // No start or end in the log: say nothing rather than "<1m".
 const dur = a => !(a.start && a.end) ? "" : a.mins >= 60 ? Math.round(a.mins / 60) + "h" : (a.mins ? a.mins + "m" : "<1m");
 const dayOf = a => a.end ? new Date(a.end).toLocaleDateString(undefined, {day: "numeric", month: "short"}) : "";
-const when = k => { const d = new Date(k.slice(0, 10) + "T00:00:00"), h = +k.slice(11, 13);
+const when = k => { if (!k) return "Time not recorded"; const d = new Date(k.slice(0, 10) + "T00:00:00"), h = +k.slice(11, 13);
   return d.toLocaleDateString(undefined, {weekday: "short", day: "numeric", month: "short"}) + " · " + hr(h); };
-const cellOf = k => { const d = new Date(k.slice(0, 10) + "T00:00:00"); return [Math.round((d - day0) / 864e5), +k.slice(11, 13)]; };
-const isAway = h => { const [i, hh] = cellOf(h[0]); return !(D.Y[i] || [])[hh]; };
+const cellOf = k => { if (!k) return [NaN, NaN]; const d = new Date(k.slice(0, 10) + "T00:00:00"); return [Math.round((d - day0) / 864e5), +k.slice(11, 13)]; };
+const isAway = h => { if (!h[0]) return false; const [i, hh] = cellOf(h[0]); return !(D.Y[i] || [])[hh]; };
 function evidence(h, by) {
   const e = el("div", "ev artifact-chip");
   e.append(el("span", "ring " + (h[1] === "block" ? "vstop" : "vask")), el("code", "", targetOf(h)));
@@ -1519,26 +1660,27 @@ function card(a, kind, count) {
   c.dataset.st = st;
   // A subagent with no type of its own goes by its model; its task sits under it.
   const gen = kind === "sub" && kindName(a.kind) === "Agent";
-  const name = kind === "root" ? (D.example ? "Example computer" : "This computer") : a.task || (kind === "sub" ? kindName(a.kind) : (a.project || (a.agent === "codex" ? "Codex" : "Claude Code")));
+  const name = kind === "root" ? (D.example ? "Example computer" : "This computer") : a.task || (kind === "sub" ? kindName(a.kind) : (a.project || hostName(a)));
   const held = kind === "root" ? [] : deep(a);
   const opens = kind === "root" ? false : (held.length > 0 || (a.attempts || []).length > 0 || !!(a.start && a.end));
   if (opens) c.classList.add("can");
-  c.innerHTML = `<div class="ag-h"><span class="tile">${GLYPH[kind === "root" ? "home" : (a.agent === "codex" ? "codex" : "claude")]}</span>` +
+  c.innerHTML = `<div class="ag-h"><span class="tile">${kind === "root" ? GLYPH.home : glyphFor(a)}</span>` +
     `<div class="tt"><div class="ti"></div><div class="mo"></div></div><span class="st ${pill}">${ICON[pill.split(" ")[0]]}<span></span></span></div>` +
     `<div class="task"></div><div class="evs"></div><div class="ft"><span class="mono"></span></div>`;
   const ti = c.querySelector(".ti"), text = name + (count > 1 ? "  ×" + count : "");
   if (opens) {
     const b = el("button", "ob", text); b.type = "button"; b.setAttribute("aria-expanded", "false");
-    b.setAttribute("aria-label", [name, kind === "root" || gen ? "" : a.model, a.task !== name ? a.task : "", label].filter(Boolean).join(", "));
+    b.setAttribute("aria-label", [name, kind === "root" ? "" : hostName(a), kind === "root" ? "" : identityTitle(a), a.task !== name ? a.task : "", label].filter(Boolean).join(", "));
     b.onclick = e => { e.stopPropagation(); toggleOpen(a, c, kind); };
     ti.append(b);
   } else ti.textContent = text;
-  c.querySelector(".mo").textContent = kind === "root" ? (D.on_scope === "global" ? "All Claude Code projects" : D.on_scope === "project" ? "Project: " + D.on_project : "") : [kind === "sub" ? kindName(a.kind) : a.project, kind === "sub" ? "" : (a.agent === "codex" ? "Codex" : "Claude Code"), a.model].filter(Boolean).join(" · ");
+  c.querySelector(".mo").textContent = kind === "root" ? (D.on_scope === "global" ? "All Claude Code projects" : D.on_scope === "project" ? "Project: " + D.on_project : "") : modelLabel(a);
+  if (kind !== "root") { c.querySelector(".mo").title = identityTitle(a); c.querySelector(".tile").title = hostName(a); }
   if (!c.querySelector(".mo").textContent) c.querySelector(".mo").remove();
   c.querySelector(".st span").textContent = label;
   const task = c.querySelector(".task");
   if (kind === "root") { task.remove();
-    if (D.claude === false) c.querySelector(".evs").append(el("div", "ev-result", "Codex is report-only.")); }
+    if (D.claude === false) c.querySelector(".evs").append(el("div", "ev-result", "Report only")); }
   else if (!a.task || a.task === name) task.remove();
   else task.textContent = a.task;
   const ft = c.querySelector(".ft span");
@@ -1547,7 +1689,7 @@ function card(a, kind, count) {
     ft.append(el("b", "", fmt(calls)), (calls === 1 ? " action" : " actions") + " checked · ", el("b", "", fmt(sessions)), sessions === 1 ? " session" : " sessions");
     c.classList.add("root");
   } else {
-    const ownDay = (a.held || [])[0] ? dateOf(cellOf(a.held[0][0])[0]).toLocaleDateString(undefined, {day: "numeric", month: "short"}) : dayOf(a);
+    const ownDay = (a.held || [])[0]?.[0] ? dateOf(cellOf(a.held[0][0])[0]).toLocaleDateString(undefined, {day: "numeric", month: "short"}) : dayOf(a);
     ft.append(el("b", "", fmt(a.calls)), (a.calls === 1 ? " action" : " actions") + [kind === "session" ? ownDay : ""].filter(Boolean).map(x => " · " + x).join(""));
     // the first thing it (or something it started) did that a rule would have met, on the card
     // the call is shown once, on the agent that made it; a parent wears its subagents' state in the pill
@@ -1567,7 +1709,7 @@ function card(a, kind, count) {
 function merged(list) {
   const out = [];
   for (const k of list) {
-    const key = [k.kind, k.task, stateOf(k)[0], k.model].join("|");
+    const key = [k.agent, k.kind, k.task, stateOf(k)[0], identityTitle(k)].join("|");
     const m = out.find(x => x.key === key && !deep(k).length);
     if (m) m.n++; else out.push({key, a: k, n: 1});
   }
@@ -1649,8 +1791,7 @@ function showReceipt() {
     const {a, attempt, parent} = entry;
     const title = attemptTitle(attempt);
     $("event-title").textContent = title;
-    $("event-glyph").innerHTML = GLYPH[a.agent === "codex" ? "codex" : "claude"];
-    $("event-agent").textContent = (a.agent === "codex" ? "Codex" : "Claude Code") + (parent ? " · helper" : "");
+    showActor(a, attempt.actor, parent);
     $("event-project").textContent = a.task || a.project || "Session";
     $("event-action").textContent = "↓  " + (title === "Recorded attempt" ? attempt.tool : "attempted command");
     $("event-target").textContent = attempt.command.split("\n")[0].slice(0, 90) || attempt.tool;
@@ -1661,14 +1802,14 @@ function showReceipt() {
     $("event-command").textContent = attempt.command;
     $("event-evidence-title").textContent = attempt.command_clipped ? "Command excerpt" : "Command";
     $("event-time").textContent = "";
-    $("event-outcome").textContent = "Outcome unknown";
-    $("event-result-note").textContent = "This recorded input has no linked tool result in the report.";
+    const result = attempt.status === "tool_succeeded" ? "Tool reported success" : attempt.status === "tool_failed" ? "Tool reported failure" : null;
+    $("event-outcome").textContent = result || "Outcome unknown";
+    $("event-result-note").textContent = result ? result + ". External outcome not verified." : "This recorded input has no linked tool result in the report.";
     return;
   }
   const {a, h, root, parent} = entry, category = actionNames[h[2]]?.[0];
   $("event-title").textContent = {"Private files":"File read attempt", "Code uploads":"Code upload attempt", "Email":"Email attempt", "Scheduled tasks":"Scheduled task attempt", "Admin access":"Administrator access attempt"}[category] || "Selected attempt";
-  $("event-glyph").innerHTML = GLYPH[a.agent === "codex" ? "codex" : "claude"];
-  $("event-agent").textContent = (a.agent === "codex" ? "Codex" : "Claude Code") + (parent ? " · helper" : "");
+  showActor(a, h[4]?.actor, parent);
   $("event-project").textContent = a.task || root.task || root.project || "Session";
   $("event-action").textContent = "↓  " + ({"Private files":"tried to read", "Code uploads":"tried to upload", "Email":"tried to send", "Scheduled tasks":"tried to create", "Admin access":"tried to use"}[category] || "attempted");
   $("event-target").textContent = targetOf(h);
@@ -1714,6 +1855,7 @@ function buildTree() {
   const list = ALL.filter(passes);
   receiptOptions = receipts.filter(e => list.includes(e.root) && (!ruleOn || e.h[2] === ruleOn) && (!filter || (filter === "away" ? isAway(e.h) : (e.h[1] === "block") === (filter === "stop"))));
   if (!receiptOptions.includes(selectedReceipt) && !(selectedReceipt?.attempt && list.includes(selectedReceipt.root) && !filter && !ruleOn)) { selectedReceipt = receiptOptions[0] || null; selectedRoot = selectedReceipt?.root; }
+  if (!selectedReceipt && !filter && !ruleOn) { selectedReceipt = firstAttempt(list); selectedRoot = selectedReceipt?.root; }
   if (selectedRoot && list.includes(selectedRoot)) { list.splice(list.indexOf(selectedRoot), 1); list.unshift(selectedRoot); }
   const n = perRow(), flagged = list.filter(a => RANK[stateOf(a)[0]] >= 2 || isLive(a)).length;
   // what your rules would have met is never behind "+N"
@@ -1726,7 +1868,8 @@ function buildTree() {
     if (g === "done" && ix >= first && !(a.children || []).length) {
       if (!quiet) { quiet = el("div", "quiet"); quiet.setAttribute("role", "list"); }
       const q = el("div", "qrow"); q._a = a; q.setAttribute("role", "listitem");
-      const qt = el("span", "qt", a.project || "session"); if (a.model) qt.append(el("i", "", a.model));
+      const qt = el("span", "qt"); const mark = el("span", "tile"); mark.innerHTML = glyphFor(a); mark.title = hostName(a);
+      qt.append(mark, el("span", "", a.project || hostName(a)), el("i", "", modelLabel(a))); qt.title = identityTitle(a);
       const when = a.end || a.start;
       const inspect = el("button", "qk ob", a.task || "Inspect actions"); inspect.type = "button";
       inspect.setAttribute("aria-label", "Inspect actions: " + (a.task || a.project || "session"));
@@ -1973,7 +2116,7 @@ function lightAgent(a) {
   const names = new Set(held.map(h => h[2]));
   for (const r of document.querySelectorAll(".rule")) r.classList.toggle("on", names.has(r.dataset.r) || (ruleOn === r.dataset.r));
   litSpan = !!a && !held.length;
-  litCells = a ? (held.length ? new Set(held.map(h => cellOf(h[0]).join(","))) : spanCells(a)) : null;
+  litCells = a ? (held.length ? new Set(held.filter(h => h[0]).map(h => cellOf(h[0]).join(","))) : spanCells(a)) : null;
   if (litCells && !litCells.size) litCells = null;
   render(drawn, null);
 }
@@ -2176,7 +2319,7 @@ function tipAt(e) {
 cv.addEventListener("pointermove", tipAt);
 cv.addEventListener("pointerdown", tipAt);
 { let k = -1;
-  const held = () => (D.marks || []).slice().sort((a, b) => a.i - b.i || a.h - b.h);
+  const held = () => M.slice().sort((a, b) => a.i - b.i || a.h - b.h);
   const at = m => { const bb = cv.getBoundingClientRect(), r = (m.h - 6 + 24) % 24;
     return {clientX: bb.left + L + (m.i + .5) * cw, clientY: bb.top + T + (r + .5) * rh}; };
   $("stage").addEventListener("keydown", e => {
@@ -2266,7 +2409,7 @@ function setup() {
   let scope = D.on_scope || "project";
   const dialog = $("setup-dialog");
   $("setup-open").onclick = () => dialog.showModal();
-  $("setup-open").textContent = D.hooks_off ? "Restore checks" : active ? "Manage rules" : "Turn rules on";
+  $("setup-open").textContent = D.hooks_off ? "Restore Claude Code checks" : active ? "Manage Claude Code rules" : "Set up Claude Code checks";
   $("setup-dialog-title").textContent = D.hooks_off ? "Restore Claude Code checks" : active ? "Manage Claude Code rules" : "Turn rules on in Claude Code";
   $("setup-scopes").hidden = !!D.on;
   $("setup-project-label").textContent = "This folder · " + modes.project.name;
@@ -2297,7 +2440,7 @@ function setup() {
   function refreshSetup() {
   const mode = modes[scope], setupRules = mode.rules;
   for (const input of document.querySelectorAll('[name="setup-scope"]')) input.checked = input.value === scope;
-  $("setup-scope").textContent = (D.on ? "Rules are installed for " : "Apply rules to ") + (scope === "project" ? "“" + mode.name + "” only." : "all Claude Code projects.") + " Codex stays report-only.";
+  $("setup-scope").textContent = (D.on ? "Rules are installed for " : "Apply rules to ") + (scope === "project" ? "“" + mode.name + "” in Claude Code only." : "all Claude Code projects.") + " Other agents stay report-only.";
   $("setup-rules-list").replaceChildren();
   $("setup-rules-title").textContent = mode.title;
   if (rulesStatus) {
@@ -2326,9 +2469,19 @@ function setup() {
   for (const input of document.querySelectorAll('[name="setup-scope"]')) input.onchange = () => { scope = input.value; refreshSetup(); };
   refreshSetup();
   const refresh = $("refresh-dialog");
-  $("refresh-open").onclick = () => refresh.showModal();
+  const reportCommand = D.example ? D.cmd.replace(/ on$/, "") : modes.project.report;
+  $("refresh-open").onclick = () => {
+    $("refresh-title").textContent = D.example ? "See your own activity" : "Refresh your activity";
+    copyCommand("refresh", reportCommand);
+    refresh.showModal();
+  };
+  $("scan-all").onclick = () => {
+    $("refresh-title").textContent = "Scan all history · Free";
+    copyCommand("refresh", modes.project.report_all);
+    refresh.showModal();
+  };
   $("refresh-close").onclick = () => refresh.close();
-  copyCommand("refresh", D.example ? D.cmd.replace(/ on$/, "") : modes.project.report);
+  copyCommand("refresh", reportCommand);
   $("refresh-help").hidden = !D.example;
   copyCommand("refresh-python", "git clone https://github.com/kymacomputer/kyma-local && cd kyma-local && python3 kyma");
   if (D.example) {
@@ -2415,6 +2568,7 @@ def setup_modes(data: dict, loaded: list, files: list) -> dict:
                         "review": bound(folder, runner + " rules"),
                         "check": bound(root, runner + " status && " + runner),
                         "report": bound(root, runner),
+                        "report_all": bound(root, runner + " --all"),
                         "off": bound(folder, runner + " off --" + scope)}
     return modes
 
@@ -2423,7 +2577,7 @@ def page(s: dict, path: str = OUT) -> str:
     data = {k: s.get(k) for k in ("first", "days", "A", "Y", "actions", "together", "alone",
                                   "marks", "examples", "more", "held_past", "held_live", "asked_live", "away_past", "stop_past", "ask_past", "yours", "judged",
                                   "judged_from", "judged_of", "today", "partial_logs", "checked_calls",
-                                  "checked_first", "checked_last", "marks_total", "live_by_rule")}
+                                  "checked_first", "checked_last", "marks_total", "live_by_rule", "quick", "scope", "undated_actions", "legacy_kept")}
     data["rules"] = rule_rows(s)
     from . import enforce, render
     # Setup previews global rules, independent of the retrospective filter.
@@ -2466,13 +2620,16 @@ def page(s: dict, path: str = OUT) -> str:
     data["examples"] = [dict(m, w=where.get(m["r"], "")) for m in data.get("examples") or []]
     # A logged command can hold `</script>`; inside a script block it must not close it.
     blob = json.dumps(data, separators=(",", ":")).replace("</", "<\\/").replace("<!--", "<\\!--")
-    html = PAGE.replace("__DATA__", blob)
+    from .brand_marks import PROVIDER_MARKS
+    html = PAGE.replace("__DATA__", blob).replace("__PROVIDER_MARKS__", json.dumps(PROVIDER_MARKS))
     ensure_home()
     state_write(path, html)
     return path
 
 
 def _at(s: dict, m: dict) -> str:
+    if m.get("undated") or m.get("i") is None:
+        return "Time not recorded"
     d = _dt.date.fromisoformat(s["first"]) + _dt.timedelta(days=m["i"])
     h = m["h"]
     return f"{d.strftime('%a')} {d.day} {d.strftime('%b')} \u00b7 {h % 12 or 12}{'am' if h < 12 else 'pm'}"
@@ -2505,7 +2662,7 @@ def summary_block(s: dict, color: bool = True) -> str:
         line(f"Live checks: {s.get('held_live', 0):,} stopped, {s.get('asked_live', 0):,} asked for approval.")
     examples = [m for m in s.get("examples", []) if not m.get("live")]
     if examples:
-        m = min(examples, key=lambda m: (m.get("v") != "block", -m.get("i", 0), -m.get("h", 0)))
+        m = min(examples, key=lambda m: (m.get("v") != "block", -(m.get("i") or 0), -(m.get("h") or 0)))
         compiled = rules.parse("- " + m["r"])
         topics = compiled[0].topics if compiled else []
         labels = {"secrets": "Your AI tried to read a file that can contain passwords.",
@@ -2519,24 +2676,37 @@ def summary_block(s: dict, color: bool = True) -> str:
         label = next((labels[t] for t in topics if t in labels), "Your AI tried an action that matches this rule.")
         line()
         line(label)
-        line(_at(s, m))
+        line("Time not recorded" if m.get("undated") else _at(s, m))
         if m.get("c"):
             line(m["c"])
         line("Rule: " + m["r"])
     line()
-    scope = f"{s.get('checked_calls', 0):,} past calls checked"
+    scope = f"{s.get('checked_calls', 0):,} past actions checked"
     if s.get("judged_of") and (s.get("judged", 0) < s["judged_of"] or s.get("partial_logs")):
         scope += f" · {s.get('judged', 0):,} complete"
         if s.get("partial_logs"):
             scope += f" + {s['partial_logs']:,} partial"
         scope += f" of {s['judged_of']:,} available logs"
     line(scope + ".")
+    selected = s.get("scope") or {}
+    if selected:
+        label = "Recent sample" if s.get("quick") else "Selected history" if not selected.get("complete") else "Full available history"
+        line(f"{label}: {selected.get('selected_files', 0):,} of {selected.get('available_files', 0):,} logs "
+             f"({selected.get('selected_bytes', 0) / (1024 * 1024):.1f} MiB).")
+        if not selected.get("complete"):
+            from . import render
+            line("Full history: " + render.prog("--all"))
+    if s.get("undated_actions"):
+        line(f"{s['undated_actions']:,} actions have no recorded time.")
+    if s.get("legacy_kept"):
+        line(f"{s['legacy_kept']:,} retained log snapshots use legacy call counts.")
     return "\n".join(out) + "\n"
 
 
 def tree_block(s: dict, color: bool = True, limit: int = 6) -> str:
     """The agents as the page draws them: sessions, the subagents they started,
     and what each would have held, in the owner's words."""
+    from .agents import identity_label
     ags = s.get("agents") or []
     if not ags:
         return ""
@@ -2571,10 +2741,10 @@ def tree_block(s: dict, color: bool = True, limit: int = 6) -> str:
         generic = sub and kind in ("", "subagent")
         kind = "General" if kind == "general-purpose" else kind
         if generic:                                   # an untyped subagent goes by its model
-            title = a.get("model") or "Agent"
+            title = identity_label(a) or "Agent"
         else:
             name = kind if sub else (a.get("project") or a.get("agent"))
-            title = f"{name} \u00b7 {a.get('model') or ''}".rstrip(" \u00b7")
+            title = f"{name} \u00b7 {identity_label(a)}".rstrip(" \u00b7")
         stats = f"{a.get('calls', 0):,} calls" + (f" \u00b7 {dur(a)}" if dur(a) else "")
         cont = prefix.replace("\u251c\u2500 ", "\u2502  ").replace("\u2514\u2500 ", "   ")
         if width < 80:                                # narrow: the name whole, the numbers on the line below
@@ -2653,7 +2823,7 @@ def held_block(s: dict, color: bool = True) -> str:
         scope = f"{s['judged']:,} complete"
         if s.get("partial_logs"):
             scope += f" + {s['partial_logs']:,} partial"
-        out.append("  " + dim(f"{s.get('checked_calls', 0):,} calls checked · {scope} of {s['judged_of']:,} available logs replayed"))
+        out.append("  " + dim(f"{s.get('checked_calls', 0):,} actions checked · {scope} of {s['judged_of']:,} available logs replayed"))
     hidden = 0
     if len(rows) > 8:                    # 2,000 rules printed 2,061 lines: show the ones that met something
         keep = sorted(rows, key=lambda r: (r["ok"], -r["n"]))[:8]
@@ -2815,9 +2985,9 @@ def offer(s: dict) -> bool:
 NOTHING = """
   No AI activity found yet.
 
-  Kyma reads Claude Code and Codex activity on this computer.
+  Kyma reads Claude Code, Codex, Cursor, and Gemini CLI history.
   Try a safe example now:  {demo}
-  After your next Claude Code or Codex task, run {run} again.
+  After your next agent task, run {run} again.
 """
 
 
@@ -2841,8 +3011,10 @@ def _interactive() -> bool:
     return sys.stdin.isatty() and sys.stdout.isatty() and not os.environ.get("CI")
 
 
-def run(open_it: bool = True, details: bool = False) -> int:
+def run(open_it: bool = True, details: bool = False, all_history: bool = False,
+        since_days=None, limit=None) -> int:
     import webbrowser
+    from . import history_scope
     # Never die on the way to the picture: a locale that cannot print a dot
     # gets a "?", a folder deleted under the shell gets home.
     for stream in (sys.stdout, sys.stderr):
@@ -2855,16 +3027,29 @@ def run(open_it: bool = True, details: bool = False) -> int:
     except OSError:
         os.chdir(os.path.expanduser("~"))
     tty = _tty()
-    n_files = len(files())
+    available = files()
+    work, scope = history_scope.select(available, all_history=all_history, since_days=since_days, limit=limit)
+    quick = scope["mode"] == "recent"
+    scoped = scope["mode"] != "all"
+    n_files = len(available)
     if not n_files and not os.path.isdir(CACHE):
         sys.stdout.write(_nothing() + "\n")
+        return 0
+    if scoped and not work:
+        from . import render
+        sys.stdout.write(f"\n  No logs fit this {'recent sample' if quick else 'history selection'}. "
+                         f"{n_files:,} logs are available.\n")
+        if scope["skipped_large_files"] or scope["skipped_compressed_files"]:
+            sys.stdout.write(f"  The sample excludes files above {history_scope.MAX_FILE_BYTES // (1024 * 1024)} MiB "
+                             "and compressed logs.\n")
+        sys.stdout.write("  Read full available and retained history: " + render.prog("--all") + "\n\n")
         return 0
     def progress(done, total, a, y):
         if tty:
             sys.stdout.write(_bar(done, total, _COOL[8], "logs"))
             sys.stdout.flush()
     try:
-        data = gather(progress)
+        data = gather(progress, work=work) if scoped else gather(progress)
     except OSError as e:
         sys.stdout.write(f"\r\x1b[K  kyma cannot write to {HOME}: {e.strerror or e}\n" if tty else
                          f"kyma cannot write to {HOME}: {e.strerror or e}\n")
@@ -2873,24 +3058,29 @@ def run(open_it: bool = True, details: bool = False) -> int:
         if tty:
             sys.stdout.write(_bar(done, total, _HELD, "logs against your rules"))
             sys.stdout.flush()
-    data["held"] = held_moments(judging)
+    data["held"] = held_moments(judging, work=work,
+                                budget=history_scope.REPLAY_SECONDS if quick else None) if scoped else held_moments(judging)
     if tty:
         sys.stdout.write("\r\x1b[K")
     s = shape(data)
+    if s:
+        s["quick"], s["scope"] = quick, scope
     if s and s.get("actions"):
         try:
             from . import agents
             # the newest 200 and every one a rule met: the page's "+N" reaches all of them
-            s["agents"] = agents.sessions(limit=200, judged=data["held"].get("paths", []))
-            s["sessions"] = agents.total_sessions()
+            s["agents"] = agents.sessions(limit=200, judged=data["held"].get("paths", []), work=work if scoped else None)
+            s["sessions"] = len(work) if scoped else agents.total_sessions()
         except Exception:
             s["agents"] = []
     if not s or not s["actions"]:
         if n_files:
             from . import render
-            msg = ("1 agent log here, no tool calls in it yet." if n_files == 1 else
+            msg = (f"No tool calls found in {len(work):,} selected logs of {n_files:,} available." if scoped else
+                   "1 agent log here, no tool calls in it yet." if n_files == 1 else
                    f"{n_files:,} agent logs here, no tool calls in them yet.")
-            nxt = f"To watch a rule hold a command now:  {render.prog('demo')}"
+            nxt = ("Read full history: " + render.prog("--all") if scoped else
+                   f"To watch a rule hold a command now:  {render.prog('demo')}")
             sys.stdout.write(f"\n  {msg}\n  {nxt}\n\n" if tty else msg + "\n" + nxt + "\n")
         else:
             sys.stdout.write(_nothing() + "\n")
@@ -2900,7 +3090,8 @@ def run(open_it: bool = True, details: bool = False) -> int:
         sys.stdout.write(summary_block(s, color=tty))
     elif tty:
         sys.stdout.write("\n" + facts_line(s, width=shutil.get_terminal_size((100, 40)).columns) + "\n")       # the legend first: warm is you, blue is them
-        draw(s, animate=True)
+        if any(any(row) for row in s["A"]):
+            draw(s, animate=True)
         tb = tree_block(s)
         if tb:
             sys.stdout.write(tb + "\n")
@@ -2909,13 +3100,22 @@ def run(open_it: bool = True, details: bool = False) -> int:
             sys.stdout.write(block + "\n")
     else:
         # piped, NO_COLOR, or an agent running kyma: the same facts, the tree and the rules, in plain text
-        sys.stdout.write(f"Since {when(s['first'])}:\n" + facts_line(s, color=False, width=shutil.get_terminal_size((100, 40)).columns) + "\n\n")
+        heading = f"Since {when(s['first'])}:" if any(any(row) for row in s["A"]) else "Recorded activity (times unavailable):"
+        sys.stdout.write(heading + "\n" + facts_line(s, color=False, width=shutil.get_terminal_size((100, 40)).columns) + "\n\n")
         tb = tree_block(s, color=False)
         if tb:
             sys.stdout.write(tb + "\n")
         block = held_block(s, color=False)
         if block:
             sys.stdout.write(block)
+    if details and scoped:
+        from . import render
+        sys.stdout.write(f"\n  {'Recent sample' if quick else 'Selected history'}: {len(work):,} of {n_files:,} logs.\n"
+                         "  Full history: " + render.prog("--all") + "\n")
+    if details and s.get("undated_actions"):
+        sys.stdout.write(f"  {s['undated_actions']:,} actions have no recorded time.\n")
+    if details and s.get("legacy_kept"):
+        sys.stdout.write(f"  {s['legacy_kept']:,} retained log snapshots use legacy call counts.\n")
     if unread:
         msg = f"{unread:,} older Codex logs are compressed and need zstd to be drawn:  brew install zstd"
         sys.stdout.write(f"  \x1b[2m{msg}\x1b[0m\n\n" if tty else msg + "\n")
@@ -2924,6 +3124,11 @@ def run(open_it: bool = True, details: bool = False) -> int:
     except OSError as e:
         sys.stdout.write(f"  kyma could not write its page to {HOME}: {e.strerror or e}\n")
         return 1
+    if open_it and _interactive():
+        try:
+            webbrowser.open("file://" + path)
+        except Exception:
+            pass
     if _interactive():
         if offer(s):
             try:
@@ -2934,12 +3139,7 @@ def run(open_it: bool = True, details: bool = False) -> int:
         offer(s)                       # not interactive: it prints the one command instead of asking
     if not details:
         from . import render
-        sys.stdout.write("  All agents and activity: " + render.prog("--details") + "\n")
+        sys.stdout.write("  Detailed report: " + render.prog("--details" + (" --all" if not scoped else "")) + "\n")
     shown = path.replace(os.path.expanduser("~"), "~", 1)
-    if open_it and _interactive():
-        try:
-            webbrowser.open("file://" + path)
-        except Exception:
-            pass
     sys.stdout.write(f"  \x1b[2m{shown}\x1b[0m\n\n" if tty else f"{shown}\n")
     return 0

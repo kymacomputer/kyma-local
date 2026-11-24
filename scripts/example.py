@@ -22,7 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 PROJECTS = ["app", "api", "infra"]
-MODELS = ["claude-opus-5", "claude-opus-5", "claude-sonnet-5"]
+MODELS = ["claude-opus-5-5", "claude-opus-5-5", "claude-sonnet-5"]
 TASKS = ["add the export button to the reports page", "why is test_checkout flaky on CI", "refactor the auth middleware",
          "migrate the billing tables to the new schema", "ship the onboarding flow", "fix the deploy script for staging",
          "upgrade to React 19", "make the search endpoint paginate", "write the webhook retry logic",
@@ -80,6 +80,8 @@ def _write(path: str, lines: list) -> None:
         native.append(line)
         if line.get("type") != "assistant":
             continue
+        # Explicit fictional configurations exercise the same parser as real logs.
+        line["effort"] = "max" if "opus" in line.get("message", {}).get("model", "") else "high"
         results = []
         for j, block in enumerate(line.get("message", {}).get("content", [])):
             if block.get("type") != "tool_use":
@@ -179,7 +181,7 @@ def write_history(home: str) -> None:
         t0 = now - dt.timedelta(days=d, hours=-16)
         ts0 = t0.strftime("%Y-%m-%dT%H:%M:%S.000Z")
         rows = [{"timestamp": ts0, "type": "session_meta", "payload": {"cwd": "/Users/dev/code/infra", "originator": "codex_cli_rs"}},
-                {"timestamp": ts0, "type": "turn_context", "payload": {"model": "gpt-6.2-sol", "cwd": "/Users/dev/code/infra"}},
+                {"timestamp": ts0, "type": "turn_context", "payload": {"model": "gpt-6.2-sol", "effort": "high", "cwd": "/Users/dev/code/infra"}},
                 {"timestamp": ts0, "type": "event_msg", "payload": {"type": "user_message", "message": {5: "tidy the terraform modules", 2: "rotate the staging certificates"}[d]}}]
         for k in range(rng.randint(20, 40)):
             ts = (t0 + dt.timedelta(minutes=3 * k)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
@@ -189,12 +191,37 @@ def write_history(home: str) -> None:
         _write(os.path.join(home, ".codex", "sessions", day, f"rollout-{t0:%Y-%m-%dT%H-%M-%S}-cdx{d}.jsonl"), rows)
 
 
+def write_model_examples(home):
+    """Fictional provider-neutral records, consumed through the public adapter."""
+    folder = os.path.join(home, ".kyma", "imports")
+    os.makedirs(folder, mode=0o700, exist_ok=True)
+    examples = [
+        ("gemini-2.5-pro", "google", "", "Review the release configuration", "cat .env.staging", "tool_succeeded"),
+        ("deepseek-r1", "deepseek", "", "Check the backup script", "sudo true", "tool_failed"),
+        ("qwen3-coder", "qwen", "high", "Verify the database migration", "git push origin main", "unknown"),
+        ("llama-3.3-70b", "meta", "", "Check the test script", "npm test", "tool_succeeded"),
+    ]
+    for i, (model, provider, effort, task, command, status) in enumerate(examples):
+        ts = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=3+i)).isoformat()
+        records = [
+            {"type": "session", "host": "example-runner", "session_id": f"example-model-{i}", "task": task, "cwd": "/example/app"},
+            {"type": "action", "id": f"call-{i}", "timestamp": ts, "tool": "shell", "command": command,
+             "model_id": model, "provider": provider, "effort": effort},
+            {"type": "result", "id": f"call-{i}", "status": status},
+        ]
+        path = os.path.join(folder, f"example-model-{i}.jsonl")
+        with open(path, "w") as fh:
+            for record in records:
+                fh.write(json.dumps(dict(record, schema="kyma.history.v1")) + "\n")
+
+
 if __name__ == "__main__":
     out = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "..", "docs", "example.html"))
     home = tempfile.mkdtemp(prefix="kyma-example-")
     write_history(home)
+    write_model_examples(home)
     env = dict(os.environ, HOME=home, KYMA_HOME=os.path.join(home, ".kyma"), TZ="America/New_York")
-    subprocess.run([sys.executable, os.path.join(HERE, "..", "kyma"), "--no-open"], env=env, check=True,
+    subprocess.run([sys.executable, os.path.join(HERE, "..", "kyma"), "--all", "--no-open"], env=env, check=True,
                    stdout=subprocess.DEVNULL)
     with open(os.path.join(home, ".kyma", "kyma.html"), encoding="utf-8") as fh:
         page = fh.read()
@@ -212,7 +239,7 @@ if __name__ == "__main__":
         scope_prefix = 'cd "$HOME/code/app" && ' if scope == "project" else 'cd "$HOME" && '
         mode.update(name="app" if scope == "project" else "All projects",
                     on=scope_prefix + runner + " on --" + scope,
-                    review=scope_prefix + runner + " rules", check=runner + " status && " + runner, report=runner,
+                    review=scope_prefix + runner + " rules", check=runner + " status && " + runner, report=runner, report_all=runner + " --all",
                     off=scope_prefix + runner + " off --" + scope,
                     files=[{"path": "~/.kyma/RULES.md", "title": "Your rules · shared by active projects", "edit": ""}])
     page = prefix + marker + json.dumps(data, separators=(",", ":")) + tail[end:]

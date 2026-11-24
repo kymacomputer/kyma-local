@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.6.0 — 2026-11-24
+
+- First run opens a bounded sample of the user's actual logs with starter checks. No rules file or previous block history is required.
+- The recent sample reads up to 25 logs within 128 MiB. `--all` keeps complete local history free.
+- Native history adapters add Cursor and Gemini CLI. A documented JSONL import accepts other agents and model identifiers.
+- Commands and recorded outcomes appear before retrospective rule verdicts. Reports with no matches open a real ordinary attempt.
+- Local remains free. The paid route covers contract interpretation, source citations, approval, and maintained agreement rules.
+- Authentic provider marks identify recorded models in the report.
+- Agent cards and selected actions show the model and effort recorded in their own transcripts.
+- Model changes within a session remain visible. Missing metadata stays unknown.
+- Nested Codex actions retain the model that authored the wrapper without an invented tool outcome.
+- Child models no longer inherit an assumed version from their parent.
+- Compressed history resumes after its saved position. Literal backslashes survive shell-function expansion.
+- Native Codex result headers preserve explicit exit status, including headers with token counts. Nested actions do not inherit wrapper outcomes.
+- Import IDs receive validation before normalization. Missing actor times cannot come from nested tool input.
+
 ## 0.5.1 — 2026-11-24
 
 - The example's trial dialog includes Python setup when its first command is unavailable.

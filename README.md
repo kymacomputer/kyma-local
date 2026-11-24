@@ -1,12 +1,12 @@
 # Kyma Local
 
-**See what Claude Code and Codex tried on your computer.**
+**See what your AI agents tried on your computer.**
 
 Kyma Local shows what an agent tried: a private file read, a code upload, an email. It checks your past activity against short rules such as “Ask me before sending any email.” You see the command and the rule it matches.
 
 The first run only reads your history. You can then turn on checks for Claude Code, for one project or every project. A matching action stops or asks for your approval before it runs.
 
-Open a new terminal window, outside your Claude Code conversation. Paste this command and press Enter. Kyma Local opens a local page.
+Open a new terminal window, outside your agent conversation. Paste this command and press Enter. Kyma Local opens a local page.
 
 ```sh
 uvx --from git+https://github.com/kymacomputer/kyma-local kyma
@@ -14,13 +14,40 @@ uvx --from git+https://github.com/kymacomputer/kyma-local kyma
 
 If your terminal says `uvx: command not found`, use [the Python start](#start-with-python).
 
-![Kyma's dark local report connects Claude sessions to their helpers and matched actions. A setup control adds checks to Claude Code. Synthetic example data.](docs/example.jpg)
+![Kyma's dark report connects recorded models to commands, tool outcomes, and rule matches. Fictional example data.](docs/example.jpg)
 
-<sub>An example. Yours is drawn from the logs Claude Code and Codex already keep on your disk.</sub>
+<sub>Fictional example. Your report uses the history already on your disk.</sub>
+
+No rules or previous blocks required. The first report checks recent activity against five starter rules and preserves recorded tool outcomes.
+It reads up to 25 recent logs within a 128 MB budget. Older and larger logs remain free:
+
+```sh
+uvx --from git+https://github.com/kymacomputer/kyma-local kyma --all
+```
+
+Native history adapters cover Claude Code, Codex, Cursor transcripts, and Gemini CLI.
+Other agents and models can use the [documented history import](docs/history-import.md).
+Missing timestamps, model names, effort, and results stay unknown.
 
 Open an action to see its command, time, and exact rule. The detailed view also shows the other agents your AI started and when they ran.
 
+Each agent shows its recorded model and effort, with the provider's mark. Select an action to see the configuration recorded for that action. Missing metadata stays unknown.
+
 [Kyma](https://kyma.stream) makes AI agents keep agreements. Its paid reader turns customer contracts into rules for human approval. Kyma Local is the open-source enforcement component: it checks explicit rules before supported tool calls. The [contract example](docs/contract-bridge.md) shows a grant, its withdrawal, and a second customer's preserved permission.
+
+## Free and paid
+
+Kyma Local is free. Your local history, rules, checks, exports, and supported agent adapters have no paid unlock.
+The recent-history view helps the first result arrive fast. It is not a limit on which local records you can inspect.
+
+The paid service reads your complete customer agreements, proposes source-cited rules for human approval, and maintains them when the agreements change.
+The initial review offer is **$1,000 for up to 25 complete agreement sets**, with scope agreed before work starts.
+Planned annual coverage is **$400 per covered agreement set**, with a **$12,000 annual minimum**.
+An agreement set includes the customer's applicable contract, amendments, and incorporated documents.
+
+[Request a contract review](https://www.kyma.stream/clearance) · [See a source-linked review](https://www.kyma.stream/clearance/sample) · [Scope and plans](docs/plans.md)
+
+This package has no paid account or subscription. A contract review does not activate rules until your designated person approves them.
 
 The terminal starts with one concrete example:
 
@@ -37,7 +64,7 @@ The terminal starts with one concrete example:
   cat .env.production
   Rule: Never read credentials or .env files.
 
-  7,819 past calls checked.
+  7,819 past actions checked.
 
   Add checks to Claude Code?
   [a] All projects
