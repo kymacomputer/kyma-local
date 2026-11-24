@@ -127,6 +127,38 @@ if __name__ == "__main__":
         open(js, "w").write("".join(_re.findall(r"<script>(.*?)</script>", page, _re.S)))
         r = _sp.run([node, "--check", js], capture_output=True, text=True)
         check("the page's script parses", r.returncode == 0, r.stderr[:300])
+        titles = page.split("function attemptTitle(attempt) {", 1)[1].split("function showReceipt()", 1)[0]
+        cases = [
+            ({"tool": "Bash", "command": "git commit -m 'wip'"}, "Save code changes locally"),
+            ({"tool": "Bash", "command": "git commit -m 'fix the menu'"}, "Save code changes locally"),
+            ({"tool": "shell", "command": "git status --short"}, "Check changed files"),
+            ({"tool": "exec_command", "command": "npm run build"}, "Run the build script"),
+            ({"tool": "Bash", "command": "git commit -m wip; sudo true"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit --dry-run"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit --help"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit --short"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit --porcelain"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit --long"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit -z"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit -azm wip"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit --sho"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit --por"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit --lon"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit --dry"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit -m wip --sho"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit -m {message,--short}"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit -m *"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git\u00a0commit -m wip"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "npx tsc --noEmit --showConfig"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "npx tsc --noEmit --listFilesOnly"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit -m $(cat message)"}, "Recorded attempt"),
+            ({"tool": "Bash", "command": "git commit", "command_clipped": True}, "Recorded attempt"),
+            ({"tool": "Write", "command": "git commit"}, "Recorded attempt"),
+        ]
+        code = "function attemptTitle(attempt) {" + titles + "\nconsole.log(JSON.stringify(" + _json.dumps([c[0] for c in cases]) + ".map(attemptTitle)));"
+        r = _sp.run([node, "-e", code], capture_output=True, text=True)
+        check("action titles preserve unknown composite, preview and clipped commands",
+              r.returncode == 0 and _json.loads(r.stdout) == [c[1] for c in cases], r.stderr[:300])
     else:
         print("skip  the page's script parses (no node on this machine)")
     check("the page is yours alone", oct(os.stat(html_path).st_mode & 0o777) in ("0o600",), oct(os.stat(html_path).st_mode & 0o777))

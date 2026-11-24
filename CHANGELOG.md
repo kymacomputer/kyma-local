@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.1 — 2026-11-24
+
+- The example's trial dialog includes Python setup when its first command is unavailable.
+- Common ordinary commands have readable action titles. Exact commands and unknown outcomes remain visible.
+- Compound, clipped and unrecognized commands retain their original generic title.
+
 ## 0.5.0 — 2026-11-24
 
 The repository's product changes from the contract kit to a local check for coding agents.

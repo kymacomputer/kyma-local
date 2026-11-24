@@ -176,6 +176,7 @@ class SetupScope(unittest.TestCase):
         self.assertEqual(ui["initial"]["setup-command"]["text"], data["setup_modes"]["project"]["on"])
         self.assertEqual(ui["global"]["setup-command"]["text"], data["setup_modes"]["global"]["on"])
         self.assertEqual(ui["initial"]["refresh-command"]["text"], data["setup_modes"]["project"]["report"])
+        self.assertTrue(ui["initial"]["refresh-help"]["hidden"])
         self.assertFalse(self.global_rules.exists())
 
     def test_project_management_reviews_rules_and_removes_only_project_hook(self):

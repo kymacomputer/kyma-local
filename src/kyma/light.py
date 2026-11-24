@@ -1290,6 +1290,7 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
 .setup-dialog h2{font-size:17px;font-weight:550;letter-spacing:-.3px;margin:0}
 .setup-close{border:0;background:none;color:var(--task);cursor:pointer;width:30px;height:30px;border-radius:6px;font-size:24px;line-height:1}
 .setup-body{padding:22px}.setup-body p{font-size:13px;line-height:1.6;color:var(--task);margin:0 0 20px}
+#refresh-help{color:var(--task);font-size:13px;margin-top:16px}#refresh-help>summary{cursor:pointer}#refresh-help p{margin:12px 0 0;font-size:12px}
 .example-badge{width:fit-content;margin:0 0 20px;padding:6px 9px;border:1px solid #424248;border-radius:4px;color:var(--task);font-size:11px}
 .setup-scopes{display:flex;gap:8px;border:0;padding:0;margin:0 0 16px}.setup-scopes legend{font-size:12px;color:var(--task);margin-bottom:8px}.setup-scopes label{flex:1;border:1px solid var(--line);border-radius:7px;padding:10px;font-size:12px;cursor:pointer}.setup-scopes label:has(:checked){border-color:#e3e3e8;background:#29292e}.setup-scopes input{accent-color:#ddd;margin-right:5px}.setup-scopes label span{overflow-wrap:anywhere}
 .attempt-command{display:block;white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px;color:var(--ink);padding:10px 0}.setup-body h3{font-size:13px}.setup-file{border-left:2px solid var(--line);padding-left:12px;margin:12px 0}.setup-file>code{display:block;overflow-wrap:anywhere;font-size:12px;color:var(--ink)}.setup-file p{font-size:12px;margin:6px 0}
@@ -1370,7 +1371,7 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
 <footer class="local-note">Local report · Nothing uploaded</footer>
 <dialog class="setup-dialog" id="refresh-dialog" aria-labelledby="refresh-title">
 <header><h2 id="refresh-title">Refresh your activity</h2><button class="setup-close" id="refresh-close" aria-label="Close refresh">×</button></header>
-<div class="setup-body"><p>Open a terminal outside your agent conversation. Paste this command and press Enter.</p><div class="setup-command"><code id="refresh-command"></code><button class="plain-button" id="refresh-copy" aria-label="Copy report command">Copy</button></div><p class="setup-done" id="refresh-feedback" aria-live="polite"></p></div></dialog>
+<div class="setup-body"><p>Open a terminal outside your agent conversation. Paste this command and press Enter.</p><div class="setup-command"><code id="refresh-command"></code><button class="plain-button" id="refresh-copy" aria-label="Copy report command">Copy</button></div><p class="setup-done" id="refresh-feedback" aria-live="polite"></p><details id="refresh-help"><summary>Command not found? Start with Python</summary><p>Requires Git and Python 3.9 or later.</p><div class="setup-command"><code id="refresh-python-command"></code><button class="plain-button" id="refresh-python-copy" aria-label="Copy Python setup command">Copy</button></div><p class="setup-done" id="refresh-python-feedback" aria-live="polite"></p></details></div></dialog>
 <dialog class="setup-dialog" id="setup-dialog" aria-labelledby="setup-dialog-title">
 <header><h2 id="setup-dialog-title">Turn rules on in Claude Code</h2><button class="setup-close" id="setup-close" aria-label="Close setup">×</button></header>
 <div class="setup-body">
@@ -1618,6 +1619,18 @@ const ALL = AG.map((a, i) => [a, i]).sort((x, y) => (isLive(y[0]) - isLive(x[0])
   RANK[stateOf(y[0])[0]] - RANK[stateOf(x[0])[0]] || (awayIn(y[0]) - awayIn(x[0])) || x[1] - y[1]).map(x => x[0]);
 let filter = null, showAll = false, ruleOn = null;
 const passes = a => (!filter || (filter === "away" ? awayIn(a) : stateOf(a)[0] === filter)) && (!ruleOn || deep(a).some(h => h[2] === ruleOn));
+function attemptTitle(attempt) {
+  const command = attempt.command.replace(/^[ \t]+|[ \t]+$/g, "");
+  if (attempt.command_clipped || !["Bash", "shell", "exec_command"].includes(attempt.tool) || /[\n;&|<>`$]/.test(command)) return "Recorded attempt";
+  const names = [
+    [/^git[ \t]+commit[ \t]+-m[ \t]+(?:'[^'\\]*'|"[^"\\]*"|[\w.,:/@%+=][\w.,:/@%+=-]*)$/, "Save code changes locally"],
+    [/^git[ \t]+status(?:[ \t]+--short)?$/, "Check changed files"],
+    [/^git[ \t]+diff$/, "Compare file changes"],
+    [/^npm[ \t]+(?:run[ \t]+)?test$/, "Run the test script"],
+    [/^npm[ \t]+run[ \t]+build$/, "Run the build script"]
+  ];
+  return names.find(([pattern]) => pattern.test(command))?.[1] || "Recorded attempt";
+}
 function showReceipt() {
   const entry = selectedReceipt;
   const ordinary = !!entry?.attempt;
@@ -1634,11 +1647,12 @@ function showReceipt() {
   $("event-verdict").classList.toggle("ordinary", ordinary);
   if (ordinary) {
     const {a, attempt, parent} = entry;
-    $("event-title").textContent = "Recorded attempt";
+    const title = attemptTitle(attempt);
+    $("event-title").textContent = title;
     $("event-glyph").innerHTML = GLYPH[a.agent === "codex" ? "codex" : "claude"];
     $("event-agent").textContent = (a.agent === "codex" ? "Codex" : "Claude Code") + (parent ? " · helper" : "");
     $("event-project").textContent = a.task || a.project || "Session";
-    $("event-action").textContent = "↓  " + attempt.tool;
+    $("event-action").textContent = "↓  " + (title === "Recorded attempt" ? attempt.tool : "attempted command");
     $("event-target").textContent = attempt.command.split("\n")[0].slice(0, 90) || attempt.tool;
     $("event-rule-owner").textContent = "↓  This session";
     $("event-result").textContent = "No recorded rule match";
@@ -2315,6 +2329,8 @@ function setup() {
   $("refresh-open").onclick = () => refresh.showModal();
   $("refresh-close").onclick = () => refresh.close();
   copyCommand("refresh", D.example ? D.cmd.replace(/ on$/, "") : modes.project.report);
+  $("refresh-help").hidden = !D.example;
+  copyCommand("refresh-python", "git clone https://github.com/kymacomputer/kyma-local && cd kyma-local && python3 kyma");
   if (D.example) {
     $("refresh-open").textContent = "Check my activity";
     $("refresh-title").textContent = "See your own activity";
