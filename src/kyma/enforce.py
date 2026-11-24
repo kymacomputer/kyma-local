@@ -1696,10 +1696,20 @@ def command_for_script(script: str) -> str:
     try:
         with open(script, "rb") as fh:
             first = fh.readline(4096).decode("utf-8", "replace")
+            trampoline = [fh.readline(4096).decode("utf-8", "replace").strip() for _ in range(2)]
     except OSError:
         return f"{shlex.quote(script)} hook"
     m = re.match(r"#!\s*(?:'([^']+)'|\"([^\"]+)\"|(\S+))", first)
     py = m and (m.group(1) or m.group(2) or m.group(3))
+    if py == "/bin/sh" and trampoline[0].startswith("'''exec' ") and trampoline[1] == "' '''":
+        # uv and pip use this shell/Python header when the interpreter path
+        # contains spaces or exceeds the shebang limit. Read it, never run it.
+        try:
+            words = shlex.split(trampoline[0])
+        except ValueError:
+            words = []
+        if len(words) == 4 and words[0] == "exec" and words[2:] == ["$0", "$@"] and os.path.isabs(words[1]):
+            py = words[1]
     if py and os.path.isfile(py):
         return f"{shlex.quote(py)} -I -m kyma hook"
     return f"{shlex.quote(script)} hook"

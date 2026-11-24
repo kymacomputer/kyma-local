@@ -182,7 +182,7 @@ def build(data: dict, path: str = OUT) -> str:
     night = sum(counts[h] for h in NIGHT)
     night_on = night >= 25 and total and night / total >= 0.02
     busiest = max(range(24), key=lambda h: counts[h]) if any(counts) else None
-    rows, promoted = _findings(data)
+    rows, _promoted = _findings(data)
 
     agents = {"claude": "Claude Code", "codex": "Codex"}
     seen = [agents.get(a, a) for a in sorted(data.get("agents", {}) or {})]
@@ -196,7 +196,7 @@ def build(data: dict, path: str = OUT) -> str:
 
     p = ['<!doctype html><html lang="en"><head><meta charset="utf-8">',
          '<meta name="viewport" content="width=device-width,initial-scale=1">',
-         f"<title>What your agents did</title><style>{CSS}</style></head><body>",
+         f"<title>What your agents tried</title><style>{CSS}</style></head><body>",
          f'<div class="wrap"><div class="meta">{meta}</div>',
          "<h1>" + (f"In your last {files:,} sessions, your agents made <b>{total:,}</b> tool calls."
                    if data.get("files_found", 0) > files else
@@ -219,12 +219,8 @@ def build(data: dict, path: str = OUT) -> str:
         p.append(f'<h2>When</h2><div class="clock">{_dial(counts, night_on, label)}'
                  f'<div class="legend">{legend}</div></div>')
 
-    p.append("<h2>Found</h2>")
+    p.append("<h2>Attempted actions</h2>")
     if rows:
-        # "nobody asks for" is true of the conjunctions; it is not true of a
-        # git push, which a new user asks for every day.
-        p.append('<p class="lede">' + ("Worth a second look." if promoted
-                                       else "These are the ones nobody asks for.") + "</p>")
         sid, count, shown = rows[0]
         p.append(f'<div class="lead"><div class="n">{count:,}</div>'
                  f'<p class="what">{_esc(signals.BY_ID[sid][0])}</p>{_quotes(shown)}</div>')
@@ -235,8 +231,7 @@ def build(data: dict, path: str = OUT) -> str:
                          f'<p class="what">{_esc(signals.BY_ID[sid][0])}</p>{_quotes(shown)}</div></div>')
             p.append("</div>")
     else:
-        p.append('<p class="lede">Nothing in the watched categories. That is the whole report, '
-                 "and it is good news.</p>")
+        p.append('<p class="lede">No recorded attempts matched these categories.</p>')
 
     shown_ids = {r[0] for r in rows}
     also = sorted(((data["hits"][s]["n"], t) for s, t in scan.ALSO.items()
@@ -245,11 +240,10 @@ def build(data: dict, path: str = OUT) -> str:
         p.append('<h2>Also</h2><p class="also">'
                  + " ".join(f"<span>{c:,} {_esc(t)}</span>" for c, t in also[:7]) + "</p>")
 
-    p.append('<div class="next"><p>Every line above already happened. To decide what happens '
-             'next, write a sentence:</p><p><code class="cmd">kyma try "never read my .env files"'
+    p.append('<div class="next"><p>Test a rule against these attempts:</p><p><code class="cmd">kyma try "never read my .env files"'
              '</code></p><p>That replays the rule against this same history, so you see what it '
              'would have stopped before you install anything. Then <code class="cmd">kyma on</code> '
-             "checks every tool call your agent makes, before it runs.</p></div>")
+             "checks each Claude Code tool call before it runs.</p></div>")
 
     now = _dt.datetime.now()
     p.append(f"<footer>Built {_esc(_stamp(now))} from the logs on this disk. This page loads nothing "

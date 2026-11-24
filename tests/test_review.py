@@ -568,11 +568,18 @@ def keep_copy_installs_this_copy_and_asks_before_replacing():
 
 @check
 def on_from_a_cache_copy_keeps_one_as_the_first_screen_does():
+    import shutil
+    import venv
     env = sandbox()
-    kept = os.path.join(env["HOME"], "bin", "kyma")
-    os.makedirs(os.path.dirname(kept))
+    kept_env = os.path.join(env["HOME"], "kept")
+    venv.EnvBuilder(with_pip=False).create(kept_env)
+    kept_py = os.path.join(kept_env, "bin", "python")
+    site = subprocess.check_output([kept_py, "-I", "-c", "import sysconfig; print(sysconfig.get_path('purelib'))"],
+                                   text=True).strip()
+    shutil.copytree(os.path.join(ROOT, "src", "kyma"), os.path.join(site, "kyma"))
+    kept = os.path.join(kept_env, "bin", "kyma")
     with open(kept, "w") as fh:
-        fh.write(f"#!/bin/sh\nexec {shlex.quote(sys.executable)} -I {shlex.quote(KYMA)} \"$@\"\n")
+        fh.write(f"#!{kept_py}\nfrom kyma.cli import main\nraise SystemExit(main())\n")
     os.chmod(kept, 0o755)
     out = inproc(env, "import argparse\nfrom kyma import cli, enforce\n"
                       "enforce.install_is_durable = lambda: (False, '/x/.cache/uv/archive-v0/kyma')\n"
@@ -580,7 +587,8 @@ def on_from_a_cache_copy_keeps_one_as_the_first_screen_does():
                       "print('EXIT', cli.cmd_on(argparse.Namespace(project_only=False)))")
     assert "EXIT 0" in out, out
     with open(os.path.join(env["HOME"], ".claude", "settings.json")) as fh:
-        assert kept in fh.read(), "the hook does not point at the kept copy"
+        command = json.load(fh)["hooks"]["PreToolUse"][0]["hooks"][0]["command"]
+    assert f"{shlex.quote(kept_py)} -I -m kyma hook" in command, command
 
 
 @check

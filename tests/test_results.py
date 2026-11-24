@@ -19,6 +19,10 @@ SECRET = "PRIVATE_TOOL_OUTPUT_SENTINEL_8c72"
 MISSING = object()
 
 
+def result_metadata(held):
+    return {key: held[4][key] for key in ("call_id", "status", "source")}
+
+
 def call(cid, command="sudo -n true"):
     return {"type": "assistant", "timestamp": TS, "message": {"content": [
         {"type": "tool_use", "id": cid, "name": "Bash", "input": {"command": command}}
@@ -107,7 +111,8 @@ class Results(unittest.TestCase):
         for invalid in (None, 4, {}, "", "a" * 257, "a\n", "a b", "a/else"):
             self.assertEqual(self.cid(invalid), "")
         view = self.consumer([call("a" * 257), result("a" * 257, False)])
-        self.assertEqual(view["held"][0][4], {"call_id": "", "status": "unknown", "source": "unknown"})
+        self.assertEqual(result_metadata(view["held"][0]),
+                         {"call_id": "", "status": "unknown", "source": "unknown"})
 
     def test_codex_explicit_exit_error_and_conflicting_fields(self):
         cases = [("ok", {"exit_code": 0}, "tool_succeeded"),
@@ -144,7 +149,8 @@ class Results(unittest.TestCase):
             del row["payload"]["arguments"]
             view = self.consumer([row, codex_result("outer", {"exit_code": 0})], "codex")
             self.assertEqual(len(view["held"]), count)
-            self.assertTrue(all(h[4] == {"call_id": "", "status": "unknown", "source": "unknown"} for h in view["held"]))
+            self.assertTrue(all(result_metadata(h) == {"call_id": "", "status": "unknown", "source": "unknown"}
+                                for h in view["held"]))
 
     def test_append_result_preserves_marks_counts_and_cursor(self):
         self.write([call("append")])
@@ -168,7 +174,7 @@ class Results(unittest.TestCase):
         marks, _ = light._judge((self.path, "claude", POLICY))
         cp = Path(light._held_cache(self.path))
         data = json.loads(cp.read_text())
-        data["t"] = data["t"].replace(".3:", ".2:")
+        data["t"] = data["t"].replace(".4:", ".3:")
         data["m"] = [m[:4] for m in marks]
         cp.write_text(json.dumps(data))
         self.assertEqual(light.cached_marks(self.path, POLICY), [])
@@ -176,7 +182,8 @@ class Results(unittest.TestCase):
         self.assertEqual(marks[0][4]["call_id"], self.cid("old"))
         st = os.stat(self.path)
         ap = self.cache / ("agent-" + hashlib.sha1(self.path.encode()).hexdigest() + ".json")
-        ap.write_text(json.dumps({"s": f"a2:{st.st_mtime_ns}:{st.st_size}", "v": {"task": SECRET}}))
+        links_tag = hashlib.sha256(self.cid("old").encode()).hexdigest()[:16]
+        ap.write_text(json.dumps({"s": f"a3:{st.st_mtime_ns}:{st.st_size}:{links_tag}", "v": {"task": SECRET}}))
         with patch.object(sources, "_log_lines", wraps=sources._log_lines) as scan:
             first = agents._session(self.path, "claude", POLICY)
             second = agents._session(self.path, "claude", POLICY)

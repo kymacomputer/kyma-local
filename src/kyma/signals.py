@@ -64,7 +64,7 @@ def noise(path: str, rx=NOISE_PATH, cwd=None) -> bool:
 SIGNALS = [
     (
         "secrets",
-        "read or printed a credential file",
+        "attempted to read or print a credential file",
         "sharp",
         # "\.env\.[a-z]" without the lookbehind matched process.env.FOO in every
         # JavaScript file an agent ever touched. The lookbehind is the fix.
@@ -76,14 +76,14 @@ SIGNALS = [
     ),
     (
         "egress",
-        "sent or fetched data over the network",
+        "attempted to send or fetch data over the network",
         "sharp",
         r"(?:^|[|&;(`]\s*|\s)(?:curl|wget|nc|ncat|scp|rsync|sftp|ftp|"
         r"aws\s+s3\s+cp|gsutil\s+cp|http|httpie)\b",
     ),
     (
         "outbound",
-        "sent a message to a human",
+        "attempted to send a message to a human",
         "sharp",
         # Three versions of this pattern were wrong in opposite directions.
         # A hand-list of mailers let a program called send-mail through. The
@@ -108,7 +108,7 @@ SIGNALS = [
     ),
     (
         "destructive",
-        "deleted or reset something irreversibly",
+        "attempted to delete or reset files or data",
         "sharp",
         r"(?:\brm\s+-[a-zA-Z]*[rf]|\brm\s+-[a-zA-Z]*\s+-[a-zA-Z]*[rf]|"
         r"\bgit\s+reset\s+--hard\b|\bgit\s+clean\s+-[a-z]*[fd]|"
@@ -117,14 +117,14 @@ SIGNALS = [
     ),
     (
         "publish",
-        "published code or opened a pull request",
+        "attempted to publish code or open a pull request",
         "sharp",
         r"(?:\bgit\s+push\b|\bgh\s+pr\s+create\b|\bgh\s+release\s+create\b|"
         r"\bnpm\s+publish\b|\btwine\s+upload\b|\bgit\s+tag\s+-)",
     ),
     (
         "persistence",
-        "set something to run by itself later: on a schedule, at startup, or on a git event",
+        "attempted to schedule a command or register it at startup or on a git event",
         "sharp",
         # Only acts that install something. The previous pattern matched any
         # mention: `crontab -l` (which lists), `ls ~/Library/LaunchAgents`, and
@@ -144,20 +144,20 @@ SIGNALS = [
     ),
     (
         "background",
-        "left a process running after the session",
+        "attempted to start a background process",
         "wide",
         r"(?:^|\s)(?:nohup|disown|setsid)\b|\bscreen\s+-\S*d|\btmux\s+new(?:-session)?\b.*\s-d\b",
     ),
     (
         "privilege",
-        "asked for or widened privileges",
+        "attempted to use or widen privileges",
         "sharp",
         r"(?:\bsudo\b|\bsu\s+-\b|\bchmod\s+(?:[0-7]*7[0-7]{2}|\+s)\b|"
         r"\bchown\s+(?:root|-R)\b|\bdscl\b|\bspctl\s+--master-disable\b)",
     ),
     (
         "supplychain",
-        "installed third-party code",
+        "attempted to install third-party code",
         "sharp",
         r"(?:\bnpm\s+(?:i|install|add)\b|\bpnpm\s+add\b|\byarn\s+add\b|"
         r"\bpip\s+install\b|\buv\s+(?:pip\s+install|add)\b|\bbrew\s+install\b|"
@@ -165,14 +165,14 @@ SIGNALS = [
     ),
     (
         "database",
-        "talked to a database directly",
+        "attempted to access a database directly",
         "wide",
         r"(?:\bpsql\b|\bmysql\b|\bmongosh?\b|\bredis-cli\b|\bsqlite3\b|"
         r"\bsupabase\s+db\b|\bprisma\s+(?:migrate|db)\b)",
     ),
     (
         "git_history",
-        "rewrote git history",
+        "attempted to rewrite git history",
         "wide",
         r"(?:\bgit\s+(?:rebase|commit\s+--amend|filter-branch|push\s+--force|"
         r"push\s+-f)\b)",
@@ -189,19 +189,19 @@ SIGNALS = [
 FINDINGS = [
     (
         "self_modify",
-        "edited your agent's own instructions or permissions",
+        "attempted to edit agent instructions or permissions",
         r"(?:~?/\.claude/(?:settings|CLAUDE|hooks)|~?/\.codex/(?:config|AGENTS|hooks)|"
         r"/\.claude/settings[\w.]*\.json|\bCLAUDE\.md\b|\bAGENTS\.md\b|"
         r"~?/\.cursor/|\.mcp\.json)",
     ),
     (
         "curl_pipe_shell",
-        "downloaded code and ran it in the same breath",
+        "attempted to download and execute code in one command",
         r"(?:curl|wget)\b[^|;&]*\|\s*(?:sudo\s+)?(?:sh|bash|zsh|python3?|node|ruby|perl)\b",
     ),
     (
         "shell_profile",
-        "changed the shell that opens every new terminal you use",
+        "attempted to change a shell startup file",
         r"(?:>>?\s*~?/?\.(?:zshrc|bashrc|bash_profile|zprofile|profile)\b|"
         r"\b(?:tee|sed\s+-i)\b[^|;&\n]*\.(?:zshrc|bashrc|bash_profile|zprofile|profile)\b)",
     ),
@@ -209,11 +209,11 @@ FINDINGS = [
 
 # Conjunctions: two signals inside one command. The pair is the news.
 COMBOS = [
-    ("secrets_and_egress", "read a credential and reached the network in one command",
+    ("secrets_and_egress", "attempted credential access and network access in one command",
      ("secrets", "egress")),
-    ("secrets_and_outbound", "read a credential and sent a message in one command",
+    ("secrets_and_outbound", "attempted credential access and a message send in one command",
      ("secrets", "outbound")),
-    ("destructive_and_privilege", "deleted something as root", ("destructive", "privilege")),
+    ("destructive_and_privilege", "attempted deletion with administrator privileges", ("destructive", "privilege")),
 ]
 
 SIGNALS = SIGNALS + [(i, l, "finding", p) for i, l, p in FINDINGS]
@@ -226,18 +226,18 @@ BY_ID.update({i: (l, "finding") for i, l, _ in FINDINGS})
 BY_ID.update({i: (l, "finding") for i, l, _ in COMBOS})
 
 
-# --------------------------------------------------------- what actually ran
+# --------------------------------------------------------- attempted actions
 #
-# Every label above claims an action: edited, ran, scheduled, deleted. The
-# first matchers detected mentions. On one machine "987 edited your agent's
+# These labels classify attempted actions, not their results or external effects.
+# The first matchers detected mentions. On one machine "987 edited your agent's
 # own instructions" held 17 shell edits; 412 commands only read the file and
 # 316 only mentioned it inside a heredoc being written to some other file.
 # "129 downloaded code and ran it" held 8: the other 121 piped JSON into
 # `python3 -c`, where the download is data and the program is local.
 #
-# So findings match on what executed. A heredoc body written to a file is
+# Findings classify the action requested by a call. A heredoc body written to a file is
 # data and is dropped -- unless it feeds an interpreter, or the same command
-# goes on to run the file it just wrote, because then it ran.
+# goes on to run the file it just wrote, because then execution is requested.
 #
 # The gate does not use this. It matches raw text on purpose: a gate that
 # ignored heredoc bodies could be walked past with `cat > x.sh <<EOF ... EOF

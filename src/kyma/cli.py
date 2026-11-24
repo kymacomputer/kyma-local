@@ -186,7 +186,7 @@ def cmd_on(args) -> int:
             render.out()
             return 3
         import shlex
-        command = f"{shlex.quote(kept)} hook"
+        command = enforce.command_for_script(kept)
         if os.environ.get("KYMA_HOME"):
             command = f"KYMA_HOME={shlex.quote(enforce.HOME)} {command}"
     fresh = not os.path.lexists(enforce.GLOBAL_RULES)
@@ -664,7 +664,7 @@ def build_parser() -> argparse.ArgumentParser:
         sp.add_argument("--limit", type=int, default=None, help="how many recent sessions to read")
         return sp
 
-    with_history(sub.add_parser("scan", help="what your agents did, as text")).set_defaults(func=cmd_scan)
+    with_history(sub.add_parser("scan", help="what your agents tried, as text")).set_defaults(func=cmd_scan)
     v = with_history(sub.add_parser("see", help="the same, as a page you can keep"))
     v.add_argument("--no-open", action="store_true", help="write the page, do not open it")
     v.set_defaults(func=cmd_see)

@@ -1,10 +1,8 @@
 """`kyma` -- the first fifteen seconds.
 
-The report leads with acts nobody asks an agent for: a credential and the
-network in one command, an agent editing its own instructions, code fetched
-and run in one breath, a job set to run at startup. Each finding is a claim,
-so it counts only what a command did (see signals.py), never what it
-mentioned. Raw volume appears once, dimmed, because it is context, not news.
+The report classifies attempted actions from the recorded calls, not their
+external effects. The matchers distinguish requested actions from quoted
+mentions. Raw volume appears once, dimmed, because it supplies context.
 """
 
 from __future__ import annotations
@@ -33,15 +31,15 @@ LEAD = [
 ]
 
 ALSO = {
-    "egress": "reached the network",
-    "secrets": "read a credential",
-    "destructive": "deleted something",
-    "supplychain": "installed packages",
-    "outbound": "sent a message",
-    "publish": "published",
-    "privilege": "used root",
-    "database": "used a database",
-    "git_history": "rewrote git history",
+    "egress": "network access attempts",
+    "secrets": "credential access attempts",
+    "destructive": "deletion attempts",
+    "supplychain": "package installation attempts",
+    "outbound": "message send attempts",
+    "publish": "publication attempts",
+    "privilege": "privilege use or change attempts",
+    "database": "database access attempts",
+    "git_history": "git history rewrite attempts",
 }
 
 ROWS = 5          # the terminal and the page show the same rows
@@ -153,10 +151,10 @@ def scan(since_days: int | None = None, agents: tuple = ("claude", "codex"),
                 render.out(f"{render.PAD}{' ' * pad}  {render.dim(render.fit(e[1], pad + 4))}")
             render.out()
         if night:
-            render.out(f"{render.PAD}{render.bold(render.n(night).rjust(pad))}  ran between 1am and 6am, your time")
+            render.out(f"{render.PAD}{render.bold(render.n(night).rjust(pad))}  calls recorded between 1am and 6am, your time")
             render.out()
     else:
-        render.out(f"{render.PAD}{render.dim('None of the acts kyma watches for. That is the whole report.')}")
+        render.out(f"{render.PAD}{render.dim('No recorded attempts matched the watched categories.')}")
         render.out()
 
     shown_ids = {r[0] for r in rows}

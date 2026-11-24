@@ -192,10 +192,12 @@ if __name__ == "__main__":
         before_acceptance = open(enforce.SEEN, "rb").read()
         pending_page = open(light.page(s, os.path.join(FAKE, "pending.html"))).read()
         pending_data = _json.loads(pending_page.split("const D = ", 1)[1].split(";\n", 1)[0])
-        check("setup marks loosened current rules for terminal review without acceptance",
+        pending_rules = {r["t"]: r for r in pending_data["setup_rules"]}
+        check("setup retains accepted holds and marks pending review without acceptance",
               pending_data["setup_yours"] and pending_data["setup_rule_status"] == "pending"
-              and pending_data["setup_rules"][0]["v"] == "ask"
-              and not pending_data["setup_rules"][1]["ok"]
+              and pending_rules["Never send email."]["v"] == "block"
+              and pending_rules["Ask me before any git push."]["v"] == "ask"
+              and not pending_rules["Be extra thoughtful."]["ok"]
               and open(enforce.SEEN, "rb").read() == before_acceptance)
         os.remove(enforce.GLOBAL_RULES)
         missing_page = open(light.page(s, os.path.join(FAKE, "missing-rules.html"))).read()

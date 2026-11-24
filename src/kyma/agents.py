@@ -71,7 +71,7 @@ def _read(path: str, agent: str, call_ids=()) -> dict | None:
         return None
     wanted = set(call_ids)
     links_tag = hashlib.sha256("\n".join(sorted(wanted)).encode()).hexdigest()[:16]
-    stamp = f"a3:{st.st_mtime_ns}:{st.st_size}:{links_tag}"
+    stamp = f"a4:{st.st_mtime_ns}:{st.st_size}:{links_tag}"
     cp = os.path.join(light.CACHE, "agent-" + hashlib.sha1(path.encode("utf-8", "replace")).hexdigest() + ".json")
     try:
         with open(cp, encoding="utf-8") as fh:
@@ -95,12 +95,16 @@ def _read(path: str, agent: str, call_ids=()) -> dict | None:
 
 def _read_log(path: str, agent: str, wanted=()) -> dict | None:
     """One log -> {model, cwd, task, start, end, calls, you}. None if unreadable."""
-    out = {"model": "", "cwd": "", "task": "", "start": None, "end": None, "calls": 0, "you": False}
+    out = {"model": "", "cwd": "", "task": "", "start": None, "end": None, "calls": 0, "you": False,
+           "attempts": []}
     scripted, complete = False, True
     wanted, links = set(wanted), {}
     try:
         lines = sources._zstd_lines(path) if path.endswith(".zst") else sources._log_lines(path)
         for raw in lines:
+            if len(out["attempts"]) < 40 and any(k in raw for k in
+                    (b'"tool_use"', b'"function_call"', b'"custom_tool_call"', b'"local_shell_call"')):
+                out["attempts"].extend(_attempts(sources._loads(raw), agent, 40 - len(out["attempts"])))
             if wanted and sources.has_call_id(raw, path, wanted):
                 for kind, cid, status, source in sources.result_links(sources._loads(raw), agent, path):
                     if cid not in wanted:
@@ -176,6 +180,33 @@ def _read_log(path: str, agent: str, wanted=()) -> dict | None:
     return out
 
 
+def _attempts(rec, agent: str, limit: int = 40) -> list:
+    """Only tool inputs, never tool outputs, retained for a bounded activity sample."""
+    if not isinstance(rec, dict):
+        return []
+    calls = []
+    if agent == "claude":
+        msg = rec.get("message")
+        content = msg.get("content") if isinstance(msg, dict) else None
+        for block in content if isinstance(content, list) else []:
+            if len(calls) >= limit:
+                break
+            if not isinstance(block, dict) or block.get("type") != "tool_use":
+                continue
+            inp = block.get("input")
+            inp = inp if isinstance(inp, dict) else {}
+            tool = block.get("name") if isinstance(block.get("name"), str) else "Tool"
+            command = inp.get("command") if isinstance(inp.get("command"), str) else ""
+            calls.append((tool, command, sources._paths_from_input(inp)))
+    else:
+        item = rec.get("payload", rec)
+        if isinstance(item, dict) and item.get("type") in sources._CODEX_CALLS:
+            tool, parsed, _ = sources._codex_call(item, item["type"])
+            calls.extend((tool, command, paths) for _, command, paths in parsed[:limit])
+    return [dict(light.command_evidence(command or (paths[0] if paths else tool)), tool=label(tool, 80))
+            for tool, command, paths in calls]
+
+
 def _held(path: str, agent: str, rules: str) -> list:
     """Cached holds: [local cell, verdict, rule, quote, optional result metadata]."""
     rows = light.cached_marks(path, rules)          # judged once, in the budget; never again here
@@ -195,6 +226,10 @@ def _linked_held(rows: list, log: dict) -> list:
         cid = row[4].get("call_id", "") if len(row) > 4 and isinstance(row[4], dict) else ""
         cid = cid if type(cid) is str and re.fullmatch(r"[a-f0-9]{64}", cid) else ""
         meta = {"call_id": cid}
+        original = row[4] if len(row) > 4 and isinstance(row[4], dict) else {}
+        if isinstance(original.get("command"), str):
+            meta.update(light.command_evidence(original["command"]))
+            meta["command_clipped"] = meta["command_clipped"] or original.get("command_clipped") is True
         result = results.get(cid, {})
         result = result if isinstance(result, dict) else {}
         status, source = result.get("status"), result.get("source")
@@ -236,6 +271,7 @@ def _children(session_path: str, rules: str) -> list:
             "done": meta.get("finished", True) is not False,
             "parent": str(meta.get("parentAgentId") or ""),
             "held": _linked_held(held, log),
+            "attempts": log.get("attempts", []),
             "children": [],
         }
     roots = []
@@ -273,6 +309,7 @@ def _session(path: str, agent: str, rules: str) -> dict | None:
         "calls": log["calls"], "start": log["start"], "end": log["end"],
         "mins": _mins(log["start"], log["end"]), "live": _live(path),
         "held": _linked_held(held, log),
+        "attempts": log.get("attempts", []),
         "children": _same_family(_children(path, rules) if agent == "claude" else [],
                                  label(model_name(log["model"]) or "", 30)),
     }

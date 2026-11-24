@@ -204,6 +204,17 @@ if __name__ == "__main__":
         raise ValueError("Example page has no data payload")
     data, end = json.JSONDecoder().raw_decode(tail)
     data["cmd"] = "uvx --from git+https://github.com/kymacomputer/kyma-local kyma on"
+    data["example"] = True
+    runner = data["cmd"][:-3]
+    data["on"], data["on_scope"], data["on_project"] = False, "", "app"
+    data["hooks_off"], data["hooks_off_reason"], data["setup_recovery"] = False, "", []
+    for scope, mode in data["setup_modes"].items():
+        scope_prefix = 'cd "$HOME/code/app" && ' if scope == "project" else 'cd "$HOME" && '
+        mode.update(name="app" if scope == "project" else "All projects",
+                    on=scope_prefix + runner + " on --" + scope,
+                    review=scope_prefix + runner + " rules", check=runner + " status && " + runner, report=runner,
+                    off=scope_prefix + runner + " off --" + scope,
+                    files=[{"path": "~/.kyma/RULES.md", "title": "Your rules · shared by active projects", "edit": ""}])
     page = prefix + marker + json.dumps(data, separators=(",", ":")) + tail[end:]
     with open(out, "w", encoding="utf-8") as fh:
         fh.write(page)

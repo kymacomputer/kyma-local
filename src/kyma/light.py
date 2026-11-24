@@ -479,7 +479,15 @@ def _head(path: str) -> str:
 
 
 def _tag(text: str) -> str:
-    return f"h{VERSION}.3:{hashlib.sha1(text.encode()).hexdigest()[:12]}"
+    return f"h{VERSION}.4:{hashlib.sha1(text.encode()).hexdigest()[:12]}"
+
+
+def command_evidence(value: str) -> dict:
+    """Bounded original input for disclosure, separate from the matched fragment."""
+    from . import signals
+    clipped = len(value) >= sources.COMMAND_CAP
+    value = _tilde(signals.clean(signals.redact(value[:sources.COMMAND_CAP])))
+    return {"command": value[:4096], "command_clipped": clipped or len(value) > 4096}
 
 
 def _timestamp_order(ts: str) -> float:
@@ -618,8 +626,10 @@ def _judge(item) -> tuple:
                 continue
             # Every hold is counted; only the first 60 in a log keep a quote.
             ex = seen if len(marks) < 60 else ""
-            marks.append([k, verdict, rule_text, ex,
-                          {"call_id": act.call_id, "status": "unknown", "source": "unknown"}])
+            meta = {"call_id": act.call_id, "status": "unknown", "source": "unknown"}
+            if ex:
+                meta.update(command_evidence(act.command or (act.paths[0] if act.paths else act.tool)))
+            marks.append([k, verdict, rule_text, ex, meta])
     except Exception:
         done = False
     finally:
@@ -1049,7 +1059,7 @@ PAGE = r"""<!doctype html>
 <style>
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
-:root{--page:#161618;--panel:#1b1b1e;--line:#2a2a2c;--hair:#232326;--ink:#fff;--task:#a5a5a7;--meta:#8e8e91;
+:root{--page:#161618;--panel:#1b1b1e;--line:#2a2a2c;--hair:#232326;--ink:#fff;--task:#b4b4b9;--meta:#a2a2a8;
   --agent:#74b6f9;--agent2:#508fdb;--you:#ffb86e;--held:#ff6f91;--away:#b79cff;--chip:#232327}
 html,body{margin:0;background:var(--page);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:clip}
 body{font:13px/1.45 ui-sans-serif,-apple-system,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif}
@@ -1222,6 +1232,7 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
 .qrow .qt i{font-style:normal;color:var(--meta);margin-left:6px}
 .qrow .qk{color:var(--task);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .qrow .qm{color:var(--meta);white-space:nowrap}
+.qrow .ob{font:inherit;text-align:left;border:0;background:none;padding:0;cursor:pointer}.qrow .ob:hover{text-decoration:underline}.qrow .all{grid-column:1 / -1}
 @media (max-width:1199px){.split{display:flex;flex-direction:column}.side{order:-1;border-bottom:1px solid var(--line)}}
 @media (max-width:620px){.glab{display:block}.qrow{grid-template-columns:minmax(0,1fr) auto}.qrow .qk{grid-column:1 / -1;grid-row:2}}
 /* Keep the original tree and its spatial hierarchy. Explain the event at its source. */
@@ -1235,6 +1246,7 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
 .ag:not(.root) .ag-h{position:relative;padding-bottom:17px}
 .ag:not(.root) .mo{position:absolute;left:37px;bottom:0;max-width:calc(100% - 37px)}
 .task{color:#c4c4c9}.ag.focused{border-color:#f07a5e;box-shadow:0 0 0 1px #f07a5e,0 0 20px #f07a5e0d}
+.ag.focused[data-st="done"],.ag.focused[data-st="run"]{border-color:#8c9eaf;box-shadow:0 0 0 1px #8c9eaf}.ag.focused[data-st="ask"]{border-color:#f0a845;box-shadow:0 0 0 1px #f0a845}
 .artifact-chip{display:flex;align-items:center;gap:8px;background:#242025;padding:8px 9px}
 .artifact-chip code{font-size:12px;overflow-wrap:anywhere;color:#e8dcd8}
 .filter-label{font-size:11px;color:var(--meta);margin-right:4px}
@@ -1248,6 +1260,7 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
 .inspect-artifact svg{width:27px;height:32px;flex:none;color:#e0b4a6}.inspect-artifact code{font-size:16px;color:#f7ece8;overflow-wrap:anywhere}
 .inspect-verdict{border-left:2px solid #f07a5e;padding:9px 0 9px 13px}.inspect-verdict strong{display:block;font-weight:550;font-size:16px;color:#f18a70}.inspect-verdict span{display:block;font-size:12px;color:#c5b9b6;line-height:1.5;margin-top:5px}
 .inspect-verdict.ask{border-color:#f0a845}.inspect-verdict.ask strong{color:#f0b958}
+.inspect-verdict.ordinary{border-color:#8c9eaf}.inspect-verdict.ordinary strong{color:#d2dce6}.qrow.focused{border-left:2px solid #8c9eaf;padding-left:10px}
 .inspect-outcome{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:10px;color:var(--meta);margin:21px 0 12px}
 .inspect-outcome>span{background:#29292e;padding:2px 6px;border-radius:4px}
 .inspect-evidence{font-size:11px;color:var(--meta);margin-bottom:20px}.inspect-evidence summary{cursor:pointer;padding:6px 0}.inspect-evidence code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;padding:10px;background:#121215;border:1px solid var(--line);border-radius:6px;color:#ddd}.inspect-evidence p{font-size:11px;line-height:1.5}
@@ -1277,6 +1290,9 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
 .setup-dialog h2{font-size:17px;font-weight:550;letter-spacing:-.3px;margin:0}
 .setup-close{border:0;background:none;color:var(--task);cursor:pointer;width:30px;height:30px;border-radius:6px;font-size:24px;line-height:1}
 .setup-body{padding:22px}.setup-body p{font-size:13px;line-height:1.6;color:var(--task);margin:0 0 20px}
+.example-badge{width:fit-content;margin:0 0 20px;padding:6px 9px;border:1px solid #424248;border-radius:4px;color:var(--task);font-size:11px}
+.setup-scopes{display:flex;gap:8px;border:0;padding:0;margin:0 0 16px}.setup-scopes legend{font-size:12px;color:var(--task);margin-bottom:8px}.setup-scopes label{flex:1;border:1px solid var(--line);border-radius:7px;padding:10px;font-size:12px;cursor:pointer}.setup-scopes label:has(:checked){border-color:#e3e3e8;background:#29292e}.setup-scopes input{accent-color:#ddd;margin-right:5px}.setup-scopes label span{overflow-wrap:anywhere}
+.attempt-command{display:block;white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px;color:var(--ink);padding:10px 0}.setup-body h3{font-size:13px}.setup-file{border-left:2px solid var(--line);padding-left:12px;margin:12px 0}.setup-file>code{display:block;overflow-wrap:anywhere;font-size:12px;color:var(--ink)}.setup-file p{font-size:12px;margin:6px 0}
 .setup-body ol{list-style:none;margin:0;padding:0}.setup-body li{position:relative;padding-left:32px;margin:0 0 22px;font-size:13px;line-height:1.5}
 .setup-step{position:absolute;left:0;top:0;border:1px solid #45454b;color:var(--task);border-radius:50%;width:21px;height:21px;display:grid;place-items:center;font-size:10px}
 .setup-command{display:flex;align-items:center;gap:8px;padding:12px;background:#111114;border:1px solid #34343a;border-radius:7px;margin:12px 0}
@@ -1304,6 +1320,7 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
     <button class="flag ask" id="g-ask" hidden aria-pressed="false"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="6" r="4.5"/><path d="M6 3.6V6l1.6 1"/></svg><b></b> would need permission</button>
     <button class="flag rulef" id="g-rule" hidden aria-label="Clear rule filter"><span></span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6"/></svg></button>
     <span class="spacer"></span>
+    <button class="chipbtn" id="refresh-open" aria-haspopup="dialog">Refresh report</button>
     <span class="sr" id="live" aria-live="polite"></span>
     <span id="cmdslot"></span>
   </div>
@@ -1328,7 +1345,7 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
     <div class="inspect-arrow" id="event-rule-owner"></div>
     <div class="inspect-verdict" id="event-verdict"><strong id="event-result"></strong><span id="event-rule"></span></div>
     <div class="inspect-outcome"><span id="event-outcome">Outcome unknown</span><time id="event-time"></time></div>
-    <details class="inspect-evidence"><summary>Exact command &amp; outcome</summary><code id="event-command"></code><p id="event-result-note">This report records the attempt. It does not include the tool result.</p></details>
+    <details class="inspect-evidence"><summary id="event-evidence-title">Command &amp; tool result</summary><code id="event-command"></code><p id="event-result-note">This report records the attempt. It does not include the tool result.</p></details>
     <button class="setup-primary" id="setup-open" aria-haspopup="dialog">Turn rules on</button>
   </section>
   <details id="activity"><summary>Activity by hour</summary>
@@ -1351,24 +1368,31 @@ canvas{display:block;width:100%;touch-action:pan-x pan-y}
   </div>
 </section>
 <footer class="local-note">Local report · Nothing uploaded</footer>
+<dialog class="setup-dialog" id="refresh-dialog" aria-labelledby="refresh-title">
+<header><h2 id="refresh-title">Refresh your activity</h2><button class="setup-close" id="refresh-close" aria-label="Close refresh">×</button></header>
+<div class="setup-body"><p>Open a terminal outside your agent conversation. Paste this command and press Enter.</p><div class="setup-command"><code id="refresh-command"></code><button class="plain-button" id="refresh-copy" aria-label="Copy report command">Copy</button></div><p class="setup-done" id="refresh-feedback" aria-live="polite"></p></div></dialog>
 <dialog class="setup-dialog" id="setup-dialog" aria-labelledby="setup-dialog-title">
 <header><h2 id="setup-dialog-title">Turn rules on in Claude Code</h2><button class="setup-close" id="setup-close" aria-label="Close setup">×</button></header>
 <div class="setup-body">
+<fieldset class="setup-scopes" id="setup-scopes"><legend>Where rules apply</legend><label><input type="radio" name="setup-scope" value="project"> <span id="setup-project-label">This project</span></label><label><input type="radio" name="setup-scope" value="global"> All projects</label></fieldset>
 <p id="setup-scope">All Claude Code projects on this computer. Codex stays report-only.</p>
 <section class="setup-rules" aria-labelledby="setup-rules-title"><h3 id="setup-rules-title"></h3><div class="setup-rule-status" id="setup-rule-status" hidden></div><ul id="setup-rules-list"></ul></section>
+<section id="setup-recovery" hidden><h3>Claude Code has disabled these checks</h3><div id="setup-recovery-files"></div></section>
 <ol>
 <li><span class="setup-step" aria-hidden="true">1</span>Open a new terminal, outside your Claude conversation.</li>
-<li><span class="setup-step" aria-hidden="true">2</span>Paste this command at the command prompt and press Enter.<div class="setup-command"><code id="setup-command"></code><button class="plain-button" id="setup-copy" aria-label="Copy setup command">Copy</button></div>
+<li><span class="setup-step" aria-hidden="true">2</span><span id="setup-action">Paste this command and press Enter.</span><div class="setup-command"><code id="setup-command"></code><button class="plain-button" id="setup-copy" aria-label="Copy setup command">Copy</button></div>
 <p class="setup-done" id="setup-feedback" aria-live="polite"></p>
-<div class="setup-success">Success shows <strong>“On.”</strong> and <strong>“The hook answered its self-test.”</strong></div></li>
+<div class="setup-success" id="setup-success">Success shows <strong>“On.”</strong> and <strong>“The hook answered its self-test.”</strong></div></li>
 </ol>
+<details class="setup-more" id="setup-edit"><summary>Edit rules</summary><div id="setup-rule-files"></div></details>
 <details class="setup-more"><summary>Check setup &amp; refresh this report</summary><p>Claude Code normally loads the change automatically. This command checks the rules and opens a fresh report.</p><div class="setup-command"><code id="setup-check-command"></code><button class="plain-button" id="setup-check-copy" aria-label="Copy check and refresh command">Copy</button></div><p class="setup-done" id="setup-check-feedback" aria-live="polite"></p></details>
-<details class="setup-more"><summary>Turn rules off</summary><p>Run this at the terminal command prompt. It removes Kyma’s checks from all projects, including earlier project-only installs.</p><div class="setup-command"><code id="setup-off-command"></code><button class="plain-button" id="setup-off-copy" aria-label="Copy turn-off command">Copy</button></div><p class="setup-done" id="setup-off-feedback" aria-live="polite"></p></details>
+<details class="setup-more"><summary>Turn rules off</summary><p id="setup-off-scope"></p><div class="setup-command"><code id="setup-off-command"></code><button class="plain-button" id="setup-off-copy" aria-label="Copy turn-off command">Copy</button></div><p class="setup-done" id="setup-off-feedback" aria-live="polite"></p></details>
 <button class="setup-primary" id="setup-return">Back to report</button>
 </div></dialog>
 </main>
 <script>
 const D = __DATA__;
+if (D.example) { const badge = document.createElement("div"); badge.className = "example-badge"; badge.textContent = "Example activity · fictional data"; document.querySelector("main").prepend(badge); }
 if (location.hash.includes("still")) document.documentElement.classList.add("still");
 const $ = id => document.getElementById(id);
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
@@ -1495,9 +1519,9 @@ function card(a, kind, count) {
   c.dataset.st = st;
   // A subagent with no type of its own goes by its model; its task sits under it.
   const gen = kind === "sub" && kindName(a.kind) === "Agent";
-  const name = kind === "root" ? "This computer" : a.task || (kind === "sub" ? kindName(a.kind) : (a.project || (a.agent === "codex" ? "Codex" : "Claude Code")));
+  const name = kind === "root" ? (D.example ? "Example computer" : "This computer") : a.task || (kind === "sub" ? kindName(a.kind) : (a.project || (a.agent === "codex" ? "Codex" : "Claude Code")));
   const held = kind === "root" ? [] : deep(a);
-  const opens = kind === "root" ? false : (held.length > 0 || !!(a.start && a.end));
+  const opens = kind === "root" ? false : (held.length > 0 || (a.attempts || []).length > 0 || !!(a.start && a.end));
   if (opens) c.classList.add("can");
   c.innerHTML = `<div class="ag-h"><span class="tile">${GLYPH[kind === "root" ? "home" : (a.agent === "codex" ? "codex" : "claude")]}</span>` +
     `<div class="tt"><div class="ti"></div><div class="mo"></div></div><span class="st ${pill}">${ICON[pill.split(" ")[0]]}<span></span></span></div>` +
@@ -1519,11 +1543,12 @@ function card(a, kind, count) {
   else task.textContent = a.task;
   const ft = c.querySelector(".ft span");
   if (kind === "root") {
-    ft.append(el("b", "", fmt(D.checked_calls || 0)), " actions checked · ", el("b", "", fmt(D.sessions || AG.length)), " sessions");
+    const calls = D.checked_calls || 0, sessions = D.sessions || AG.length;
+    ft.append(el("b", "", fmt(calls)), (calls === 1 ? " action" : " actions") + " checked · ", el("b", "", fmt(sessions)), sessions === 1 ? " session" : " sessions");
     c.classList.add("root");
   } else {
     const ownDay = (a.held || [])[0] ? dateOf(cellOf(a.held[0][0])[0]).toLocaleDateString(undefined, {day: "numeric", month: "short"}) : dayOf(a);
-    ft.append(el("b", "", fmt(a.calls)), " actions" + [kind === "session" ? ownDay : ""].filter(Boolean).map(x => " · " + x).join(""));
+    ft.append(el("b", "", fmt(a.calls)), (a.calls === 1 ? " action" : " actions") + [kind === "session" ? ownDay : ""].filter(Boolean).map(x => " · " + x).join(""));
     // the first thing it (or something it started) did that a rule would have met, on the card
     // the call is shown once, on the agent that made it; a parent wears its subagents' state in the pill
     const own = a.held || [];
@@ -1596,15 +1621,37 @@ let filter = null, showAll = false, ruleOn = null;
 const passes = a => (!filter || (filter === "away" ? awayIn(a) : stateOf(a)[0] === filter)) && (!ruleOn || deep(a).some(h => h[2] === ruleOn));
 function showReceipt() {
   const entry = selectedReceipt;
+  const ordinary = !!entry?.attempt;
+  const options = ordinary ? entry.a.attempts : receiptOptions;
   for (const node of document.querySelectorAll("#inspector > .inspect-source, #inspector > .inspect-arrow, #inspector > .inspect-artifact, #inspector > .inspect-verdict, #inspector > .inspect-outcome, #inspector > .inspect-evidence")) node.hidden = !entry;
   $("event-title").textContent = entry ? "Selected attempt" : D.checked_calls ? "No rule matches" : "No actions checked yet";
-  $("event-position").textContent = entry ? `${receiptOptions.indexOf(entry) + 1} / ${receiptOptions.length}` : "";
-  for (const id of ["event-prev", "event-next"]) $(id).disabled = receiptOptions.length < 2;
-  for (const card of document.querySelectorAll("#trows .ag")) {
+  $("event-position").textContent = entry ? `${options.indexOf(ordinary ? entry.attempt : entry) + 1} / ${options.length}` : "";
+  for (const id of ["event-prev", "event-next"]) $(id).disabled = options.length < 2;
+  for (const card of document.querySelectorAll("#trows .ag, #trows .qrow")) {
     const chosen = !!entry && card._a === entry.a; card.classList.toggle("focused", chosen);
     if (deep(card._a).length) { const b = card.querySelector(".ob"); b?.removeAttribute("aria-expanded"); b?.setAttribute("aria-pressed", String(chosen)); }
   }
   if (!entry) return;
+  $("event-verdict").classList.toggle("ordinary", ordinary);
+  if (ordinary) {
+    const {a, attempt, parent} = entry;
+    $("event-title").textContent = "Recorded attempt";
+    $("event-glyph").innerHTML = GLYPH[a.agent === "codex" ? "codex" : "claude"];
+    $("event-agent").textContent = (a.agent === "codex" ? "Codex" : "Claude Code") + (parent ? " · helper" : "");
+    $("event-project").textContent = a.task || a.project || "Session";
+    $("event-action").textContent = "↓  " + attempt.tool;
+    $("event-target").textContent = attempt.command.split("\n")[0].slice(0, 90) || attempt.tool;
+    $("event-rule-owner").textContent = "↓  This session";
+    $("event-result").textContent = "No recorded rule match";
+    $("event-rule").textContent = "No match appears in this session’s checked activity.";
+    $("event-verdict").classList.remove("ask");
+    $("event-command").textContent = attempt.command;
+    $("event-evidence-title").textContent = attempt.command_clipped ? "Command excerpt" : "Command";
+    $("event-time").textContent = "";
+    $("event-outcome").textContent = "Outcome unknown";
+    $("event-result-note").textContent = "This recorded input has no linked tool result in the report.";
+    return;
+  }
   const {a, h, root, parent} = entry, category = actionNames[h[2]]?.[0];
   $("event-title").textContent = {"Private files":"File read attempt", "Code uploads":"Code upload attempt", "Email":"Email attempt", "Scheduled tasks":"Scheduled task attempt", "Admin access":"Administrator access attempt"}[category] || "Selected attempt";
   $("event-glyph").innerHTML = GLYPH[a.agent === "codex" ? "codex" : "claude"];
@@ -1615,7 +1662,9 @@ function showReceipt() {
   $("event-result").textContent = h[1] === "block" ? "Would block" : "Would ask your permission";
   $("event-verdict").classList.toggle("ask", h[1] !== "block");
   $("event-rule").textContent = h[2];
-  $("event-command").textContent = h[3] || "Command not retained";
+  $("event-rule-owner").textContent = D.yours ? "↓  matched your rule" : "↓  matched a starter rule";
+  $("event-command").textContent = h[4]?.command || h[3] || "Command not retained";
+  $("event-evidence-title").textContent = h[4]?.command_clipped ? "Command excerpt & tool result" : h[4]?.command ? "Command & tool result" : "Matched fragment & tool result";
   $("event-time").textContent = when(h[0]);
   const result = h[4]?.status === "tool_succeeded" ? "Tool reported success" : h[4]?.status === "tool_failed" ? "Tool reported failure" : null;
   $("event-outcome").textContent = result || "Outcome unknown";
@@ -1623,7 +1672,7 @@ function showReceipt() {
 }
 function selectReceipt(entry) {
   selectedReceipt = entry; selectedRoot = entry.root;
-  const card = [...document.querySelectorAll("#trows .ag")].find(c => c._a === entry.a && c.getBoundingClientRect().height);
+  const card = [...document.querySelectorAll("#trows .ag, #trows .qrow")].find(c => c._a === entry.a && c.getBoundingClientRect().height);
   if (card) showReceipt(); else {
     const path = a => { if (a === entry.a || (a.children || []).some(path)) { expandedHelpers.add(a); return true; } return false; };
     path(entry.root); buildTree();
@@ -1635,6 +1684,11 @@ function selectReceipt(entry) {
   }
 }
 for (const [id, step] of [["event-prev", -1], ["event-next", 1]]) $(id).onclick = () => {
+  if (selectedReceipt?.attempt) {
+    const e = selectedReceipt, options = e.a.attempts;
+    selectReceipt({...e, attempt:options[(options.indexOf(e.attempt) + step + options.length) % options.length]});
+    return;
+  }
   if (!receiptOptions.length) return;
   selectReceipt(receiptOptions[(receiptOptions.indexOf(selectedReceipt) + step + receiptOptions.length) % receiptOptions.length]);
 };
@@ -1646,7 +1700,7 @@ function buildTree() {
   const rows = $("trows"); rows.replaceChildren();
   const list = ALL.filter(passes);
   receiptOptions = receipts.filter(e => list.includes(e.root) && (!ruleOn || e.h[2] === ruleOn) && (!filter || (filter === "away" ? isAway(e.h) : (e.h[1] === "block") === (filter === "stop"))));
-  if (!receiptOptions.includes(selectedReceipt)) { selectedReceipt = receiptOptions[0] || null; selectedRoot = selectedReceipt?.root; }
+  if (!receiptOptions.includes(selectedReceipt) && !(selectedReceipt?.attempt && list.includes(selectedReceipt.root) && !filter && !ruleOn)) { selectedReceipt = receiptOptions[0] || null; selectedRoot = selectedReceipt?.root; }
   if (selectedRoot && list.includes(selectedRoot)) { list.splice(list.indexOf(selectedRoot), 1); list.unshift(selectedRoot); }
   const n = perRow(), flagged = list.filter(a => RANK[stateOf(a)[0]] >= 2 || isLive(a)).length;
   // what your rules would have met is never behind "+N"
@@ -1658,10 +1712,13 @@ function buildTree() {
     const g = groupOf(a);
     if (g === "done" && ix >= first && !(a.children || []).length) {
       if (!quiet) { quiet = el("div", "quiet"); quiet.setAttribute("role", "list"); }
-      const q = el("div", "qrow"); q.setAttribute("role", "listitem");
+      const q = el("div", "qrow"); q._a = a; q.setAttribute("role", "listitem");
       const qt = el("span", "qt", a.project || "session"); if (a.model) qt.append(el("i", "", a.model));
       const when = a.end || a.start;
-      q.append(qt, el("span", "qk", a.task || ""), el("span", "qm mono", fmt(a.calls || 0) + " calls" + (when ? " · " + short(new Date(when)) : "")));
+      const inspect = el("button", "qk ob", a.task || "Inspect actions"); inspect.type = "button";
+      inspect.setAttribute("aria-label", "Inspect actions: " + (a.task || a.project || "session"));
+      inspect.setAttribute("aria-expanded", "false"); inspect.onclick = () => toggleOpen(a, q, "session");
+      q.append(qt, inspect, el("span", "qm mono", fmt(a.calls || 0) + " calls" + (when ? " · " + short(new Date(when)) : "")));
       quiet.append(q); continue;
     }
     if (!row || g !== rowGroup || inRow >= n) {
@@ -1790,7 +1847,24 @@ function toggleOpen(a, c, kind) {
     if (held.length > 12) box.append(el("div", "ev-more mono", "+" + (held.length - 12)));
     // the hook goes into Claude Code; a Codex session is read, not gated
 
-  } else if (a.start && a.end) {
+  } else if ((a.attempts || []).length || (a.start && a.end)) {
+    const attempts = a.attempts || [];
+    if (attempts.length) {
+      const contains = node => node === a || (node.children || []).some(contains);
+      const root = AG.find(contains) || a;
+      const entry = attempt => ({a, root, parent:root !== a, attempt});
+      selectReceipt(entry(attempts[0]));
+      box.append(el("div", "ev-t mono", attempts.length < a.calls ? `First ${attempts.length} recorded attempts` : "Recorded attempts"));
+      for (const attempt of attempts) {
+        const detail = el("details", "ev-extra");
+        detail.append(el("summary", "", attempt.command.split("\n")[0].slice(0, 90) || attempt.tool));
+        detail.querySelector("summary").onclick = () => selectReceipt(entry(attempt));
+        detail.append(el("code", "attempt-command", attempt.command));
+        if (attempt.command_clipped) detail.append(el("p", "", "Command excerpt · 4,096 characters retained"));
+        box.append(detail);
+      }
+    }
+    if (a.start && a.end) {
     // nothing held: when it ran, and its hours lit in the picture
     const f = new Date(a.start), t = new Date(a.end);
     const day = d => d.toLocaleDateString(undefined, {weekday: "short", day: "numeric", month: "short"});
@@ -1798,6 +1872,7 @@ function toggleOpen(a, c, kind) {
     const nb = x => x.replace(/ /g, "\u00a0");
     const span = nb(day(f) + " · " + tm(f)) + " → " + nb((day(t) === day(f) ? "" : day(t) + " · ") + tm(t));
     box.append(el("div", "ev-t mono", span));
+    }
   } else {
     return;
   }
@@ -1844,7 +1919,8 @@ $("g-rule").onclick = () => {
 function recount(list) {
   for (const [id, n, label] of [["g-stop", D.stop_past || 0, "actions would be blocked"], ["g-ask", D.ask_past || 0, "actions would need permission"]]) {
     const b = $(id); b.hidden = !n; b.querySelector("b").textContent = fmt(n);
-    b.setAttribute("aria-label", `${fmt(n)} past ${label}`);
+    if (id === "g-stop") b.lastChild.textContent = n === 1 ? " action would be blocked" : " actions would be blocked";
+    b.setAttribute("aria-label", `${fmt(n)} past ${n === 1 ? label.replace("actions", "action") : label}`);
   }
 }
 // The header's flags filter the tree to what they count.
@@ -2172,13 +2248,49 @@ let stuck = false; addEventListener("scroll", () => {
 
 function setup() {
   const active = D.on && !D.hooks_off;
-  const setupRules = D.setup_rules || D.rules || [];
   const rulesStatus = D.setup_rule_status || "";
-  $("setup-rules-title").textContent = (D.setup_yours ?? D.yours) ? "Your rules" : "Starter rules";
+  const modes = D.setup_modes;
+  let scope = D.on_scope || "project";
+  const dialog = $("setup-dialog");
+  $("setup-open").onclick = () => dialog.showModal();
+  $("setup-open").textContent = D.hooks_off ? "Restore checks" : active ? "Manage rules" : "Turn rules on";
+  $("setup-dialog-title").textContent = D.hooks_off ? "Restore Claude Code checks" : active ? "Manage Claude Code rules" : "Turn rules on in Claude Code";
+  $("setup-scopes").hidden = !!D.on;
+  $("setup-project-label").textContent = "This folder · " + modes.project.name;
+  if (D.claude === false) $("setup-open").hidden = true;
+  $("setup-close").onclick = $("setup-return").onclick = () => dialog.close();
+  dialog.addEventListener("click", e => { if (e.target === dialog) { const r = dialog.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dialog.close(); } });
+  const copyCommand = (name, value) => {
+    $(name + "-command").textContent = value;
+    $(name + "-copy").textContent = "Copy";
+    $(name + "-feedback").textContent = "";
+    $(name + "-copy").onclick = async () => {
+      try { await navigator.clipboard.writeText(value); $(name + "-copy").textContent = "Copied"; $(name + "-feedback").textContent = "Copied. Paste at your terminal command prompt."; }
+      catch (e) { const selection = window.getSelection(), range = document.createRange(); range.selectNodeContents($(name + "-command")); selection.removeAllRanges(); selection.addRange(range); $(name + "-feedback").textContent = "Select the command and copy it with your keyboard."; }
+    };
+  };
+  const fileRow = (file, recovery = false) => {
+    const row = el("div", "setup-file"); row.append(el("code", "", file.path));
+    row.append(el("p", "", recovery ? file.managed ? file.title === "allowManagedHooksOnly" ? "allowManagedHooksOnly is true. Your administrator must permit Kyma’s user-installed hook." : "disableAllHooks is true. Your administrator must enable hooks in this managed file." : "Change disableAllHooks from true to false, then save." : file.title));
+    if (file.edit && !file.managed) {
+      const command = el("div", "setup-command"), code = el("code", "", file.edit), b = el("button", "plain-button", "Copy open command");
+      b.onclick = async () => { try { await navigator.clipboard.writeText(file.edit); b.textContent = "Copied"; } catch (e) { const r = document.createRange(); r.selectNodeContents(code); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); } };
+      command.append(code, b); row.append(command);
+    }
+    return row;
+  };
+  $("setup-recovery").hidden = !D.hooks_off;
+  for (const file of D.setup_recovery || []) $("setup-recovery-files").append(fileRow(file, true));
+  function refreshSetup() {
+  const mode = modes[scope], setupRules = mode.rules;
+  for (const input of document.querySelectorAll('[name="setup-scope"]')) input.checked = input.value === scope;
+  $("setup-scope").textContent = (D.on ? "Rules are installed for " : "Apply rules to ") + (scope === "project" ? "“" + mode.name + "” only." : "all Claude Code projects.") + " Codex stays report-only.";
+  $("setup-rules-list").replaceChildren();
+  $("setup-rules-title").textContent = mode.title;
   if (rulesStatus) {
     $("setup-rules-title").textContent += rulesStatus === "missing" ? " · restore required" : " · pending review";
     $("setup-rule-status").hidden = false;
-    $("setup-rule-status").textContent = {pending:"Changes require review in terminal",missing:"RULES.md is missing · accepted rules shown",review:"Rule acceptance requires review in terminal"}[rulesStatus];
+    $("setup-rule-status").textContent = {pending:"Changes require review · current checks shown",missing:"RULES.md is missing · accepted rules shown",review:"Rule acceptance requires review in terminal"}[rulesStatus];
   }
   for (const rule of setupRules) {
     const kind = rule.ok && ["ask", "block", "allow"].includes(rule.v) ? rule.v : "unsupported";
@@ -2189,28 +2301,27 @@ function setup() {
     $("setup-rules-list").append(row);
   }
   if (!setupRules.length) $("setup-rules-list").append(el("li", "", "No rules configured"));
-  const command = D.cmd || "kyma on";
-  // The installer form ends with the installed CLI. Other forms preserve the
-  // original runner, including uvx, Python, and shell-quoted checkout paths.
-  const runner = command.startsWith("uv tool install ") ? "kyma" : command.replace(/ on$/, "");
-  if (active) $("setup-scope").textContent = (D.on_scope === "project" ? "Rules are on for project “" + D.on_project + "”. " : "Rules are on for all Claude Code projects. ") + "This command enables them for all projects. Codex stays report-only.";
-  else if (D.hooks_off) $("setup-scope").textContent = D.hooks_off_reason + ". Enable hooks in Claude Code before you retry.";
-  const dialog = $("setup-dialog");
-  $("setup-open").onclick = () => dialog.showModal();
-  if (active) { $("setup-open").textContent = "Manage rules"; $("setup-dialog-title").textContent = "Manage Claude Code rules"; }
-  if (D.claude === false) $("setup-open").hidden = true;
-  $("setup-close").onclick = $("setup-return").onclick = () => dialog.close();
-  dialog.addEventListener("click", e => { if (e.target === dialog) { const r = dialog.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dialog.close(); } });
-  const copyCommand = (name, value) => {
-    $(name + "-command").textContent = value;
-    $(name + "-copy").onclick = async () => {
-      try { await navigator.clipboard.writeText(value); $(name + "-copy").textContent = "Copied"; $(name + "-feedback").textContent = "Copied. Paste at your terminal command prompt."; }
-      catch (e) { const selection = window.getSelection(), range = document.createRange(); range.selectNodeContents($(name + "-command")); selection.removeAllRanges(); selection.addRange(range); $(name + "-feedback").textContent = "Select the command and copy it with your keyboard."; }
-    };
-  };
-  copyCommand("setup", command);
-  copyCommand("setup-check", runner + " status && " + runner);
-  copyCommand("setup-off", runner + " off --global");
+  $("setup-action").textContent = D.hooks_off ? "After the repair, check again:" : active || rulesStatus ? "Review the rules in this terminal:" : "Paste this command and press Enter.";
+  $("setup-success").hidden = active || !!D.hooks_off || !!rulesStatus;
+  $("setup-off-scope").textContent = scope === "project" ? "Remove Kyma’s checks from this project only." : "Remove Kyma’s checks from all projects, including earlier project-only installs.";
+  $("setup-rule-files").replaceChildren(...mode.files.map(f => fileRow(f)));
+  $("setup-edit").hidden = !active;
+  copyCommand("setup", D.hooks_off ? mode.check : active || rulesStatus ? mode.review : mode.on);
+  copyCommand("setup-check", mode.check);
+  copyCommand("setup-off", mode.off);
+  }
+  for (const input of document.querySelectorAll('[name="setup-scope"]')) input.onchange = () => { scope = input.value; refreshSetup(); };
+  refreshSetup();
+  const refresh = $("refresh-dialog");
+  $("refresh-open").onclick = () => refresh.showModal();
+  $("refresh-close").onclick = () => refresh.close();
+  copyCommand("refresh", D.example ? D.cmd.replace(/ on$/, "") : modes.project.report);
+  if (D.example) {
+    $("refresh-open").textContent = "Check my activity";
+    $("refresh-title").textContent = "See your own activity";
+    $("setup-open").textContent = "Try on my computer";
+    $("setup-open").onclick = () => refresh.showModal();
+  }
 }
 setup();
 const wide = matchMedia("(min-width: 1200px)");
@@ -2236,6 +2347,63 @@ def rule_rows(s: dict) -> list:
     return out
 
 
+def setup_modes(data: dict, loaded: list, files: list) -> dict:
+    """Commands bind scope to the report's folder, not the next terminal's cwd."""
+    import shlex
+    from . import enforce
+    root = enforce.project_root()
+    command = data["cmd"]
+    runner = command[:-3] if command.endswith(" on") else command
+    environment = []
+    for key, value in (("KYMA_HOME", enforce.HOME), ("CLAUDE_CONFIG_DIR", sources.claude_dir()),
+                       ("CODEX_HOME", sources.codex_dir())):
+        environment.append(key + "=" + shlex.quote(os.path.abspath(value)))
+
+    def bound(folder, commands):
+        if environment:
+            commands = "( export " + " ".join(environment) + "; " + commands + " )"
+        return "cd " + shlex.quote(folder) + " && " + commands
+    editor = "open -e" if sys.platform == "darwin" else "xdg-open" if shutil.which("xdg-open") else "vi"
+
+    def file_row(path, title):
+        return {"path": enforce._short(path), "title": title,
+                "edit": editor + " " + shlex.quote(path) if os.path.isfile(path) else ""}
+
+    recovery = []
+    paths = [(p, True) for p in enforce.MANAGED_SETTINGS]
+    paths += [(enforce.settings_path("global"), False)]
+    paths += [(os.path.join(root, ".claude", n), False) for n in ("settings.json", "settings.local.json")]
+    for path, managed in paths:
+        try:
+            settings, _ = enforce._read_settings(path)
+        except (OSError, enforce.InstallError):
+            continue
+        keys = [k for k in ("disableAllHooks", "allowManagedHooksOnly")
+                if settings.get(k) is True and (managed or k == "disableAllHooks")]
+        for key in keys:
+            row = file_row(path, key)
+            row["managed"] = managed
+            recovery.append(row)
+    data["setup_recovery"] = recovery
+    modes = {}
+    for scope in ("project", "global"):
+        folder = root if scope == "project" else os.path.expanduser("~")
+        project = [r for r in loaded if r.trust != "global"] if scope == "project" else []
+        rows = data["setup_rules"] + [{"t": r.text, "v": r.verdict, "ok": bool(r.enforced)} for r in project]
+        rule_files = [file_row(enforce.GLOBAL_RULES, "Your rules · shared by active projects")]
+        if scope == "project":
+            rule_files += [file_row(p, "Project rules") for p in files if p != enforce.GLOBAL_RULES]
+        modes[scope] = {"name": os.path.basename(root) if scope == "project" else "All projects",
+                        "title": "Your rules" if data["setup_yours"] else "Starter + project rules" if project else "Starter rules",
+                        "rules": rows, "files": rule_files,
+                        "on": bound(folder, runner + " on --" + scope),
+                        "review": bound(folder, runner + " rules"),
+                        "check": bound(root, runner + " status && " + runner),
+                        "report": bound(root, runner),
+                        "off": bound(folder, runner + " off --" + scope)}
+    return modes
+
+
 def page(s: dict, path: str = OUT) -> str:
     data = {k: s.get(k) for k in ("first", "days", "A", "Y", "actions", "together", "alone",
                                   "marks", "examples", "more", "held_past", "held_live", "asked_live", "away_past", "stop_past", "ask_past", "yours", "judged",
@@ -2247,8 +2415,9 @@ def page(s: dict, path: str = OUT) -> str:
     # Readback must not seed or accept rule changes as enforcement does.
     data["setup_rules"], data["setup_yours"] = data["rules"], bool(s.get("yours"))
     data["setup_rule_status"] = ""
+    loaded, rule_files = [], []
     try:
-        loaded, _, missing = enforce.rules_view()
+        loaded, rule_files, missing = enforce.rules_view()
         accepted, bad = enforce.accepted()
         custom = os.path.lexists(enforce.GLOBAL_RULES) or accepted is not None or bool(bad)
         if custom:
@@ -2256,6 +2425,10 @@ def page(s: dict, path: str = OUT) -> str:
             data["setup_rules"] = [{"t": r.text, "v": r.verdict, "ok": bool(r.enforced)}
                                    for r in loaded if r.trust == "global"]
         data["setup_rule_status"] = "review" if bad else "missing" if missing else "pending" if enforce.pending_changes() else ""
+        if data["setup_rule_status"] == "pending" and accepted is not None:
+            # Match held_back's effective rules without its acceptance writes.
+            effective = enforce._parse_global(accepted) + [r for r in loaded if r.trust == "global" and r.verdict != "allow"]
+            data["setup_rules"] = list({(r.text, r.verdict): {"t": r.text, "v": r.verdict, "ok": bool(r.enforced)} for r in effective}.values())
     except Exception:
         data["setup_rule_status"] = "review"
     try:
@@ -2271,6 +2444,7 @@ def page(s: dict, path: str = OUT) -> str:
     data["roots"] = [r for r, a in (("~/.claude/projects", "claude"), ("~/.codex/sessions", "codex"))
                      if any(x.get("agent") == a for x in (s.get("agents") or []))]
     data["cmd"] = turn_on_command()
+    data["setup_modes"] = setup_modes(data, loaded, rule_files)
     data["agents"] = s.get("agents") or []
     data["sessions"] = s.get("sessions") or len(data["agents"])
     where = {r["t"]: r["w"] for r in data["rules"]}

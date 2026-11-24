@@ -1,12 +1,12 @@
-# kyma
+# Kyma Local
 
 **See what Claude Code and Codex tried on your computer.**
 
-Kyma shows the actions behind an AI conversation: files opened, code pushed, emails attempted. It checks your past activity against short rules such as “Ask me before sending any email.” You see the exact command and the rule it matches.
+Kyma Local shows what an agent tried: a private file read, a code upload, an email. It checks your past activity against short rules such as “Ask me before sending any email.” You see the command and the rule it matches.
 
 The first run only reads your history. You can then turn on checks for Claude Code, for one project or every project. A matching action stops or asks for your approval before it runs.
 
-Open a new terminal window, outside your Claude Code conversation. Paste this command and press Enter. Kyma opens a local page.
+Open a new terminal window, outside your Claude Code conversation. Paste this command and press Enter. Kyma Local opens a local page.
 
 ```sh
 uvx --from git+https://github.com/kymacomputer/kyma-local kyma
@@ -19,6 +19,8 @@ If your terminal says `uvx: command not found`, use [the Python start](#start-wi
 <sub>An example. Yours is drawn from the logs Claude Code and Codex already keep on your disk.</sub>
 
 Open an action to see its command, time, and exact rule. The detailed view also shows the other agents your AI started and when they ran.
+
+[Kyma](https://kyma.stream) makes AI agents keep agreements. Its paid reader turns customer contracts into rules for human approval. Kyma Local is the open-source enforcement component: it checks explicit rules before supported tool calls. The [contract example](docs/contract-bridge.md) shows a grant, its withdrawal, and a second customer's preserved permission.
 
 The terminal starts with one concrete example:
 
@@ -69,7 +71,7 @@ Each hour counts once if it contains agent activity. “With you” means that h
 
 No history yet? The terminal prints a demo command that works with your installation. It runs a real command against a rule in a throwaway folder and shows the empty outbox. The terminal also prints a `try` command to test one rule before you turn checks on.
 
-[Kyma](https://kyma.stream) makes AI agents keep agreements. This is the free, open-source check. Our paid work reads customer contracts and policies into reviewed rules, with their source and approval attached, and updates them when the source changes. The earlier contract kit remains on the [contract-kit branch](https://github.com/kymacomputer/kyma-local/tree/contract-kit). [MIGRATION.md](MIGRATION.md) has the exact versions.
+Kyma's paid reader retains each rule's source and approval and updates rules when the source changes. This package does not read contracts. The earlier contract kit remains on the [contract-kit branch](https://github.com/kymacomputer/kyma-local/tree/contract-kit). [MIGRATION.md](MIGRATION.md) has the exact versions.
 
 ## Your rules
 
@@ -103,7 +105,7 @@ The engineer who ships agents into a codebase that touches customer data. They i
 
 The same check runs outside Claude Code. An agent in production, such as a support agent working through tickets, can send each tool call to `kyma check --json` or to `kyma mcp` before it acts, and get the same verdict with its source. That is where rules from contracts matter most, and where Kyma supplies them.
 
-The [contract example](docs/contract-bridge.md) connects a public clause to reviewed test rules and real local commands. It grants one customer's action, withdraws that grant, and preserves another customer's permission.
+The [contract example](docs/contract-bridge.md) connects a public clause to explicit test rules and real local commands. Its fictional review record illustrates the handoff to enforcement. It grants one customer's action, withdraws that grant, and preserves another customer's permission.
 
 ### For a team
 
@@ -167,8 +169,8 @@ What it writes, all in `~/.kyma`, readable by you alone (`0700`, files `0600`):
 | | |
 |---|---|
 | `RULES.md` | your rules |
-| `kyma.html` | the page: each recent session's project folder name, model, first prompt (clipped), its subagents' tasks, and the commands your rules met, with known secret formats masked |
-| `hours/` | per hour, how many calls and whether you were there, keyed by the path of the log it came from, so Claude Code's 30-day cleanup does not erase the start of the picture |
+| `kyma.html` | the page: each recent session's project folder name, model, first prompt (clipped), its subagents' tasks, and bounded command evidence, with known secret formats masked |
+| `hours/` | hourly counts and rule matches, including bounded command evidence, retained after the source log disappears |
 | `log.jsonl` | the calls the hook held, and why |
 | `rules.seen` | the rules you last accepted, so a loosening waits for you |
 | `authored.json` | paths of files your agent wrote, so running one later is judged as its code |
@@ -181,7 +183,11 @@ What it writes, all in `~/.kyma`, readable by you alone (`0700`, files `0600`):
 | `log.summary.json` | running totals of `log.jsonl`, so `kyma log` does not reread it |
 | `.kyma`, `.kyma-cache/`, `*.lock` | a marker that the folder is kyma's, the history index, and file locks |
 
+Command evidence retains at most 4,096 characters per input. It covers the first 60 matched inputs per log and the first 40 recorded inputs per displayed session. The page and caches exclude raw tool-result output and native call IDs. Known secret formats are masked. This does not detect every possible secret.
+
 Outside `~/.kyma`: the hook entry `kyma on` adds to `~/.claude/settings.json` (or the project's `.claude/settings.local.json` with `--project`), and one copy of the rules you last accepted, so an agent that rewrites both files in `~/.kyma` still does not match it: `~/Library/Application Support/kyma-local/` on macOS (`~/.local/state/kyma-local/` elsewhere), and on macOS a hash of it in your login keychain under `kyma-local accepted rules`.
+
+Project setup can also add the new local settings file to `.git/info/exclude`. `kyma off` removes the exclusion it added.
 
 To remove every trace:
 
