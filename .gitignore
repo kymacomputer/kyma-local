@@ -1,8 +1,0 @@
-*.egg-info/
-*.pyc
-.claude/settings.local.json
-.venv/
-__pycache__/
-build/
-runs/
-.test-homes/
