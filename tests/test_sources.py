@@ -9,6 +9,8 @@ runs on and passes the same way on any of them.
 """
 
 import json, os, pickle, shutil, subprocess, sys, tempfile, time
+from contextlib import contextmanager
+from unittest.mock import patch
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "..", "src")
@@ -495,6 +497,50 @@ def test_symlinks_and_links():
     check("read_all reads each session once", [a.command for a in sources.read_all()] == ["echo once"] * 2)
 
 
+def test_directory_alias_order():
+    if not POSIX:
+        print("skip directory order: no symlinks on this platform")
+        return
+    reset()
+    real = codex_file(CODEX_HEAD + [fn_call("shell_command", {"command": "echo once"})])
+    os.symlink(os.path.join(CODEX, "2026"), os.path.join(CODEX, "mirror"))
+    os.makedirs(os.path.join(CODEX, "aaa"))
+    os.symlink(os.path.dirname(real), os.path.join(CODEX, "aaa", "nested"))
+    os.symlink(CODEX, os.path.join(CODEX, "2026", "11", "loop"))
+    original = os.scandir
+    for order in ("links-first", "name-ascending", "name-descending"):
+        entered = []
+
+        @contextmanager
+        def reordered(path):
+            st = os.stat(path)
+            entered.append((st.st_dev, st.st_ino))
+            with original(path) as it:
+                entries = list(it)
+            key = (lambda e: (not e.is_symlink(), e.name)) if order == "links-first" else (lambda e: e.name)
+            yield iter(sorted(entries, key=key, reverse=order == "name-descending"))
+
+        with patch.object(sources.os, "scandir", reordered):
+            found = sources._codex_files()
+        check(f"directory ownership is canonical with {order} enumeration", found == [real], repr(found))
+        check(f"directory inodes are entered once with {order} enumeration", len(entered) == len(set(entered)), repr(entered))
+        ids = [a.call_id for path in found for a in sources._read_codex(path)]
+        check(f"source-scoped result IDs survive {order} enumeration", ids == [sources.call_id("c2", real)], repr(ids))
+
+    reset()
+    deep = write(os.path.join(CODEX, "a", "b", "c", "d", "e", ROLLOUT),
+                 "\n".join(CODEX_HEAD + [fn_call("shell_command", {"command": "echo shortcut"})]) + "\n")
+    shortcut = os.path.join(CODEX, "shortcut")
+    os.symlink(os.path.dirname(deep), shortcut)
+    check("a contained directory symlink still reaches a log within its traversal depth",
+          sources._codex_files() == [os.path.join(shortcut, ROLLOUT)], repr(sources._codex_files()))
+    outside = os.path.join(SANDBOX, "outside-history")
+    write(os.path.join(outside, ROLLOUT), "\n".join(CODEX_HEAD) + "\n")
+    os.symlink(outside, os.path.join(CODEX, "outside"))
+    check("an outside directory symlink remains excluded",
+          sources._codex_files() == [os.path.join(shortcut, ROLLOUT)], repr(sources._codex_files()))
+
+
 def test_fifo_zero_and_dirs():
     if not POSIX:
         print("skip FIFOs: none on this platform")
@@ -680,7 +726,7 @@ def test_unchanged():
 def main():
     tests = [test_malformed_claude, test_malformed_codex, test_oversized_line, test_command_cap,
              test_codex_shapes, test_codex_bare_items, test_codex_typescript_json, test_codex_archived,
-             test_js_exec, test_non_ascii, test_subagents, test_symlinks_and_links, test_fifo_zero_and_dirs,
+             test_js_exec, test_non_ascii, test_subagents, test_symlinks_and_links, test_directory_alias_order, test_fifo_zero_and_dirs,
              test_unreadable, test_compressed, test_since_days, test_unchanged]
     for t in tests:
         try:

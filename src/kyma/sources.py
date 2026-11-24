@@ -51,7 +51,7 @@ import stat
 import time
 from . import field, lazy, record as dataclass
 
-shutil, subprocess = lazy("shutil"), lazy("subprocess")
+heapq, shutil, subprocess = lazy("heapq"), lazy("shutil"), lazy("subprocess")
 from typing import Iterator
 
 def claude_dir() -> str:
@@ -220,7 +220,7 @@ def _discover(root: str, want, min_depth: int, best: dict) -> None:
 
     Three hazards each cost a user real numbers. A symlinked directory such as
     sessions/2026/11/loop -> .. made glob read one session 33 times, so
-    directories are entered only when they are real, and a file reached twice
+    directories are entered once by inode, and a file reached twice
     (a hard link, a symlink to it) is kept once, preferring its real path. A
     FIFO named x.jsonl blocked the scan forever on open(), and a directory or an
     empty file named like a log counted as a session, so only regular files with
@@ -233,13 +233,20 @@ def _discover(root: str, want, min_depth: int, best: dict) -> None:
     seen = set()
     try:
         r = os.stat(root)
-        seen.add((r.st_dev, r.st_ino))
         top = os.path.realpath(root).rstrip("/") + "/"
     except OSError:
         return
-    stack = [(root, 0)]
-    while stack:
-        here, depth = stack.pop()
+    # Visit every path without directory symlinks before any alias. Claim an
+    # inode on entry, not on discovery: scandir order differs by filesystem,
+    # and an alias in another branch can otherwise claim a real directory
+    # before that directory's parent has been visited. Depth then path breaks
+    # ties deterministically, including aliases that alone reach a deep log.
+    queue = [(0, 0, root, r.st_dev, r.st_ino)]
+    while queue:
+        links, depth, here, dev, ino = heapq.heappop(queue)
+        if (dev, ino) in seen:
+            continue
+        seen.add((dev, ino))
         try:
             with os.scandir(here) as it:
                 entries = list(it)
@@ -252,13 +259,13 @@ def _discover(root: str, want, min_depth: int, best: dict) -> None:
                         continue
                     d = e.stat(follow_symlinks=True)
                     if depth < MAX_DEPTH and (d.st_dev, d.st_ino) not in seen:
-                        seen.add((d.st_dev, d.st_ino))
-                        stack.append((e.path, depth + 1))
+                        heapq.heappush(queue, (links + int(e.is_symlink()), depth + 1,
+                                              e.path, d.st_dev, d.st_ino))
                     continue
                 if depth < min_depth or not want(e.name):
                     continue
                 st = e.stat()                 # follows a symlinked file to its target
-                link = e.is_symlink()
+                link = bool(links) or e.is_symlink()
             except OSError:
                 continue
             if not stat.S_ISREG(st.st_mode) or st.st_size == 0:

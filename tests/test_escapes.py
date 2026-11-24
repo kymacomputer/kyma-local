@@ -40,7 +40,7 @@ HELD = [
     (B, "make push"), (B, "make install"), (B, "npm run ship"), (B, "npm run env:print"), (B, "uv run scripts/setup.py"),
     (B, "npx tsx scripts/notify.ts"), (B, "./scripts/fix.sh"),
     # carried commands and disguised heads
-    (B, "find . -name x -exec sudo chown me {} \;"), (B, "find . -name '*.env*' -exec cat {} \;"),
+    (B, r"find . -name x -exec sudo chown me {} \;"), (B, r"find . -name '*.env*' -exec cat {} \;"),
     (B, "ssh host 'sudo systemctl restart x'"), (B, "echo .env | xargs cat"), (B, "cat $(echo .env)"),
     (B, "$(which sudo) ls"), (B, "/usr/bin/su?o ls"), (B, 'SUDO="sudo -E"; $SUDO make'), (B, "script -q /dev/null sudo ls"),
     (B, "xcrun git push origin main"), (B, "$SHELL -lc 'git push origin main'"), (B, "CMD='git push' sh -c '$CMD'"),
@@ -73,7 +73,7 @@ PASS = [
     (B, 'git commit -m "$(cat msg.txt)"'), (B, "git log $(git merge-base a b)..HEAD"), (B, 'npm run "$TARGET"'),
     (B, 'cd "$(git rev-parse --show-toplevel)"'),
     (B, "echo 'git push origin main'"), (B, "cat scripts/release.sh"), (B, "make build"), (B, "npm test"),
-    (B, "find . -name '*.py' -exec wc -l {} \;"), (B, "ssh host uptime"), (B, "git --no-pager log -5"),
+    (B, r"find . -name '*.py' -exec wc -l {} \;"), (B, "ssh host uptime"), (B, "git --no-pager log -5"),
     (B, "grep -rn TODO ."), (B, "python3 -c \"import subprocess; subprocess.run(['ls'])\""),
     (B, "curl -s https://api.github.com/repos/x/y"), (B, "brew services list"), (B, "docker run --rm app"),
     (B, "sleep 2 && echo done"), (B, "cp .env.example .env"), (B, "git commit -am 'use smtplib for mail'"),
