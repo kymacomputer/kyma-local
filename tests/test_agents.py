@@ -1,6 +1,7 @@
 """The agents view: sessions, the subagents they started, and what each would
 have held, pinned to the one that did it. Built from a made-up history in a
 throwaway HOME. Never reads your real logs."""
+import _test_home  # isolate state before Kyma imports or subprocesses
 import json, os, shutil, subprocess, sys, tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))

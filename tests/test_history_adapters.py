@@ -1,4 +1,5 @@
 """History adapters through the same Action/replay/actor path as the local report."""
+import _test_home  # isolate state before Kyma imports or subprocesses
 import json
 import os
 import pathlib

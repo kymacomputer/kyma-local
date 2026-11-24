@@ -11,6 +11,7 @@ Each block below is a defect a reviewer found:
   * `cd a; ` x 39,000 or 20,000 unterminated heredocs took seconds to minutes
 Runs in a throwaway HOME. Never runs any command under test.
 """
+import _test_home  # isolate state before Kyma imports or subprocesses
 import contextlib, io, json, os, shutil, sys, tempfile, threading, time
 
 HOME = tempfile.mkdtemp(prefix="kyma-mcp-home-")

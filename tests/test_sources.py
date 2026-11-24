@@ -7,6 +7,7 @@ times, and a FIFO named like a log hung the scan forever. Each case builds its
 own files in a temporary HOME, so the suite reads nothing of the machine it
 runs on and passes the same way on any of them.
 """
+import _test_home  # isolate state before Kyma imports or subprocesses
 
 import json, os, pickle, shutil, subprocess, sys, tempfile, time
 from contextlib import contextmanager

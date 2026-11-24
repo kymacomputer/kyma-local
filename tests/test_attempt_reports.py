@@ -1,4 +1,5 @@
 """Historical classifications describe attempts, even when the native tool failed."""
+import _test_home  # isolate state before Kyma imports or subprocesses
 
 import datetime as dt
 import json

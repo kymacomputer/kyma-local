@@ -1,4 +1,5 @@
 """Exercise the cited contract fixture through the real CLI and local shell."""
+import _test_home  # isolate state before Kyma imports or subprocesses
 import importlib.util
 import json
 from pathlib import Path

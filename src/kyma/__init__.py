@@ -28,7 +28,7 @@ import os
 import stat
 from contextlib import contextmanager
 
-__version__ = "0.6.0"
+__version__ = "0.6.1"
 
 # abspath: a relative KYMA_HOME baked into a hook would move with every folder
 # Claude Code starts a session in.

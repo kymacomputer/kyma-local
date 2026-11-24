@@ -1,4 +1,5 @@
 """Exact history counts and resumable storage under large/concurrent inputs."""
+import _test_home  # isolate state before Kyma imports or subprocesses
 
 import json
 import os

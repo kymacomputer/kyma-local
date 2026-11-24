@@ -9,6 +9,7 @@ filesystem (a symlink that exists, a script on disk, a branch you are on),
 and the fail-safety rules: kyma never answers "allow" to something it could
 not read.
 """
+import _test_home  # isolate state before Kyma imports or subprocesses
 
 import io, json, os, runpy, shutil, stat, sys, tempfile
 

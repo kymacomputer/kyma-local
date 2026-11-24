@@ -1,4 +1,5 @@
 """A first-run scope selection must install in exactly the selected place."""
+import _test_home  # isolate state before Kyma imports or subprocesses
 import os
 import pathlib
 import subprocess

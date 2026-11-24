@@ -1,3 +1,4 @@
+import _test_home  # isolate state before Kyma imports or subprocesses
 import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 from kyma import rules

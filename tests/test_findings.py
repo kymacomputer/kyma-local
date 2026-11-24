@@ -6,6 +6,7 @@ A bare path stands for a file tool call: Read where a finding must stay
 quiet, Write where it must fire. Both lists come verbatim from the review of
 an earlier build, which got 59 of 59 FPs and 110 of 111 FNs wrong.
 """
+import _test_home  # isolate state before Kyma imports or subprocesses
 
 import os, sys, tempfile
 

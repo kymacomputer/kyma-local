@@ -2,6 +2,7 @@
 
 Runs against made-up logs in a throwaway HOME. Never reads your real logs.
 """
+import _test_home  # isolate state before Kyma imports or subprocesses
 import io, json, os, shutil, sys, tempfile, datetime as dt
 
 # Worker processes re-run this module; they must land in the same fake home.

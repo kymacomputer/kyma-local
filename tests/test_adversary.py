@@ -8,6 +8,7 @@ ever run. Each case gets a throwaway home with fake secrets.
 Held means ask or deny. S16 is not counted: it defines a shell alias and uses
 it in the same `-c` string, which no shell expands, so it cannot escape.
 """
+import _test_home  # isolate state before Kyma imports or subprocesses
 import os
 import shutil
 import sys

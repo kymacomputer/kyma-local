@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.6.1 — 2026-11-24
+
+- Direct test entry points isolate state before product imports. They cannot write synthetic events into the developer's Kyma store.
+- The fictional-example generator confines every history and state root to its temporary home, even with exported provider paths.
+- The v0.6.0 history, model identity, and outcome behavior remains unchanged.
+
 ## 0.6.0 — 2026-11-24
 
 - First run opens a bounded sample of the user's actual logs with starter checks. No rules file or previous block history is required.

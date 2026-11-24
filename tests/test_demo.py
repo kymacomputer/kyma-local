@@ -2,6 +2,7 @@
 
 Nothing else watches the demo end to end, and it is the first thing a person
 with no history runs: if it calls itself broken, kyma looks broken."""
+import _test_home  # isolate state before Kyma imports or subprocesses
 import os
 import subprocess
 import sys

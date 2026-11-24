@@ -15,6 +15,7 @@ default rules that `kyma on` installs:
 
 It runs in a sandbox of its own and writes nothing to your ~/.kyma.
 """
+import _test_home  # isolate state before Kyma imports or subprocesses
 
 import io, json, os, shutil, sys, tempfile, time
 
@@ -28,7 +29,11 @@ sys.path.insert(0, os.path.join(HERE, "..", "src"))
 STATE = tempfile.mkdtemp(prefix="kyma-test-state-")
 os.environ["KYMA_HOME"] = STATE
 REAL = os.environ.get("KYMA_REPLAY_REAL") == "1"
-if not REAL:
+if REAL:
+    # Explicit real-history mode reads the original Claude source only. The
+    # shared bootstrap and STATE still confine every decision write.
+    os.environ["CLAUDE_CONFIG_DIR"] = _test_home.ORIGINAL_CLAUDE_CONFIG_DIR
+else:
     # sources resolves ~/.claude at import, so the synthetic HOME comes first
     FAKE_HOME = tempfile.mkdtemp(prefix="kyma-replay-home-")
     os.environ["HOME"] = FAKE_HOME

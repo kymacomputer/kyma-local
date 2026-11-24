@@ -10,6 +10,7 @@ Three classes, each with harmless twins that must still pass:
     it at a terminal; an edit that only tightens is accepted on the spot.
 Runs in a throwaway HOME. Never runs any command under test.
 """
+import _test_home  # isolate state before Kyma imports or subprocesses
 import io, json, os, shutil, sys, tempfile
 
 HOME = tempfile.mkdtemp(prefix="kyma-guard-home-")

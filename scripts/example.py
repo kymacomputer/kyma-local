@@ -21,6 +21,19 @@ import tempfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
+def report_environment(home):
+    """Keep every history and state root inside the fictional home."""
+    env = {k: v for k, v in os.environ.items()
+           if k in ("PATH", "LANG", "LC_ALL", "LC_CTYPE", "TMPDIR", "SYSTEMROOT", "PYTHONIOENCODING")}
+    env.update(HOME=home, KYMA_HOME=os.path.join(home, ".kyma"),
+               CLAUDE_CONFIG_DIR=os.path.join(home, ".claude"), CODEX_HOME=os.path.join(home, ".codex"),
+               CURSOR_CONFIG_DIR=os.path.join(home, ".cursor"),
+               XDG_STATE_HOME=os.path.join(home, ".local", "state"),
+               XDG_CONFIG_HOME=os.path.join(home, ".config"), XDG_CACHE_HOME=os.path.join(home, ".cache"),
+               KYMA_NO_KEYCHAIN="1", PYTHONDONTWRITEBYTECODE="1", CI="1", TZ="America/New_York")
+    return env
+
+
 PROJECTS = ["app", "api", "infra"]
 MODELS = ["claude-opus-5-5", "claude-opus-5-5", "claude-sonnet-5"]
 TASKS = ["add the export button to the reports page", "why is test_checkout flaky on CI", "refactor the auth middleware",
@@ -220,9 +233,9 @@ if __name__ == "__main__":
     home = tempfile.mkdtemp(prefix="kyma-example-")
     write_history(home)
     write_model_examples(home)
-    env = dict(os.environ, HOME=home, KYMA_HOME=os.path.join(home, ".kyma"), TZ="America/New_York")
-    subprocess.run([sys.executable, os.path.join(HERE, "..", "kyma"), "--all", "--no-open"], env=env, check=True,
-                   stdout=subprocess.DEVNULL)
+    env = report_environment(home)
+    subprocess.run([sys.executable, os.path.join(HERE, "..", "kyma"), "--all", "--no-open"],
+                   cwd=home, env=env, check=True, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
     with open(os.path.join(home, ".kyma", "kyma.html"), encoding="utf-8") as fh:
         page = fh.read()
     # The shared example must not inherit the author's local executable path.

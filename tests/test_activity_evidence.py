@@ -1,4 +1,5 @@
 """Input evidence survives through cache and page without tool-output content."""
+import _test_home  # isolate state before Kyma imports or subprocesses
 import json
 from pathlib import Path
 import sys

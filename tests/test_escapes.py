@@ -4,6 +4,7 @@ Each case is a mechanism from the blind escapes review, with a harmless twin
 that must still pass: a gate that holds everything has no escapes either.
 Runs in a throwaway project. Never runs any command.
 """
+import _test_home  # isolate state before Kyma imports or subprocesses
 import os, shutil, sys, tempfile
 
 HOME = tempfile.mkdtemp(prefix="kyma-esc-home-")

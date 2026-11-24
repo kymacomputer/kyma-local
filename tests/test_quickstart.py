@@ -1,4 +1,5 @@
 """Bounded own-history consumers. Fixtures never execute their commands."""
+import _test_home  # isolate state before Kyma imports or subprocesses
 
 import contextlib
 from concurrent.futures import ThreadPoolExecutor

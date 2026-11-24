@@ -6,6 +6,7 @@ called send-mail. The fix matched any token containing "mail", which flagged
 not sending it. A rule that prompts on every read is a rule people uninstall,
 so the negatives below carry the same weight as the positives.
 """
+import _test_home  # isolate state before Kyma imports or subprocesses
 
 import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))

@@ -1,4 +1,5 @@
 """Exact tool-result joins. Fixtures are logs only and execute no commands."""
+import _test_home  # isolate state before Kyma imports or subprocesses
 
 import hashlib
 import json

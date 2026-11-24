@@ -1,4 +1,5 @@
 """The generated setup page preserves its scope and never changes settings."""
+import _test_home  # isolate state before Kyma imports or subprocesses
 
 import datetime as dt
 import json

@@ -51,7 +51,7 @@ def main(argv) -> int:
         home = tempfile.mkdtemp(prefix="kyma-run-home-", dir=_homes())
         state = tempfile.mkdtemp(prefix="kyma-run-state-", dir=_homes())
         env = {k: v for k, v in os.environ.items() if k in _PASS_ENV}
-        env.update(HOME=home, KYMA_HOME=state, KYMA_ALLOW_TEMP_HOME="1", PYTHONDONTWRITEBYTECODE="1")
+        env.update(HOME=home, KYMA_HOME=state, KYMA_ALLOW_TEMP_HOME="1", KYMA_NO_KEYCHAIN="1", PYTHONDONTWRITEBYTECODE="1")
         t0 = time.time()
         try:
             p = subprocess.run([sys.executable, f], cwd=os.path.dirname(HERE), env=env,

@@ -1,4 +1,5 @@
 """The actual entry command must explain a historical match before activation."""
+import _test_home  # isolate state before Kyma imports or subprocesses
 import datetime as dt
 import json
 import os

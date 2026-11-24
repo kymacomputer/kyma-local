@@ -6,6 +6,7 @@ the repository answered every call "allow". The hook command is the install's
 own Python with -I, which ignores PYTHONPATH and the current folder. This test
 installs kyma into a fresh venv, writes the hook command the way `kyma on` and
 the Y path do, and runs it from a folder holding an impostor."""
+import _test_home  # isolate state before Kyma imports or subprocesses
 import json
 import os
 import shlex
