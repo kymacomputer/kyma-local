@@ -1,0 +1,54 @@
+{
+  "schema": "kyma-contract-bridge-fixture/v1",
+  "source": {
+    "id": "bonterms-ai-addendum-v2-new-ai-features-opt-out",
+    "title": "Bonterms Standard AI Addendum Version 2.0 (Signable Version)",
+    "url": "https://bonterms.com/standard/ai-addendum-v2-signable-version",
+    "section": "AI Features / New AI Features / (b) Opt-Out",
+    "excerpt": "(b) Opt-Out. Customer will have the ability to decline or disable any New AI Feature through administrative controls in the Cloud Service (or other reasonable measure made available by Provider) at the account, organization or equivalent administrator level.",
+    "snapshot": "bonterms-ai-v2-signable.txt",
+    "sha256": "e431231237bb0e9451925eafc3b6c74fd4a7da104dfab8531d3760a6717b5109",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "attribution": "Copyright 2026 Bonterms, Inc. No endorsement implied.",
+    "changes": "Exact copy of the earlier kit's plain-text agreement representation. This fixture selects one excerpt and adds a separate local mapping.",
+    "kit_commit": "9138e0039f5e81b1dd3716a2b127927f2ba73c19",
+    "kit_path": "standard-packs/originals/bonterms-ai-v2-signable.txt",
+    "kit_license_record": "standard-packs/SOURCE-LICENSES.md",
+    "kit_pin_record": "standard-packs/SOURCE-PINS.json"
+  },
+  "review": {
+    "status": "illustrative-human-review-record",
+    "approved_by": "Demo reviewer - fictional fixture",
+    "real_customer_approval": false,
+    "decision": "Map a customer's administrator disable choice to removal of the local write exception for that customer's new AI feature.",
+    "assumptions": [
+      "Acme and Beta are fictional customers.",
+      "Acme's new AI feature has one known local output directory.",
+      "The trusted host binds Acme to that directory and checks every command before execution.",
+      "Beta's baseline report has its own directory and independent fixture permission.",
+      "The source clause does not itself grant either fixture permission.",
+      "The fixture does not establish contract incorporation, prior notice, feature classification or legal sufficiency."
+    ]
+  },
+  "scopes": [
+    {
+      "customer": "Acme",
+      "operation": "new AI feature summary output",
+      "relative_path": "customers/acme/ai-summary",
+      "grant_id": "fixture-acme-ai-summary-v1",
+      "source_id": "bonterms-ai-addendum-v2-new-ai-features-opt-out",
+      "hold_template": "Ask me before writing {path}.",
+      "grant_template": "My agent may write {path}."
+    },
+    {
+      "customer": "Beta",
+      "operation": "unrelated baseline report output",
+      "relative_path": "customers/beta/baseline-report",
+      "grant_id": "fixture-beta-baseline-report-v1",
+      "source_id": "fixture-beta-independent-permission",
+      "hold_template": "Ask me before writing {path}.",
+      "grant_template": "My agent may write {path}."
+    }
+  ]
+}

@@ -2,13 +2,10 @@ Kyma Local
 Copyright 2026 Kyma Computer
 
 The Apache License applies to the Kyma Local software and authored documentation.
-Public sample documents retain their original authorship, terms, and source scope.
-Their original URLs and capture records appear in sample/source-acquisition.json
-and the corresponding _sources.json files. Inclusion supplies research material.
-It does not assert ownership of those documents or permission for a live feature.
+The Bonterms source in examples/fixtures/bonterms-ai-v2-signable.txt retains its
+CC BY 4.0 license and original authorship. Attribution, original URL, source hash
+and the scope of the separate test mapping appear in docs/contract-bridge.md
+and examples/fixtures/contract-rule.json. No endorsement is implied.
 
-OpenFeature SDK, pypdf, and the optional MCP Python SDK retain their own licenses.
-
-Standard contract references retain their separate CC BY 4.0 or CC0 1.0 licenses.
-See standard-packs/SOURCE-LICENSES.md and SOURCE-PINS.json for attribution,
-original source URLs, byte hashes and explicit format changes.
+The earlier contract kit, with its original notices and source records, remains
+on the contract-kit branch at commit 9138e0039f5e81b1dd3716a2b127927f2ba73c19.

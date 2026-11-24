@@ -1,0 +1,1179 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>kyma</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+:root{--page:#161618;--panel:#1b1b1e;--line:#2a2a2c;--hair:#232326;--ink:#fff;--task:#a5a5a7;--meta:#8e8e91;
+  --agent:#74b6f9;--agent2:#508fdb;--you:#ffb86e;--held:#ff6f91;--away:#b79cff;--chip:#232327}
+html,body{margin:0;background:var(--page);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:clip}
+body{font:13px/1.45 ui-sans-serif,-apple-system,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.mono{font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+main{max-width:1180px;margin:0 auto;padding:clamp(.75rem,3vw,2.5rem) clamp(.5rem,2.5vw,2rem)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.35)}
+.bar{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;padding:.7rem .9rem;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:.45rem;font-weight:600}
+.brand svg{width:14px;height:14px;color:var(--ink)}
+.count{display:flex;align-items:center;gap:.4rem;color:var(--task);white-space:nowrap}
+.count b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.dot{width:7px;height:7px;border-radius:50%;flex:none}
+.ring{width:9px;height:9px;border-radius:50%;border:1.6px solid var(--held);flex:none}
+.ring.live{background:var(--held);box-shadow:0 0 6px var(--held)}
+.ring.vstop{border-color:#f07a5e}.ring.vask{border-color:#f0a845}
+.spacer{flex:1}
+.state{display:flex;align-items:center;gap:.35rem;border-radius:5px;padding:.14rem .45rem;font-size:12px;background:#26262a;color:var(--task)}
+.state.on{background:#12321f;color:#5fd08a}.state.on .dot{background:#5fd08a;width:6px;height:6px}
+.go{display:flex;align-items:center;gap:.4rem;font-size:12px;height:28px;padding:0 .6rem;border-radius:7px;border:0;cursor:pointer;
+  background:#f2f2f3;color:#111;transition:background .15s}
+.go:hover{background:#fff}.go:focus-visible{outline:2px solid var(--agent2);outline-offset:2px}.go svg{width:13px;height:13px}
+.go.done{background:#12321f;color:#5fd08a}
+.chip{border-radius:6px;background:var(--chip);color:var(--task);padding:.18rem .5rem;font-size:12px;white-space:nowrap}
+.icon{display:grid;place-items:center;width:28px;height:28px;border-radius:7px;border:1px solid var(--line);background:transparent;
+  color:var(--task);cursor:pointer;padding:0;transition:background .15s,color .15s,border-color .15s}
+.icon:hover{background:#242428;color:var(--ink);border-color:#3a3a3e}
+.icon:focus-visible,.rule:focus-visible{outline:2px solid var(--agent2);outline-offset:2px}
+.icon svg{width:14px;height:14px}
+.icon.ok{color:#5fd08a;border-color:#245238}
+.stage{position:relative;padding:.6rem .9rem .2rem;overflow-x:auto;overscroll-behavior-x:contain}
+@media (max-width:620px){.stage{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 14px,#000 calc(100% - 28px),transparent);
+  mask-image:linear-gradient(to right,transparent 0,#000 14px,#000 calc(100% - 28px),transparent)}}
+canvas{display:block;width:100%;touch-action:pan-x pan-y}
+.yax{position:sticky;left:0;width:0;height:0;z-index:3}
+.yax span{position:absolute;left:-.9rem;transform:translateY(-50%);font:10px ui-monospace,Menlo,monospace;color:#838385;
+  background:#1b1b1e;padding:1px 4px 1px .9rem;border-radius:0 4px 4px 0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#tip{position:absolute;pointer-events:none;opacity:0;transform:translate(0,-118%);max-width:min(30rem,88vw);z-index:6;isolation:isolate;
+  background:#202024;border:1px solid #34343a;border-radius:8px;padding:.4rem .6rem;font-size:12px;transition:opacity .12s;
+  box-shadow:0 6px 20px rgba(0,0,0,.45)}
+#tip .t{display:flex;align-items:center;gap:.45rem;color:var(--task);white-space:nowrap}
+#tip .r{margin-top:.3rem;color:var(--ink);display:flex;gap:.45rem;align-items:center}
+#tip .c{margin-top:.15rem;color:var(--meta);word-break:break-all}
+
+/* the agent tree: cards on a slightly lighter surface, hairline wires, dark */
+.tree{position:relative;padding:1.1rem .9rem 1.4rem;overflow-x:auto;border-bottom:1px solid var(--line);background:#1e1e21}
+.tree svg.wires{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+@media (min-width:1200px){
+  .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(400px,36%);align-items:start}
+  .side{position:sticky;top:0;border-left:1px solid var(--line);max-height:100vh;overflow:auto}
+  .tree{border-bottom:0}
+}
+.wires .glabel{font:11px ui-monospace,Menlo,monospace;fill:#8e8e91}
+.wires .glabel.stop{fill:#f07a5e}.wires .glabel.ask{fill:#f0a845}
+.troot{display:flex;justify-content:center}
+.trow{display:flex;gap:18px;justify-content:flex-start;align-items:flex-start;margin-top:48px;flex-wrap:nowrap}
+#trows{padding-left:24px}
+#trows{width:fit-content;max-width:100%;margin:0 auto}
+.tcol{display:flex;flex-direction:column;align-items:flex-start;width:248px;flex:0 0 248px}
+.ag{position:relative;z-index:1;width:100%;background:#1b1b1e;border:1px solid #2a2a2c;border-radius:8px;padding:10px 10px 8px;
+  box-shadow:0 1px 2px rgba(0,0,0,.4);opacity:.4;transform:translateY(4px);transition:opacity .3s,transform .3s,border-color .15s}
+.ag.in{opacity:1;transform:none}
+.ag.can{cursor:pointer}
+.ag.can:hover{border-color:#3d3d42}
+.ag:has(.ob:focus-visible){box-shadow:0 0 0 2px #508fdb}
+.ob{all:unset;display:block;max-width:100%;cursor:pointer}
+.ag.dim{opacity:.4}
+.ag.hit{border-color:#f07a5e;box-shadow:0 0 0 1px #f07a5e}
+.wires path.draw{transition:stroke-dashoffset .26s ease-out}
+.ag.root{width:340px;max-width:100%}
+.ag-h{display:flex;align-items:flex-start;gap:9px}
+.tile{flex:none;width:28px;height:28px;border-radius:7px;border:1px solid #2f2f33;display:grid;place-items:center;background:#202024}
+.tile svg{width:16px;height:16px}
+.tt{min-width:0;flex:1}
+.ti{font-weight:500;font-size:13px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff}
+.ob{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mo{font-size:12px;color:#8a8a8d;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.st{flex:none;display:inline-flex;align-items:center;gap:4px;height:19px;padding:0 6px;border-radius:4px;font-size:11px;white-space:nowrap}
+.st svg{width:12px;height:12px}
+.st.done{background:#232327;color:#8f8f94}.st.on{background:#12321f;color:#5fd08a}.st.run{background:#153253;color:#74b6f9}
+.st.ask{background:#3a2a10;color:#f0a845}.st.stop{background:#3a1a14;color:#f07a5e}
+.st.off{background:#26262a;color:#a5a5a7}
+.st.run svg{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.task{font-size:13px;color:#a5a5a7;margin-top:9px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em}
+.ft{display:flex;align-items:center;justify-content:space-between;margin-top:9px;font-size:12px;color:#838385}
+.ft>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ft b{color:#fff;font-weight:500}
+.kids{display:inline-flex;align-items:center;gap:3px;border:0;background:transparent;color:#a5a5a7;font:inherit;font-size:12px;
+  cursor:pointer;padding:2px 6px;min-height:24px;border-radius:5px}
+.kids:focus-visible{outline:2px solid #508fdb}
+.kids:hover{background:#26262a;color:#fff}.kids svg{width:11px;height:11px;transition:transform .2s}
+.kids[aria-expanded="false"] svg{transform:rotate(-90deg)}
+.sub{display:flex;flex-direction:column;gap:14px;margin-top:14px;padding-left:34px;width:100%}
+.sub[hidden]{display:none}
+.more-row{display:flex;justify-content:center;margin-top:18px}
+.chipbtn{border:1px solid #2a2a2c;background:#1b1b1e;color:#a5a5a7;border-radius:7px;padding:.3rem .7rem;font:inherit;font-size:12px;cursor:pointer}
+.chipbtn:focus-visible,.kids:focus-visible,.ag:focus-visible{outline:2px solid #508fdb;outline-offset:2px}
+.chipbtn:hover{color:#fff;border-color:#3d3d42}
+.still .ag{transition:none;opacity:1;transform:none}.still .wires path{transition:none}
+@media (prefers-reduced-motion:reduce){.ag{transition:none;opacity:1;transform:none}.st.run svg{animation:none}}
+@media (max-width:620px){.tree{overflow:visible}.trow{flex-direction:column;align-items:stretch;margin-top:14px;gap:14px}.tcol{max-width:none;width:auto;flex:1 1 auto}.ag.root{width:100%}
+  #trows{padding-left:0;width:auto}
+  .trow[data-label]{margin-top:30px}.sub{margin-top:14px;gap:14px}
+  .rules{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.rules::-webkit-scrollbar{display:none}
+  .rule{flex:0 0 auto;max-width:78vw}
+}
+.lanebtn{border:1px solid transparent;background:transparent;color:inherit;font:inherit;cursor:pointer;border-radius:6px;padding:.1rem .4rem;margin:-.1rem -.4rem}
+.lanebtn:hover,.lanebtn[aria-pressed="true"]{border-color:#3f6fa8;background:#16263a}
+.lanebtn:focus-visible{outline:2px solid #508fdb}
+.lane{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center;padding:.8rem .9rem 0;font-size:12px}
+.bar .st b{font-weight:600}
+.evs:empty{display:none}
+.ev{margin-top:9px;padding:7px 8px;border-radius:7px;background:rgba(224,96,62,.07);border:1px solid rgba(224,96,62,.18)}
+.ag[data-st="ask"] .ev{background:rgba(240,168,69,.07);border-color:rgba(240,168,69,.2)}
+.ev-c{color:#f1e6e2;font-size:12px;overflow-wrap:anywhere}
+.older{font-size:12px;color:#929296}
+.flag.rulef{background:#26262a;color:#e8e8ea;max-width:22rem}
+.flag.rulef span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ev-r{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:12px;color:#b9b9bd}
+.ev-r i{font-style:normal;color:#838385;margin-left:auto;white-space:nowrap;font-size:11px}
+.ev-more{font-size:11px;color:#838385;margin-top:5px}
+.ev-t{font-size:11px;color:#838385;margin-top:4px}
+.ev-away{font-size:11px;color:var(--away);margin-top:4px;display:flex;align-items:center;gap:5px}
+.ev-away::before{content:"";width:7px;height:7px;border-radius:50%;border:1.5px solid #74b6f9}
+.ev.away{border-color:rgba(116,182,249,.35)}
+.all{display:flex;flex-direction:column;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid #2a2a2c}
+.all .ev{margin-top:0}
+.ag.open{border-color:#46464c}
+.ag.open .evs{display:none}
+.st.via{background:transparent;box-shadow:inset 0 0 0 1px currentColor}
+.task{min-height:0}
+.flag{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border-radius:6px;border:1px solid transparent;
+  font:inherit;font-size:12px;cursor:pointer}
+.flag svg{width:12px;height:12px}.flag b{font-weight:600}
+.flag.stop{background:#3a1a14;color:#f07a5e}.flag.ask{background:#3a2a10;color:#f0a845}
+.flag[aria-pressed="true"]{border-color:currentColor;background:currentColor}
+.flag[aria-pressed="true"] b,.flag[aria-pressed="true"]{color:#111}
+.flag.stop[aria-pressed="true"]{background:#f07a5e}.flag.ask[aria-pressed="true"]{background:#f0a845}
+.flag:focus-visible,.cmd:focus-visible{outline:2px solid #508fdb;outline-offset:2px}
+.cmd{display:inline-flex;align-items:center;gap:8px;min-height:28px;max-width:100%;padding:0 9px;border-radius:7px;border:1px solid #34353b;
+  background:#101113;color:#e8e8ea;font-size:12px;cursor:pointer;align-self:flex-start;text-align:left}
+.cmd span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cmd svg{width:13px;height:13px;color:#838385;flex:none}.cmd:hover{border-color:#4a4b52}
+.cmd.done{color:#5fd08a;border-color:#245238}
+.cmd-hint{font-size:11px;color:#74b6f9;margin-left:6px;align-self:center}
+.cmd-f{height:28px;padding:0 9px;border-radius:7px;border:1px solid #508fdb;background:#101113;color:#e8e8ea;font-size:12px;width:12rem}
+.pill{font-size:11px;border-radius:5px;padding:.08rem .4rem;background:#3a1c1a;color:#f59b85;margin-left:.5rem;white-space:nowrap}
+.more{color:var(--meta);padding:.2rem .9rem .1rem calc(.9rem + .3rem + 16px + .75rem)}
+/* the rules sit under the header as filters: the cause of every pill, beside the tree */
+.rules{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:.6rem .9rem;border-bottom:1px solid var(--line)}
+.rule{display:inline-flex;align-items:center;gap:7px;padding:.28rem .6rem;border:1px solid #2a2a2c;border-radius:7px;
+  font:inherit;font-size:12px;color:inherit;background:transparent;cursor:pointer;text-align:left}
+.rule.zero{cursor:default;border-style:dashed}
+.rule:hover,.rule.on,.rule[aria-pressed="true"]{background:#212125}
+.rule[aria-pressed="true"]{box-shadow:inset 2px 0 0 var(--held)}
+.rule .n{font-weight:600;color:var(--ink)}
+.rule.zero .txt,.rule.zero .n{color:var(--meta)}
+.rule .ring.vstop{border-color:#f07a5e}.rule .ring.vask{border-color:#f0a845}
+.rule.out{opacity:.4}
+.flag.out{opacity:.45}
+/* a group's name, drawn on the wires when wide; a heading of its own on a phone */
+.glab{display:none;font-size:11px;color:var(--meta);margin:20px 0 -4px}
+.glab.stop{color:#f07a5e}.glab.ask{color:#f0a845}
+/* sessions with nothing held, after +N: one line each, not a wall of cards */
+.quiet{display:flex;flex-direction:column;margin-top:28px;border-top:1px solid var(--hair)}
+.qrow{display:grid;grid-template-columns:minmax(0,14rem) minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:7px 2px;
+  border-bottom:1px solid var(--hair);font-size:12.5px}
+.qrow .qt{color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qrow .qt i{font-style:normal;color:var(--meta);margin-left:6px}
+.qrow .qk{color:var(--task);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qrow .qm{color:var(--meta);white-space:nowrap}
+@media (max-width:1199px){.split{display:flex;flex-direction:column}.side{order:-1;border-bottom:1px solid var(--line)}}
+@media (max-width:620px){.glab{display:block}.qrow{grid-template-columns:minmax(0,1fr) auto}.qrow .qk{grid-column:1 / -1;grid-row:2}}
+/* Keep the original tree and its spatial hierarchy. Explain the event at its source. */
+.context-line{display:flex;justify-content:space-between;gap:16px;padding:10px 15px 0;font-size:12px;color:var(--task)}
+.context-line #date-range{white-space:nowrap;color:var(--meta)}
+.coverage{margin:8px 15px 0;color:#c5a876;font-size:11px;line-height:1.5}
+.live-note{margin:10px 15px 0;padding:8px 10px;border:1px solid #31533c;border-radius:6px;background:#17261d;color:#8ed6a7;font-size:12px}
+.local-note{display:flex;justify-content:flex-end;padding:12px 1px;color:var(--meta);font-size:11px}
+.ag.root{width:360px}.ag.root .evs{margin-top:10px}.ag.root .ft{font-size:11px}.ag.root .ft>span{white-space:normal}
+.ag.root .go{height:32px;font:inherit;font-size:12px;padding:0 12px}
+.ag:not(.root) .ag-h{position:relative;padding-bottom:17px}
+.ag:not(.root) .mo{position:absolute;left:37px;bottom:0;max-width:calc(100% - 37px)}
+.task{color:#c4c4c9}.ag.focused{border-color:#f07a5e;box-shadow:0 0 0 1px #f07a5e,0 0 20px #f07a5e0d}
+.artifact-chip{display:flex;align-items:center;gap:8px;background:#242025;padding:8px 9px}
+.artifact-chip code{font-size:12px;overflow-wrap:anywhere;color:#e8dcd8}
+.filter-label{font-size:11px;color:var(--meta);margin-right:4px}
+.inspector{padding:20px 18px 18px;border-bottom:1px solid var(--line)}
+.inspect-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
+.inspect-head h2{font-size:16px;line-height:1.3;font-weight:550;margin:0;letter-spacing:-.2px}
+.inspect-nav{display:flex;align-items:center;gap:8px;color:var(--meta);font-size:10px}.inspect-nav button{font-size:20px}
+.inspect-source{display:flex;align-items:center;gap:10px}.inspect-source strong{font-size:14px;font-weight:500;display:block}.inspect-source span:not(.tile){font-size:11px;color:var(--meta);display:block;margin-top:2px}
+.inspect-arrow{font-size:11px;color:var(--meta);padding:14px 0 14px 13px}
+.inspect-artifact{display:flex;align-items:center;gap:12px;padding:15px;border:1px solid #4c4040;background:#252126;border-radius:8px}
+.inspect-artifact svg{width:27px;height:32px;flex:none;color:#e0b4a6}.inspect-artifact code{font-size:16px;color:#f7ece8;overflow-wrap:anywhere}
+.inspect-verdict{border-left:2px solid #f07a5e;padding:9px 0 9px 13px}.inspect-verdict strong{display:block;font-weight:550;font-size:16px;color:#f18a70}.inspect-verdict span{display:block;font-size:12px;color:#c5b9b6;line-height:1.5;margin-top:5px}
+.inspect-verdict.ask{border-color:#f0a845}.inspect-verdict.ask strong{color:#f0b958}
+.inspect-outcome{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:10px;color:var(--meta);margin:21px 0 12px}
+.inspect-outcome>span{background:#29292e;padding:2px 6px;border-radius:4px}
+.inspect-evidence{font-size:11px;color:var(--meta);margin-bottom:20px}.inspect-evidence summary{cursor:pointer;padding:6px 0}.inspect-evidence code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;padding:10px;background:#121215;border:1px solid var(--line);border-radius:6px;color:#ddd}.inspect-evidence p{font-size:11px;line-height:1.5}
+.inspector .setup-primary{margin-top:4px}
+.ag:not(.root) .ag-h{padding-bottom:0}.ag:not(.root) .mo{position:static;max-width:100%;font-size:11px;margin-top:5px}
+.ag:not(.root) .st{display:none}.ag:not(.root) .ti,.ag:not(.root) .ob{white-space:normal;font-size:13px;line-height:1.4}
+.ag:not(.root) .ob{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+#activity>summary{cursor:pointer;padding:15px;list-style:disclosure-closed}#activity[open]>summary{list-style:disclosure-open}
+.ev-title{font-size:12px;font-weight:550;color:#f0d7ce;margin-bottom:5px}
+.ev-r{align-items:flex-start}.ev-r .ring{margin-top:4px}
+.ev-result{color:var(--meta);font-size:11px;margin-top:7px;line-height:1.5}
+.ev-c{font-size:11px;color:#b9aca8}.ev-t{line-height:1.5}
+.ev-extra{margin-top:7px}.ev-extra>summary{cursor:pointer;font-size:11px;color:#b9b9bd}
+.ev-extra .ev-r{font-size:11px}.ev-extra p{font-size:11px;color:var(--meta);margin:6px 0}
+.sub-label{font-size:10px;color:var(--meta);margin:0 0 -5px}.branch{width:100%}
+.rule .n{font-size:11px}.live-n{font-size:10px;color:#8ed6a7}
+.rules{padding-top:12px}.flag{height:28px}.bar{gap:10px}
+#activity>summary{padding:14px 15px 0;list-style:none;font-weight:500;font-size:12px;color:var(--ink)}
+#activity>summary::-webkit-details-marker{display:none}
+.chart-note{font-size:11px;line-height:1.5;color:var(--meta);margin:9px 15px 0}
+.side .lane{gap:9px 16px;font-size:11px}.side #held-fact{display:none}.side #away-fact{display:none}
+.side #live-fact,.side #ask-fact{display:none}
+#cmdslot{display:none}
+.setup-dialog{border:1px solid #3a3a3f;border-radius:12px;padding:0;width:min(500px,calc(100vw - 28px));max-height:calc(100dvh - 32px);overflow:auto;color:var(--ink);background:var(--panel);box-shadow:0 24px 100px #0008}
+.setup-dialog::backdrop{background:#09090bd9;backdrop-filter:blur(3px)}
+.setup-dialog header{display:flex;justify-content:space-between;align-items:center;padding:19px 22px;border-bottom:1px solid var(--line)}
+.setup-dialog h2{font-size:17px;font-weight:550;letter-spacing:-.3px;margin:0}
+.setup-close{border:0;background:none;color:var(--task);cursor:pointer;width:30px;height:30px;border-radius:6px;font-size:24px;line-height:1}
+.setup-body{padding:22px}.setup-body p{font-size:13px;line-height:1.6;color:var(--task);margin:0 0 20px}
+.setup-body ol{list-style:none;margin:0;padding:0}.setup-body li{position:relative;padding-left:32px;margin:0 0 22px;font-size:13px;line-height:1.5}
+.setup-step{position:absolute;left:0;top:0;border:1px solid #45454b;color:var(--task);border-radius:50%;width:21px;height:21px;display:grid;place-items:center;font-size:10px}
+.setup-command{display:flex;align-items:center;gap:8px;padding:12px;background:#111114;border:1px solid #34343a;border-radius:7px;margin:12px 0}
+.setup-command code{min-width:0;flex:1;font-size:12px;overflow-wrap:anywhere;white-space:pre-wrap}
+.plain-button{font:inherit;font-size:12px;border:1px solid #46464d;border-radius:5px;background:#28282e;color:var(--ink);min-height:32px;padding:0 12px;cursor:pointer}
+.setup-done{font-size:12px!important;margin:10px 0 0!important;color:#8ed6a7!important}.setup-done:empty{display:none}
+.setup-body li p{font-size:12px;margin:5px 0 0;line-height:1.5}.setup-success{font-size:12px;color:var(--task)}.setup-success strong{font-weight:500;color:#8ed6a7}
+.setup-rules{border:1px solid var(--line);border-radius:7px;padding:12px;margin-bottom:20px}.setup-rules h3{font-size:12px;font-weight:550;margin:0 0 10px}
+.setup-rules ul{list-style:none;margin:0;padding:0}.setup-rules li{display:grid;grid-template-columns:65px minmax(0,1fr);gap:10px;align-items:start;padding:7px 0;margin:0;font-size:12px;line-height:1.5;border-top:1px solid var(--line)}.setup-rules li:first-child{border-top:0;padding-top:0}.setup-rules li:last-child{padding-bottom:0}
+.setup-rule-kind{border-radius:4px;padding:2px 6px;text-align:center;font-size:10px;font-weight:550;background:#29292f;color:var(--task)}.setup-rule-kind.ask{background:#372a15;color:#e8bd72}.setup-rule-kind.block{background:#3c241f;color:#f1977d}.setup-rule-kind.allow{background:#1d3328;color:#8ed6a7}.setup-rule-text{overflow-wrap:anywhere;color:var(--task)}
+.setup-rule-status{font-size:11px;color:#e8bd72;margin:-3px 0 10px}
+.setup-more{border-bottom:1px solid var(--line);margin-bottom:10px;font-size:12px}.setup-more>summary{cursor:pointer;padding:10px 0;color:var(--task)}.setup-more p{font-size:12px;line-height:1.5;margin:4px 0 10px}
+.setup-primary{display:flex;justify-content:center;align-items:center;width:100%;min-height:40px;border:0;border-radius:6px;background:#f2f2f3;color:#161618;font:inherit;font-size:12px;cursor:pointer}
+.setup-primary:focus-visible,.plain-button:focus-visible,.setup-close:focus-visible,summary:focus-visible{outline:2px solid var(--agent);outline-offset:3px}
+@media(max-width:1199px){.side{order:0;width:100%;border-top:1px solid var(--line);border-bottom:0}#activity>summary{padding:14px 15px;cursor:pointer;list-style:disclosure-closed}#activity[open]>summary{list-style:disclosure-open}}
+@media(max-width:620px){.context-line{flex-direction:column;gap:3px;font-size:11px}.bar{gap:8px}.bar .brand{width:100%;margin-bottom:2px}.rules{flex-wrap:wrap;overflow:visible}.rule{max-width:100%;font-size:11px}.trow[data-label]{margin-top:16px}.tree{padding-top:16px}.sub{padding-left:24px}.tcol{min-width:0}.ag-h{gap:7px}.st{font-size:10px}.mo{font-size:11px}.ft{font-size:11px}.setup-body{padding:20px}.setup-dialog header{padding:16px 20px}.setup-dialog h2{font-size:16px}}
+@media(max-width:620px){.side{order:-1;border-top:0;border-bottom:1px solid var(--line)}}
+</style></head>
+<body><main>
+<section class="panel" aria-label="kyma">
+  <h1 class="sr">Your AI’s past activity</h1>
+  <div class="bar">
+    <span class="brand"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0c.4 3.9 2.1 5.6 6 6-3.9.4-5.6 2.1-6 6-.4-3.9-2.1-5.6-6-6 3.9-.4 5.6-2.1 6-6Z" transform="translate(0 2)"/></svg>kyma</span>
+    <button class="flag stop" id="g-stop" hidden aria-pressed="false"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><path d="M6 1.6l4.6 8.2H1.4z"/><path d="M6 5v2" stroke-linecap="round"/></svg><b></b> actions would be blocked</button>
+    <button class="flag ask" id="g-ask" hidden aria-pressed="false"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="6" r="4.5"/><path d="M6 3.6V6l1.6 1"/></svg><b></b> would need permission</button>
+    <button class="flag rulef" id="g-rule" hidden aria-label="Clear rule filter"><span></span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3 3l6 6M9 3l-6 6"/></svg></button>
+    <span class="spacer"></span>
+    <span class="sr" id="live" aria-live="polite"></span>
+    <span id="cmdslot"></span>
+  </div>
+  <div class="context-line"><span id="past-note"></span><span id="date-range"></span></div>
+  <div class="live-note" id="live-note" hidden></div>
+  <p class="coverage" id="coverage" hidden></p>
+  <h2 class="sr">Filter past attempts</h2>
+  <div class="rules" id="rules" hidden role="group" aria-label="Your rules"></div>
+  <h2 class="sr">Agents</h2>
+  <div class="split">
+  <section class="tree" id="tree" aria-label="Agents">
+    <div class="troot" id="troot" role="list" aria-label="This machine"></div>
+    <div id="trows" role="list" aria-label="Sessions"></div>
+    <div class="more-row" id="tmore" hidden><button class="chipbtn" id="tmore-b"></button><span class="older mono" id="tmore-o" hidden></span></div>
+  </section>
+  <aside class="side">
+  <section class="inspector" id="inspector" aria-labelledby="event-title">
+    <header class="inspect-head"><h2 id="event-title">Selected attempt</h2><div class="inspect-nav"><button class="icon" id="event-prev" aria-label="Previous attempt">‹</button><span class="mono" id="event-position"></span><button class="icon" id="event-next" aria-label="Next attempt">›</button></div></header>
+    <div class="inspect-source"><span class="tile" id="event-glyph"></span><div><strong id="event-agent"></strong><span id="event-project"></span></div></div>
+    <div class="inspect-arrow" id="event-action"></div>
+    <div class="inspect-artifact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6M9 16h6"/></svg><code id="event-target"></code></div>
+    <div class="inspect-arrow" id="event-rule-owner"></div>
+    <div class="inspect-verdict" id="event-verdict"><strong id="event-result"></strong><span id="event-rule"></span></div>
+    <div class="inspect-outcome"><span id="event-outcome">Outcome unknown</span><time id="event-time"></time></div>
+    <details class="inspect-evidence"><summary>Exact command &amp; outcome</summary><code id="event-command"></code><p id="event-result-note">This report records the attempt. It does not include the tool result.</p></details>
+    <button class="setup-primary" id="setup-open" aria-haspopup="dialog">Turn rules on</button>
+  </section>
+  <details id="activity"><summary>Activity by hour</summary>
+  <div class="lane mono">
+    <span class="count"><span class="dot" style="background:var(--you)"></span><b id="f-t"></b>hours with your prompts</span>
+    <span class="count"><span class="dot" style="background:var(--agent)"></span><b id="f-o"></b>hours without your prompts</span>
+    <span class="count" id="held-fact" hidden><span class="ring vstop" id="f-hs-r"></span><b id="f-hs"></b><span id="f-hs-t">would stop</span><span class="ring vask" id="f-ha-r" style="margin-left:.55rem"></span><b id="f-ha"></b><span id="f-ha-t">would ask</span></span>
+    <button class="count lanebtn" id="away-fact" hidden aria-pressed="false"><span class="ring" style="border-color:var(--away)"></span><b id="f-aw"></b>matches without a prompt that hour</button>
+    <span class="count" id="live-fact" hidden><span class="ring live"></span><b id="f-lv"></b>stopped</span>
+    <span class="count" id="ask-fact" hidden><span class="ring live"></span><b id="f-la"></b>asked you</span>
+    <span class="spacer"></span>
+    <button class="icon" id="replay" aria-label="Replay" title="Replay"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5 3.2v9.6c0 .5.5.8.9.5l7.3-4.8c.4-.3.4-.8 0-1L5.9 2.7c-.4-.3-.9 0-.9.5z"/></svg></button>
+    <button class="icon" id="save" aria-label="Save image" title="Save image"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M4.5 6.8 8 10.3l3.5-3.5M2.5 13.5h11"/></svg></button>
+  </div>
+  <p class="chart-note">Each dot is an active clock hour, not an hour of work. A ring marks a rule match.</p>
+  <div class="stage" id="stage" tabindex="0" aria-label="Hours, by day. Arrow keys step through what would have been held; Enter opens it."><div class="yax" id="yax" aria-hidden="true"></div><canvas id="c" role="img" aria-label="Active clock hours by day, with and without your prompts, and rule matches" aria-describedby="sr"></canvas><div id="tip" class="mono" aria-hidden="true"></div></div>
+  <p id="sr" class="sr"></p>
+  </details>
+  </aside>
+  </div>
+</section>
+<footer class="local-note">Local report · Nothing uploaded</footer>
+<dialog class="setup-dialog" id="setup-dialog" aria-labelledby="setup-dialog-title">
+<header><h2 id="setup-dialog-title">Turn rules on in Claude Code</h2><button class="setup-close" id="setup-close" aria-label="Close setup">×</button></header>
+<div class="setup-body">
+<p id="setup-scope">All Claude Code projects on this computer. Codex stays report-only.</p>
+<section class="setup-rules" aria-labelledby="setup-rules-title"><h3 id="setup-rules-title"></h3><div class="setup-rule-status" id="setup-rule-status" hidden></div><ul id="setup-rules-list"></ul></section>
+<ol>
+<li><span class="setup-step" aria-hidden="true">1</span>Open a new terminal, outside your Claude conversation.</li>
+<li><span class="setup-step" aria-hidden="true">2</span>Paste this command at the command prompt and press Enter.<div class="setup-command"><code id="setup-command"></code><button class="plain-button" id="setup-copy" aria-label="Copy setup command">Copy</button></div>
+<p class="setup-done" id="setup-feedback" aria-live="polite"></p>
+<div class="setup-success">Success shows <strong>“On.”</strong> and <strong>“The hook answered its self-test.”</strong></div></li>
+</ol>
+<details class="setup-more"><summary>Check setup &amp; refresh this report</summary><p>Claude Code normally loads the change automatically. This command checks the rules and opens a fresh report.</p><div class="setup-command"><code id="setup-check-command"></code><button class="plain-button" id="setup-check-copy" aria-label="Copy check and refresh command">Copy</button></div><p class="setup-done" id="setup-check-feedback" aria-live="polite"></p></details>
+<details class="setup-more"><summary>Turn rules off</summary><p>Run this at the terminal command prompt. It removes Kyma’s checks from all projects, including earlier project-only installs.</p><div class="setup-command"><code id="setup-off-command"></code><button class="plain-button" id="setup-off-copy" aria-label="Copy turn-off command">Copy</button></div><p class="setup-done" id="setup-off-feedback" aria-live="polite"></p></details>
+<button class="setup-primary" id="setup-return">Back to report</button>
+</div></dialog>
+</main>
+<script>
+const D = {"first":"2026-08-06","days":111,"A":[[0,0,0,0,0,0,0,0,0,0,9,3,2,4,5,5,9,2,8,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,8,3,4,9,3,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,5,4,7,2,9,5,8,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,8,5,5,5,4,4,2,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,3,3,4,8,3,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,7,2,3,9,9,5,9,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,8,2,7,2,2,7,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,9,4,4,7,5,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,2,9,7,9,6,6,8,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,9,7,2,6,3,8,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,5,7,5,8,7,3,9,2,3,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,8,9,8,7,7,9,5,9,6,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,6,3,2,4,9,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,6,2,2,7,3,3,5,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,6,6,7,6,2,2,6,9,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,5,4,8,9,9,3,6,5,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,8,4,2,2,6,3,8,7,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,8,7,8,9,9,5,9,5,5,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,4,4,3,2,7,6,5,7,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,4,9,5,7,7,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,4,4,3,8,9,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,2,6,6,5,5,4,7,3,4,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,7,4,2,2,8,4,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,8,7,8,5,5,8,4,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,6,4,2,9,2,5,6,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,4,6,7,6,3,6,5,2,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,9,6,4,6,9,2,9,4,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,6,5,3,5,9,6,5,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,5,8,8,4,6,8,4,6,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,3,8,2,4,4,8,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,5,2,2,5,5,2,9,3,6,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,8,7,8,8,4,9,2,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,9,7,7,9,3,9,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,6,4,6,4,6,4,6,9,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,4,6,3,4,3,2,3,5,2,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,5,2,6,5,8,2,7,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,6,4,5,4,8,3,9,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,2,9,8,2,9,7,3,3,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,7,9,3,7,4,9,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,7,4,4,7,6,8,5,9,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,6,5,8,3,7,7,8,5,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,3,6,7,3,5,7,4,4,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,5,6,2,5,5,6,9,4,0,0,0,0,8,31],[25,0,0,0,0,0,0,0,0,0,0,2,2,3,8,7,3,0,0,0,0,9,0,20],[0,45,0,0,0,0,0,0,0,0,7,6,7,3,3,0,0,0,0,0,0,22,14,16],[5,16,0,0,0,0,0,0,0,0,0,7,3,4,6,7,2,0,0,0,0,0,0,45],[0,21,12,0,0,0,0,0,0,0,5,9,4,4,5,6,6,9,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,4,9,8,2,3,4,7,8,4,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,8,9,8,9,5,3,0,0,0,0,0,20,30,0],[24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,4,2,7,2,9,0,0,0,0,0,0,0,23],[0,41,0,0,0,0,0,0,0,0,5,3,9,5,6,5,7,8,0,0,0,0,21,28],[29,42,0,12,0,0,0,0,0,0,6,5,6,7,9,9,7,8,2,0,0,25,0,0],[27,0,0,0,0,0,0,0,0,0,0,7,3,8,2,9,5,2,3,0,0,0,0,14],[26,10,14,20,0,5,0,0,0,0,9,8,2,4,2,4,4,8,0,0,11,0,30,13],[23,22,0,19,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,2,4,7,5,8,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,2,7,6,3,4,5,5,4,4,0,0,6,0,6],[10,0,0,0,0,0,0,0,0,0,7,6,5,3,5,3,4,8,9,0,0,15,41,16],[0,0,10,0,0,0,0,0,0,0,3,9,7,8,8,3,9,0,0,0,0,12,11,0],[47,31,0,0,0,0,0,0,0,0,8,3,6,7,6,7,9,9,0,0,0,0,27,0],[7,0,0,0,0,0,0,0,0,0,0,3,3,9,5,6,3,3,4,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,6,7,9,2,8,2,0,0,0,0,18,0,26],[23,28,0,0,0,0,0,0,0,0,0,8,4,4,4,8,8,3,0,0,0,27,0,0],[42,14,0,0,0,0,0,0,0,0,5,9,7,6,5,5,3,0,0,0,0,0,27,30],[0,0,0,0,0,0,0,0,0,0,6,3,3,9,8,3,9,2,0,0,23,0,12,53],[18,14,11,0,20,0,0,0,0,0,4,4,5,7,9,4,5,9,0,0,0,0,5,54],[36,0,28,0,0,0,0,0,0,0,9,3,6,5,5,6,2,0,0,0,0,0,78,12],[0,0,44,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,8,4,4,4,6,8,0,0,0,0,24,28,0,0],[47,0,6,15,0,0,0,0,0,0,0,3,6,4,4,6,8,6,2,0,0,0,15,0],[26,18,21,24,0,0,0,0,0,0,6,3,4,3,5,2,8,3,9,0,0,19,0,39],[5,0,0,0,0,0,0,0,0,0,0,7,6,4,9,8,2,3,4,0,0,0,0,7],[36,0,0,0,0,0,0,0,0,0,0,5,3,5,9,3,9,5,6,5,0,0,7,0],[47,0,24,43,0,0,0,0,0,0,6,6,7,2,3,7,5,2,7,0,0,0,28,22],[0,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,6,6,8,2,8,7,4,5,0,0,23,0,0,36,0],[17,16,0,0,0,0,0,0,0,3,9,5,5,2,3,0,0,0,0,0,7,0,42,0],[13,27,0,0,0,0,0,0,0,9,21,24,23,9,3,0,0,0,0,11,5,0,12,33],[0,0,30,0,0,0,0,0,0,7,8,6,7,8,9,6,8,0,0,30,0,0,51,0],[53,16,21,0,0,0,0,0,0,3,22,3,9,2,2,8,5,3,0,0,0,36,28,0],[39,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,8,19,11,2,9,6,3,7,0,0,0,30,32,0],[0,28,28,5,0,0,0,0,0,7,2,6,2,5,2,0,0,0,0,0,0,43,21,12],[0,29,0,0,0,0,0,0,0,2,15,12,8,8,8,8,3,7,0,27,14,0,38,0],[0,0,0,0,0,0,0,0,0,4,7,3,4,6,0,0,0,0,0,22,0,0,63,0],[0,0,0,0,0,0,0,0,0,0,6,18,10,3,5,0,0,0,0,0,0,7,24,0],[16,0,27,0,0,0,0,0,0,0,4,5,6,9,9,6,2,7,0,0,0,30,0,30],[62,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,5,11,11,20,3,6,3,0,0,0,0,0,22,33,0],[0,0,0,0,0,0,0,0,0,6,6,2,4,9,3,9,4,0,0,0,6,35,13,8],[0,22,0,0,0,0,0,0,0,0,9,24,7,2,8,3,9,4,0,0,0,0,46,51],[0,22,20,26,0,0,0,0,0,7,5,4,3,5,0,0,0,0,0,0,0,40,29,47],[0,20,27,7,0,0,0,0,0,0,6,20,21,2,7,8,4,6,9,0,23,7,11,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,20,1,0,0,0,0,0,0,7,5,9,2,4,8,9,8,8,0,13,0,15,6,9],[6,34,0,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],"Y":[[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],"actions":7819,"together":652,"alone":169,"marks":[{"i":104,"h":11,"v":"block","r":"Never read credentials or .env files.","c":"cat .env.production","live":false,"result":{"call_id":"603c0c5034099194852d6bf6a0bbcaf938e4aaad1ae6d24dd9a6cf3b36e17746","status":"unknown","source":"unknown"},"away":false},{"i":98,"h":12,"v":"block","r":"Never read credentials or .env files.","c":"cat .env","live":false,"result":{"call_id":"ba2cb7321f7b11e71280abbf8f62106c8871001e488280ebabf7d86140ee0282","status":"unknown","source":"unknown"},"away":false},{"i":96,"h":10,"v":"ask","r":"Ask me before any git push.","c":"git push --force origin main","live":false,"result":{"call_id":"e3947cb66108ab0f676c221cef28dfbf133338d115a672420704e0a941b5dae1","status":"unknown","source":"unknown"},"away":false},{"i":88,"h":22,"v":"ask","r":"Ask me before any git push.","c":"git push --force origin main","live":false,"result":{"call_id":"a52b76e70e712ef055c6f478ec6ec2fa3cc5893c020ae45af85c935f15fbcd62","status":"unknown","source":"unknown"},"away":true},{"i":69,"h":12,"v":"block","r":"Never use sudo.","c":"sudo chown -R me /usr/local","live":false,"result":{"call_id":"aae2f15e72a2e4a35e98f8ed645dc822ac6ef385a8a1188043aaa3aa331d8ef8","status":"unknown","source":"unknown"},"away":false},{"i":55,"h":13,"v":"ask","r":"Ask me before any git push.","c":"git push --force origin main","live":false,"result":{"call_id":"691e6bc6a513d71693cd17e00deb20c7130e8b6d634955caba97177ab158d605","status":"unknown","source":"unknown"},"away":false},{"i":47,"h":12,"v":"ask","r":"Ask me before setting anything to run on a schedule or at startup.","c":"crontab -","live":false,"result":{"call_id":"7d84600c71678b573c27cefb8cea5fb8d941b8076e958bf034502fe7700f36f8","status":"unknown","source":"unknown"},"away":false},{"i":33,"h":13,"v":"block","r":"Never read credentials or .env files.","c":"cat .env.local","live":false,"result":{"call_id":"7f582be494a254700dcc43c235c4e9b8fbcb8d0b806761700c0a0db408539971","status":"unknown","source":"unknown"},"away":false},{"i":22,"h":13,"v":"ask","r":"Ask me before any git push.","c":"git push origin main","live":false,"result":{"call_id":"12245836ba245f28925b195ebfb996852ca2c324900997704770bb37ed1a14bb","status":"unknown","source":"unknown"},"away":false},{"i":13,"h":12,"v":"ask","r":"Ask me before sending any email.","c":"gog gmail send --to team@acme.dev --subject 'nightly report' --body done","live":false,"result":{"call_id":"eef64855df036d40e23d333d83806c74a764c1e334428327a132865658aadf6b","status":"unknown","source":"unknown"},"away":false},{"i":6,"h":12,"v":"block","r":"Never read credentials or .env files.","c":"cat .env","live":false,"result":{"call_id":"ccdab532d26970788ca8935440d040589dd820b278b14d08717ca00b52a8dfc0","status":"unknown","source":"unknown"},"away":false}],"examples":[{"i":88,"h":22,"v":"ask","r":"Ask me before any git push.","c":"git push --force origin main","live":false,"result":{"call_id":"a52b76e70e712ef055c6f478ec6ec2fa3cc5893c020ae45af85c935f15fbcd62","status":"unknown","source":"unknown"},"away":true,"n":4,"w":""},{"i":104,"h":11,"v":"block","r":"Never read credentials or .env files.","c":"cat .env.production","live":false,"result":{"call_id":"603c0c5034099194852d6bf6a0bbcaf938e4aaad1ae6d24dd9a6cf3b36e17746","status":"unknown","source":"unknown"},"away":false,"n":4,"w":""},{"i":69,"h":12,"v":"block","r":"Never use sudo.","c":"sudo chown -R me /usr/local","live":false,"result":{"call_id":"aae2f15e72a2e4a35e98f8ed645dc822ac6ef385a8a1188043aaa3aa331d8ef8","status":"unknown","source":"unknown"},"away":false,"n":1,"w":""}],"more":2,"held_past":11,"held_live":0,"asked_live":0,"away_past":1,"stop_past":5,"ask_past":6,"yours":false,"judged":107,"judged_from":0,"judged_of":107,"today":"2026-11-24","partial_logs":0,"checked_calls":7819,"checked_first":"2026-08-06T14:49:00.000Z","checked_last":"2026-11-24T08:00:00.000Z","marks_total":11,"live_by_rule":{},"rules":[{"t":"Ask me before sending any email.","w":"","n":1,"live":0,"v":"ask","ok":true},{"t":"Ask me before any git push.","w":"","n":4,"live":0,"v":"ask","ok":true},{"t":"Never read credentials or .env files.","w":"","n":4,"live":0,"v":"block","ok":true},{"t":"Ask me before setting anything to run on a schedule or at startup.","w":"","n":1,"live":0,"v":"ask","ok":true},{"t":"Never use sudo.","w":"","n":1,"live":0,"v":"block","ok":true}],"setup_rules":[{"t":"Ask me before sending any email.","w":"","n":1,"live":0,"v":"ask","ok":true},{"t":"Ask me before any git push.","w":"","n":4,"live":0,"v":"ask","ok":true},{"t":"Never read credentials or .env files.","w":"","n":4,"live":0,"v":"block","ok":true},{"t":"Ask me before setting anything to run on a schedule or at startup.","w":"","n":1,"live":0,"v":"ask","ok":true},{"t":"Never use sudo.","w":"","n":1,"live":0,"v":"block","ok":true}],"setup_yours":false,"setup_rule_status":"","on_scope":"","on":false,"on_project":"kyma-see-fixes","hooks_off_reason":"","hooks_off":false,"claude":true,"roots":["~/.claude/projects","~/.codex/sessions"],"cmd":"uvx --from git+https://github.com/kymacomputer/kyma-local kyma on","agents":[{"id":"s001.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"why is test_checkout flaky on CI","you":true,"calls":165,"start":"2026-11-23T14:50:00.000Z","end":"2026-11-24T08:00:00.000Z","mins":1030,"live":false,"held":[],"children":[]},{"id":"rollout-2026-11-23T06-00-00-cdx2.jso","agent":"codex","project":"infra","model":"GPT-6.2 Sol","task":"rotate the staging certificates","you":true,"calls":21,"start":"2026-11-23T06:00:00.000Z","end":"2026-11-23T07:00:00.000Z","mins":60,"live":false,"held":[],"children":[]},{"id":"s004.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"ship the onboarding flow","you":true,"calls":94,"start":"2026-11-20T15:34:00.000Z","end":"2026-11-21T03:00:00.000Z","mins":686,"live":false,"held":[],"children":[{"id":"agent-a0040","mins":17,"kind":"general-purpose","task":"Run the test suite and fix failures","model":"Opus 5","live":false,"calls":12,"start":"2026-11-20T16:15:00.000Z","end":"2026-11-20T16:32:21.000Z","done":true,"held":[],"children":[]},{"id":"agent-a0041","mins":27,"kind":"Plan","task":"Plan the billing migration","model":"Opus 5","live":false,"calls":18,"start":"2026-11-20T17:15:00.000Z","end":"2026-11-20T17:42:16.000Z","done":true,"held":[],"children":[]}]},{"id":"s005.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"fix the deploy script for staging","you":true,"calls":156,"start":"2026-11-19T14:04:00.000Z","end":"2026-11-20T08:00:00.000Z","mins":1076,"live":false,"held":[],"children":[]},{"id":"rollout-2026-11-20T06-00-00-cdx5.jso","agent":"codex","project":"infra","model":"GPT-6.2 Sol","task":"tidy the terraform modules","you":true,"calls":38,"start":"2026-11-20T06:00:00.000Z","end":"2026-11-20T07:51:00.000Z","mins":111,"live":false,"held":[],"children":[]},{"id":"s006.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"upgrade to React 19","you":true,"calls":215,"start":"2026-11-18T15:38:00.000Z","end":"2026-11-19T08:00:00.000Z","mins":982,"live":false,"held":[],"children":[{"id":"agent-a0060","mins":21,"kind":"Explore","task":"Find slow queries in the search endpoint","model":"Sonnet","live":false,"calls":16,"start":"2026-11-18T16:15:00.000Z","end":"2026-11-18T16:36:28.000Z","done":true,"held":[["2026-11-18 11","block","Never read credentials or .env files.","cat .env.production",{"call_id":"603c0c5034099194852d6bf6a0bbcaf938e4aaad1ae6d24dd9a6cf3b36e17746","status":"tool_succeeded","source":"claude_tool_result"}]],"children":[]}]},{"id":"s007.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"make the search endpoint paginate","you":true,"calls":127,"start":"2026-11-17T14:31:00.000Z","end":"2026-11-18T06:00:00.000Z","mins":929,"live":false,"held":[],"children":[]},{"id":"s008.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"write the webhook retry logic","you":true,"calls":81,"start":"2026-11-16T14:41:00.000Z","end":"2026-11-17T03:00:00.000Z","mins":739,"live":false,"held":[],"children":[{"id":"agent-a0080","mins":10,"kind":"Explore","task":"Map where feature flags are read","model":"Sonnet 5","live":false,"calls":6,"start":"2026-11-16T15:15:00.000Z","end":"2026-11-16T15:25:56.000Z","done":true,"held":[],"children":[]},{"id":"agent-a0081","mins":12,"kind":"general-purpose","task":"Reproduce the flaky checkout test","model":"Opus","live":false,"calls":9,"start":"2026-11-16T16:15:00.000Z","end":"2026-11-16T16:27:40.000Z","done":true,"held":[],"children":[]},{"id":"agent-a0082","mins":23,"kind":"general-purpose","task":"Check the deploy script against staging","model":"Sonnet 5","live":false,"calls":18,"start":"2026-11-16T17:15:00.000Z","end":"2026-11-16T17:38:00.000Z","done":true,"held":[],"children":[]}]},{"id":"s011.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"clean up the feature flags","you":true,"calls":179,"start":"2026-11-13T15:31:00.000Z","end":"2026-11-14T08:00:00.000Z","mins":989,"live":false,"held":[],"children":[]},{"id":"s012.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"port the CLI to Go","you":true,"calls":100,"start":"2026-11-12T15:07:00.000Z","end":"2026-11-13T07:00:00.000Z","mins":953,"live":false,"held":[["2026-11-12 12","block","Never read credentials or .env files.","cat .env",{"call_id":"ba2cb7321f7b11e71280abbf8f62106c8871001e488280ebabf7d86140ee0282","status":"tool_succeeded","source":"claude_tool_result"}]],"children":[{"id":"agent-a0120","mins":23,"kind":"general-purpose","task":"Check the deploy script against staging","model":"Sonnet","live":false,"calls":16,"start":"2026-11-12T16:15:00.000Z","end":"2026-11-12T16:38:47.000Z","done":true,"held":[],"children":[]}]},{"id":"s013.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"find the memory leak in the worker","you":true,"calls":109,"start":"2026-11-11T14:19:00.000Z","end":"2026-11-12T03:00:00.000Z","mins":761,"live":false,"held":[],"children":[]},{"id":"s014.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"add SSO with Okta","you":true,"calls":128,"start":"2026-11-10T14:14:00.000Z","end":"2026-11-11T03:00:00.000Z","mins":766,"live":false,"held":[],"children":[{"id":"agent-a0140","mins":11,"kind":"general-purpose","task":"Run the test suite and fix failures","model":"Opus","live":false,"calls":11,"start":"2026-11-10T15:15:00.000Z","end":"2026-11-10T15:26:50.000Z","done":true,"held":[["2026-11-10 10","ask","Ask me before any git push.","git push --force origin main",{"call_id":"e3947cb66108ab0f676c221cef28dfbf133338d115a672420704e0a941b5dae1","status":"tool_failed","source":"claude_tool_result"}]],"children":[]},{"id":"agent-a0141","mins":12,"kind":"Plan","task":"Plan the billing migration","model":"Opus","live":false,"calls":7,"start":"2026-11-10T16:15:00.000Z","end":"2026-11-10T16:27:49.000Z","done":true,"held":[],"children":[]},{"id":"agent-a0142","mins":6,"kind":"Explore","task":"Map where feature flags are read","model":"Sonnet 5","live":false,"calls":4,"start":"2026-11-10T17:15:00.000Z","end":"2026-11-10T17:21:16.000Z","done":true,"held":[],"children":[]}]},{"id":"s015.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"speed up the test suite","you":true,"calls":129,"start":"2026-11-09T14:25:00.000Z","end":"2026-11-10T06:00:00.000Z","mins":935,"live":false,"held":[],"children":[]},{"id":"s016.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"localise the dashboard into French","you":true,"calls":171,"start":"2026-11-08T15:06:00.000Z","end":"2026-11-09T08:00:00.000Z","mins":1014,"live":false,"held":[],"children":[{"id":"agent-a0160","mins":15,"kind":"Explore","task":"Find slow queries in the search endpoint","model":"Sonnet","live":false,"calls":13,"start":"2026-11-08T16:15:00.000Z","end":"2026-11-08T16:30:39.000Z","done":true,"held":[],"children":[]},{"id":"agent-a0161","mins":5,"kind":"general-purpose","task":"Write tests for the webhook retries","model":"Opus 5","live":false,"calls":4,"start":"2026-11-08T17:15:00.000Z","end":"2026-11-08T17:20:38.000Z","done":true,"held":[],"children":[]}]},{"id":"s018.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"add a dark mode toggle","you":true,"calls":167,"start":"2026-11-06T14:08:00.000Z","end":"2026-11-07T06:00:00.000Z","mins":952,"live":false,"held":[],"children":[{"id":"agent-a0180","mins":17,"kind":"Explore","task":"Map where feature flags are read","model":"Sonnet","live":false,"calls":13,"start":"2026-11-06T15:15:00.000Z","end":"2026-11-06T15:32:29.000Z","done":true,"held":[],"children":[]}]},{"id":"s019.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"set up preview deploys","you":true,"calls":230,"start":"2026-11-05T14:25:00.000Z","end":"2026-11-06T07:00:00.000Z","mins":995,"live":false,"held":[],"children":[]},{"id":"s020.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"document the REST API","you":true,"calls":130,"start":"2026-11-04T14:49:00.000Z","end":"2026-11-05T07:00:00.000Z","mins":971,"live":false,"held":[],"children":[{"id":"agent-a0200","mins":25,"kind":"general-purpose","task":"Review the diff for regressions","model":"Opus","live":false,"calls":19,"start":"2026-11-04T15:15:00.000Z","end":"2026-11-04T15:40:39.000Z","done":true,"held":[],"children":[]},{"id":"agent-a0201","mins":28,"kind":"Explore","task":"Find every caller of the auth middleware","model":"Sonnet 5","live":false,"calls":16,"start":"2026-11-04T16:15:00.000Z","end":"2026-11-04T16:43:01.000Z","done":true,"held":[],"children":[]},{"id":"agent-a0202","mins":23,"kind":"general-purpose","task":"Run the test suite and fix failures","model":"Opus","live":false,"calls":15,"start":"2026-11-04T17:15:00.000Z","end":"2026-11-04T17:38:22.000Z","done":true,"held":[],"children":[]}]},{"id":"s021.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"fix the CSV import encoding bug","you":true,"calls":116,"start":"2026-11-03T14:01:00.000Z","end":"2026-11-04T06:00:00.000Z","mins":959,"live":false,"held":[],"children":[]},{"id":"s022.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"add audit logging to admin actions","you":true,"calls":138,"start":"2026-11-02T14:13:00.000Z","end":"2026-11-03T06:00:00.000Z","mins":947,"live":false,"held":[["2026-11-02 22","ask","Ask me before any git push.","git push --force origin main",{"call_id":"a52b76e70e712ef055c6f478ec6ec2fa3cc5893c020ae45af85c935f15fbcd62","status":"tool_failed","source":"claude_tool_result"}]],"children":[]},{"id":"s024.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"the invoice PDF cuts off the last line","you":true,"calls":110,"start":"2026-10-31T14:19:00.000Z","end":"2026-11-01T05:00:00.000Z","mins":881,"live":false,"held":[],"children":[]},{"id":"s025.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"why does signup send two emails","you":true,"calls":171,"start":"2026-10-30T15:28:00.000Z","end":"2026-10-31T07:00:00.000Z","mins":932,"live":false,"held":[],"children":[]},{"id":"s026.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"add an audit log for admin actions","you":true,"calls":86,"start":"2026-10-29T15:16:00.000Z","end":"2026-10-30T04:00:00.000Z","mins":764,"live":false,"held":[],"children":[]},{"id":"s027.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"search ranks old posts above new ones","you":true,"calls":106,"start":"2026-10-28T14:29:00.000Z","end":"2026-10-29T03:00:00.000Z","mins":751,"live":false,"held":[],"children":[]},{"id":"s028.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"CSV import chokes on quoted commas","you":true,"calls":143,"start":"2026-10-27T15:44:00.000Z","end":"2026-10-28T06:00:00.000Z","mins":856,"live":false,"held":[],"children":[]},{"id":"s029.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"mobile nav covers the logo on iOS","you":true,"calls":154,"start":"2026-10-26T14:17:00.000Z","end":"2026-10-27T06:00:00.000Z","mins":943,"live":false,"held":[],"children":[]},{"id":"s032.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"sessions expire while people type","you":true,"calls":170,"start":"2026-10-23T14:15:00.000Z","end":"2026-10-24T06:00:00.000Z","mins":945,"live":false,"held":[],"children":[]},{"id":"s033.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"the billing webhook retries forever","you":true,"calls":170,"start":"2026-10-22T14:31:00.000Z","end":"2026-10-23T06:00:00.000Z","mins":929,"live":false,"held":[],"children":[]},{"id":"s034.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"dark mode toggle forgets the choice","you":true,"calls":194,"start":"2026-10-21T14:08:00.000Z","end":"2026-10-22T08:00:00.000Z","mins":1072,"live":false,"held":[],"children":[]},{"id":"s035.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"team invites land in spam","you":true,"calls":97,"start":"2026-10-20T14:43:00.000Z","end":"2026-10-21T03:00:00.000Z","mins":737,"live":false,"held":[],"children":[]},{"id":"s036.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"paginate /api/orders","you":true,"calls":122,"start":"2026-10-19T15:04:00.000Z","end":"2026-10-20T05:00:00.000Z","mins":836,"live":false,"held":[],"children":[]},{"id":"s037.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"the 404 page has no way home","you":true,"calls":129,"start":"2026-10-18T15:09:00.000Z","end":"2026-10-19T05:00:00.000Z","mins":831,"live":false,"held":[],"children":[]},{"id":"s039.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"split utils.ts, it's 2k lines","you":true,"calls":36,"start":"2026-10-16T15:29:00.000Z","end":"2026-10-16T22:37:00.000Z","mins":428,"live":false,"held":[],"children":[]},{"id":"s040.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"write a migration to drop legacy_users","you":true,"calls":89,"start":"2026-10-15T14:04:00.000Z","end":"2026-10-16T04:00:00.000Z","mins":836,"live":false,"held":[],"children":[]},{"id":"s041.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"flaky snapshot in Header.test.tsx","you":true,"calls":148,"start":"2026-10-14T14:42:00.000Z","end":"2026-10-15T05:00:00.000Z","mins":858,"live":false,"held":[["2026-10-14 12","block","Never use sudo.","sudo chown -R me /usr/local",{"call_id":"aae2f15e72a2e4a35e98f8ed645dc822ac6ef385a8a1188043aaa3aa331d8ef8","status":"tool_failed","source":"claude_tool_result"}]],"children":[]},{"id":"s042.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"bump node to 22 in CI","you":true,"calls":132,"start":"2026-10-13T14:11:00.000Z","end":"2026-10-14T06:00:00.000Z","mins":949,"live":false,"held":[],"children":[]},{"id":"s043.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"the onboarding checklist skips step 3","you":true,"calls":62,"start":"2026-10-12T14:17:00.000Z","end":"2026-10-13T04:00:00.000Z","mins":823,"live":false,"held":[],"children":[]},{"id":"s044.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"port the cron script to a queue worker","you":true,"calls":26,"start":"2026-10-11T14:03:00.000Z","end":"2026-10-11T18:28:00.000Z","mins":265,"live":false,"held":[],"children":[]},{"id":"s046.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"add Sentry to the worker","you":true,"calls":183,"start":"2026-10-09T14:12:00.000Z","end":"2026-10-10T08:00:00.000Z","mins":1068,"live":false,"held":[],"children":[]},{"id":"s047.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"replace lodash.get with optional chaining","you":true,"calls":128,"start":"2026-10-08T15:44:00.000Z","end":"2026-10-09T09:00:00.000Z","mins":1036,"live":false,"held":[],"children":[]},{"id":"s048.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"make the settings form keyboard friendly","you":true,"calls":111,"start":"2026-10-07T14:01:00.000Z","end":"2026-10-08T04:00:00.000Z","mins":839,"live":false,"held":[],"children":[]},{"id":"s049.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"stop logging request bodies","you":true,"calls":180,"start":"2026-10-06T14:36:00.000Z","end":"2026-10-07T07:00:00.000Z","mins":984,"live":false,"held":[],"children":[]},{"id":"s050.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"dedupe the customer import","you":true,"calls":88,"start":"2026-10-05T15:44:00.000Z","end":"2026-10-06T05:00:00.000Z","mins":796,"live":false,"held":[],"children":[]},{"id":"s052.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"fix the timezone bug in reports","you":true,"calls":116,"start":"2026-10-03T14:35:00.000Z","end":"2026-10-04T04:00:00.000Z","mins":805,"live":false,"held":[],"children":[]},{"id":"s053.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"rename Account to Workspace in the UI","you":true,"calls":49,"start":"2026-10-02T15:11:00.000Z","end":"2026-10-02T23:43:00.000Z","mins":512,"live":false,"held":[],"children":[]},{"id":"s054.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"the export button is disabled for admins","you":true,"calls":48,"start":"2026-10-01T14:50:00.000Z","end":"2026-10-01T21:33:00.000Z","mins":403,"live":false,"held":[],"children":[]},{"id":"s055.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"turn off the old feature flag for search","you":true,"calls":107,"start":"2026-09-30T15:05:00.000Z","end":"2026-10-01T06:00:00.000Z","mins":895,"live":false,"held":[["2026-09-30 13","ask","Ask me before any git push.","git push --force origin main",{"call_id":"691e6bc6a513d71693cd17e00deb20c7130e8b6d634955caba97177ab158d605","status":"tool_failed","source":"claude_tool_result"}]],"children":[]},{"id":"s056.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"tidy the Dockerfile","you":true,"calls":99,"start":"2026-09-29T14:44:00.000Z","end":"2026-09-30T05:00:00.000Z","mins":856,"live":false,"held":[],"children":[]},{"id":"s057.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"make tests run in parallel","you":true,"calls":99,"start":"2026-09-28T15:21:00.000Z","end":"2026-09-29T05:00:00.000Z","mins":819,"live":false,"held":[],"children":[]},{"id":"s058.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"the email preview breaks in Outlook","you":true,"calls":106,"start":"2026-09-27T14:00:00.000Z","end":"2026-09-28T04:00:00.000Z","mins":840,"live":false,"held":[],"children":[]},{"id":"s060.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"investigate the memory leak in the worker","you":true,"calls":39,"start":"2026-09-25T15:06:00.000Z","end":"2026-09-25T22:06:00.000Z","mins":420,"live":false,"held":[],"children":[]},{"id":"s061.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"write docs for the webhook API","you":true,"calls":49,"start":"2026-09-24T14:21:00.000Z","end":"2026-09-24T21:41:00.000Z","mins":440,"live":false,"held":[],"children":[]},{"id":"s062.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"the password reset link expires instantly","you":true,"calls":50,"start":"2026-09-23T14:00:00.000Z","end":"2026-09-23T21:18:00.000Z","mins":438,"live":false,"held":[],"children":[]},{"id":"s063.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"translate the error messages","you":true,"calls":39,"start":"2026-09-22T14:02:00.000Z","end":"2026-09-22T19:39:00.000Z","mins":337,"live":false,"held":[["2026-09-22 12","ask","Ask me before setting anything to run on a schedule or at startup.","crontab -",{"call_id":"7d84600c71678b573c27cefb8cea5fb8d941b8076e958bf034502fe7700f36f8","status":"unknown","source":"unknown"}]],"children":[]},{"id":"s064.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"move secrets to the vault","you":true,"calls":43,"start":"2026-09-21T15:41:00.000Z","end":"2026-09-21T22:50:00.000Z","mins":429,"live":false,"held":[],"children":[]},{"id":"s067.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"set up preview deploys","you":true,"calls":39,"start":"2026-09-18T14:19:00.000Z","end":"2026-09-18T20:30:00.000Z","mins":371,"live":false,"held":[],"children":[]},{"id":"s068.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"add retries to the S3 client","you":true,"calls":35,"start":"2026-09-17T15:17:00.000Z","end":"2026-09-17T21:09:00.000Z","mins":352,"live":false,"held":[],"children":[]},{"id":"s069.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"drag and drop reorders the wrong item","you":true,"calls":32,"start":"2026-09-16T15:26:00.000Z","end":"2026-09-16T23:35:00.000Z","mins":489,"live":false,"held":[],"children":[]},{"id":"s070.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"make the CLI print JSON with --json","you":true,"calls":45,"start":"2026-09-15T15:16:00.000Z","end":"2026-09-15T22:01:00.000Z","mins":405,"live":false,"held":[],"children":[]},{"id":"s071.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"graphql query is n+1 on comments","you":true,"calls":44,"start":"2026-09-14T14:35:00.000Z","end":"2026-09-14T19:07:00.000Z","mins":272,"live":false,"held":[],"children":[]},{"id":"s072.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"bump the API version header","you":true,"calls":46,"start":"2026-09-13T14:03:00.000Z","end":"2026-09-13T20:15:00.000Z","mins":372,"live":false,"held":[],"children":[]},{"id":"s074.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"the sitemap misses blog posts","you":true,"calls":39,"start":"2026-09-11T14:22:00.000Z","end":"2026-09-11T22:09:00.000Z","mins":467,"live":false,"held":[],"children":[]},{"id":"s075.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"update the privacy page copy","you":true,"calls":29,"start":"2026-09-10T14:46:00.000Z","end":"2026-09-10T19:20:00.000Z","mins":274,"live":false,"held":[],"children":[]},{"id":"s076.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"remove the unused admin routes","you":true,"calls":49,"start":"2026-09-09T14:05:00.000Z","end":"2026-09-09T21:36:00.000Z","mins":451,"live":false,"held":[],"children":[]},{"id":"s077.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"make the logo crisp on retina","you":true,"calls":39,"start":"2026-09-08T15:39:00.000Z","end":"2026-09-08T21:48:00.000Z","mins":369,"live":false,"held":[["2026-09-08 13","block","Never read credentials or .env files.","cat .env.local",{"call_id":"7f582be494a254700dcc43c235c4e9b8fbcb8d0b806761700c0a0db408539971","status":"tool_succeeded","source":"claude_tool_result"}]],"children":[]},{"id":"s078.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"load testing for checkout","you":true,"calls":49,"start":"2026-09-07T15:00:00.000Z","end":"2026-09-07T22:37:00.000Z","mins":457,"live":false,"held":[],"children":[]},{"id":"s079.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"the queue backs up after deploys","you":true,"calls":39,"start":"2026-09-06T14:05:00.000Z","end":"2026-09-06T21:11:00.000Z","mins":426,"live":false,"held":[],"children":[]},{"id":"s081.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"check why builds take 14 minutes","you":true,"calls":34,"start":"2026-09-04T14:15:00.000Z","end":"2026-09-04T20:41:00.000Z","mins":386,"live":false,"held":[],"children":[]},{"id":"s082.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"add a CSV export to the audit log","you":true,"calls":45,"start":"2026-09-03T14:26:00.000Z","end":"2026-09-03T20:04:00.000Z","mins":338,"live":false,"held":[],"children":[]},{"id":"s083.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"fix the off-by-one in pagination","you":true,"calls":27,"start":"2026-09-02T14:48:00.000Z","end":"2026-09-02T19:03:00.000Z","mins":255,"live":false,"held":[],"children":[]},{"id":"s084.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"make the empty state friendlier","you":true,"calls":42,"start":"2026-09-01T14:33:00.000Z","end":"2026-09-01T22:47:00.000Z","mins":494,"live":false,"held":[],"children":[]},{"id":"s085.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"SSO users can't change their email","you":true,"calls":28,"start":"2026-08-31T14:06:00.000Z","end":"2026-08-31T18:44:00.000Z","mins":278,"live":false,"held":[],"children":[]},{"id":"s087.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"archive projects older than a year","you":true,"calls":32,"start":"2026-08-29T14:43:00.000Z","end":"2026-08-29T18:24:00.000Z","mins":221,"live":false,"held":[],"children":[]},{"id":"s088.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"the invoice totals round wrong in EUR","you":true,"calls":38,"start":"2026-08-28T15:38:00.000Z","end":"2026-08-28T22:10:00.000Z","mins":392,"live":false,"held":[["2026-08-28 13","ask","Ask me before any git push.","git push origin main",{"call_id":"12245836ba245f28925b195ebfb996852ca2c324900997704770bb37ed1a14bb","status":"tool_succeeded","source":"claude_tool_result"}]],"children":[]},{"id":"s089.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"draft the release notes for 2.4","you":true,"calls":65,"start":"2026-08-27T15:02:00.000Z","end":"2026-08-27T23:50:00.000Z","mins":528,"live":false,"held":[],"children":[]},{"id":"s090.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"add the export button to the reports page","you":true,"calls":40,"start":"2026-08-26T15:37:00.000Z","end":"2026-08-26T22:22:00.000Z","mins":405,"live":false,"held":[],"children":[]},{"id":"s091.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"why is test_checkout flaky on CI","you":true,"calls":49,"start":"2026-08-25T14:39:00.000Z","end":"2026-08-25T21:25:00.000Z","mins":406,"live":false,"held":[],"children":[]},{"id":"s092.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"refactor the auth middleware","you":true,"calls":44,"start":"2026-08-24T14:38:00.000Z","end":"2026-08-24T21:40:00.000Z","mins":422,"live":false,"held":[],"children":[]},{"id":"s095.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"fix the deploy script for staging","you":true,"calls":28,"start":"2026-08-21T14:35:00.000Z","end":"2026-08-21T20:29:00.000Z","mins":354,"live":false,"held":[],"children":[]},{"id":"s096.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"upgrade to React 19","you":true,"calls":24,"start":"2026-08-20T14:06:00.000Z","end":"2026-08-20T18:03:00.000Z","mins":237,"live":false,"held":[],"children":[]},{"id":"s097.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"make the search endpoint paginate","you":true,"calls":68,"start":"2026-08-19T14:22:00.000Z","end":"2026-08-19T22:06:00.000Z","mins":464,"live":false,"held":[["2026-08-19 12","ask","Ask me before sending any email.","gog gmail send --to team@acme.dev --subject 'nightly report' --body done",{"call_id":"eef64855df036d40e23d333d83806c74a764c1e334428327a132865658aadf6b","status":"tool_succeeded","source":"claude_tool_result"}]],"children":[]},{"id":"s098.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"write the webhook retry logic","you":true,"calls":49,"start":"2026-08-18T14:40:00.000Z","end":"2026-08-18T22:29:00.000Z","mins":469,"live":false,"held":[],"children":[]},{"id":"s099.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"move the cron jobs to the queue","you":true,"calls":35,"start":"2026-08-17T15:04:00.000Z","end":"2026-08-17T20:45:00.000Z","mins":341,"live":false,"held":[],"children":[]},{"id":"s101.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"clean up the feature flags","you":true,"calls":47,"start":"2026-08-15T14:45:00.000Z","end":"2026-08-15T20:32:00.000Z","mins":347,"live":false,"held":[],"children":[]},{"id":"s102.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"port the CLI to Go","you":true,"calls":29,"start":"2026-08-14T15:48:00.000Z","end":"2026-08-14T19:45:00.000Z","mins":237,"live":false,"held":[],"children":[]},{"id":"s103.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"find the memory leak in the worker","you":true,"calls":28,"start":"2026-08-13T14:26:00.000Z","end":"2026-08-13T19:28:00.000Z","mins":302,"live":false,"held":[],"children":[]},{"id":"s104.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"add SSO with Okta","you":true,"calls":44,"start":"2026-08-12T14:26:00.000Z","end":"2026-08-12T20:08:00.000Z","mins":342,"live":false,"held":[["2026-08-12 12","block","Never read credentials or .env files.","cat .env",{"call_id":"ccdab532d26970788ca8935440d040589dd820b278b14d08717ca00b52a8dfc0","status":"tool_succeeded","source":"claude_tool_result"}]],"children":[]},{"id":"s105.jsonl","agent":"claude","project":"app","model":"Opus 5","task":"speed up the test suite","you":true,"calls":21,"start":"2026-08-11T15:30:00.000Z","end":"2026-08-11T19:37:00.000Z","mins":247,"live":false,"held":[],"children":[]},{"id":"s106.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"localise the dashboard into French","you":true,"calls":33,"start":"2026-08-10T15:15:00.000Z","end":"2026-08-10T21:22:00.000Z","mins":367,"live":false,"held":[],"children":[]},{"id":"s107.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"replace moment with date-fns","you":true,"calls":40,"start":"2026-08-09T15:01:00.000Z","end":"2026-08-09T21:35:00.000Z","mins":394,"live":false,"held":[],"children":[]},{"id":"s109.jsonl","agent":"claude","project":"api","model":"Opus 5","task":"set up preview deploys","you":true,"calls":27,"start":"2026-08-07T14:30:00.000Z","end":"2026-08-07T18:26:00.000Z","mins":236,"live":false,"held":[],"children":[]},{"id":"s110.jsonl","agent":"claude","project":"infra","model":"Sonnet 5","task":"document the REST API","you":true,"calls":47,"start":"2026-08-06T14:49:00.000Z","end":"2026-08-06T22:49:00.000Z","mins":480,"live":false,"held":[],"children":[]}],"sessions":91};
+if (location.hash.includes("still")) document.documentElement.classList.add("still");
+const $ = id => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const fmt = n => n.toLocaleString();
+const day0 = new Date(D.first + "T00:00:00");
+const dateOf = i => new Date(day0.getFullYear(), day0.getMonth(), day0.getDate() + i);
+const short = d => d.toLocaleDateString(undefined, {day: "numeric", month: "short"});
+const long = d => d.toLocaleDateString(undefined, {day: "numeric", month: "short", year: "numeric"});
+const hr = h => (h % 12 || 12) + (h < 12 ? "am" : "pm");
+const at = (i, h) => dateOf(i).toLocaleDateString(undefined, {weekday: "short", day: "numeric", month: "short"}) + " · " + hr(h);
+$("f-t").textContent = fmt(D.together); $("f-o").textContent = fmt(D.alone);
+const M = D.marks || [];
+$("past-note").textContent = D.checked_calls ? `Past actions checked against ${D.yours ? "your" : "starter"} rules. This check stopped nothing.` : "No actions checked yet.";
+$("event-rule-owner").textContent = D.yours ? "↓  matched your rule" : "↓  matched a starter rule";
+$("date-range").textContent = short(day0) + " – " + long(new Date(D.today + "T00:00:00"));
+const liveReceipt = [];
+if (D.held_live) liveReceipt.push(`${fmt(D.held_live)} actually stopped`);
+if (D.asked_live) liveReceipt.push(`${fmt(D.asked_live)} required permission`);
+if (liveReceipt.length) { $("live-note").hidden = false; $("live-note").textContent = "Live protection recorded: " + liveReceipt.join(" · ") + "."; }
+const markAt = {}; for (const m of M) { const k = m.i * 24 + m.h; if (!markAt[k] || m.live) markAt[k] = m; }
+$("sr").textContent = `${fmt(D.actions)} tool calls from ${long(day0)} to ${long(new Date(D.today + "T00:00:00"))}: ${fmt(D.together)} active clock hours with your prompts, ${fmt(D.alone)} active clock hours without your prompts` +
+  (D.held_past ? `, ${fmt(D.held_past)} would have been held` : "") + (D.held_live ? `, ${fmt(D.held_live)} stopped` : "") + ".";
+if (D.held_live) { $("live-fact").hidden = false; $("f-lv").textContent = fmt(D.held_live); }
+if (D.asked_live) { $("ask-fact").hidden = false; $("f-la").textContent = fmt(D.asked_live); }
+{ const away = D.away_past || 0;
+  if (away && D.held_past) { $("away-fact").hidden = false; $("f-aw").textContent = fmt(away); } }
+if (D.held_past) { $("held-fact").hidden = false;
+  for (const [k, n] of [["hs", D.stop_past], ["ha", D.ask_past]]) { $("f-" + k).textContent = fmt(n || 0); for (const x of ["f-" + k, "f-" + k + "-r", "f-" + k + "-t"]) $(x).hidden = !n; }
+}
+const scope = [];
+if (D.judged_of && (D.judged < D.judged_of || D.partial_logs)) {
+  scope.push(`${fmt(D.checked_calls || 0)} calls replayed · ${fmt(D.judged)} complete` +
+    (D.partial_logs ? ` + ${fmt(D.partial_logs)} partial` : "") + ` of ${fmt(D.judged_of)} available logs`);
+}
+if (D.marks_total > M.length) scope.push(`${fmt(M.length)} of ${fmt(D.marks_total)} moments shown`);
+const unsupportedRules = (D.rules || []).filter(r => !r.ok).length;
+if (unsupportedRules) scope.push(`${fmt(unsupportedRules)} rules could not be evaluated`);
+if (scope.length) { $("coverage").hidden = false; $("coverage").textContent = scope.join(" · "); }
+let lit = null, one = null;
+function light(rule, mark) { lit = rule; one = mark; render(drawn, null);
+  for (const r of document.querySelectorAll(".rule")) r.classList.toggle("on", rule != null && r.dataset.r === rule); }
+// Every rule you have, with what it would have held. A rule at zero is still
+// shown: it is the one you would otherwise wonder about.
+
+// ---------------------------------------------------------------- the agents
+// Who did the work: each session an agent, the subagents it started under it,
+// and what your rules would have held pinned to the one that did it. The
+// evidence sits on the card itself; a card's colour is the worst thing in it
+// or anything it started.
+const AG = D.agents || [];
+const actionNames = {
+  "Never read my .env files.": ["Private files", "Tried to read a private file"],
+  "Never read credentials or .env files.": ["Private files", "Tried to read a private file"],
+  "Ask me before any git push.": ["Code uploads", "Tried to upload code changes"],
+  "Ask me before sending any email.": ["Email", "Tried to send email"],
+  "Ask me before setting anything to run on a schedule or at startup.": ["Scheduled tasks", "Tried to schedule a task"],
+  "Never use sudo.": ["Admin access", "Tried to use administrator access"]
+};
+const receipts = [];
+const collectReceipts = (a, root, parent) => { for (const h of a.held || []) receipts.push({a, h, root, parent}); for (const k of a.children || []) collectReceipts(k, root, a); };
+AG.forEach(a => collectReceipts(a, a, null)); receipts.sort((a,b) => b.h[0].localeCompare(a.h[0]));
+let selectedReceipt = receipts[0] || null, selectedRoot = selectedReceipt?.root, receiptOptions = receipts;
+const targetOf = h => {
+  const category = actionNames[h[2]]?.[0];
+  if (category === "Private files") { const m = /^(?:cat|Read)\s+(?:["']([^"']+)["']|([^\s-][^\s]*))\s*$/.exec(h[3] || ""); return m ? (m[1] || m[2]) : "Private file"; }
+  if (category === "Email" && /^gog\s+gmail\s+send\s/.test(h[3] || "")) {
+    const m = /(?:^|\s)--to(?:=|\s+)(?:"([^"]+)"|'([^']+)'|([^\s]+))/.exec(h[3]);
+    const address = m && (m[1] || m[2] || m[3]);
+    if (address && /^[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}$/.test(address)) return address;
+  }
+  return {"Code uploads":"Code changes", "Email":"Email", "Scheduled tasks":"Scheduled task", "Admin access":"Administrator access"}[category] || "Tool action";
+};
+const GLYPH = {
+  claude: '<svg viewBox="0 0 16 16" aria-hidden="true"><g stroke="#d67859" stroke-width="1.7" stroke-linecap="round">' +
+          [0,22.5,45,67.5,90,112.5,135,157.5].map(a => `<line x1="8" y1="2.2" x2="8" y2="6.2" transform="rotate(${a} 8 8)"/><line x1="8" y1="9.8" x2="8" y2="13.8" transform="rotate(${a} 8 8)"/>`).join("") + '</g></svg>',
+  codex: '<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="#e8e8ea" stroke-width="1.3"><circle cx="8" cy="5.6" r="3"/><circle cx="5.9" cy="9.4" r="3"/><circle cx="10.1" cy="9.4" r="3"/></svg>',
+  home: '<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="#74b6f9" stroke-width="1.4" stroke-linejoin="round"><rect x="2.5" y="3.5" width="11" height="7.5" rx="1.3"/><path d="M6 13.5h4M8 11v2.5"/></svg>'};
+const ICON = {
+  done: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.3l2.2 2.2 4.8-5"/></svg>',
+  off: '',
+  on: '<svg viewBox="0 0 12 12" fill="currentColor"><circle cx="6" cy="6" r="3.2"/></svg>',
+  run: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 1.5a4.5 4.5 0 1 1-4.5 4.5"/></svg>',
+  ask: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"/><path d="M6 3.6V6l1.6 1"/></svg>',
+  stop: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M6 1.6l4.6 8.2H1.4z"/><path d="M6 5v2" stroke-linecap="round"/></svg>',
+  chev: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4.5l3 3 3-3"/></svg>'};
+const kindName = k => (!k || k === "subagent") ? "Agent" : k === "general-purpose" ? "General" : k;
+const deep = a => (a.held || []).concat(...(a.children || []).map(deep));
+const RANK = {stop: 3, ask: 2, run: 1, done: 0};
+function stateOf(a) {
+  const h = deep(a);
+  if (h.some(x => x[1] === "block")) return ["stop", "Would block"];
+  if (h.some(x => x[1] === "ask")) return ["ask", "Would ask"];
+  if (a.live || (a.children || []).some(k => k.live)) return ["run", "Running"];
+  return ["done", "No match"];
+}
+// A card's pill: what this agent itself did, or "Via <subagent>" when the call was
+// one it started. The call is shown once, on the agent that made it.
+function pillOf(a) {
+  const own = a.held || [];
+  if (own.some(x => x[1] === "block")) return ["stop", `${own.length} ${own.length === 1 ? "match" : "matches"}`];
+  if (own.some(x => x[1] === "ask")) return ["ask", `${own.length} ${own.length === 1 ? "match" : "matches"}`];
+  const kid = (a.children || []).find(k => deep(k).length);
+  if (kid) return [stateOf(kid)[0] + " via", "Helper match"];
+  if (a.live || (a.children || []).some(k => k.live)) return ["run", "Running"];
+  return ["done", "No match"];
+}
+// No start or end in the log: say nothing rather than "<1m".
+const dur = a => !(a.start && a.end) ? "" : a.mins >= 60 ? Math.round(a.mins / 60) + "h" : (a.mins ? a.mins + "m" : "<1m");
+const dayOf = a => a.end ? new Date(a.end).toLocaleDateString(undefined, {day: "numeric", month: "short"}) : "";
+const when = k => { const d = new Date(k.slice(0, 10) + "T00:00:00"), h = +k.slice(11, 13);
+  return d.toLocaleDateString(undefined, {weekday: "short", day: "numeric", month: "short"}) + " · " + hr(h); };
+const cellOf = k => { const d = new Date(k.slice(0, 10) + "T00:00:00"); return [Math.round((d - day0) / 864e5), +k.slice(11, 13)]; };
+const isAway = h => { const [i, hh] = cellOf(h[0]); return !(D.Y[i] || [])[hh]; };
+function evidence(h, by) {
+  const e = el("div", "ev artifact-chip");
+  e.append(el("span", "ring " + (h[1] === "block" ? "vstop" : "vask")), el("code", "", targetOf(h)));
+  return e;
+}
+function card(a, kind, count) {
+  const c = el("div", "ag"); c.setAttribute("role", "listitem"); c.tabIndex = -1;
+  // On only when the hook will run: disableAllHooks turns it off however it is installed.
+  const [pill, label] = kind === "root" ? (D.hooks_off ? ["stop", "Rules disabled here"] : D.on ? ["on", "Rules on"] : ["off", "Rules off"]) : pillOf(a);
+  const st = kind === "root" ? pill : stateOf(a)[0];
+  c.dataset.st = st;
+  // A subagent with no type of its own goes by its model; its task sits under it.
+  const gen = kind === "sub" && kindName(a.kind) === "Agent";
+  const name = kind === "root" ? "This computer" : a.task || (kind === "sub" ? kindName(a.kind) : (a.project || (a.agent === "codex" ? "Codex" : "Claude Code")));
+  const held = kind === "root" ? [] : deep(a);
+  const opens = kind === "root" ? false : (held.length > 0 || !!(a.start && a.end));
+  if (opens) c.classList.add("can");
+  c.innerHTML = `<div class="ag-h"><span class="tile">${GLYPH[kind === "root" ? "home" : (a.agent === "codex" ? "codex" : "claude")]}</span>` +
+    `<div class="tt"><div class="ti"></div><div class="mo"></div></div><span class="st ${pill}">${ICON[pill.split(" ")[0]]}<span></span></span></div>` +
+    `<div class="task"></div><div class="evs"></div><div class="ft"><span class="mono"></span></div>`;
+  const ti = c.querySelector(".ti"), text = name + (count > 1 ? "  ×" + count : "");
+  if (opens) {
+    const b = el("button", "ob", text); b.type = "button"; b.setAttribute("aria-expanded", "false");
+    b.setAttribute("aria-label", [name, kind === "root" || gen ? "" : a.model, a.task !== name ? a.task : "", label].filter(Boolean).join(", "));
+    b.onclick = e => { e.stopPropagation(); toggleOpen(a, c, kind); };
+    ti.append(b);
+  } else ti.textContent = text;
+  c.querySelector(".mo").textContent = kind === "root" ? (D.on_scope === "global" ? "All Claude Code projects" : D.on_scope === "project" ? "Project: " + D.on_project : "") : [kind === "sub" ? kindName(a.kind) : a.project, kind === "sub" ? "" : (a.agent === "codex" ? "Codex" : "Claude Code"), a.model].filter(Boolean).join(" · ");
+  if (!c.querySelector(".mo").textContent) c.querySelector(".mo").remove();
+  c.querySelector(".st span").textContent = label;
+  const task = c.querySelector(".task");
+  if (kind === "root") { task.remove();
+    if (D.claude === false) c.querySelector(".evs").append(el("div", "ev-result", "Codex is report-only.")); }
+  else if (!a.task || a.task === name) task.remove();
+  else task.textContent = a.task;
+  const ft = c.querySelector(".ft span");
+  if (kind === "root") {
+    ft.append(el("b", "", fmt(D.checked_calls || 0)), " actions checked · ", el("b", "", fmt(D.sessions || AG.length)), " sessions");
+    c.classList.add("root");
+  } else {
+    const ownDay = (a.held || [])[0] ? dateOf(cellOf(a.held[0][0])[0]).toLocaleDateString(undefined, {day: "numeric", month: "short"}) : dayOf(a);
+    ft.append(el("b", "", fmt(a.calls)), " actions" + [kind === "session" ? ownDay : ""].filter(Boolean).map(x => " · " + x).join(""));
+    // the first thing it (or something it started) did that a rule would have met, on the card
+    // the call is shown once, on the agent that made it; a parent wears its subagents' state in the pill
+    const own = a.held || [];
+    if (own[0]) c.querySelector(".evs").append(evidence(own[0], ""));
+    if (own.length > 1) c.querySelector(".evs").append(el("div", "ev-more mono", "+" + (own.length - 1)));
+  }
+  if (opens) c.addEventListener("click", e => { if (!e.target.closest("button, input, details")) toggleOpen(a, c, kind); });
+  c.addEventListener("pointerenter", () => lightAgent(a));
+  c.addEventListener("pointerleave", () => lightAgent(null));
+  c.addEventListener("focusin", () => lightAgent(a));
+  c.addEventListener("focusout", e => { if (!c.contains(e.relatedTarget)) lightAgent(null); });
+  c._a = a;
+  return c;
+}
+// Identical runs side by side read as one card with a count.
+function merged(list) {
+  const out = [];
+  for (const k of list) {
+    const key = [k.kind, k.task, stateOf(k)[0], k.model].join("|");
+    const m = out.find(x => x.key === key && !deep(k).length);
+    if (m) m.n++; else out.push({key, a: k, n: 1});
+  }
+  return out;
+}
+const expandedHelpers = new Set();
+function column(a, kind = "session") {
+  const col = el("div", kind === "session" ? "tcol" : "branch"); col._a = a; col.setAttribute("role", "presentation"); const c = card(a, kind); c.setAttribute("role", "listitem"); col.append(c);
+  const kids = (a.children || []).filter(k => (!filter && !ruleOn) || passes(k)).map(a => ({a, n:1}));
+  if (kids.length) {
+    const sub = el("div", "sub"); sub.setAttribute("role", "list"); sub.id = "sub-" + Math.random().toString(36).slice(2, 9);
+    c.setAttribute("aria-owns", sub.id);
+    sub.setAttribute("aria-label", "Helpers started by " + (a.project || kindName(a.kind)));
+    sub.append(el("div", "sub-label", `Started ${kids.length} ${kids.length === 1 ? "helper" : "helpers"}`));
+    // the ones a rule met first; a run that fanned out to 200 shows 8 and the rest on request
+    kids.sort((x, y) => RANK[stateOf(y.a)[0]] - RANK[stateOf(x.a)[0]]);
+    const SHOW = expandedHelpers.has(a) ? kids.length : 8;
+    for (const k of kids.slice(0, SHOW)) sub.append(column(k.a, "sub"));
+    if (kids.length > SHOW) {
+      const more = el("button", "chipbtn", "+" + fmt(kids.length - SHOW)); more.type = "button";
+      more.setAttribute("aria-label", `Show ${kids.length - SHOW} more subagents of ${a.project || "this session"}`);
+      more.onclick = e => { e.stopPropagation(); expandedHelpers.add(a); more.remove();
+        const added = kids.slice(SHOW).map(k => column(k.a, "sub")); sub.append(...added); reveal(); wire();
+        (added[0].querySelector(".ob") || added[0]).focus(); };
+      sub.append(more);
+    }
+    const quiet = [...sub.children].filter(x => x.classList.contains("branch") && !deep(x._a).length);
+    const n = kids.filter(k => !deep(k.a).length).reduce((x, k) => x + k.n, 0), who = a.project || "this session";
+    if (n) {
+      const t = el("button", "kids"); t.type = "button"; t.setAttribute("aria-expanded", "true");
+      const named = open => t.setAttribute("aria-label", `${open ? "Hide" : "Show"} ${n} subagent${n === 1 ? "" : "s"} of ${who}`);
+      named(true);
+      t.innerHTML = `<span>${n} ${n === 1 ? "helper" : "helpers"}</span>` + ICON.chev;
+      t.onclick = e => { e.stopPropagation(); const open = t.getAttribute("aria-expanded") === "true";
+        t.setAttribute("aria-expanded", String(!open)); named(!open);
+        for (const x of quiet) x.hidden = open;
+        wire(); };
+      c.querySelector(".ft").append(t);
+    }
+    col.append(sub);
+  }
+  return col;
+}
+// Sessions where something would have been held come first: that is the news.
+// What is running now comes first, then what your rules would have met, then the rest.
+const isLive = a => !!(a.live || (a.children || []).some(k => k.live));
+const awayIn = a => deep(a).some(isAway);
+const ALL = AG.map((a, i) => [a, i]).sort((x, y) => (isLive(y[0]) - isLive(x[0])) ||
+  RANK[stateOf(y[0])[0]] - RANK[stateOf(x[0])[0]] || (awayIn(y[0]) - awayIn(x[0])) || x[1] - y[1]).map(x => x[0]);
+let filter = null, showAll = false, ruleOn = null;
+const passes = a => (!filter || (filter === "away" ? awayIn(a) : stateOf(a)[0] === filter)) && (!ruleOn || deep(a).some(h => h[2] === ruleOn));
+function showReceipt() {
+  const entry = selectedReceipt;
+  for (const node of document.querySelectorAll("#inspector > .inspect-source, #inspector > .inspect-arrow, #inspector > .inspect-artifact, #inspector > .inspect-verdict, #inspector > .inspect-outcome, #inspector > .inspect-evidence")) node.hidden = !entry;
+  $("event-title").textContent = entry ? "Selected attempt" : D.checked_calls ? "No rule matches" : "No actions checked yet";
+  $("event-position").textContent = entry ? `${receiptOptions.indexOf(entry) + 1} / ${receiptOptions.length}` : "";
+  for (const id of ["event-prev", "event-next"]) $(id).disabled = receiptOptions.length < 2;
+  for (const card of document.querySelectorAll("#trows .ag")) {
+    const chosen = !!entry && card._a === entry.a; card.classList.toggle("focused", chosen);
+    if (deep(card._a).length) { const b = card.querySelector(".ob"); b?.removeAttribute("aria-expanded"); b?.setAttribute("aria-pressed", String(chosen)); }
+  }
+  if (!entry) return;
+  const {a, h, root, parent} = entry, category = actionNames[h[2]]?.[0];
+  $("event-title").textContent = {"Private files":"File read attempt", "Code uploads":"Code upload attempt", "Email":"Email attempt", "Scheduled tasks":"Scheduled task attempt", "Admin access":"Administrator access attempt"}[category] || "Selected attempt";
+  $("event-glyph").innerHTML = GLYPH[a.agent === "codex" ? "codex" : "claude"];
+  $("event-agent").textContent = (a.agent === "codex" ? "Codex" : "Claude Code") + (parent ? " · helper" : "");
+  $("event-project").textContent = a.task || root.task || root.project || "Session";
+  $("event-action").textContent = "↓  " + ({"Private files":"tried to read", "Code uploads":"tried to upload", "Email":"tried to send", "Scheduled tasks":"tried to create", "Admin access":"tried to use"}[category] || "attempted");
+  $("event-target").textContent = targetOf(h);
+  $("event-result").textContent = h[1] === "block" ? "Would block" : "Would ask your permission";
+  $("event-verdict").classList.toggle("ask", h[1] !== "block");
+  $("event-rule").textContent = h[2];
+  $("event-command").textContent = h[3] || "Command not retained";
+  $("event-time").textContent = when(h[0]);
+  const result = h[4]?.status === "tool_succeeded" ? "Tool reported success" : h[4]?.status === "tool_failed" ? "Tool reported failure" : null;
+  $("event-outcome").textContent = result || "Outcome unknown";
+  $("event-result-note").textContent = result ? result + ". External outcome not verified." : "This report records the attempt. It does not include the tool result.";
+}
+function selectReceipt(entry) {
+  selectedReceipt = entry; selectedRoot = entry.root;
+  const card = [...document.querySelectorAll("#trows .ag")].find(c => c._a === entry.a && c.getBoundingClientRect().height);
+  if (card) showReceipt(); else {
+    const path = a => { if (a === entry.a || (a.children || []).some(path)) { expandedHelpers.add(a); return true; } return false; };
+    path(entry.root); buildTree();
+  }
+  lightAgent(entry.a);
+  $("live").textContent = [$("event-title").textContent, $("event-target").textContent, $("event-result").textContent, $("event-outcome").textContent].join(". ");
+  if (matchMedia("(max-width: 1199px)").matches) {
+    requestAnimationFrame(() => $("inspector").scrollIntoView({block:"start", behavior:matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth"}));
+  }
+}
+for (const [id, step] of [["event-prev", -1], ["event-next", 1]]) $(id).onclick = () => {
+  if (!receiptOptions.length) return;
+  selectReceipt(receiptOptions[(receiptOptions.indexOf(selectedReceipt) + step + receiptOptions.length) % receiptOptions.length]);
+};
+// The same breakpoint as the stylesheet: a phone gets one column.
+function perRow() { return matchMedia("(max-width: 620px)").matches ? 1 : Math.max(1, Math.min(4, Math.floor(($("tree").clientWidth - 54 + 18) / 266))); }
+function buildTree() {
+  closeOpen();
+  $("troot").replaceChildren(card({}, "root"));
+  const rows = $("trows"); rows.replaceChildren();
+  const list = ALL.filter(passes);
+  receiptOptions = receipts.filter(e => list.includes(e.root) && (!ruleOn || e.h[2] === ruleOn) && (!filter || (filter === "away" ? isAway(e.h) : (e.h[1] === "block") === (filter === "stop"))));
+  if (!receiptOptions.includes(selectedReceipt)) { selectedReceipt = receiptOptions[0] || null; selectedRoot = selectedReceipt?.root; }
+  if (selectedRoot && list.includes(selectedRoot)) { list.splice(list.indexOf(selectedRoot), 1); list.unshift(selectedRoot); }
+  const n = perRow(), flagged = list.filter(a => RANK[stateOf(a)[0]] >= 2 || isLive(a)).length;
+  // what your rules would have met is never behind "+N"
+  const first = n;
+  const shown = showAll ? list.length : Math.min(list.length, first);
+  const groupOf = a => isLive(a) ? "run" : stateOf(a)[0];
+  let row = null, rowGroup = null, inRow = 0, quiet = null;
+  for (const [ix, a] of list.slice(0, shown).entries()) {
+    const g = groupOf(a);
+    if (g === "done" && ix >= first && !(a.children || []).length) {
+      if (!quiet) { quiet = el("div", "quiet"); quiet.setAttribute("role", "list"); }
+      const q = el("div", "qrow"); q.setAttribute("role", "listitem");
+      const qt = el("span", "qt", a.project || "session"); if (a.model) qt.append(el("i", "", a.model));
+      const when = a.end || a.start;
+      q.append(qt, el("span", "qk", a.task || ""), el("span", "qm mono", fmt(a.calls || 0) + " calls" + (when ? " · " + short(new Date(when)) : "")));
+      quiet.append(q); continue;
+    }
+    if (!row || g !== rowGroup || inRow >= n) {
+      const first = g !== rowGroup;
+      row = el("div", "trow"); row.setAttribute("role", "presentation"); row.dataset.g = g;
+      if (first) { const k = list.slice(0, shown).filter(x => groupOf(x) === g).length;
+        row.dataset.label = ({stop: "Would block", ask: "Would ask permission", run: "Recent activity", done: "No rule match"}[g] || g);
+        const lab = el("div", "glab mono " + g, row.dataset.label); lab.setAttribute("aria-hidden", "true"); rows.append(lab); }
+      rows.append(row); rowGroup = g; inRow = 0;
+    }
+    row.append(column(a)); inRow++;
+  }
+  if (quiet) rows.append(quiet);
+  const left = list.length - shown;
+  const older = !filter && !ruleOn ? Math.max(0, (D.sessions || 0) - AG.length) : 0;
+  const fewer = showAll && !filter && !ruleOn && list.length > first;
+  $("tmore").hidden = left <= 0 && !older && !fewer;
+  $("tmore-b").hidden = left <= 0 && !fewer; $("tmore-b").textContent = left > 0 ? "Show " + fmt(left) + " more sessions" : "Show fewer";
+  $("tmore-b").setAttribute("aria-label", left > 0 ? `Show ${left} more sessions` : "Show fewer sessions");
+  $("tmore-o").hidden = left > 0 || !older;
+  $("tmore-o").textContent = older ? fmt(older) + " older " + (older === 1 ? "session" : "sessions") + " not shown" : "";
+  for (const r of document.querySelectorAll(".rule")) r.classList.toggle("out",
+    (filter === "stop" && r.dataset.v !== "block") || (filter === "ask" && r.dataset.v !== "ask"));
+  { const gr = $("g-rule"), what = ruleOn || ({away: "without a prompt that hour", stop: "would stop", ask: "would ask"}[filter] || "");
+    gr.hidden = !what; gr.querySelector("span").textContent = what; gr.setAttribute("aria-label", what ? "Clear filter: " + what : "Clear filter"); }
+  recount(list);
+  reveal(); wire(true);
+  showReceipt();
+  try { render(drawn, null); } catch (e) { /* the picture is drawn after the tree on first load */ }
+  if (filter || ruleOn) $("live").textContent = `${fmt(list.length)} ${list.length === 1 ? "session" : "sessions"} shown`;
+  return shown;
+}
+$("tmore-b").onclick = () => {
+  if ($("tmore-b").textContent === "Show fewer") { showAll = false; buildTree(); $("tree").scrollIntoView({block: "start"}); $("tmore-b").focus({preventScroll: true}); return; }
+  const y = scrollY, before = document.querySelectorAll("#trows > .trow > .tcol").length;
+  showAll = true; buildTree(); scrollTo(0, y);
+  const first = document.querySelectorAll("#trows > .trow > .tcol")[before]?.firstChild;
+  if (first) { (first.querySelector(".ob") || first).focus({preventScroll: true}); }
+};
+function reveal() {
+  const fresh = [...document.querySelectorAll(".ag:not(.in)")];
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.classList.contains("still");
+  const step = Math.min(30, 600 / Math.max(1, fresh.length));
+  fresh.forEach((c, k) => still ? c.classList.add("in") : setTimeout(() => c.classList.add("in"), step * k));
+}
+// The wires sit under the cards: a dot under each parent, a bus to the row,
+// rounded elbows into each child; on a phone, only the spines to subagents.
+function wire(grow) {
+  const tree = $("tree"); tree.querySelector("svg.wires")?.remove();
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.classList.contains("still");
+  const box = tree.getBoundingClientRect(), sx = tree.scrollLeft;
+  const pos = e => { const r = e.getBoundingClientRect(); return {l: r.left - box.left + sx, t: r.top - box.top, w: r.width, h: r.height}; };
+  const NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("class", "wires"); svg.setAttribute("width", tree.scrollWidth); svg.setAttribute("height", tree.scrollHeight);
+  const path = (d, hot) => { const p = document.createElementNS(NS, "path"); p.setAttribute("d", d); p.setAttribute("fill", "none");
+    p.setAttribute("stroke", hot === "stop" ? "#c4583f" : hot === "ask" ? "#b98232" : "#45464d"); p.setAttribute("stroke-width", hot ? "1.8" : "1.4");
+    if (grow && !calm) { p.setAttribute("pathLength", "1"); p.style.strokeDasharray = "1"; p.style.strokeDashoffset = "1"; p.classList.add("draw");
+      requestAnimationFrame(() => requestAnimationFrame(() => { p.style.strokeDashoffset = "0"; })); }
+    svg.append(p); };
+  const dot = (x, y) => { const c = document.createElementNS(NS, "circle"); c.setAttribute("cx", x); c.setAttribute("cy", y);
+    c.setAttribute("r", 4); c.setAttribute("fill", "#17181b"); c.setAttribute("stroke", "#5a5b63"); c.setAttribute("stroke-width", "1.4"); svg.append(c); };
+  const rootC = $("troot").firstChild; if (!rootC) return;
+  const narrow = matchMedia("(max-width: 620px)").matches;
+  const R = pos(rootC), rx = R.l + R.w / 2, ry = R.t + R.h;
+  if (!narrow) {
+    // the trunk runs down a gutter left of the cards; each row hangs off it, named where its group starts
+    const rowsEl = [...document.querySelectorAll("#trows .trow")].filter(r => r.children.length);
+    const lone = rowsEl.length === 1 && rowsEl[0].children.length === 1 ? rowsEl[0].firstChild.firstChild : null;
+    if (lone) {
+      const t = pos(lone), cx = t.l + t.w / 2;
+      path(`M${rx} ${ry} V${t.t - 22} H${cx} V${t.t}`, RANK[lone.dataset.st] >= 2 ? lone.dataset.st : null); dot(rx, ry);
+    } else if (rowsEl.length) {
+      const gx = Math.min(...rowsEl.map(r => pos(r.firstChild.firstChild).l)) - 16, r = 8;
+      let lastBy = ry;
+      rowsEl.forEach(row => {
+        const cards = [...row.children].map(col => col.firstChild), tops = cards.map(pos), by = tops[0].t - 22;
+        const far = Math.max(...tops.map(t => t.l + t.w / 2));
+        path(`M${gx} ${by - r} Q${gx} ${by} ${gx + r} ${by} H${far}`);
+        tops.forEach((t, k) => path(`M${t.l + t.w / 2} ${by} V${t.t}`, RANK[cards[k].dataset.st] >= 2 ? cards[k].dataset.st : null));
+        if (row.dataset.label) {
+          const tx = document.createElementNS(NS, "text"); tx.setAttribute("x", gx + 12); tx.setAttribute("y", by + 15);
+          tx.setAttribute("class", "glabel " + row.dataset.g); tx.textContent = row.dataset.label; svg.append(tx);
+        }
+        lastBy = by;
+      });
+      path(`M${rx} ${ry} V${ry + 14} H${gx + r} Q${gx} ${ry + 14} ${gx} ${ry + 14 + r} V${lastBy - r}`);
+      dot(rx, ry);
+    }
+  }
+  document.querySelectorAll("#trows .tcol, #trows .branch").forEach(col => {
+    const sub = col.querySelector(":scope > .sub"); if (!sub || sub.hidden || !col.getBoundingClientRect().height) return;
+    const P = pos(col.firstChild), x = P.l + 26, top = P.t + P.h;
+    const kids = [...sub.children].filter(k => k.classList.contains("branch") && !k.hidden).map(k => k.firstChild);
+    if (!kids.length) return;
+    const ks = kids.map(k => { const K = pos(k); return {y: K.t + Math.min(22, K.h / 2), l: K.l, st: k.dataset.st}; });
+    path(`M${x} ${top} V${ks[ks.length - 1].y - 8}`);
+    ks.forEach(k => path(`M${x} ${k.y - 8} Q${x} ${k.y} ${x + 8} ${k.y} H${k.l}`, RANK[k.st] >= 2 ? k.st : null));
+    dot(x, top);
+  });
+  tree.prepend(svg);
+}
+// A card opens in place: every moment it would have held, with when.
+let openCard = null, openFrom = null;
+function closeOpen(back) {
+  if (!openCard) return;
+  openCard.querySelector(".all")?.remove(); openCard.classList.remove("open");
+  const c = openCard; openCard = null; lightAgent(null); wire();
+  const b = c.querySelector(".ob"); if (b) b.setAttribute("aria-expanded", "false");
+  if (back && openFrom === "stage") $("stage").focus();
+  else if (back && b) b.focus();
+  openFrom = null;
+}
+function toggleOpen(a, c, kind) {
+  const matched = receipts.find(e => deep(a).includes(e.h) && receiptOptions.includes(e));
+  if (matched) { selectReceipt(matched); return; }
+  if (openCard === c) { closeOpen(true); return; }
+  closeOpen();
+  const held = kind === "root" ? [] : (a.held || []);
+  const box = el("div", "all");
+  if (kind === "root") {
+    box.append(cmdChip());
+  } else if (held.length) {
+    for (const h of held.slice(0, 12)) {
+      const row = evidence(h, ""); row.append(el("div", "ev-t mono", when(h[0]))); box.append(row);
+    }
+    if (held.length > 12) box.append(el("div", "ev-more mono", "+" + (held.length - 12)));
+    // the hook goes into Claude Code; a Codex session is read, not gated
+
+  } else if (a.start && a.end) {
+    // nothing held: when it ran, and its hours lit in the picture
+    const f = new Date(a.start), t = new Date(a.end);
+    const day = d => d.toLocaleDateString(undefined, {weekday: "short", day: "numeric", month: "short"});
+    const tm = d => (d.getHours() % 12 || 12) + ":" + String(d.getMinutes()).padStart(2, "0") + (d.getHours() < 12 ? "am" : "pm");
+    const nb = x => x.replace(/ /g, "\u00a0");
+    const span = nb(day(f) + " · " + tm(f)) + " → " + nb((day(t) === day(f) ? "" : day(t) + " · ") + tm(t));
+    box.append(el("div", "ev-t mono", span));
+  } else {
+    return;
+  }
+  c.insertBefore(box, c.querySelector(".ft")); c.classList.add("open"); openCard = c;   // same order, open or shut
+  c.querySelector(".ob")?.setAttribute("aria-expanded", "true");
+  lightAgent(a); wire();
+}
+addEventListener("keydown", e => {
+  if (e.key !== "Escape" || $("setup-dialog").open) return;
+  if (openCard) closeOpen(true);
+  else if (ruleOn) { const t = ruleOn; setRule(null); document.querySelector(`.rule[data-r="${CSS.escape(t)}"]`)?.focus(); }
+  else if (filter) { const was = filter; filter = null; showAll = false;
+    for (const x of ["g-stop", "g-ask", "away-fact"]) $(x).setAttribute("aria-pressed", "false");
+    buildTree(); ({stop: $("g-stop"), ask: $("g-ask"), away: $("away-fact")})[was]?.focus(); }
+});
+// The one action: a command you paste. Its state changes where you clicked it.
+function cmdChip() {
+  const b = el("button", "go", D.on && !D.hooks_off ? "Manage rules" : "Turn rules on");
+  b.type = "button"; b.id = "setup-open"; b.setAttribute("aria-haspopup", "dialog");
+  b.onclick = e => { e.stopPropagation(); $("setup-dialog").showModal(); };
+  return b;
+}
+// One rule at a time narrows the tree and lights its moments in the picture; the header shows it and clears it.
+function setRule(t) {
+  ruleOn = t; showAll = !!t;
+  if (t && filter) {
+    const v = (RL.find(r => r.t === t) || {}).v;
+    if ((filter === "stop" && v !== "block") || (filter === "ask" && v !== "ask") ||
+        (filter === "away" && !ALL.some(a => awayIn(a) && deep(a).some(h => h[2] === t)))) {
+      filter = null; for (const x of ["g-stop", "g-ask", "away-fact"]) $(x).setAttribute("aria-pressed", "false");
+    }
+  }
+  for (const x of document.querySelectorAll(".rule[aria-pressed]")) x.setAttribute("aria-pressed", String(x.dataset.r === t));
+  light(t, null); buildTree();
+}
+$("away-fact").onclick = () => { filter = filter === "away" ? null : "away"; showAll = filter !== null;
+  $("away-fact").setAttribute("aria-pressed", String(filter === "away"));
+  for (const x of ["g-stop", "g-ask"]) $(x).setAttribute("aria-pressed", "false");
+  buildTree(); $("tree").scrollIntoView({block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); };
+$("g-rule").onclick = () => {
+  if (ruleOn) { const t = ruleOn; setRule(null); document.querySelector(`.rule[data-r="${CSS.escape(t)}"]`)?.focus(); return; }
+  if (filter) { const b = ({away: $("away-fact"), stop: $("g-stop"), ask: $("g-ask")})[filter]; b.click(); b.focus(); } };
+// The header counts what the tree shows: under a filter, the filtered cards.
+function recount(list) {
+  for (const [id, n, label] of [["g-stop", D.stop_past || 0, "actions would be blocked"], ["g-ask", D.ask_past || 0, "actions would need permission"]]) {
+    const b = $(id); b.hidden = !n; b.querySelector("b").textContent = fmt(n);
+    b.setAttribute("aria-label", `${fmt(n)} past ${label}`);
+  }
+}
+// The header's flags filter the tree to what they count.
+(function header() {
+  // Global action totals stay fixed while filters select their source sessions.
+  const every = []; const walk = a => { every.push(a); (a.children || []).forEach(walk); }; AG.forEach(walk);
+  const own = (a, v) => (a.held || []).some(h => h[1] === v);
+  const stop = D.stop_past || 0, ask = D.ask_past || 0;
+  const chip = (id, n, st) => {
+    const b = $(id); if (!n) return; b.hidden = false; b.querySelector("b").textContent = fmt(n);
+    b.setAttribute("aria-label", `${fmt(n)} agents ${st === "stop" ? "would stop" : "would ask"}`);
+    b.onclick = () => { filter = filter === st ? null : st; showAll = filter !== null;
+      if (filter && ruleOn && !ALL.some(a => stateOf(a)[0] === filter && deep(a).some(h => h[2] === ruleOn))) setRule(null);
+      for (const x of ["g-stop", "g-ask"]) $(x).setAttribute("aria-pressed", String(filter === (x === "g-stop" ? "stop" : "ask")));
+      $("away-fact").setAttribute("aria-pressed", "false");
+      buildTree(); };
+  };
+  chip("g-stop", stop, "stop"); chip("g-ask", ask, "ask");
+
+})();
+// A card and the picture point at the same moments.
+let litCells = null, litSpan = false;
+// The hours a session ran, as cells of the picture: where it sits in your days.
+function spanCells(a) {
+  const out = new Set();
+  if (!a || !a.start || !a.end) return out;
+  const s = new Date(a.start), e = new Date(a.end);
+  if (isNaN(s) || isNaN(e)) return out;
+  for (let t = new Date(s.getFullYear(), s.getMonth(), s.getDate(), s.getHours()), k = 0; t <= e && k < 240; t = new Date(t.getTime() + 36e5), k++) {
+    const i = Math.round((new Date(t.getFullYear(), t.getMonth(), t.getDate()) - day0) / 864e5);
+    out.add(i + "," + t.getHours());
+  }
+  return out;
+}
+function lightAgent(a) {
+  const held = a ? deep(a) : [];
+  const names = new Set(held.map(h => h[2]));
+  for (const r of document.querySelectorAll(".rule")) r.classList.toggle("on", names.has(r.dataset.r) || (ruleOn === r.dataset.r));
+  litSpan = !!a && !held.length;
+  litCells = a ? (held.length ? new Set(held.map(h => cellOf(h[0]).join(","))) : spanCells(a)) : null;
+  if (litCells && !litCells.size) litCells = null;
+  render(drawn, null);
+}
+const RL = D.rules || [];
+if (RL.length) {
+  const box = $("rules"); box.hidden = false;
+  box.append(el("span", "filter-label", D.yours ? "Your rules · attempts" : "Starter rules · attempts"));
+  box.setAttribute("aria-label", D.yours ? "Your rules" : "Starter rules");
+  box.title = D.yours ? "~/.kyma/RULES.md" : "Starter rules; kyma on writes them to ~/.kyma/RULES.md";
+  const SHOWN = 10, extra = [];
+  for (const [ri, r] of [...RL].sort((x, y) => y.n - x.n).entries()) {
+    const row = el(r.n ? "button" : "div", "rule" + (r.n ? "" : " zero")); row.dataset.r = r.t;
+    if (ri >= SHOWN) { row.hidden = true; extra.push(row); }
+    if (r.n) { row.type = "button"; row.setAttribute("aria-pressed", "false");
+      row.setAttribute("aria-label", `${actionNames[r.t]?.[0] || r.t}: ${fmt(r.n)} past ${r.n === 1 ? "attempt" : "attempts"}, would ${r.v === "block" ? "block" : "ask permission"}`);
+      row.onclick = () => setRule(ruleOn === r.t ? null : r.t); }
+    const g = el("span", r.ok ? "ring " + (r.v === "block" ? "vstop" : r.v === "ask" ? "vask" : "") : ""); if (!r.ok) g.style.cssText = "width:9px;height:9px";
+    row.dataset.v = r.v;
+    const t = el("span", "txt", actionNames[r.t]?.[0] || r.t); if (r.w) row.title = r.w;
+    if (!r.ok) t.append(el("span", "pill", "not understood"));
+    row.append(g, t, el("span", "n mono", r.ok ? fmt(r.n) : "–"));
+    if (r.live) row.append(el("span", "live-n mono", `${fmt(r.live)} ${r.v === "block" ? "stopped" : "asked"}`));
+    if (r.ok && !r.w) row.title = `${fmt(r.n)} ${r.n === 1 ? "call" : "calls"} would ${r.v === "block" ? "stop" : "ask"} in the replay` +
+      (r.live ? ` · ${fmt(r.live)} ${r.v === "block" ? "stopped" : "asked"} by the live hook` : "");
+    box.append(row);
+    const dim = on => document.querySelectorAll("#trows .ag").forEach(c => c.classList.toggle("dim", on && !deep(c._a).some(h => h[2] === r.t)));
+    row.addEventListener("pointerenter", () => { light(r.t, null); dim(r.n > 0); }); row.addEventListener("pointerleave", () => { light(ruleOn, null); dim(false); });
+    row.addEventListener("focus", () => { light(r.t, null); dim(r.n > 0); }); row.addEventListener("blur", () => { light(ruleOn, null); dim(false); });
+  }
+  if (extra.length) {
+    const more = el("button", "rule zero", "+" + fmt(extra.length)); more.type = "button";
+    more.setAttribute("aria-expanded", "false"); more.setAttribute("aria-label", `${fmt(extra.length)} more rules`);
+    more.onclick = () => { const open = more.getAttribute("aria-expanded") !== "true";
+      extra.forEach(x => { x.hidden = !open; }); more.setAttribute("aria-expanded", String(open));
+      more.textContent = open ? "Show fewer" : "+" + fmt(extra.length); box.append(more); };
+    more.style.cursor = "pointer"; box.append(more);
+  }
+}
+let peak = 1; for (const r of D.A) for (const v of r) if (v > peak) peak = v;
+const LT = Math.log1p(peak);
+const cv = $("c"), ctx = cv.getContext("2d");
+const field = document.createElement("canvas"), fx = field.getContext("2d");
+let W, H, L = 38, R = 4, T = 22, B = 24, cw, rh, dpr, FS = 10;
+function layout() {
+  if (!$("activity").open) return;
+  dpr = Math.min(2, window.devicePixelRatio || 1);
+  // A phone gets a picture it can pan, not one squeezed into dust.
+  const avail = $("stage").clientWidth - 2 * parseFloat(getComputedStyle($("stage")).paddingLeft);
+  // beside the tree the picture fits its column and stands taller; alone, a phone pans it
+  const side = matchMedia("(min-width: 1200px)").matches;
+  W = side ? avail : Math.max(avail, Math.min(D.days * (avail < 620 ? 2.5 : 6) + L + R, 720));
+  cv.style.width = W + "px";
+  // beside the tree the picture fills the column down to the window's foot, on the first screen and once it sticks
+  const above = side ? Math.max(0, $("stage").getBoundingClientRect().top) : 0;
+  H = Math.round(side ? Math.max(380, Math.min(980, innerHeight - above - 24)) : Math.max(300, Math.min(520, avail * (avail < 620 ? .95 : .42))));
+  cv.style.height = H + "px";
+  for (const c of [cv, field]) { c.width = W * dpr; c.height = H * dpr; }
+  for (const x of [ctx, fx]) x.setTransform(dpr, 0, 0, dpr, 0, 0);
+  cw = (W - L - R) / D.days; rh = (H - T - B) / 24;
+  $("stage").scrollLeft = $("stage").scrollWidth;      // a narrow screen opens on today, and pans back
+  const yax = $("yax"); yax.replaceChildren();
+  if (W > avail + 1) for (const [h, t] of [[0, "6am"], [6, "12pm"], [12, "6pm"], [18, "12am"]]) {
+    const s = el("span", "", t); s.style.top = (T + h * rh + rh / 2) + "px"; yax.append(s); }
+}
+const row = h => (h + 18) % 24;      // 6am at the top; the night is one band below the day
+const X = i => L + (i + .5) * cw, Y = h => T + (row(h) + .5) * rh;
+function chipAt(g, x, y, text, bg, fg, align) {
+  g.font = FS + "px ui-monospace,Menlo,monospace";
+  const w = g.measureText(text).width + 10, h = FS + 8;
+  let x0 = align === "right" ? x - w : x - w / 2; x0 = Math.max(L, Math.min(W - R - w, x0));
+  g.fillStyle = bg; g.beginPath(); g.roundRect ? g.roundRect(x0, y - h / 2, w, h, 4) : g.rect(x0, y - h / 2, w, h); g.fill();
+  g.fillStyle = fg; g.textBaseline = "middle"; g.fillText(text, x0 + 5, y + .5); g.textBaseline = "alphabetic";
+}
+function frame(g, under) {
+  if (under) { g.fillStyle = under; g.fillRect(0, 0, W, H); } else g.clearRect(0, 0, W, H);
+  g.font = FS + "px ui-monospace,Menlo,monospace"; g.textBaseline = "middle";
+  [[0, "6am"], [6, "12pm"], [12, "6pm"], [18, "12am"]].forEach(([h, t]) => {
+    g.fillStyle = "#26262a"; g.fillRect(L, T + h * rh, W - L - R, 1);
+    g.fillStyle = "#838385"; g.fillText(t, 0, T + h * rh + rh / 2);
+  });
+  g.textBaseline = "alphabetic";
+  const years = dateOf(0).getFullYear() !== dateOf(D.days - 1).getFullYear();
+  const months = D.days > 45;
+  g.font = FS + "px ui-monospace,Menlo,monospace";
+  let last = -1e9; const stop = W - R - g.measureText("today").width - 18;
+  for (let i = 0; i < D.days; i++) {
+    const d = dateOf(i);
+    const tick = months ? (d.getDate() === 1 || i === 0) : (d.getDay() === 1 || i === 0);
+    if (!tick) continue;
+    const x = L + i * cw;
+    const t = months ? d.toLocaleDateString(undefined, years && (d.getMonth() === 0 || i === 0) ? {month: "short", year: "numeric"} : {month: "short"})
+                     : d.toLocaleDateString(undefined, {day: "numeric", month: "short"});
+    const tw = g.measureText(t).width;
+    if (x - last > tw + FS && x + tw <= stop) { g.fillStyle = "#838385"; g.fillText(t, x, H - 6); last = x; }
+  }
+  chipAt(g, W - R, H - 6 - FS / 2 + 1, "today", "#153253", "#74b6f9", "right");
+}
+function dots(g, i, glow) {
+  const base = Math.min(cw, rh);
+  for (let h = 0; h < 24; h++) {
+    const a = D.A[i][h], y = D.Y[i][h];
+    if (a && !y) {
+      const v = Math.log1p(a) / LT;
+      g.shadowColor = "rgba(80,143,219,.9)"; g.shadowBlur = 3 + 7 * v;
+      g.fillStyle = `rgba(116,182,249,${(.28 + .72 * v) * glow})`;
+      g.beginPath(); g.arc(X(i), Y(h), Math.max(.8, base * (.16 + .30 * v)), 0, 7); g.fill();
+    }
+    if (y) {
+      const v = a ? Math.log1p(a) / LT : .3;
+      g.shadowColor = "rgba(255,160,70,.95)"; g.shadowBlur = 6 + 8 * v;
+      g.fillStyle = `rgba(255,184,110,${.95 * glow})`;
+      g.beginPath(); g.arc(X(i), Y(h), Math.max(1, base * (.22 + .22 * v)), 0, 7); g.fill();
+    }
+  }
+  for (let h = 0; h < 24; h++) {
+    const m = markAt[i * 24 + h]; if (!m) continue;
+    const rr = Math.max(2.8, base * .62);
+    g.shadowBlur = 0; g.fillStyle = "#141416"; g.beginPath(); g.arc(X(i), Y(h), rr + 1.2, 0, 7); g.fill();
+    g.shadowColor = "rgba(255,111,145,1)"; g.shadowBlur = m.live ? 14 : 8;
+    g.beginPath(); g.arc(X(i), Y(h), rr, 0, 7);
+    if (m.live) { g.fillStyle = "rgba(255,120,150,1)"; g.fill(); }
+    else { g.strokeStyle = "rgba(255,130,160,1)"; g.lineWidth = 2; g.stroke(); }
+  }
+  g.shadowBlur = 0;
+}
+let raf = 0, drawn = 0;
+function render(upto, sweep) {
+  if (!W || !H) return;
+  ctx.clearRect(0, 0, W, H);
+  ctx.drawImage(field, 0, 0, W, H);
+  if (sweep != null) {
+    const x = L + sweep * cw;
+    const grd = ctx.createLinearGradient(x - 60, 0, x, 0);
+    grd.addColorStop(0, "rgba(116,182,249,0)"); grd.addColorStop(1, "rgba(116,182,249,.10)");
+    ctx.fillStyle = grd; ctx.fillRect(x - 60, T, 60, H - T - B);
+    ctx.fillStyle = "rgba(116,182,249,.7)"; ctx.fillRect(x, T, 1, H - T - B);
+    chipAt(ctx, x, T / 2, short(dateOf(Math.min(D.days - 1, sweep))), "#153253", "#74b6f9");
+  }
+  if (filter && !lit && !litCells) {
+    // the header's filter: its marks stay, the rest step back
+    ctx.save(); ctx.fillStyle = "rgba(23,24,28,.55)"; ctx.fillRect(L, T, W - L - R, H - T - B);
+    ctx.strokeStyle = filter === "stop" ? "rgba(240,122,94,1)" : filter === "ask" ? "rgba(240,168,69,1)" : "rgba(183,156,255,1)"; ctx.lineWidth = 2;
+    for (const m of M) if (filter === "away" ? !m.live && !(D.Y[m.i] || [])[m.h] : (m.v === "block") === (filter === "stop")) {
+      ctx.beginPath(); ctx.arc(X(m.i), Y(m.h), Math.max(4, Math.min(cw, rh) * .7), 0, 7); ctx.stroke(); }
+    ctx.restore();
+  }
+  if (litCells && !lit) {
+    // A card's moments in the picture: the rest steps back.
+    ctx.save(); ctx.fillStyle = "rgba(23,24,28,.55)"; ctx.fillRect(L, T, W - L - R, H - T - B);
+    ctx.shadowColor = litSpan ? "rgba(116,182,249,1)" : "rgba(255,111,145,1)"; ctx.shadowBlur = 14;
+    ctx.strokeStyle = litSpan ? "rgba(150,200,250,1)" : "rgba(255,150,175,1)"; ctx.lineWidth = 2.2;
+    for (const k of litCells) { const [i, h] = k.split(",").map(Number);
+      if (i >= 0 && i < D.days) { ctx.beginPath(); ctx.arc(X(i), Y(h), Math.max(4, Math.min(cw, rh) * .75), 0, 7); ctx.stroke(); } }
+    ctx.restore();
+  }
+  if (lit) {
+    // What a rule holds lights up; everything else steps back.
+    ctx.save(); ctx.fillStyle = "rgba(27,27,30,.55)"; ctx.fillRect(L, T, W - L - R, H - T - B);
+    ctx.shadowColor = "rgba(255,111,145,1)"; ctx.shadowBlur = 14;
+    ctx.strokeStyle = "rgba(255,150,175,1)"; ctx.lineWidth = 2.2;
+    for (const m of M) if (m.r === lit && (!one || (m.i === one.i && m.h === one.h))) {
+      ctx.beginPath(); ctx.arc(X(m.i), Y(m.h), Math.max(4, Math.min(cw, rh) * .75), 0, 7); ctx.stroke(); }
+    ctx.restore();
+    if (one) chipAt(ctx, X(one.i), T / 2, at(one.i, one.h), "#3a1c26", "#ff9cb4");
+  }
+}
+function play() {
+  cancelAnimationFrame(raf); layout(); frame(fx); drawn = 0;
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches || location.hash.includes("still");
+  if (still) { for (let i = 0; i < D.days; i++) dots(fx, i, 1); drawn = D.days; render(D.days, null); return; }
+  const dur = Math.min(9000, Math.max(3000, D.days * 28)); const t0 = performance.now();
+  const ease = t => 1 - Math.pow(1 - t, 2.2);
+  const tick = now => {
+    const p = Math.min(1, (now - t0) / dur), upto = Math.floor(ease(p) * D.days);
+    while (drawn < upto) dots(fx, drawn++, 1);
+    render(upto, p < 1 ? upto : null);
+    if (p < 1) raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
+}
+const tip = $("tip");
+function tipAt(e) {
+  if (drawn < D.days) return;
+  const bb = cv.getBoundingClientRect(), x = e.clientX - bb.left, y = e.clientY - bb.top;
+  const i = Math.floor((x - L) / cw), r = Math.floor((y - T) / rh), h = (r + 6) % 24;
+  if (i < 0 || i >= D.days || r < 0 || r > 23) { tip.style.opacity = 0; return; }
+  const a = D.A[i][h], yy = D.Y[i][h], m = markAt[i * 24 + h];
+  tip.replaceChildren();
+  const t = el("div", "t");
+  if (a || yy) { const d = el("span", "dot"); d.style.background = yy ? "var(--you)" : "var(--agent)"; t.append(d); }
+  t.append(at(i, h) + (a ? " · " + fmt(a) + (a === 1 ? " call" : " calls") : ""));
+  tip.append(t);
+  if (m) { const rr = el("div", "r"); rr.append(el("span", "ring" + (m.live ? " live" : m.v === "block" ? " vstop" : " vask")), el("span", "", m.r)); tip.append(rr, el("div", "c", m.c)); }
+  for (const r of document.querySelectorAll(".rule")) r.classList.toggle("on", !!m && r.dataset.r === m.r || ruleOn === r.dataset.r);
+  for (const c of document.querySelectorAll("#trows .ag")) c.classList.toggle("hit", !!m && (c._a.held || []).some(x => cellOf(x[0]).join(",") === i + "," + h));
+  tip.style.left = "0px"; tip.style.top = (y + parseFloat(getComputedStyle($("stage")).paddingTop)) + "px"; tip.style.opacity = 1;
+  const tw = tip.offsetWidth, sw = $("stage").clientWidth;
+  tip.style.left = Math.max(0, Math.min(sw - tw, x + 14 - tw / 2 - $("stage").scrollLeft)) + "px";
+}
+cv.addEventListener("pointermove", tipAt);
+cv.addEventListener("pointerdown", tipAt);
+{ let k = -1;
+  const held = () => (D.marks || []).slice().sort((a, b) => a.i - b.i || a.h - b.h);
+  const at = m => { const bb = cv.getBoundingClientRect(), r = (m.h - 6 + 24) % 24;
+    return {clientX: bb.left + L + (m.i + .5) * cw, clientY: bb.top + T + (r + .5) * rh}; };
+  $("stage").addEventListener("keydown", e => {
+    const ms = held(); if (!ms.length || drawn < D.days) return;
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      e.preventDefault(); k = (k + (e.key === "ArrowRight" ? 1 : ms.length - 1)) % ms.length;
+      const p = at(ms[k]); const x = p.clientX - cv.getBoundingClientRect().left;
+      $("stage").scrollLeft = Math.max(0, x - $("stage").clientWidth / 2);
+      tipAt(at(ms[k])); $("live").textContent = tip.innerText.replace(/\n/g, ", ");
+    } else if (e.key === "Enter" && k >= 0) { e.preventDefault(); openMark(ms[k]); }
+    else if (e.key === "Escape") { tip.style.opacity = 0; }
+  });
+  $("stage").addEventListener("blur", () => { tip.style.opacity = 0; });
+}
+cv.addEventListener("pointerleave", () => { tip.style.opacity = 0;
+  for (const c of document.querySelectorAll("#trows .ag.hit")) c.classList.remove("hit");
+  for (const r of document.querySelectorAll(".rule")) r.classList.toggle("on", ruleOn === r.dataset.r); });
+function openMark(m) {
+  const id = m.result?.call_id;
+  const matches = receipts.filter(e => id ? e.h[4]?.call_id === id : cellOf(e.h[0]).join(",") === m.i + "," + m.h && e.h[1] === m.v && e.h[2] === m.r && e.h[3] === m.c);
+  if (matches.length !== 1) return;
+  const entry = matches[0];
+  if (filter || ruleOn) { filter = null; setRule(null); }
+  selectReceipt(entry);
+  const c = [...document.querySelectorAll("#trows .ag")].find(x => x._a === entry.a);
+  if (!c) return;
+  if (matchMedia("(min-width: 1200px)").matches) c.scrollIntoView({block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth"});
+  (c.querySelector(".ob") || c).focus({preventScroll: true});
+}
+cv.addEventListener("click", e => {
+  if (drawn < D.days) return;
+  const bb = cv.getBoundingClientRect(), i = Math.floor((e.clientX - bb.left - L) / cw), r = Math.floor((e.clientY - bb.top - T) / rh);
+  const h = (r + 6) % 24, m = markAt[i * 24 + h]; if (m) openMark(m);
+});
+$("replay").onclick = play;          // it sits beside the picture it replays
+$("save").onclick = () => {
+  if (!confirm("Save an image of your activity dates and hours? Keep it private if you do not want to share your work patterns.")) return;
+  // Drawn from the data, not copied off the screen: the same card from any
+  // window, mid-replay or not, crisp at 2x, labels sized for a feed.
+  const S = 2, w = 1600, h = 900, out = document.createElement("canvas"); out.width = w * S; out.height = h * S;
+  const g = out.getContext("2d"); g.setTransform(S, 0, 0, S, 0, 0);
+  g.fillStyle = "#161618"; g.fillRect(0, 0, w, h);
+  g.fillStyle = "#1b1b1e"; g.strokeStyle = "#2a2a2c"; g.lineWidth = 2;
+  g.beginPath(); g.roundRect ? g.roundRect(40, 40, w - 80, h - 80, 22) : g.rect(40, 40, w - 80, h - 80); g.fill(); g.stroke();
+  const keep = [W, H, L, R, T, B, cw, rh, FS];
+  W = w - 160; H = 600; L = 80; R = 0; T = 0; B = 44; FS = 19;
+  cw = (W - L - R) / D.days; rh = (H - T - B) / 24;
+  g.save(); g.translate(80, 180); frame(g, "#1b1b1e"); for (let i = 0; i < D.days; i++) dots(g, i, 1); g.restore();
+  [W, H, L, R, T, B, cw, rh, FS] = keep;
+  g.textBaseline = "alphabetic"; g.font = "600 30px -apple-system,Segoe UI,Helvetica,sans-serif"; g.fillStyle = "#fff";
+  g.fillText("kyma", 116, 112); g.fillStyle = "#74b6f9"; g.beginPath(); g.arc(96, 102, 7, 0, 7); g.fill();
+  let x = 220, fs = 26;
+  const facts = [[fmt(D.actions), "tool calls", null], [fmt(D.together), "clock h with prompts", "#ffb86e"], [fmt(D.alone), "clock h without prompts", "#74b6f9"]];
+  if (D.held_live) facts.push([fmt(D.held_live), "stopped", "#ff6f91"]);
+  if (D.asked_live) facts.push([fmt(D.asked_live), "asked you", "#ff6f91"]);
+  if (!D.held_live && !D.asked_live && D.stop_past) facts.push([fmt(D.stop_past), "would stop", "#f07a5e"]);
+  if (!D.held_live && !D.asked_live && D.ask_past) facts.push([fmt(D.ask_past), "would ask", "#f0a845"]);
+
+  // the facts fit inside the card: a long run of them gets a smaller size, not a cut
+  const room = w - 96 - x, width = () => facts.reduce((t, [n, l, c]) => t + (c ? 26 : 0) + g.measureText(n).width + 10 + g.measureText(l).width + 44, -44);
+  do { g.font = fs + "px Menlo,monospace"; } while (width() > room && --fs > 14);
+  for (const [n, l, c] of facts) {
+    if (c) { g.fillStyle = c; g.beginPath(); g.arc(x + 8, 103, 8, 0, 7); g.fill(); x += 26; }
+    g.fillStyle = "#fff"; g.fillText(n, x, 112); x += g.measureText(n).width + 10;
+    g.fillStyle = "#a5a5a7"; g.fillText(l, x, 112); x += g.measureText(l).width + 44;
+  }
+  // the dates on a line of their own: on the facts' line a long run of facts wrote over them
+  g.fillStyle = "#838385"; g.font = "22px Menlo,monospace";
+  g.fillText(long(day0) + " → " + long(new Date(D.today + "T00:00:00")), 96, 154);
+  g.textAlign = "right"; g.fillText("github.com/kymacomputer/kyma-local", w - 96, 822); g.textAlign = "left";
+  out.toBlob(b => { const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "my-agent-hours.png"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    const s = $("save"); s.classList.add("ok"); $("live").textContent = "Saved my-agent-hours.png"; setTimeout(() => s.classList.remove("ok"), 1600); });
+};
+const redraw = () => { if (!$("activity").open) return; layout(); frame(fx); for (let i = 0; i < drawn; i++) dots(fx, i, 1); render(drawn, null); };
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { buildTree(); redraw(); }, 150); });
+// when the picture sticks to the top it has more room: it grows into it, and gives it back at the top of the page
+let stuck = false; addEventListener("scroll", () => {
+  if (!matchMedia("(min-width: 1200px)").matches) return;
+  const now = document.querySelector(".side").getBoundingClientRect().top <= 1;
+  if (now !== stuck) { stuck = now; setTimeout(redraw, 0); }
+}, {passive: true});
+
+function setup() {
+  const active = D.on && !D.hooks_off;
+  const setupRules = D.setup_rules || D.rules || [];
+  const rulesStatus = D.setup_rule_status || "";
+  $("setup-rules-title").textContent = (D.setup_yours ?? D.yours) ? "Your rules" : "Starter rules";
+  if (rulesStatus) {
+    $("setup-rules-title").textContent += rulesStatus === "missing" ? " · restore required" : " · pending review";
+    $("setup-rule-status").hidden = false;
+    $("setup-rule-status").textContent = {pending:"Changes require review in terminal",missing:"RULES.md is missing · accepted rules shown",review:"Rule acceptance requires review in terminal"}[rulesStatus];
+  }
+  for (const rule of setupRules) {
+    const kind = rule.ok && ["ask", "block", "allow"].includes(rule.v) ? rule.v : "unsupported";
+    const label = {ask:"Ask",block:"Block",allow:"Allow",unsupported:"Not applied"}[kind];
+    const row = el("li");
+    row.append(el("span", "setup-rule-kind " + kind, label), el("span", "setup-rule-text", rule.t));
+    if (kind === "unsupported") row.append(el("span", "sr", "Rule not understood"));
+    $("setup-rules-list").append(row);
+  }
+  if (!setupRules.length) $("setup-rules-list").append(el("li", "", "No rules configured"));
+  const command = D.cmd || "kyma on";
+  // The installer form ends with the installed CLI. Other forms preserve the
+  // original runner, including uvx, Python, and shell-quoted checkout paths.
+  const runner = command.startsWith("uv tool install ") ? "kyma" : command.replace(/ on$/, "");
+  if (active) $("setup-scope").textContent = (D.on_scope === "project" ? "Rules are on for project “" + D.on_project + "”. " : "Rules are on for all Claude Code projects. ") + "This command enables them for all projects. Codex stays report-only.";
+  else if (D.hooks_off) $("setup-scope").textContent = D.hooks_off_reason + ". Enable hooks in Claude Code before you retry.";
+  const dialog = $("setup-dialog");
+  $("setup-open").onclick = () => dialog.showModal();
+  if (active) { $("setup-open").textContent = "Manage rules"; $("setup-dialog-title").textContent = "Manage Claude Code rules"; }
+  if (D.claude === false) $("setup-open").hidden = true;
+  $("setup-close").onclick = $("setup-return").onclick = () => dialog.close();
+  dialog.addEventListener("click", e => { if (e.target === dialog) { const r = dialog.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dialog.close(); } });
+  const copyCommand = (name, value) => {
+    $(name + "-command").textContent = value;
+    $(name + "-copy").onclick = async () => {
+      try { await navigator.clipboard.writeText(value); $(name + "-copy").textContent = "Copied"; $(name + "-feedback").textContent = "Copied. Paste at your terminal command prompt."; }
+      catch (e) { const selection = window.getSelection(), range = document.createRange(); range.selectNodeContents($(name + "-command")); selection.removeAllRanges(); selection.addRange(range); $(name + "-feedback").textContent = "Select the command and copy it with your keyboard."; }
+    };
+  };
+  copyCommand("setup", command);
+  copyCommand("setup-check", runner + " status && " + runner);
+  copyCommand("setup-off", runner + " off --global");
+}
+setup();
+const wide = matchMedia("(min-width: 1200px)");
+$("activity").open = false;
+$("activity").addEventListener("toggle", () => { if ($("activity").open) redraw(); });
+drawn = D.days;
+buildTree();
+if ($("activity").open) redraw();
+</script></body></html>
