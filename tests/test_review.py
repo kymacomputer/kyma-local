@@ -1250,6 +1250,70 @@ def holdout_gnu_env_split_strings_preserve_executable_and_data():
 
 
 @check
+def holdout_native_executable_bytes_are_not_script_source():
+    import struct
+    from kyma import guard
+    env = sandbox()
+    open(os.path.join(env["KYMA_HOME"], "RULES.md"), "w").write("- Never use sudo.\n")
+    binary = os.path.join(env["HOME"], "env")
+    # Small ELF executables can contain strings that resemble source code.
+    # Neither fixture executes. The real GNU executable exposed this path.
+    ident = b"\x7fELF\x02\x01\x01" + b"\x00" * 9
+    header = struct.pack("<16sHHIQQQIHHHHHH", ident, 2, 62, 1, 0x400078, 64, 0, 0, 64, 56, 1, 0, 0, 0)
+    for strings in (b'exec("rm /tmp/kyma\x00cache")', b'exec("sudo -n true")'):
+        # An x86-64 exit(0) segment followed by inert string-table-like data.
+        payload = b"\xb8\x3c\x00\x00\x00\x31\xff\x0f\x05" + strings
+        size = 120 + len(payload)
+        segment = struct.pack("<IIQQQQQQ", 1, 5, 0, 0x400000, 0x400000, size, size, 0x1000)
+        with open(binary, "wb") as fh:
+            fh.write(header + segment + payload)
+        denied = shlex.quote(binary) + " -S 'sudo -n true'"
+        decision, reason, _ = hook(env, "Bash", {"command": denied})
+        assert decision == "deny" and "Never use sudo" in reason, (denied, decision, reason)
+        assert bash(env, shlex.quote(binary) + " -S 'echo sudo -n true'") == "allow"
+        assert guard.file_code(shlex.quote(binary), env["HOME"]) == []
+        decision, reason, _ = hook(env, "Bash", {"command": "sh " + shlex.quote(binary)})
+        assert decision == "ask" and "supplied as source" in reason, (decision, reason)
+    # NUL is not proof of compiled code. Shells can execute such source files.
+    script = os.path.join(env["HOME"], "script.sh")
+    with open(script, "wb") as fh:
+        fh.write(b"#!/bin/sh\n# comment\x00tail\nprintf kyma_nul_consumer\n")
+    consumer = subprocess.run(["/bin/sh", script], capture_output=True, text=True, env=env, timeout=10)
+    assert consumer.returncode == 0 and consumer.stdout == "kyma_nul_consumer", consumer
+    with open(script, "wb") as fh:
+        fh.write(b"#!/bin/sh\n# comment\x00tail\nsudo -n true\n")
+    for cmd in ("sh " + shlex.quote(script), shlex.quote(script),
+                "sh < " + shlex.quote(script), "cat " + shlex.quote(script) + " | sh"):
+        decision, reason, _ = hook(env, "Bash", {"command": cmd})
+        assert decision == "ask" and "cannot read what this runs" in reason, (cmd, decision, reason)
+    with open(script, "w") as fh:
+        fh.write("#!/bin/sh\nsudo -n true\n")
+    assert bash(env, "sh " + shlex.quote(script)) == "deny"
+    assert bash(env, shlex.quote(script)) == "deny"
+    # Four magic bytes alone can still begin a shell script that executes.
+    with open(script, "wb") as fh:
+        fh.write(b"\x7fELF\nsudo -n true\n")
+    assert bash(env, "sh " + shlex.quote(script)) == "deny"
+    # A valid ELF identification alone is not an executable header. dash and
+    # zsh can read it as source and execute the next line.
+    with open(script, "wb") as fh:
+        fh.write(ident + b"\nprintf kyma_elf_source_consumer\n")
+    if os.path.isfile("/bin/dash"):
+        consumer = subprocess.run(["/bin/dash", script], capture_output=True, text=True, env=env, timeout=10)
+        assert consumer.returncode == 0 and consumer.stdout == "kyma_elf_source_consumer", consumer
+    with open(script, "wb") as fh:
+        fh.write(ident + b"\nsudo -n true\n")
+    for cmd in ("sh " + shlex.quote(script), shlex.quote(script)):
+        decision, reason, _ = hook(env, "Bash", {"command": cmd})
+        assert decision == "ask" and "NUL" in reason, (cmd, decision, reason)
+    perl = os.path.join(env["HOME"], "script.pl")
+    with open(perl, "wb") as fh:
+        fh.write(b'#!/usr/bin/perl\n# comment\x00tail\nsystem("sudo -n true");\n')
+    assert guard.file_code("perl " + shlex.quote(perl), env["HOME"])
+    assert bash(env, "perl " + shlex.quote(perl)) == "deny"
+
+
+@check
 def holdout_gnu_env_chdir_is_local_and_split_grammar_is_not_shell():
     from kyma import shell
     env = sandbox()

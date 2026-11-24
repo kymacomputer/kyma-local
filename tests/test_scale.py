@@ -41,6 +41,98 @@ class Scale(unittest.TestCase):
             for row in rows:
                 fh.write(json.dumps(row) + "\n")
 
+    def hour_snapshot(self, cache, source, calls, people=None):
+        import hashlib
+        cache.mkdir(exist_ok=True)
+        name = hashlib.sha1(str(source).encode()).hexdigest() + ".json"
+        (cache / name).write_text(json.dumps({"s": f"{light.VERSION}:1:1", "p": str(source),
+                                            "b": source.name, "a": calls, "y": people or {}}))
+
+    def test_alias_owned_hours_stay_once_after_canonical_source_deletion(self):
+        root = Path(self.tmp.name)
+        cache = root / "hours"
+        real = root / ".codex/sessions/2026/11/21/rollout-alias.jsonl"
+        real.parent.mkdir(parents=True)
+        real.write_text(json.dumps({"type": "response_item", "timestamp": TS, "payload": {
+            "type": "function_call", "name": "exec_command", "arguments": json.dumps({"cmd": "echo fixture"})}}) + "\n")
+        mirror = root / ".codex/sessions/mirror"
+        mirror.symlink_to(real.parents[2], target_is_directory=True)
+        alias = mirror / "11/21" / real.name
+        work = [(str(alias), "codex")]
+        with patch.object(light, "CACHE", str(cache)), patch.object(light, "files", lambda: work), \
+                patch.object(light, "_pool", lambda: ThreadPoolExecutor(max_workers=1)):
+            self.assertEqual(sum(light.gather()["a"].values()), 1)
+            # The released predecessor stored no durable identity.
+            for cp in cache.glob("*.json"):
+                d = json.loads(cp.read_text())
+                d.pop("k", None)
+                cp.write_text(json.dumps(d))
+            work[:] = [(str(real), "codex")]
+            self.assertEqual(sum(light.gather()["a"].values()), 1)
+            mirror.unlink()
+            self.assertEqual(sum(light.gather()["a"].values()), 1)
+            real.unlink()
+            work.clear()
+            retained = light.gather()
+            self.assertEqual(sum(retained["a"].values()), 1)
+            self.assertEqual(retained["kept"], 1)
+
+    def test_native_move_and_compression_keep_nonoverlapping_hours_and_appends(self):
+        root = Path(self.tmp.name)
+        cache = root / "hours"
+        name = "rollout-2026-11-21T10-00-00-12345678-1234-1234-1234-123456789abc.jsonl"
+        first, second, third = [light._ukey(t) for t in (TS, "2026-11-21T11:05:00Z", "2026-11-21T12:05:00Z")]
+        self.hour_snapshot(cache, root / ".codex/sessions/2026/11/21" / name, {first: 1}, {first: 1})
+        self.hour_snapshot(cache, root / ".codex/archived_sessions" / name, {first: 2, second: 1}, {first: 1})
+        self.hour_snapshot(cache, root / ".codex/archived_sessions" / (name + ".zst"), {second: 1, third: 1})
+        with patch.object(light, "CACHE", str(cache)), patch.object(light, "files", lambda: []), \
+                patch.object(light, "_pool", lambda: ThreadPoolExecutor(max_workers=1)), \
+                patch.object(light, "_scan", side_effect=AssertionError("deleted sources must not be read")):
+            retained = light.gather()
+            self.assertEqual(retained["a"], {light._local(first): 2, light._local(second): 1, light._local(third): 1})
+            self.assertEqual(retained["y"], {light._local(first): 1})
+            self.assertEqual(retained["kept"], 1)
+            self.assertEqual(light.gather(), retained)
+        identities = {json.loads(cp.read_text())["k"] for cp in cache.glob("*.json")}
+        self.assertEqual(len(identities), 1)
+
+    def test_hard_link_owner_change_persists_only_one_source_history(self):
+        root = Path(self.tmp.name)
+        cache = root / "hours"
+        first = root / ".claude/projects/a/session.jsonl"
+        second = root / ".claude/projects/a/canonical.jsonl"
+        first.parent.mkdir(parents=True)
+        first.write_text(json.dumps(call("echo fixture")) + "\n")
+        os.link(first, second)
+        work = [(str(first), "claude")]
+        with patch.object(light, "CACHE", str(cache)), patch.object(light, "files", lambda: work), \
+                patch.object(light, "_pool", lambda: ThreadPoolExecutor(max_workers=1)):
+            self.assertEqual(sum(light.gather()["a"].values()), 1)
+            work[:] = [(str(second), "claude")]
+            self.assertEqual(sum(light.gather()["a"].values()), 1)
+            first.unlink()
+            second.unlink()
+            work.clear()
+            self.assertEqual(sum(light.gather()["a"].values()), 1)
+
+    def test_retained_same_names_in_distinct_sessions_stores_and_projects_add(self):
+        root = Path(self.tmp.name)
+        cache = root / "hours"
+        cell = light._ukey(TS)
+        session1 = "12345678-1234-1234-1234-123456789abc"
+        session2 = "12345678-1234-1234-1234-123456789def"
+        paths = [root / ".claude/projects/a/session.jsonl", root / ".claude/projects/b/session.jsonl",
+                 root / ".claude/projects/a" / session1 / "subagents/agent-shared.jsonl",
+                 root / ".claude/projects/a" / session2 / "subagents/agent-shared.jsonl",
+                 root / ".codex/sessions/rollout-shared.jsonl", root / "other-codex/sessions/rollout-shared.jsonl"]
+        for path in paths:
+            self.hour_snapshot(cache, path, {cell: 1})
+        with patch.object(light, "CACHE", str(cache)), patch.object(light, "files", lambda: []), \
+                patch.object(light, "_pool", lambda: ThreadPoolExecutor(max_workers=1)):
+            retained = light.gather()
+            self.assertEqual(sum(retained["a"].values()), len(paths))
+            self.assertEqual(retained["kept"], len(paths))
+
     def test_more_than_five_thousand_holds_and_append(self):
         self.write(call() for _ in range(6007))
         marks, done = light._judge((str(self.path), "claude", POLICY))

@@ -1110,8 +1110,14 @@ def _script_file(words: list, at: int, head: str, cwd: str | None, env: dict, wr
                 raw = fh.read(MAX)
         except (OSError, ValueError):
             return None
-        if b"\x00" in raw[:4096]:
-            return None                  # a compiled program: there is no text to read
+        if _native_binary(raw):
+            if runner is not None:
+                return "opaque", "native executable bytes supplied as source", head, True
+            return None                  # executable bytes are not source code
+        if b"\x00" in raw:
+            # Shells can execute source with NUL bytes. Its interpretation is
+            # interpreter-specific, so it must not become an unreadable allow.
+            return "opaque", "a script with NUL bytes", head, True
         body = raw.decode("utf-8", "replace")
     if runner is None:                   # run directly: the first line decides
         m = _CODE_SHEBANG.match(body)
@@ -1258,6 +1264,31 @@ def _normalize(words: list, env: dict, cwd=None, written=None) -> list:
 
 
 OPAQUE = "\x00opaque"          # written in this call by something whose output kyma cannot know
+
+
+def _native_binary(raw: bytes) -> bool:
+    """ELF and Mach-O signatures, including universal Mach-O executables."""
+    if raw.startswith(b"\x7fELF"):
+        if len(raw) < 16 or raw[4] not in (1, 2) or raw[5] not in (1, 2) or raw[6] != 1 \
+                or raw[9:16] != b"\x00" * 7:
+            return False
+        size, phsize = (52, 32) if raw[4] == 1 else (64, 56)
+        if len(raw) < size:
+            return False
+        order = "little" if raw[5] == 1 else "big"
+        value = lambda start, end: int.from_bytes(raw[start:end], order)
+        at = 40 if raw[4] == 1 else 52
+        phoff = value(28, 32) if raw[4] == 1 else value(32, 40)
+        count = value(at + 4, at + 6)
+        # A short magic prefix can still be executable shell source. Require
+        # the real header and a bounded program table with a loadable segment.
+        return value(16, 18) in (2, 3) and value(20, 24) == 1 and value(at, at + 2) == size \
+            and value(at + 2, at + 4) == phsize and count > 0 and phoff >= size \
+            and phoff + count * phsize <= len(raw) \
+            and any(value(i, i + 4) == 1 for i in range(phoff, phoff + count * phsize, phsize))
+    return len(raw) >= 28 and raw[:4] in (b"\xfe\xed\xfa\xce", b"\xce\xfa\xed\xfe",
+                                        b"\xfe\xed\xfa\xcf", b"\xcf\xfa\xed\xfe", b"\xca\xfe\xba\xbe",
+                                        b"\xbe\xba\xfe\xca", b"\xca\xfe\xba\xbf", b"\xbf\xba\xfe\xca")
 
 
 def _read_text(path: str, written: dict):
@@ -1431,6 +1462,8 @@ def _runs(segs: list, idx: int, words: list, cwd, env: dict, written: dict):
                 i = args.index("<")
                 if i + 1 < len(args):
                     text = _read_text(_norm_path(args[i + 1], cwd, env), written)
+                    if text is None:
+                        return ("opaque", "a program from an unreadable input file", head)
             elif "<<<" in args:
                 i = args.index("<<<")
                 text = args[i + 1] if i + 1 < len(args) else None
@@ -1684,6 +1717,8 @@ def _cd(tgt: str, cwd, env: dict) -> str:
 
 def shell_units(command: str, tool: str = "Bash", cwd: str | None = None,
                 background: bool = False, _depth: int = 0, _hd: dict | None = None) -> list:
+    if "\x00" in command:
+        return [Unit(tool, "shell", "", raw=command[:200], opaque="shell source with NUL bytes")]
     # Heredoc bodies by id, shared with every recursion below this one: a
     # heredoc inside $( ) is lifted here and judged inside the substitution.
     hd = dict(_hd or {})
@@ -1842,7 +1877,8 @@ def shell_units(command: str, tool: str = "Bash", cwd: str | None = None,
 
         script = _script_file(words, at, head, cwd, env, written)
         if script and script[0] == "opaque":
-            units.append(Unit(tool, "shell", head, raw=seg, head=head, opaque="a script this same call writes"))
+            units.append(Unit(tool, "shell", head, raw=seg, head=head,
+                              opaque=script[1] or "a script this same call writes"))
         elif script and (script[0] == "oversize" or _depth >= 3):
             units.append(Unit(tool, "shell", head, head=head, oversize=True))
         elif script:

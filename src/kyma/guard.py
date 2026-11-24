@@ -690,8 +690,13 @@ def spawned(code: str) -> list:
 def _read(path: str) -> str:
     try:
         if os.path.isfile(path) and os.path.getsize(path) <= MAX_FILE:
-            with open(path, encoding="utf-8", errors="replace") as fh:
-                return fh.read()
+            with open(path, "rb") as fh:
+                raw = fh.read(MAX_FILE)
+            # Small native executables also fit the source-size budget. Their
+            # string tables are data, not code that launches shell commands.
+            if shell._native_binary(raw):
+                return ""
+            return raw.decode("utf-8", "replace").replace("\r\n", "\n").replace("\r", "\n")
     except OSError:
         pass
     return ""

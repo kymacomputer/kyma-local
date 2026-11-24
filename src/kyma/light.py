@@ -19,6 +19,7 @@ import math
 import os
 import re
 import shutil
+import stat
 import sys
 import time
 from collections import Counter
@@ -207,6 +208,41 @@ def _scan(path: str, agent: str) -> dict:
     return {"a": dict(agents), "y": {} if scripted else dict(you)}
 
 
+_SESSION_ID = r"[a-fA-F0-9]{8}(?:-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}"
+
+
+def _history_identity(d: dict) -> str:
+    """One transcript across aliases, native moves and compression.
+
+    Codex preserves its rollout basename when it archives or compresses a log.
+    Claude's UUID identifies a session; subagent names belong to that session.
+    Keep each native store separate. Unknown names use their canonical path,
+    so unrelated projects with a file named session.jsonl do not collapse.
+    Persist this digest while an alias still resolves, before its deletion.
+    """
+    key = d.get("k")
+    if isinstance(key, str) and re.fullmatch(r"[a-f0-9]{64}", key):
+        return key
+    path = os.path.realpath(str(d.get("p", "")))
+    name = os.path.basename(path)
+    key = "path:" + path
+    plain = name[:-4] if name.endswith(".zst") else name
+    if sources._is_rollout(plain):
+        for marker in (os.sep + "sessions" + os.sep, os.sep + "archived_sessions" + os.sep):
+            if marker in path:
+                key = "codex:" + path.rsplit(marker, 1)[0] + ":" + plain
+                break
+    elif os.sep + "projects" + os.sep in path:
+        store, relative = path.rsplit(os.sep + "projects" + os.sep, 1)
+        if re.fullmatch(_SESSION_ID + r"\.jsonl", name):
+            key = "claude:" + store + ":" + name
+        else:
+            parts = relative.split(os.sep)
+            if len(parts) >= 4 and parts[-2] == "subagents" and re.fullmatch(_SESSION_ID, parts[-3]):
+                key = "claude-child:" + store + ":" + parts[-3] + ":" + name
+    return hashlib.sha256(key.encode("utf-8", "surrogatepass")).hexdigest()
+
+
 def _digest(item) -> dict:
     path, agent = item
     try:
@@ -219,6 +255,9 @@ def _digest(item) -> dict:
         with open(cp) as fh:
             c = json.load(fh)
         if c.get("s") == stamp:
+            if not c.get("k"):
+                c["k"] = _history_identity(c)
+                state_write(cp, json.dumps(c, separators=(",", ":")))
             return c
     except (OSError, ValueError):
         pass
@@ -228,6 +267,7 @@ def _digest(item) -> dict:
     d["s"] = stamp
     d["p"] = path
     d["b"] = os.path.basename(path)
+    d["k"] = _history_identity(d)
     try:
         state_write(cp, json.dumps(d, separators=(",", ":")))
     except OSError:
@@ -253,11 +293,28 @@ def gather(progress=None) -> dict:
     os.makedirs(CACHE, exist_ok=True)
     work = files()
     a, y = Counter(), Counter()
+    snapshots, rows = {}, []
+
+    def merge(d, key, live=False):
+        # Snapshots of one append-only transcript overlap. Maxima retain its
+        # older hours and later appends without counting either snapshot twice.
+        # Different transcript identities still add, even in the same hour.
+        group = snapshots.setdefault(key, {"a": {}, "y": {}, "live": False})
+        group["live"] |= live
+        for field, total in (("a", a), ("y", y)):
+            for cell, n in d.get(field, {}).items():
+                prior = group[field].get(cell, 0)
+                if n > prior:
+                    total[cell] += n - prior
+                    group[field][cell] = n
+
     done = 0
     with _pool() as pool:
         for d in (pool.map(_digest, work, chunksize=4) if work else ()):
-            a.update(d.get("a", {}))
-            y.update(d.get("y", {}))
+            if d.get("p"):
+                rows.append((d, True))
+                a.update(d.get("a", {}))
+                y.update(d.get("y", {}))
             done += 1
             if progress and (done % 25 == 0 or done == len(work)):
                 progress(done, len(work), a, y)
@@ -265,9 +322,6 @@ def gather(progress=None) -> dict:
     # log once held stay in the picture after the log is gone: kyma keeps the
     # *when*, which is all the picture ever needed.
     live = {hashlib.sha1(f.encode("utf-8", "replace")).hexdigest() + ".json" for f, _ in work}
-    base = lambda p: os.path.basename(p)[:-4] if p.endswith(".zst") else os.path.basename(p)
-    moved = {base(f) for f, _ in work}      # Codex moves and compresses old sessions; count each once
-    kept = 0
     try:
         names = os.listdir(CACHE)
     except OSError:
@@ -289,11 +343,43 @@ def gather(progress=None) -> dict:
                 d = json.load(fh)
         except (OSError, ValueError):
             continue
-        b = str(d.get("b", ""))
-        if str(d.get("s", "")).startswith(f"{VERSION}:") and (b[:-4] if b.endswith(".zst") else b) not in moved:
-            a.update(d.get("a", {}))
-            y.update(d.get("y", {}))
-            kept += 1
+        if str(d.get("s", "")).startswith(f"{VERSION}:") and d.get("p"):
+            rows.append((d, False))
+    # A live inode proves that different names are the same file, including
+    # hard links. Resolve all such evidence before counting any old snapshots.
+    # Persist the resulting source key, never the inode: a deleted inode can
+    # later belong to an unrelated log and must not join its retained history.
+    owners, parents = {}, {}
+
+    def owner(key):
+        parents.setdefault(key, key)
+        while parents[key] != key:
+            parents[key] = parents[parents[key]]
+            key = parents[key]
+        return key
+
+    for d, _ in rows:
+        key = owner(_history_identity(d))
+        try:
+            st = os.stat(d["p"])
+            if st.st_ino and stat.S_ISREG(st.st_mode):
+                inode = (st.st_dev, st.st_ino)
+                parents[key] = owner(owners.setdefault(inode, key))
+        except OSError:
+            pass
+    a.clear()
+    y.clear()
+    for d, is_live in rows:
+        key = owner(_history_identity(d))
+        merge(d, key, is_live)
+        if d.get("k") != key:
+            d["k"] = key
+            cp = os.path.join(CACHE, hashlib.sha1(d["p"].encode("utf-8", "replace")).hexdigest() + ".json")
+            try:
+                state_write(cp, json.dumps(d, separators=(",", ":")))
+            except OSError:
+                pass
+    kept = sum(not d["live"] for d in snapshots.values())
     return {"a": dict(_localize(a)), "y": dict(_localize(y)), "files": len(work), "kept": kept}
 
 
